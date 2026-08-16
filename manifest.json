@@ -1,0 +1,17 @@
+{
+  "name": "SkyFire GPS 霞光隨行",
+  "short_name": "SkyFire GPS",
+  "description": "隨身手機 GPS ✕ 全台/全球任意點選 ✕ 火燒雲大氣光學即時預報",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#090d16",
+  "theme_color": "#090d16",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧭</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
