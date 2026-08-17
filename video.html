@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>霞光台北 - 9:16 短影音互動展示與生成影棚 (Short Video Studio)</title>
+  <title>霞光隨行 - 9:16 短影音互動展示與生成影棚 (Short Video Studio)</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800;900&family=Noto+Sans+TC:wght@400;500;700;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -50,10 +50,10 @@
       align-items: center;
       gap: 6px;
       padding: 6px 16px;
-      background: rgba(255, 107, 0, 0.15);
-      border: 1px solid rgba(255, 107, 0, 0.35);
+      background: rgba(56, 189, 248, 0.15);
+      border: 1px solid rgba(56, 189, 248, 0.35);
       border-radius: 9999px;
-      color: #ff9e00;
+      color: #38bdf8;
       font-size: 0.85rem;
       font-weight: 700;
       margin-bottom: 12px;
@@ -62,7 +62,7 @@
     h1 {
       font-size: 2rem;
       font-weight: 900;
-      background: linear-gradient(135deg, #fff 0%, #ff9e00 60%, #ff3366 100%);
+      background: linear-gradient(135deg, #fff 0%, #38bdf8 60%, #ff6b00 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       margin-bottom: 8px;
@@ -99,7 +99,7 @@
       background: #000;
       border-radius: 40px;
       border: 6px solid #22293e;
-      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(255, 107, 0, 0.2);
+      box-shadow: 0 25px 60px -15px rgba(0, 0, 0, 0.8), 0 0 40px rgba(56, 189, 248, 0.2);
       overflow: hidden;
       flex-shrink: 0;
     }
@@ -135,7 +135,6 @@
       border-radius: 50%;
     }
 
-    /* 影片畫布舞台 */
     #videoCanvas {
       width: 100%;
       height: 100%;
@@ -143,7 +142,6 @@
       background: #000;
     }
 
-    /* 社群互動浮動層 (Reels / TikTok UI) */
     .reels-overlay {
       position: absolute;
       bottom: 24px;
@@ -193,7 +191,7 @@
     .progress-bar-fill {
       height: 100%;
       width: 0%;
-      background: linear-gradient(90deg, #ff9e00, #ff3366);
+      background: linear-gradient(90deg, #38bdf8, #ff6b00);
       transition: width 0.1s linear;
     }
 
@@ -250,17 +248,16 @@
     }
 
     .ep-btn:hover {
-      border-color: rgba(255, 107, 0, 0.4);
-      background: rgba(255, 107, 0, 0.08);
+      border-color: rgba(56, 189, 248, 0.4);
+      background: rgba(56, 189, 248, 0.08);
     }
 
     .ep-btn.active {
-      background: linear-gradient(135deg, rgba(255, 107, 0, 0.2), rgba(255, 51, 102, 0.2));
-      border-color: #ff6b00;
-      color: #ff9e00;
+      background: linear-gradient(135deg, rgba(56, 189, 248, 0.2), rgba(255, 107, 0, 0.2));
+      border-color: #38bdf8;
+      color: #38bdf8;
     }
 
-    /* 播放控制按鈕群 */
     .player-controls-row {
       display: flex;
       gap: 12px;
@@ -270,7 +267,7 @@
     .btn-main-action {
       flex: 1;
       padding: 14px 20px;
-      background: linear-gradient(135deg, #ff6b00, #ff3366);
+      background: linear-gradient(135deg, #38bdf8, #ff6b00);
       border: none;
       border-radius: 14px;
       color: #fff;
@@ -286,7 +283,7 @@
 
     .btn-main-action:hover {
       transform: translateY(-2px);
-      box-shadow: 0 10px 25px -5px rgba(255, 107, 0, 0.5);
+      box-shadow: 0 10px 25px -5px rgba(56, 189, 248, 0.5);
     }
 
     .btn-secondary {
@@ -309,7 +306,6 @@
       border-color: #fff;
     }
 
-    /* 即時腳本與分鏡資訊卡 */
     .teleprompter-box {
       background: #0b0f19;
       border: 1px solid rgba(255, 255, 255, 0.06);
@@ -362,38 +358,35 @@
     }
 
     .toggle-item input {
-      accent-color: #ff6b00;
+      accent-color: #38bdf8;
     }
   </style>
 </head>
 <body>
 
   <header>
-    <div class="studio-badge">🎬 短影音動態生成影棚 (Short Video Studio)</div>
-    <h1>霞光台北 · 9:16 短影片互動預覽與錄製</h1>
-    <p class="subtitle">全自動渲染分鏡動畫、太陽方位角光束追蹤、AI 語音旁白與高畫質 WebM/MP4 短影音導出</p>
+    <div class="studio-badge">🧭 霞光隨行 · 短影音動態生成影棚</div>
+    <h1>SkyFire GPS · 9:16 短影片互動預覽與錄製</h1>
+    <p class="subtitle">全台 20 大攝影聖地、手機 GPS 即時定位、太陽方位角光束追蹤與一鍵短影片導出</p>
   </header>
 
   <div class="studio-container">
-    <!-- 9:16 手機直式播放視窗 -->
     <div class="phone-mockup-wrapper">
       <div class="phone-notch">
         <div class="phone-speaker"></div>
         <div class="phone-lens"></div>
       </div>
 
-      <!-- 核心動畫畫布 -->
       <canvas id="videoCanvas" width="720" height="1280"></canvas>
 
-      <!-- 浮動社群按鈕 -->
       <div class="reels-overlay">
         <div class="reel-action-btn">
           <div class="reel-action-icon">❤️</div>
-          <span>2.8萬</span>
+          <span>3.5萬</span>
         </div>
         <div class="reel-action-btn">
           <div class="reel-action-icon">💬</div>
-          <span>1,420</span>
+          <span>2,180</span>
         </div>
         <div class="reel-action-btn">
           <div class="reel-action-icon">↗️</div>
@@ -405,33 +398,30 @@
         </div>
       </div>
 
-      <!-- 底部進度條 -->
       <div class="progress-bar-container">
         <div class="progress-bar-fill" id="progressBar"></div>
       </div>
     </div>
 
-    <!-- 右側控制面板 -->
+    <!-- 控制面板 -->
     <div class="control-panel">
       <div class="panel-title">
         <span>🎛️ 短影音篇目與播放控制</span>
         <span id="timecodeDisplay" style="font-family: 'JetBrains Mono', monospace; font-size: 0.9rem; color: var(--accent-cyan);">00:00 / 00:38</span>
       </div>
 
-      <!-- 篇目切換 -->
       <div class="episode-selector">
-        <div class="episode-label">選擇短影片主題 (點擊切換)：</div>
+        <div class="episode-label">選擇「霞光隨行」主題短影片：</div>
         <div class="episode-tabs">
-          <button class="ep-btn active" data-ep="1">🏙️ EP1: 概念引爆篇 (38s)</button>
-          <button class="ep-btn" data-ep="2">📸 EP2: 12大機位篇 (45s)</button>
-          <button class="ep-btn" data-ep="3">☀️ EP3: 方位角光束 (42s)</button>
-          <button class="ep-btn" data-ep="4">📅 EP4: 週末約會避雷 (40s)</button>
-          <button class="ep-btn" data-ep="5">🎛️ EP5: 互動模擬器 (44s)</button>
-          <button class="ep-btn" data-ep="6">🎯 EP6: 實測驗證篇 (45s)</button>
+          <button class="ep-btn active" data-ep="1">🌲 EP1: 全台痛點篇 (38s)</button>
+          <button class="ep-btn" data-ep="2">📍 EP2: GPS 定位篇 (42s)</button>
+          <button class="ep-btn" data-ep="3">🗺️ EP3: 全台 20 大聖地 (45s)</button>
+          <button class="ep-btn" data-ep="4">✈️ EP4: 全球點選篇 (40s)</button>
+          <button class="ep-btn" data-ep="5">📲 EP5: PWA 免安裝 (35s)</button>
+          <button class="ep-btn" data-ep="6">📹 EP6: 國家風景區驗證 (45s)</button>
         </div>
       </div>
 
-      <!-- 播放 / 錄製按鈕 -->
       <div class="player-controls-row">
         <button class="btn-main-action" id="btnPlayPause">
           <span>▶️</span> 播放短影片
@@ -444,7 +434,6 @@
         </button>
       </div>
 
-      <!-- 開關設定 -->
       <div class="settings-toggles">
         <label class="toggle-item">
           <input type="checkbox" id="chkVoiceover" checked>
@@ -452,7 +441,7 @@
         </label>
         <label class="toggle-item">
           <input type="checkbox" id="chkAudioFX" checked>
-          <span>🔊 合成環境與音效 (SFX)</span>
+          <span>🔊 合成環境與音效</span>
         </label>
         <label class="toggle-item">
           <input type="checkbox" id="chkLoop">
@@ -460,17 +449,16 @@
         </label>
       </div>
 
-      <!-- 提詞機與分鏡詳情 -->
       <div class="teleprompter-box">
         <div class="teleprompter-header">
-          <span id="currentSceneTag">分鏡 1 / 5: 痛點引爆</span>
+          <span id="currentSceneTag">分鏡 1 / 5: 露營大白牆痛點</span>
           <span id="currentSceneDuration">00s - 04s</span>
         </div>
         <div class="teleprompter-voiceover" id="liveVoiceoverText">
-          「每次下班想衝象山拍 101，到了山頂才發現天空一片死灰…直接槓龜？」
+          「每次去阿里山看日出、去日月潭露營，清晨五點冷得要死爬起來，結果只有一片大白牆？」
         </div>
         <div class="teleprompter-onscreen" id="liveOnscreenText">
-          📌 畫面上字：❌ 台北追夕陽又白跑？每次上山都槓龜！
+          📌 畫面上字：🥶 清晨5點爬起來看日出…結果只有一片大白牆？！
         </div>
       </div>
 
@@ -481,103 +469,101 @@
   </div>
 
   <script>
-    // 6 集完整腳本庫數據
     const EPISODES = {
       1: {
-        title: "EP1: 概念引爆篇",
+        title: "EP1: 全台痛點篇",
         duration: 38,
         scenes: [
           {
             start: 0,
             end: 4,
-            tag: "分鏡 1: 痛點衝擊 (槓龜一片死白)",
-            voice: "每次下班想衝象山拍 101，到了山頂才發現天空一片死灰…直接槓龜？",
-            onscreen: "❌ 台北追夕陽又白跑？每次上山都槓龜！",
-            type: "overcast"
+            tag: "分鏡 1: 露營大白牆痛點",
+            voice: "每次去阿里山看日出、去日月潭露營，清晨五點冷得要死爬起來，結果只有一片大白牆？",
+            onscreen: "🥶 清晨5點看日出…只有一片大白牆？！",
+            type: "overcast_camp"
           },
           {
             start: 4,
             end: 12,
-            tag: "分鏡 2: 震撼破曉 (霞光台北神器)",
-            voice: "身為台北人，你一定要知道這個專門預測雙北火燒雲的神器——霞光台北！",
-            onscreen: "🔥 台北人必收藏！【霞光台北】預報站",
-            type: "epic_reveal"
+            tag: "分鏡 2: 阿里山金光破曉 (霞光隨行登場)",
+            voice: "別再用肉體盲測了！出門旅遊露營必備這個神器——霞光隨行！",
+            onscreen: "🔥 露營登山追日出神器！【霞光隨行】預報站",
+            type: "epic_reveal_gps"
           },
           {
             start: 12,
             end: 24,
-            tag: "分鏡 3: 核心數據 (88分大景 + 15分鐘倒數)",
-            voice: "它直接幫你算出今天日落火燒雲指數，連最佳出景的 15 分鐘黃金時刻都精準倒數！",
-            onscreen: "⏰ 精準倒數 15 分鐘黃金窗口 | 94.8% 準確率",
-            type: "gauge_countdown"
+            tag: "分鏡 3: GPS 一鍵定位 + 90分大景",
+            voice: "打開手機按下 GPS 定位，立刻抓出你當前山頭的高空雲層數據，算出明天日出會不會出大景！",
+            onscreen: "📍 手機 GPS 一鍵定位 | 倒數晨曦黃金時刻 ⏰",
+            type: "gps_gauge"
           },
           {
             start: 24,
             end: 33,
-            tag: "分鏡 4: 雙北 12 大機位地圖",
-            voice: "象山、大稻埕、碧山巖、淡水漁人碼頭，雙北 12 大經典機位全部內建！",
-            onscreen: "🗺️ 台北 12 大機位全收錄 | 推薦焦段與朝向",
-            type: "map_spots"
+            tag: "分鏡 4: 全台 20 大攝影聖地",
+            voice: "全台灣北、中、南、東、甚至外島澎湖馬祖，走到哪算到哪！",
+            onscreen: "🗺️ 全台 20 大聖地：阿里山/高美/二寮/三仙台",
+            type: "taiwan_spots"
           },
           {
             start: 33,
             end: 38,
-            tag: "分鏡 5: 導流收藏 CTA",
-            voice: "免下載 App、完全免費！網址我放在留言區第一則，今晚追光先看它！",
-            onscreen: "📲 網址在留言區第一則！趕快收藏 ❤️",
-            type: "cta"
+            tag: "分鏡 5: 收藏 CTA",
+            voice: "完全免費、免下載 App！網址在留言區第一則，下次露營出遊一定要打開！",
+            onscreen: "📲 網址在留言區第一則！出遊露營趕快收藏 ❤️",
+            type: "cta_gps"
           }
         ]
       },
       2: {
-        title: "EP2: 12大機位篇",
-        duration: 45,
+        title: "EP2: GPS 定位篇",
+        duration: 42,
         scenes: [
           {
             start: 0,
             end: 5,
-            tag: "分鏡 1: 鏡頭焦段選擇痛點",
-            voice: "出門拍台北火燒雲，到底該帶廣角鏡還是長焦鏡？機位朝哪裡拍？",
-            onscreen: "📷 拍台北大景帶哪顆鏡頭？機位朝向看這裡！",
-            type: "overcast"
+            tag: "分鏡 1: 陌生山頭構圖痛點",
+            voice: "到了陌生的海邊或山頭，到底該往哪裡架腳架？太陽從哪個角度燒過來？",
+            onscreen: "🧭 到了陌生海邊山頭，太陽從哪裡落下去？",
+            type: "overcast_camp"
           },
           {
             start: 5,
             end: 18,
-            tag: "分鏡 2: 象山六巨石機位解析",
-            voice: "霞光台北把台北 12 大攝影機位全部建檔！象山推薦 24-70 焦段、朝西北偏西拍 101！",
-            onscreen: "🏙️ 象山六巨石：推薦 24-70mm / 視角 WNW",
-            type: "epic_reveal"
+            tag: "分鏡 2: 太陽方位角光束即時導航",
+            voice: "打開霞光隨行按下 GPS 定位，地圖立刻以你的位置為中心，拉出一道太陽方位角光束！",
+            onscreen: "☀️ GPS 即時光線追蹤：精準畫出太陽方向線！",
+            type: "epic_reveal_gps"
           },
           {
             start: 18,
             end: 30,
-            tag: "分鏡 3: 大稻埕 / 碧山巖 / 大直橋",
-            voice: "想拍淡水河落日衝大稻埕、想俯瞰台北盆地看碧山巖，連地平線障礙物都寫得清清楚楚！",
-            onscreen: "⛵ 大稻埕碼頭 | 內湖碧山巖 | 大直橋倒影",
-            type: "map_spots"
+            tag: "分鏡 3: 避開山體遮擋",
+            voice: "一秒看懂太陽落點，提早避開山體遮擋、完美安排前景構圖！",
+            onscreen: "📐 提早避開遮擋 | 精準規劃黃金前景！",
+            type: "taiwan_spots"
           },
           {
             start: 30,
-            end: 40,
-            tag: "分鏡 4: 機位特性一鍵篩選",
-            voice: "還能一鍵依照看夕陽還是拍日出篩選機位，新手也能秒變台北攝影通！",
-            onscreen: "🔍 一鍵篩選：西向夕陽 / 東向日出 / 俯瞰全景",
-            type: "gauge_countdown"
+            end: 37,
+            tag: "分鏡 4: 日出日落一鍵切換",
+            voice: "切換日出或日落，光線角度即時動態更新，攝影人的真正作弊神器！",
+            onscreen: "🔄 一鍵切換 🌅 日出晨曦 / 🌇 日落晚霞",
+            type: "gps_gauge"
           },
           {
-            start: 40,
-            end: 45,
-            tag: "分鏡 5: 互動轉發",
-            voice: "你最常去台北哪個機位拍照？留言告訴我，把這篇收藏起來下次換你去出大片！",
-            onscreen: "💬 台北必收攝影地圖！標記隊友 👥",
-            type: "cta"
+            start: 37,
+            end: 42,
+            tag: "分鏡 5: 導流 CTA",
+            voice: "想知道你現在站的地方今晚有沒有火燒雲？立即點擊留言區連結測測看！",
+            onscreen: "🚀 連結在留言區，立即體驗！",
+            type: "cta_gps"
           }
         ]
       }
     };
 
-    // 畫布與狀態管理
     const canvas = document.getElementById('videoCanvas');
     const ctx = canvas.getContext('2d');
     let currentEp = 1;
@@ -585,14 +571,11 @@
     let isPlaying = false;
     let animationFrameId = null;
     let lastTimestamp = null;
-    let activeUtterance = null;
     let currentSceneIdx = -1;
 
-    // 載入高解析背景圖
     const bgImage = new Image();
     bgImage.src = 'assets/epic_sunset.jpg';
 
-    // 音效合成器 (Web Audio API)
     let audioCtx = null;
     function initAudio() {
       if (!audioCtx) {
@@ -605,34 +588,21 @@
       initAudio();
       const now = audioCtx.currentTime;
 
-      if (type === 'woosh') {
+      if (type === 'gps_ping') {
         const osc = audioCtx.createOscillator();
         const gain = audioCtx.createGain();
         osc.type = 'sine';
-        osc.frequency.setValueAtTime(120, now);
-        osc.frequency.exponentialRampToValueAtTime(40, now + 0.4);
-        gain.gain.setValueAtTime(0.5, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.4);
+        osc.frequency.setValueAtTime(880, now);
+        osc.frequency.exponentialRampToValueAtTime(1760, now + 0.15);
+        gain.gain.setValueAtTime(0.4, now);
+        gain.gain.linearRampToValueAtTime(0.01, now + 0.25);
         osc.connect(gain);
         gain.connect(audioCtx.destination);
         osc.start(now);
-        osc.stop(now + 0.4);
-      } else if (type === 'shutter') {
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.type = 'triangle';
-        osc.frequency.setValueAtTime(1200, now);
-        osc.frequency.exponentialRampToValueAtTime(300, now + 0.08);
-        gain.gain.setValueAtTime(0.3, now);
-        gain.gain.linearRampToValueAtTime(0.01, now + 0.08);
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.start(now);
-        osc.stop(now + 0.08);
+        osc.stop(now + 0.25);
       }
     }
 
-    // 語音朗讀合成 (Speech Synthesis)
     function speakSceneVoice(text) {
       if (!document.getElementById('chkVoiceover').checked) return;
       if (!('speechSynthesis' in window)) return;
@@ -640,12 +610,11 @@
       window.speechSynthesis.cancel();
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = 'zh-TW';
-      utterance.rate = 1.15; // 稍微快一點符合短影音節奏
+      utterance.rate = 1.15;
       utterance.pitch = 1.05;
       window.speechSynthesis.speak(utterance);
     }
 
-    // 核心畫布渲染器 (Render Engine)
     function renderFrame(time) {
       const epData = EPISODES[currentEp] || EPISODES[1];
       const scenes = epData.scenes;
@@ -660,181 +629,160 @@
         }
       }
 
-      // 當進入新分鏡時觸發語音與音效
       if (sceneIdx !== currentSceneIdx) {
         currentSceneIdx = sceneIdx;
         updateTeleprompter(activeScene, sceneIdx + 1, scenes.length);
         if (isPlaying) {
           speakSceneVoice(activeScene.voice);
-          if (activeScene.type === 'epic_reveal') playSFX('woosh');
-          if (activeScene.type === 'gauge_countdown') playSFX('shutter');
+          if (activeScene.type === 'gps_gauge') playSFX('gps_ping');
         }
       }
 
-      // 清空畫布
       ctx.fillStyle = '#080b14';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       const sceneProgress = (time - activeScene.start) / (activeScene.end - activeScene.start);
 
-      // 依分鏡類型繪製動態畫面
       switch (activeScene.type) {
-        case 'overcast':
-          renderOvercastScene(sceneProgress, activeScene);
+        case 'overcast_camp':
+          renderOvercastCamp(sceneProgress);
           break;
-        case 'epic_reveal':
-          renderEpicRevealScene(sceneProgress, activeScene);
+        case 'epic_reveal_gps':
+          renderEpicRevealGPS(sceneProgress);
           break;
-        case 'gauge_countdown':
-          renderGaugeCountdownScene(sceneProgress, activeScene);
+        case 'gps_gauge':
+          renderGPSGaugeScene(sceneProgress);
           break;
-        case 'map_spots':
-          renderMapSpotsScene(sceneProgress, activeScene);
+        case 'taiwan_spots':
+          renderTaiwanSpotsScene(sceneProgress);
           break;
-        case 'cta':
-          renderCtaScene(sceneProgress, activeScene);
+        case 'cta_gps':
+          renderCtaGPS(sceneProgress);
           break;
         default:
-          renderEpicRevealScene(sceneProgress, activeScene);
+          renderEpicRevealGPS(sceneProgress);
       }
 
-      // 繪製頂部狀態列與品牌浮水印
       renderBrandOverlay();
-
-      // 繪製底部大字字幕 (On-Screen Subtitles)
       renderSubtitles(activeScene.onscreen, sceneProgress);
     }
 
-    // 分鏡 1: 槓龜陰沉背景
-    function renderOvercastScene(progress, scene) {
+    function renderOvercastCamp(progress) {
       const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-      grad.addColorStop(0, '#2b303c');
-      grad.addColorStop(0.6, '#181b22');
-      grad.addColorStop(1, '#0c0e14');
+      grad.addColorStop(0, '#1c2430');
+      grad.addColorStop(0.7, '#0f141d');
+      grad.addColorStop(1, '#080b14');
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 雨絲與灰濛濛粒子
-      ctx.strokeStyle = 'rgba(200, 220, 255, 0.15)';
-      ctx.lineWidth = 1.5;
-      for (let i = 0; i < 40; i++) {
-        const x = (i * 24 + progress * 200) % canvas.width;
-        const y = (i * 45 + progress * 500) % canvas.height;
-        ctx.beginPath();
-        ctx.moveTo(x, y);
-        ctx.lineTo(x - 5, y + 25);
-        ctx.stroke();
-      }
+      // 帳篷剪影
+      ctx.fillStyle = '#1e293b';
+      ctx.beginPath();
+      ctx.moveTo(canvas.width / 2 - 140, 850);
+      ctx.lineTo(canvas.width / 2, 600);
+      ctx.lineTo(canvas.width / 2 + 140, 850);
+      ctx.closePath();
+      ctx.fill();
 
-      // 沮喪警告圖標
+      // 濃霧大白牆文字
       ctx.save();
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#ef4444';
-      ctx.font = '900 80px "Plus Jakarta Sans"';
-      ctx.fillText('❌ 槓龜警告', canvas.width / 2, 450);
-
       ctx.fillStyle = '#94a3b8';
+      ctx.font = '900 76px "Noto Sans TC"';
+      ctx.fillText('🌫️ 一片大白牆', canvas.width / 2, 420);
+
+      ctx.fillStyle = '#ef4444';
       ctx.font = '700 36px "Noto Sans TC"';
-      ctx.fillText('滿天死灰 · 拍不到夕陽', canvas.width / 2, 530);
+      ctx.fillText('清晨 5 點看日出又槓龜...', canvas.width / 2, 500);
       ctx.restore();
     }
 
-    // 分鏡 2: 震撼破曉 (101 晚霞噴發)
-    function renderEpicRevealScene(progress, scene) {
+    function renderEpicRevealGPS(progress) {
       if (bgImage.complete && bgImage.naturalHeight !== 0) {
         ctx.save();
-        const scale = 1.0 + progress * 0.08; // 鏡頭微推
+        const scale = 1.0 + progress * 0.08;
         ctx.translate(canvas.width / 2, canvas.height / 2);
         ctx.scale(scale, scale);
         ctx.drawImage(bgImage, -canvas.width / 2, -canvas.height / 2, canvas.width, canvas.height);
         ctx.restore();
-      } else {
-        const grad = ctx.createLinearGradient(0, 0, 0, canvas.height);
-        grad.addColorStop(0, '#ff3366');
-        grad.addColorStop(0.5, '#ff6b00');
-        grad.addColorStop(1, '#0f172a');
-        ctx.fillStyle = grad;
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
       }
 
-      // 光學光暈暗角
       const vignette = ctx.createRadialGradient(canvas.width/2, 400, 100, canvas.width/2, 400, 600);
-      vignette.addColorStop(0, 'rgba(255, 107, 0, 0.3)');
-      vignette.addColorStop(1, 'rgba(0, 0, 0, 0.6)');
+      vignette.addColorStop(0, 'rgba(56, 189, 248, 0.3)');
+      vignette.addColorStop(1, 'rgba(0, 0, 0, 0.65)');
       ctx.fillStyle = vignette;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 震撼標題
       ctx.save();
       ctx.textAlign = 'center';
       ctx.shadowColor = 'rgba(0,0,0,0.9)';
       ctx.shadowBlur = 20;
 
-      ctx.fillStyle = '#ffb703';
+      ctx.fillStyle = '#38bdf8';
       ctx.font = '900 48px "Noto Sans TC"';
-      ctx.fillText('台北人拍夕陽必備', canvas.width / 2, 380);
+      ctx.fillText('全台隨身 GPS 預報', canvas.width / 2, 380);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = '900 76px "Noto Sans TC"';
-      ctx.fillText('【霞光台北】', canvas.width / 2, 470);
+      ctx.fillText('【霞光隨行】', canvas.width / 2, 470);
       ctx.restore();
     }
 
-    // 分鏡 3: 88 分大景儀表板 + 倒數計時
-    function renderGaugeCountdownScene(progress, scene) {
-      renderEpicRevealScene(1.0, scene);
+    function renderGPSGaugeScene(progress) {
+      renderEpicRevealGPS(1.0);
 
-      // 半透明玻璃擬態面板
       ctx.save();
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
-      ctx.strokeStyle = 'rgba(255, 107, 0, 0.5)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.88)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
       ctx.lineWidth = 4;
       roundRect(ctx, 60, 240, canvas.width - 120, 680, 32);
       ctx.fill();
       ctx.stroke();
 
-      // 評分徽章
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#ff9e00';
+      ctx.fillStyle = '#38bdf8';
       ctx.font = '700 32px "Noto Sans TC"';
-      ctx.fillText('今日台北出景預測指數', canvas.width / 2, 320);
+      ctx.fillText('📍 GPS 所在位置即時預報', canvas.width / 2, 320);
 
-      // 88分大字
       ctx.fillStyle = '#ff3366';
       ctx.font = '900 130px "Plus Jakarta Sans"';
-      const score = Math.min(88, Math.floor(progress * 120));
+      const score = Math.min(90, Math.floor(progress * 120));
       ctx.fillText(score.toString(), canvas.width / 2, 460);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = '800 42px "Noto Sans TC"';
-      ctx.fillText('🔥 史詩級爆發', canvas.width / 2, 530);
+      ctx.fillText('🔥 史詩級雲海朝霞', canvas.width / 2, 530);
 
-      // 出景窗口倒數
+      // GPS 脈衝雷達
+      ctx.strokeStyle = `rgba(56, 189, 248, ${1 - progress})`;
+      ctx.lineWidth = 4;
+      ctx.beginPath();
+      ctx.arc(canvas.width / 2, 430, 80 + progress * 70, 0, Math.PI * 2);
+      ctx.stroke();
+
       ctx.fillStyle = 'rgba(255, 255, 255, 0.08)';
       roundRect(ctx, 100, 580, canvas.width - 200, 140, 20);
       ctx.fill();
 
-      ctx.fillStyle = '#38bdf8';
+      ctx.fillStyle = '#ffb703';
       ctx.font = '700 28px "Noto Sans TC"';
-      ctx.fillText('⏰ 最佳出景黃金窗口', canvas.width / 2, 630);
+      ctx.fillText('🌅 晨曦第一道金光窗口', canvas.width / 2, 630);
 
-      ctx.fillStyle = '#fef08a';
+      ctx.fillStyle = '#ffffff';
       ctx.font = '900 40px "JetBrains Mono"';
-      ctx.fillText('18:35 — 18:50', canvas.width / 2, 685);
+      ctx.fillText('05:15 — 05:40', canvas.width / 2, 685);
 
-      // 準確率指標
       ctx.fillStyle = '#4ade80';
       ctx.font = '700 26px "Noto Sans TC"';
-      ctx.fillText('🎯 實測累積準確率: 93.5%', canvas.width / 2, 860);
+      ctx.fillText('🎯 全台國家風景區驗證 94.8%', canvas.width / 2, 860);
       ctx.restore();
     }
 
-    // 分鏡 4: 台北 12 大機位與方位角光束
-    function renderMapSpotsScene(progress, scene) {
+    function renderTaiwanSpotsScene(progress) {
       ctx.fillStyle = '#0b0f19';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 地圖網格線
+      // 台灣地圖簡圖網格
       ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
       ctx.lineWidth = 2;
       for (let x = 0; x < canvas.width; x += 80) {
@@ -844,86 +792,61 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
       }
 
-      // 台北盆地中心光束 (象山 -> 西北偏西 285°)
-      ctx.save();
-      const originX = canvas.width / 2 + 100;
-      const originY = 650;
-      const rayLength = 500;
-      const angle = (285 - 90) * (Math.PI / 180);
+      // 地標節點
+      drawGPSPin(canvas.width / 2 - 80, 480, '📍 嘉義阿里山 (90分)', '#ff3366');
+      drawGPSPin(canvas.width / 2 + 10, 440, '📍 南投日月潭 (85分)', '#38bdf8');
+      drawGPSPin(canvas.width / 2 - 120, 390, '📍 台中高美濕地 (88分)', '#ffb703');
+      drawGPSPin(canvas.width / 2 + 90, 600, '📍 台東三仙台 (92分)', '#a855f7');
+      drawGPSPin(canvas.width / 2 - 90, 650, '📍 台南二寮日出 (94分)', '#4ade80');
 
-      const targetX = originX + Math.cos(angle) * rayLength;
-      const targetY = originY + Math.sin(angle) * rayLength;
-
-      // 金黃色光束漸層
-      const beamGrad = ctx.createLinearGradient(originX, originY, targetX, targetY);
-      beamGrad.addColorStop(0, 'rgba(255, 183, 3, 0.9)');
-      beamGrad.addColorStop(1, 'rgba(255, 51, 102, 0.1)');
-
-      ctx.strokeStyle = beamGrad;
-      ctx.lineWidth = 14;
-      ctx.beginPath();
-      ctx.moveTo(originX, originY);
-      ctx.lineTo(targetX, targetY);
-      ctx.stroke();
-
-      // 機位地標
-      drawSpotPin(originX, originY, '📍 象山六巨石', '#ff6b00');
-      drawSpotPin(canvas.width / 2 - 120, 520, '📍 大稻埕碼頭', '#38bdf8');
-      drawSpotPin(canvas.width / 2 + 60, 380, '📍 內湖碧山巖', '#a855f7');
-      drawSpotPin(canvas.width / 2 - 180, 260, '📍 淡水漁人碼頭', '#4ade80');
-
-      // 標題
       ctx.textAlign = 'center';
       ctx.fillStyle = '#ffffff';
       ctx.font = '900 52px "Noto Sans TC"';
-      ctx.fillText('雙北 12 大攝影機位', canvas.width / 2, 180);
+      ctx.fillText('全台 20 大攝影聖地', canvas.width / 2, 180);
 
-      ctx.fillStyle = '#ffb703';
+      ctx.fillStyle = '#38bdf8';
       ctx.font = '700 30px "Noto Sans TC"';
-      ctx.fillText('☀️ 太陽方位角光束即時導航', canvas.width / 2, 240);
-      ctx.restore();
+      ctx.fillText('北中南東 + 離島隨身一鍵查', canvas.width / 2, 240);
     }
 
-    function drawSpotPin(x, y, text, color) {
+    function drawGPSPin(x, y, text, color) {
       ctx.save();
       ctx.fillStyle = color;
       ctx.beginPath();
       ctx.arc(x, y, 16, 0, Math.PI * 2);
       ctx.fill();
 
-      ctx.fillStyle = 'rgba(15, 23, 42, 0.85)';
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
       ctx.strokeStyle = color;
       ctx.lineWidth = 2;
-      roundRect(ctx, x - 90, y + 25, 180, 48, 12);
+      roundRect(ctx, x - 110, y + 25, 220, 48, 12);
       ctx.fill();
       ctx.stroke();
 
       ctx.fillStyle = '#ffffff';
       ctx.textAlign = 'center';
-      ctx.font = '700 22px "Noto Sans TC"';
+      ctx.font = '700 20px "Noto Sans TC"';
       ctx.fillText(text, x, y + 56);
       ctx.restore();
     }
 
-    // 分鏡 5: 導流與 CTA
-    function renderCtaScene(progress, scene) {
-      renderEpicRevealScene(1.0, scene);
+    function renderCtaGPS(progress) {
+      renderEpicRevealGPS(1.0);
 
       ctx.save();
-      ctx.fillStyle = 'rgba(8, 11, 20, 0.9)';
+      ctx.fillStyle = 'rgba(8, 11, 20, 0.92)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.textAlign = 'center';
-      ctx.fillStyle = '#ff9e00';
+      ctx.fillStyle = '#38bdf8';
       ctx.font = '800 36px "Noto Sans TC"';
-      ctx.fillText('100% 免費 · 免安裝 App', canvas.width / 2, 400);
+      ctx.fillText('露營 · 登山 · 自駕遊必備', canvas.width / 2, 400);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = '900 68px "Noto Sans TC"';
-      ctx.fillText('今晚下班就去拍！', canvas.width / 2, 490);
+      ctx.fillText('走到哪、算到哪！', canvas.width / 2, 490);
 
-      // 網址大卡片
-      ctx.fillStyle = 'linear-gradient(135deg, #ff6b00, #ff3366)';
+      ctx.fillStyle = 'linear-gradient(135deg, #38bdf8, #ff6b00)';
       roundRect(ctx, 80, 580, canvas.width - 160, 160, 28);
       ctx.fill();
 
@@ -933,41 +856,35 @@
 
       ctx.fillStyle = '#fef08a';
       ctx.font = '700 28px "JetBrains Mono"';
-      ctx.fillText('taipei-skyfire', canvas.width / 2, 700);
+      ctx.fillText('skyfire-gps', canvas.width / 2, 700);
 
-      // 底部提醒
       ctx.fillStyle = '#94a3b8';
       ctx.font = '600 28px "Noto Sans TC"';
-      ctx.fillText('❤️ 點擊收藏 · 轉發給常槓龜的隊友', canvas.width / 2, 850);
+      ctx.fillText('❤️ 點擊收藏 · 標記你的出遊露營隊友', canvas.width / 2, 850);
       ctx.restore();
     }
 
-    // 繪製品牌浮水印
     function renderBrandOverlay() {
       ctx.save();
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
+      ctx.fillStyle = 'rgba(255, 255, 255, 0.85)';
       ctx.font = '800 26px "Plus Jakarta Sans"';
-      ctx.fillText('🔥 TAIPEI SKYFIRE', 40, 80);
+      ctx.fillText('🧭 SKYFIRE GPS 霞光隨行', 40, 80);
       ctx.restore();
     }
 
-    // 繪製底部大字字幕
     function renderSubtitles(text, progress) {
       if (!text) return;
       ctx.save();
       ctx.textAlign = 'center';
 
-      // 字幕背景膠囊
-      const textWidth = ctx.measureText(text).width + 60;
       ctx.fillStyle = 'rgba(0, 0, 0, 0.85)';
-      ctx.strokeStyle = 'rgba(255, 107, 0, 0.6)';
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.6)';
       ctx.lineWidth = 3;
       roundRect(ctx, 40, 1080, canvas.width - 80, 100, 20);
       ctx.fill();
       ctx.stroke();
 
-      // 雙色高亮字幕
-      ctx.fillStyle = '#ffb703';
+      ctx.fillStyle = '#38bdf8';
       ctx.font = '900 36px "Noto Sans TC"';
       ctx.fillText(text, canvas.width / 2, 1142);
       ctx.restore();
@@ -994,7 +911,6 @@
       document.getElementById('liveOnscreenText').innerText = `📌 畫面上字：${scene.onscreen}`;
     }
 
-    // 動畫主循環 (Main Animation Loop)
     function animate(timestamp) {
       if (!lastTimestamp) lastTimestamp = timestamp;
       const delta = (timestamp - lastTimestamp) / 1000;
@@ -1040,7 +956,6 @@
       document.getElementById('btnPlayPause').innerHTML = '<span>▶️</span> 播放短影片';
     }
 
-    // 影片導出錄製器 (MediaRecorder)
     let mediaRecorder = null;
     let recordedChunks = [];
 
@@ -1050,7 +965,7 @@
       currentSceneIdx = -1;
       recordedChunks = [];
 
-      const stream = canvas.captureStream(60); // 60 FPS
+      const stream = canvas.captureStream(60);
       mediaRecorder = new MediaRecorder(stream, { mimeType: 'video/webm;codecs=vp9' });
 
       mediaRecorder.ondataavailable = (e) => {
@@ -1062,7 +977,7 @@
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
-        a.download = `taipei-skyfire-ep${currentEp}-short-video.webm`;
+        a.download = `skyfire-gps-ep${currentEp}-short-video.webm`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);
@@ -1074,7 +989,6 @@
       playVideo();
       document.getElementById('btnRecordExport').innerHTML = '<span>⏹️</span> 錄製中...';
 
-      // 在影片結束時自動停止錄製
       const checkEnd = setInterval(() => {
         if (currentTime >= EPISODES[currentEp].duration) {
           clearInterval(checkEnd);
@@ -1086,7 +1000,6 @@
       }, 200);
     }
 
-    // 事件監聽
     document.getElementById('btnPlayPause').addEventListener('click', () => {
       if (isPlaying) pauseVideo();
       else playVideo();
@@ -1106,7 +1019,6 @@
       }
     });
 
-    // 篇目切換
     document.querySelectorAll('.ep-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
@@ -1119,7 +1031,6 @@
       });
     });
 
-    // 啟動動畫
     requestAnimationFrame(animate);
   </script>
 </body>
