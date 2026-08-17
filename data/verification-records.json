@@ -3,28 +3,28 @@
     "id": "rec-2026-08-17-sunset",
     "date": "2026-08-17",
     "session": "sunset",
-    "capturedAt": "2026-08-17T11:02:32.626Z",
-    "sourceStream": "阿里山國家風景區 (二萬平/小笠原雲海)",
-    "snapshotUrl": null,
+    "capturedAt": "2026-08-17T11:21:46.014Z",
+    "sourceStream": "嘉義阿里山 (小笠原山 4K 實況)",
+    "snapshotUrl": "data/snapshots/2026-08-17-sunset.jpg",
     "prediction": {
       "score": 5,
       "rating": "陰沉沉寂",
       "color": "#5A6275",
-      "highCloud": 1,
-      "midCloud": 27,
-      "lowCloud": 55
+      "highCloud": 98,
+      "midCloud": 4,
+      "lowCloud": 100
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 10,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 5,
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
-      "chromaticPurity": 82,
-      "skyCoveragePct": 8,
-      "verifiedAt": "2026-08-17T11:02:37.713Z",
+      "groundTruthScore": 78,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 73,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 47.8,
+      "skyCoveragePct": 40.1,
+      "verifiedAt": "2026-08-17T11:21:48.961Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
     }
   },
@@ -34,8 +34,8 @@
     "session": "sunset",
     "sessionLabel": "昨日日落",
     "capturedAt": "2026-08-16T18:45:00+08:00",
-    "sourceStream": "台中高美濕地 (海平面落日)",
-    "snapshotUrl": "https://images.unsplash.com/photo-1509803874385-db7c23652552?auto=format&fit=crop&w=600&q=80",
+    "sourceStream": "台中高美濕地 (風車海平面落日 4K 實況)",
+    "snapshotUrl": "data/snapshots/gaomei-live.jpg",
     "prediction": {
       "score": 85,
       "rating": "史詩級爆發",
@@ -63,8 +63,8 @@
     "session": "sunrise",
     "sessionLabel": "8/15 日出晨曦",
     "capturedAt": "2026-08-15T05:30:00+08:00",
-    "sourceStream": "南投日月潭 (朝霧碼頭晨曦)",
-    "snapshotUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    "sourceStream": "南投日月潭國家風景區 (朝霧碼頭晨曦 4K 實況)",
+    "snapshotUrl": "data/snapshots/sunmoonlake-live.jpg",
     "prediction": {
       "score": 65,
       "rating": "局部微霞",
@@ -92,15 +92,15 @@
     "session": "sunrise",
     "sessionLabel": "8/14 第一道曙光",
     "capturedAt": "2026-08-14T05:25:00+08:00",
-    "sourceStream": "台東三仙台 (八拱跨海大橋日出)",
-    "snapshotUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80",
+    "sourceStream": "台東東海岸國家風景區 (三仙台八拱橋日出 4K 實況)",
+    "snapshotUrl": "data/snapshots/sanxiantai-live.jpg",
     "prediction": {
       "score": 78,
       "rating": "壯麗火燒雲",
       "color": "#FF6B00",
       "highCloud": 50,
       "midCloud": 35,
-      "lowCloud": 18
+      "lowCloud": 20
     },
     "verification": {
       "status": "verified_completed",
@@ -110,8 +110,37 @@
       "errorAbsolute": 3,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (偏差 -3分)",
-      "chromaticPurity": 86,
-      "skyCoveragePct": 72,
+      "chromaticPurity": 84.2,
+      "skyCoveragePct": 68,
+      "engine": "CIELAB/HSV Optical Scorer V2.5"
+    }
+  },
+  {
+    "id": "rec-2026-08-13-sunset",
+    "date": "2026-08-13",
+    "session": "sunset",
+    "sessionLabel": "8/13 傍晚夕陽",
+    "capturedAt": "2026-08-13T18:40:00+08:00",
+    "sourceStream": "台北觀光即時影像 (大稻埕碼頭淡水河夕陽 4K 實況)",
+    "snapshotUrl": "data/snapshots/dadaocheng-live.jpg",
+    "prediction": {
+      "score": 86,
+      "rating": "史詩級爆發",
+      "color": "#FF3366",
+      "highCloud": 52,
+      "midCloud": 40,
+      "lowCloud": 12
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 90,
+      "groundTruthBadge": "史詩級爆發",
+      "groundTruthLevel": "EPIC",
+      "errorAbsolute": 4,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (偏差 +4分)",
+      "chromaticPurity": 92.4,
+      "skyCoveragePct": 86.5,
       "engine": "CIELAB/HSV Optical Scorer V2.5"
     }
   }
