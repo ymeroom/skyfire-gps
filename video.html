@@ -73,7 +73,6 @@
       font-size: 0.95rem;
     }
 
-    /* 主工作台佈局 */
     .studio-container {
       display: flex;
       flex-direction: row;
@@ -91,7 +90,6 @@
       }
     }
 
-    /* 9:16 手機模擬器框 */
     .phone-mockup-wrapper {
       position: relative;
       width: 360px;
@@ -195,7 +193,6 @@
       transition: width 0.1s linear;
     }
 
-    /* 控制面板 */
     .control-panel {
       flex: 1;
       max-width: 540px;
@@ -365,9 +362,9 @@
 <body>
 
   <header>
-    <div class="studio-badge">🧭 霞光隨行 · 短影音動態生成影棚</div>
-    <h1>SkyFire GPS · 9:16 短影片互動預覽與錄製</h1>
-    <p class="subtitle">全台 20 大攝影聖地、手機 GPS 即時定位、太陽方位角光束追蹤與一鍵短影片導出</p>
+    <div class="studio-badge">🧭 霞光隨行 · 6集短影音影棚</div>
+    <h1>SkyFire GPS · 9:16 短影片互動預覽與生成</h1>
+    <p class="subtitle">點擊下方任一集數按鈕，即可即時切換播放 6 大主題短影片、語音旁白與一鍵錄製導出</p>
   </header>
 
   <div class="studio-container">
@@ -403,7 +400,6 @@
       </div>
     </div>
 
-    <!-- 控制面板 -->
     <div class="control-panel">
       <div class="panel-title">
         <span>🎛️ 短影音篇目與播放控制</span>
@@ -411,7 +407,7 @@
       </div>
 
       <div class="episode-selector">
-        <div class="episode-label">選擇「霞光隨行」主題短影片：</div>
+        <div class="episode-label">選擇短影片主題 (點擊立即播放)：</div>
         <div class="episode-tabs">
           <button class="ep-btn active" data-ep="1">🌲 EP1: 全台痛點篇 (38s)</button>
           <button class="ep-btn" data-ep="2">📍 EP2: GPS 定位篇 (42s)</button>
@@ -463,7 +459,7 @@
       </div>
 
       <div style="font-size: 0.78rem; color: var(--text-muted); line-height: 1.5;">
-        💡 <strong>提示</strong>：點擊「🔴 錄製導出影片」將會即時錄製 9:16 Canvas 畫面並將短影音下載為 <code>.webm</code> 檔案，可直接上傳 Instagram Reels、TikTok 或 YouTube Shorts！
+        💡 <strong>提示</strong>：點擊上方 <strong>EP1 ~ EP6</strong> 可即時切換主題！點擊「🔴 錄製導出影片」將會即時錄製 9:16 Canvas 畫面並將短影音下載為 <code>.webm</code> 檔案，可直接上傳 Instagram Reels、TikTok 或 YouTube Shorts！
       </div>
     </div>
   </div>
@@ -534,15 +530,15 @@
             tag: "分鏡 2: 太陽方位角光束即時導航",
             voice: "打開霞光隨行按下 GPS 定位，地圖立刻以你的位置為中心，拉出一道太陽方位角光束！",
             onscreen: "☀️ GPS 即時光線追蹤：精準畫出太陽方向線！",
-            type: "epic_reveal_gps"
+            type: "azimuth_beam_gps"
           },
           {
             start: 18,
             end: 30,
             tag: "分鏡 3: 避開山體遮擋",
             voice: "一秒看懂太陽落點，提早避開山體遮擋、完美安排前景構圖！",
-            onscreen: "📐 提早避開遮擋 | 精準規劃黃金前景！",
-            type: "taiwan_spots"
+            onscreen: "📐 提早避開山體遮擋 | 完美規劃黃金前景！",
+            type: "azimuth_beam_gps"
           },
           {
             start: 30,
@@ -558,6 +554,182 @@
             tag: "分鏡 5: 導流 CTA",
             voice: "想知道你現在站的地方今晚有沒有火燒雲？立即點擊留言區連結測測看！",
             onscreen: "🚀 連結在留言區，立即體驗！",
+            type: "cta_gps"
+          }
+        ]
+      },
+      3: {
+        title: "EP3: 全台 20 大聖地",
+        duration: 45,
+        scenes: [
+          {
+            start: 0,
+            end: 5,
+            tag: "分鏡 1: 4 大頂級出景地標懸念",
+            voice: "全台灣最頂級的 4 大火燒雲聖地，你知道今天哪一個最容易出大景嗎？",
+            onscreen: "🇹🇼 全台 4 大頂級出景聖地：今天哪一個會爆發？",
+            type: "overcast_camp"
+          },
+          {
+            start: 5,
+            end: 18,
+            tag: "分鏡 2: 北中南東聖地一鍵切換",
+            voice: "霞光隨行直接幫你收錄全台 20 大攝影聖地！一鍵切換北中南東，哪裡出大景一目了然！",
+            onscreen: "🗺️ 內建全台 20 大攝影聖地：北中南東全收錄",
+            type: "taiwan_spots"
+          },
+          {
+            start: 18,
+            end: 30,
+            tag: "分鏡 3: 台南二寮水墨朝霞解析",
+            voice: "連每個景點的推薦鏡頭焦段、地景特色、最佳拍攝朝向都幫你整理好！",
+            onscreen: "📷 台南二寮：推薦 70-200mm / 東向晨曦",
+            type: "gps_gauge"
+          },
+          {
+            start: 30,
+            end: 40,
+            tag: "分鏡 4: 離島澎湖馬祖跳島",
+            voice: "連澎湖、綠島、馬祖等離島通通有，環島旅遊或跳島攝影必備！",
+            onscreen: "🏝️ 澎湖 / 綠島 / 馬祖全支援：環島跳島攝影必收！",
+            type: "taiwan_spots"
+          },
+          {
+            start: 40,
+            end: 45,
+            tag: "分鏡 5: 標記旅遊隊友",
+            voice: "你最想衝全台哪一個點拍大景？留言告訴我，轉發給身邊愛旅遊的朋友！",
+            onscreen: "💬 標記你的旅遊攝影隊友 👥",
+            type: "cta_gps"
+          }
+        ]
+      },
+      4: {
+        title: "EP4: 全球點選篇",
+        duration: 40,
+        scenes: [
+          {
+            start: 0,
+            end: 5,
+            tag: "分鏡 1: 出國看夕陽痛點",
+            voice: "去日本看富士山、去東京或歐美自由行，也能預測當天的夕陽火燒雲嗎？",
+            onscreen: "✈️ 出國去日本自由行，也能預測富士山火燒雲？",
+            type: "overcast_camp"
+          },
+          {
+            start: 5,
+            end: 18,
+            tag: "分鏡 2: 全球任意地圖點擊",
+            voice: "沒錯！霞光隨行支援全球任意地圖點選！在地圖上隨便點一個點，立刻計算當地火燒雲指數！",
+            onscreen: "🌍 全球任意地圖點選即測！支援全球經緯度換算",
+            type: "world_map"
+          },
+          {
+            start: 18,
+            end: 30,
+            tag: "分鏡 3: 富士山日落方位角",
+            voice: "自動轉換當地時區日落時間，連太陽從富士山哪一側沉下去都精準標出！",
+            onscreen: "⏰ 自動換算當地時區天文數據 | 掌握異國絕美落日！",
+            type: "world_map"
+          },
+          {
+            start: 30,
+            end: 35,
+            tag: "分鏡 4: 巴黎/紐約/冰島",
+            voice: "不管是巴黎、紐約還是冰島，全世界的天空都是你的攝影棚！",
+            onscreen: "🗼 巴黎 / 紐約 / 冰島全世界可用！",
+            type: "epic_reveal_gps"
+          },
+          {
+            start: 35,
+            end: 40,
+            tag: "分鏡 5: 出國必備 CTA",
+            voice: "準備出國的朋友趕快把這網址存進手機！連結就在留言區！",
+            onscreen: "🛫 出國追光必備神器！",
+            type: "cta_gps"
+          }
+        ]
+      },
+      5: {
+        title: "EP5: PWA 免安裝篇",
+        duration: 35,
+        scenes: [
+          {
+            start: 0,
+            end: 5,
+            tag: "分鏡 1: 手機容量不足警告",
+            voice: "手機容量又爆了，不想再下載佔空間的天氣 App？",
+            onscreen: "📱 手機容量又滿了？免下載 App 零負擔！",
+            type: "overcast_camp"
+          },
+          {
+            start: 5,
+            end: 18,
+            tag: "分鏡 2: 加入主畫面操作",
+            voice: "霞光隨行採用最新 PWA 技術！只要用瀏覽器打開，點擊加入主畫面，1 秒變成原生 App！",
+            onscreen: "📲 點擊「加入主畫面」，1 秒變成獨立 App 圖示！",
+            type: "pwa_demo"
+          },
+          {
+            start: 18,
+            end: 28,
+            tag: "分鏡 3: 零廣告極速流暢",
+            voice: "完全不佔手機容量、沒有煩人的廣告彈窗，在山上山下開啟都超順暢！",
+            onscreen: "⚡ 零廣告、不佔空間：全螢幕極速流暢體驗！",
+            type: "pwa_demo"
+          },
+          {
+            start: 28,
+            end: 35,
+            tag: "分鏡 4: 立即收藏 CTA",
+            voice: "現在就打開留言區連結，把它加到手機主畫面吧！",
+            onscreen: "🚀 連結在留言區，立即收藏！",
+            type: "cta_gps"
+          }
+        ]
+      },
+      6: {
+        title: "EP6: 國家風景區驗證",
+        duration: 45,
+        scenes: [
+          {
+            start: 0,
+            end: 5,
+            tag: "分鏡 1: 預測對決阿里山實況",
+            voice: "預測到底準不準？我們直接拿全台國家風景區的 4K 官方直播公開比對！",
+            onscreen: "🤖 全台 4K 直播實況對決！準確率高達 94.8%！",
+            type: "overcast_camp"
+          },
+          {
+            start: 5,
+            end: 18,
+            tag: "分鏡 2: 每日 4K 實況驗證走廊",
+            voice: "霞光隨行每天清晨與傍晚自動擷取官方 4K 直播影格，用色彩光學直方圖比對真實出景強度！",
+            onscreen: "📊 每天自動抓取 4K 影格比對：色彩光學直方圖嚴格驗證",
+            type: "ground_truth_corridor_gps"
+          },
+          {
+            start: 18,
+            end: 30,
+            tag: "分鏡 3: 阿里山/日月潭 4K 直播連線",
+            voice: "出發前你還可以在網站上一鍵連線阿里山、日月潭、東海岸官方 4K 鏡頭，線上確認天色！",
+            onscreen: "📹 一鍵直連國家風景區 4K 直播：出發前雙重確認！",
+            type: "ground_truth_corridor_gps"
+          },
+          {
+            start: 30,
+            end: 40,
+            tag: "分鏡 4: 每週自進化閉環",
+            voice: "每週還會自動根據全台觀測誤差進行自我演化，越測越準！",
+            onscreen: "📈 每週自適應演化閉環：這才是真正的科學預報！",
+            type: "epic_reveal_gps"
+          },
+          {
+            start: 40,
+            end: 45,
+            tag: "分鏡 5: 全台出遊必備",
+            voice: "全台最強、隨身隨走的火燒雲預報神器！趕快把這支影片分享給你的出遊夥伴吧！",
+            onscreen: "🔥 霞光隨行，全台出遊必備！",
             type: "cta_gps"
           }
         ]
@@ -634,14 +806,14 @@
         updateTeleprompter(activeScene, sceneIdx + 1, scenes.length);
         if (isPlaying) {
           speakSceneVoice(activeScene.voice);
-          if (activeScene.type === 'gps_gauge') playSFX('gps_ping');
+          if (activeScene.type === 'gps_gauge' || activeScene.type === 'world_map') playSFX('gps_ping');
         }
       }
 
       ctx.fillStyle = '#080b14';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      const sceneProgress = (time - activeScene.start) / (activeScene.end - activeScene.start);
+      const sceneProgress = (time - activeScene.start) / Math.max(0.1, (activeScene.end - activeScene.start));
 
       switch (activeScene.type) {
         case 'overcast_camp':
@@ -653,8 +825,20 @@
         case 'gps_gauge':
           renderGPSGaugeScene(sceneProgress);
           break;
+        case 'azimuth_beam_gps':
+          renderAzimuthBeamGPS(sceneProgress);
+          break;
         case 'taiwan_spots':
           renderTaiwanSpotsScene(sceneProgress);
+          break;
+        case 'world_map':
+          renderWorldMapScene(sceneProgress);
+          break;
+        case 'pwa_demo':
+          renderPWADemoScene(sceneProgress);
+          break;
+        case 'ground_truth_corridor_gps':
+          renderGroundTruthCorridorGPS(sceneProgress);
           break;
         case 'cta_gps':
           renderCtaGPS(sceneProgress);
@@ -675,7 +859,6 @@
       ctx.fillStyle = grad;
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 帳篷剪影
       ctx.fillStyle = '#1e293b';
       ctx.beginPath();
       ctx.moveTo(canvas.width / 2 - 140, 850);
@@ -684,7 +867,6 @@
       ctx.closePath();
       ctx.fill();
 
-      // 濃霧大白牆文字
       ctx.save();
       ctx.textAlign = 'center';
       ctx.fillStyle = '#94a3b8';
@@ -753,7 +935,6 @@
       ctx.font = '800 42px "Noto Sans TC"';
       ctx.fillText('🔥 史詩級雲海朝霞', canvas.width / 2, 530);
 
-      // GPS 脈衝雷達
       ctx.strokeStyle = `rgba(56, 189, 248, ${1 - progress})`;
       ctx.lineWidth = 4;
       ctx.beginPath();
@@ -778,11 +959,10 @@
       ctx.restore();
     }
 
-    function renderTaiwanSpotsScene(progress) {
+    function renderAzimuthBeamGPS(progress) {
       ctx.fillStyle = '#0b0f19';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      // 台灣地圖簡圖網格
       ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
       ctx.lineWidth = 2;
       for (let x = 0; x < canvas.width; x += 80) {
@@ -792,7 +972,166 @@
         ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
       }
 
-      // 地標節點
+      const originX = canvas.width / 2;
+      const originY = 650;
+      const rayLength = 500;
+      const angle = (285 - 90) * (Math.PI / 180);
+
+      const targetX = originX + Math.cos(angle) * rayLength;
+      const targetY = originY + Math.sin(angle) * rayLength;
+
+      const beamGrad = ctx.createLinearGradient(originX, originY, targetX, targetY);
+      beamGrad.addColorStop(0, '#38bdf8');
+      beamGrad.addColorStop(1, 'rgba(255, 107, 0, 0.1)');
+
+      ctx.strokeStyle = beamGrad;
+      ctx.lineWidth = 16;
+      ctx.beginPath();
+      ctx.moveTo(originX, originY);
+      ctx.lineTo(targetX, targetY);
+      ctx.stroke();
+
+      drawGPSPin(originX, originY, '📍 我的當前 GPS 位置', '#38bdf8');
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 52px "Noto Sans TC"';
+      ctx.fillText('☀️ GPS 方位角即時光線', canvas.width / 2, 180);
+
+      ctx.fillStyle = '#ffb703';
+      ctx.font = '700 30px "Noto Sans TC"';
+      ctx.fillText('站在任何山頭都能精準避開遮擋', canvas.width / 2, 240);
+    }
+
+    function renderWorldMapScene(progress) {
+      ctx.fillStyle = '#0b0f19';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '900 48px "Noto Sans TC"';
+      ctx.fillText('🌍 全球任意地圖點選', canvas.width / 2, 200);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 28px "Noto Sans TC"';
+      ctx.fillText('日本富士山 · 巴黎 · 紐約自由點選', canvas.width / 2, 255);
+
+      // 地球 / 全球節點
+      ctx.save();
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 3;
+      roundRect(ctx, 80, 320, canvas.width - 160, 500, 24);
+      ctx.fill(); ctx.stroke();
+
+      drawGPSPin(canvas.width / 2, 450, '📍 日本 富士山河口湖', '#ff3366');
+      drawGPSPin(canvas.width / 2, 600, '📍 美國 紐約曼哈頓', '#ffb703');
+      drawGPSPin(canvas.width / 2, 750, '📍 法國 巴黎艾菲爾鐵塔', '#38bdf8');
+      ctx.restore();
+    }
+
+    function renderPWADemoScene(progress) {
+      ctx.fillStyle = '#0b0f19';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '900 48px "Noto Sans TC"';
+      ctx.fillText('📲 1 秒加到手機主畫面', canvas.width / 2, 220);
+
+      ctx.fillStyle = '#ff9e00';
+      ctx.font = '700 30px "Noto Sans TC"';
+      ctx.fillText('PWA 離線技術 · 零廣告不佔容量', canvas.width / 2, 280);
+
+      // 手機桌面模擬圖示
+      ctx.save();
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 4;
+      roundRect(ctx, canvas.width / 2 - 80, 420, 160, 160, 36);
+      ctx.fill(); ctx.stroke();
+
+      ctx.font = '80px "Noto Sans TC"';
+      ctx.fillText('🧭', canvas.width / 2, 530);
+
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '800 32px "Noto Sans TC"';
+      ctx.fillText('霞光隨行', canvas.width / 2, 630);
+
+      ctx.fillStyle = '#4ade80';
+      ctx.font = '700 24px "Noto Sans TC"';
+      ctx.fillText('✅ 免 App Store 下載 · 隨開隨用', canvas.width / 2, 750);
+      ctx.restore();
+    }
+
+    function renderGroundTruthCorridorGPS(progress) {
+      ctx.fillStyle = '#0b0f19';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#38bdf8';
+      ctx.font = '900 46px "Noto Sans TC"';
+      ctx.fillText('🎯 國家風景區 4K 實況驗證', canvas.width / 2, 180);
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(56, 189, 248, 0.15)';
+      ctx.strokeStyle = '#38bdf8';
+      ctx.lineWidth = 2;
+      roundRect(ctx, 60, 230, canvas.width - 120, 120, 20);
+      ctx.fill(); ctx.stroke();
+
+      ctx.textAlign = 'center';
+      ctx.fillStyle = '#ffffff';
+      ctx.font = '700 24px "Noto Sans TC"';
+      ctx.fillText('全台國家風景區累計準確率', canvas.width / 2, 270);
+      ctx.fillStyle = '#4ade80';
+      ctx.font = '900 46px "Plus Jakarta Sans"';
+      ctx.fillText('94.8% (MAE ±3.8分)', canvas.width / 2, 325);
+      ctx.restore();
+
+      if (bgImage.complete && bgImage.naturalHeight !== 0) {
+        ctx.save();
+        roundRect(ctx, 60, 380, canvas.width - 120, 280, 20);
+        ctx.clip();
+        ctx.drawImage(bgImage, 60, 380, canvas.width - 120, 280);
+        ctx.restore();
+      }
+
+      ctx.save();
+      ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
+      ctx.strokeStyle = 'rgba(255, 255, 255, 0.1)';
+      ctx.lineWidth = 2;
+      roundRect(ctx, 60, 680, canvas.width - 120, 140, 20);
+      ctx.fill(); ctx.stroke();
+
+      ctx.textAlign = 'left';
+      ctx.fillStyle = '#ff9e00';
+      ctx.font = '800 26px "Noto Sans TC"';
+      ctx.fillText('🤖 模型預測: 90分', 90, 730);
+
+      ctx.fillStyle = '#38bdf8';
+      ctx.fillText('👁️ 阿里山4K實況: 94分', 90, 780);
+
+      ctx.textAlign = 'right';
+      ctx.fillStyle = '#4ade80';
+      ctx.font = '900 28px "Noto Sans TC"';
+      ctx.fillText('🎯 極致精準 (+4分)', canvas.width - 90, 755);
+      ctx.restore();
+    }
+
+    function renderTaiwanSpotsScene(progress) {
+      ctx.fillStyle = '#0b0f19';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      ctx.strokeStyle = 'rgba(56, 189, 248, 0.15)';
+      ctx.lineWidth = 2;
+      for (let x = 0; x < canvas.width; x += 80) {
+        ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, canvas.height); ctx.stroke();
+      }
+      for (let y = 0; y < canvas.height; y += 80) {
+        ctx.beginPath(); ctx.moveTo(0, y); ctx.lineTo(canvas.width, y); ctx.stroke();
+      }
+
       drawGPSPin(canvas.width / 2 - 80, 480, '📍 嘉義阿里山 (90分)', '#ff3366');
       drawGPSPin(canvas.width / 2 + 10, 440, '📍 南投日月潭 (85分)', '#38bdf8');
       drawGPSPin(canvas.width / 2 - 120, 390, '📍 台中高美濕地 (88分)', '#ffb703');
@@ -1019,6 +1358,7 @@
       }
     });
 
+    // 篇目切換：點擊任意 EP 按鈕即時切換並立即播放
     document.querySelectorAll('.ep-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         document.querySelectorAll('.ep-btn').forEach(b => b.classList.remove('active'));
@@ -1028,6 +1368,7 @@
         currentSceneIdx = -1;
         pauseVideo();
         renderFrame(0);
+        playVideo(); // 立即自動播放！
       });
     });
 
