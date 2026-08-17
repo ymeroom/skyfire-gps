@@ -2,6 +2,9 @@
  * WeatherService - 串接 Open-Meteo 全球即時氣象 API 與多層雲量解析 (支援任意經緯度)
  */
 
+const SolarCalcModule = typeof window !== 'undefined' ? window.SolarCalc : (typeof global !== 'undefined' && global.SolarCalc ? global.SolarCalc : require('./solar-calc.js'));
+const SkyFireEngineModule = typeof window !== 'undefined' ? window.SkyFireEngine : (typeof global !== 'undefined' && global.SkyFireEngine ? global.SkyFireEngine : require('./skyfire-engine.js'));
+
 class WeatherService {
   static DEFAULT_COORDS = { lat: 25.0330, lng: 121.5654, name: '台北市中心' };
   static CACHE_KEY_PREFIX = 'skyfire_weather_cache_';
@@ -85,14 +88,14 @@ class WeatherService {
     // 取未來 7 天
     for (let d = 0; d < 7; d++) {
       const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + d);
-      const solarTimes = SolarCalc.getTimes(targetDate, lat, lng);
+      const solarTimes = SolarCalcModule.getTimes(targetDate, lat, lng);
 
       // 提取日出時段與日落時段的最近氣象小時數據
       const sunriseHourData = this.getClosestHourData(hourlyList, solarTimes.sunrise);
       const sunsetHourData = this.getClosestHourData(hourlyList, solarTimes.sunset);
 
       // 運行 SkyFireEngine 計算
-      const sunriseSkyfire = SkyFireEngine.calculate({
+      const sunriseSkyfire = SkyFireEngineModule.calculate({
         highCloud: sunriseHourData.cloudHigh,
         midCloud: sunriseHourData.cloudMid,
         lowCloud: sunriseHourData.cloudLow,
@@ -104,7 +107,7 @@ class WeatherService {
         locationName
       });
 
-      const sunsetSkyfire = SkyFireEngine.calculate({
+      const sunsetSkyfire = SkyFireEngineModule.calculate({
         highCloud: sunsetHourData.cloudHigh,
         midCloud: sunsetHourData.cloudMid,
         lowCloud: sunsetHourData.cloudLow,
@@ -182,7 +185,7 @@ class WeatherService {
         data.lastUpdated = new Date(data.lastUpdated);
         data.daysForecast.forEach(d => {
           d.date = new Date(d.date);
-          d.solarTimes = SolarCalc.getTimes(d.date, data.location?.lat, data.location?.lng);
+          d.solarTimes = SolarCalcModule.getTimes(d.date, data.location?.lat, data.location?.lng);
           if (d.sunrise && d.sunrise.time) d.sunrise.time = new Date(d.sunrise.time);
           if (d.sunset && d.sunset.time) d.sunset.time = new Date(d.sunset.time);
         });
@@ -225,11 +228,11 @@ class WeatherService {
 
     for (let d = 0; d < 7; d++) {
       const targetDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() + d);
-      const solarTimes = SolarCalc.getTimes(targetDate, lat, lng);
+      const solarTimes = SolarCalcModule.getTimes(targetDate, lat, lng);
       const scnSunset = sampleScenarios[d % sampleScenarios.length];
       const scnSunrise = sampleScenarios[(d + 2) % sampleScenarios.length];
 
-      const sunsetSkyfire = SkyFireEngine.calculate({
+      const sunsetSkyfire = SkyFireEngineModule.calculate({
         highCloud: scnSunset.high,
         midCloud: scnSunset.mid,
         lowCloud: scnSunset.low,
@@ -241,7 +244,7 @@ class WeatherService {
         locationName
       });
 
-      const sunriseSkyfire = SkyFireEngine.calculate({
+      const sunriseSkyfire = SkyFireEngineModule.calculate({
         highCloud: scnSunrise.high,
         midCloud: scnSunrise.mid,
         lowCloud: scnSunrise.low,
