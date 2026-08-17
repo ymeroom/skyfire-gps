@@ -18,21 +18,21 @@ const STREAMS = [
     name: '阿里山國家風景區 (二萬平/小笠原雲海)',
     lat: 23.5139,
     lng: 120.8143,
-    url: 'https://www.youtube.com/@alishan_nsa/live'
+    url: 'https://www.youtube.com/@Alishannsa/live'
   },
   {
     id: 'sunmoonlake',
     name: '日月潭國家風景區 (水社/朝霧晨曦)',
     lat: 23.8697,
     lng: 120.9189,
-    url: 'https://www.youtube.com/@sunmoonlakensagovtw/live'
+    url: 'https://www.youtube.com/@sunmoonlaketw/live'
   },
   {
     id: 'eastcoast',
     name: '東部海岸國家風景區 (三仙台日出)',
     lat: 23.1238,
     lng: 121.4055,
-    url: 'https://www.youtube.com/@eastcoast_nsa/live'
+    url: 'https://www.youtube.com/@eastcoastnsa0501/live'
   },
   {
     id: 'taipei_101',
