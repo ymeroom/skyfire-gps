@@ -3,28 +3,28 @@
     "id": "rec-2026-08-17-sunset",
     "date": "2026-08-17",
     "session": "sunset",
-    "capturedAt": "2026-08-17T11:21:46.014Z",
+    "capturedAt": "2026-08-17T21:48:53.107Z",
     "sourceStream": "嘉義阿里山 (小笠原山 4K 實況)",
     "snapshotUrl": "data/snapshots/2026-08-17-sunset.jpg",
     "prediction": {
-      "score": 5,
+      "score": 25,
       "rating": "陰沉沉寂",
       "color": "#5A6275",
-      "highCloud": 98,
-      "midCloud": 4,
-      "lowCloud": 100
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 28
     },
     "verification": {
       "status": "verified_completed",
       "groundTruthScore": 78,
       "groundTruthBadge": "壯麗火燒雲",
       "groundTruthLevel": "GREAT",
-      "errorAbsolute": 73,
+      "errorAbsolute": 53,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
       "chromaticPurity": 47.8,
       "skyCoveragePct": 40.1,
-      "verifiedAt": "2026-08-17T11:21:48.961Z",
+      "verifiedAt": "2026-08-17T21:48:58.013Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
     }
   },
