@@ -3,29 +3,29 @@
     "id": "rec-2026-08-17-sunset",
     "date": "2026-08-17",
     "session": "sunset",
-    "sessionLabel": "今日日落",
-    "capturedAt": "2026-08-17T18:45:00+08:00",
-    "sourceStream": "嘉義阿里山國家風景區 (小笠原山夕陽雲海)",
-    "snapshotUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    "capturedAt": "2026-08-17T11:02:32.626Z",
+    "sourceStream": "阿里山國家風景區 (二萬平/小笠原雲海)",
+    "snapshotUrl": null,
     "prediction": {
-      "score": 90,
-      "rating": "史詩級爆發",
-      "color": "#FF3366",
-      "highCloud": 60,
-      "midCloud": 45,
-      "lowCloud": 10
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 1,
+      "midCloud": 27,
+      "lowCloud": 55
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 94,
-      "groundTruthBadge": "史詩級爆發",
-      "groundTruthLevel": "EPIC",
-      "errorAbsolute": 4,
+      "groundTruthScore": 10,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 5,
       "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 極致精準 (偏差 +4分)",
-      "chromaticPurity": 96.0,
-      "skyCoveragePct": 91.5,
-      "engine": "CIELAB/HSV Optical Scorer V2.5"
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 82,
+      "skyCoveragePct": 8,
+      "verifiedAt": "2026-08-17T11:02:37.713Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
     }
   },
   {
@@ -53,7 +53,7 @@
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (偏差 -3分)",
       "chromaticPurity": 88.5,
-      "skyCoveragePct": 80.0,
+      "skyCoveragePct": 80,
       "engine": "CIELAB/HSV Optical Scorer V2.5"
     }
   },
@@ -81,8 +81,8 @@
       "errorAbsolute": 5,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (偏差 +5分)",
-      "chromaticPurity": 79.0,
-      "skyCoveragePct": 58.0,
+      "chromaticPurity": 79,
+      "skyCoveragePct": 58,
       "engine": "CIELAB/HSV Optical Scorer V2.5"
     }
   },
@@ -110,8 +110,8 @@
       "errorAbsolute": 3,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (偏差 -3分)",
-      "chromaticPurity": 86.0,
-      "skyCoveragePct": 72.0,
+      "chromaticPurity": 86,
+      "skyCoveragePct": 72,
       "engine": "CIELAB/HSV Optical Scorer V2.5"
     }
   }
