@@ -1,0 +1,118 @@
+[
+  {
+    "id": "rec-2026-08-17-sunset",
+    "date": "2026-08-17",
+    "session": "sunset",
+    "sessionLabel": "今日日落",
+    "capturedAt": "2026-08-17T18:45:00+08:00",
+    "sourceStream": "嘉義阿里山國家風景區 (小笠原山夕陽雲海)",
+    "snapshotUrl": "https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80",
+    "prediction": {
+      "score": 90,
+      "rating": "史詩級爆發",
+      "color": "#FF3366",
+      "highCloud": 60,
+      "midCloud": 45,
+      "lowCloud": 10
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 94,
+      "groundTruthBadge": "史詩級爆發",
+      "groundTruthLevel": "EPIC",
+      "errorAbsolute": 4,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (偏差 +4分)",
+      "chromaticPurity": 96.0,
+      "skyCoveragePct": 91.5,
+      "engine": "CIELAB/HSV Optical Scorer V2.5"
+    }
+  },
+  {
+    "id": "rec-2026-08-16-sunset",
+    "date": "2026-08-16",
+    "session": "sunset",
+    "sessionLabel": "昨日日落",
+    "capturedAt": "2026-08-16T18:45:00+08:00",
+    "sourceStream": "台中高美濕地 (海平面落日)",
+    "snapshotUrl": "https://images.unsplash.com/photo-1509803874385-db7c23652552?auto=format&fit=crop&w=600&q=80",
+    "prediction": {
+      "score": 85,
+      "rating": "史詩級爆發",
+      "color": "#FF3366",
+      "highCloud": 55,
+      "midCloud": 38,
+      "lowCloud": 15
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 82,
+      "groundTruthBadge": "史詩級爆發",
+      "groundTruthLevel": "EPIC",
+      "errorAbsolute": 3,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (偏差 -3分)",
+      "chromaticPurity": 88.5,
+      "skyCoveragePct": 80.0,
+      "engine": "CIELAB/HSV Optical Scorer V2.5"
+    }
+  },
+  {
+    "id": "rec-2026-08-15-sunrise",
+    "date": "2026-08-15",
+    "session": "sunrise",
+    "sessionLabel": "8/15 日出晨曦",
+    "capturedAt": "2026-08-15T05:30:00+08:00",
+    "sourceStream": "南投日月潭 (朝霧碼頭晨曦)",
+    "snapshotUrl": "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80",
+    "prediction": {
+      "score": 65,
+      "rating": "局部微霞",
+      "color": "#E5A50A",
+      "highCloud": 40,
+      "midCloud": 30,
+      "lowCloud": 25
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 70,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 5,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (偏差 +5分)",
+      "chromaticPurity": 79.0,
+      "skyCoveragePct": 58.0,
+      "engine": "CIELAB/HSV Optical Scorer V2.5"
+    }
+  },
+  {
+    "id": "rec-2026-08-14-sunrise",
+    "date": "2026-08-14",
+    "session": "sunrise",
+    "sessionLabel": "8/14 第一道曙光",
+    "capturedAt": "2026-08-14T05:25:00+08:00",
+    "sourceStream": "台東三仙台 (八拱跨海大橋日出)",
+    "snapshotUrl": "https://images.unsplash.com/photo-1534447677768-be436bb09401?auto=format&fit=crop&w=600&q=80",
+    "prediction": {
+      "score": 78,
+      "rating": "壯麗火燒雲",
+      "color": "#FF6B00",
+      "highCloud": 50,
+      "midCloud": 35,
+      "lowCloud": 18
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 75,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 3,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (偏差 -3分)",
+      "chromaticPurity": 86.0,
+      "skyCoveragePct": 72.0,
+      "engine": "CIELAB/HSV Optical Scorer V2.5"
+    }
+  }
+]
