@@ -1,5 +1,36 @@
 [
   {
+    "id": "rec-2026-08-18-sunrise",
+    "date": "2026-08-18",
+    "session": "sunrise",
+    "sessionLabel": "今日日出",
+    "capturedAt": "2026-08-18T00:03:19.358Z",
+    "sourceStream": "南投日月潭國家風景區 (4K 官方即時影像)",
+    "youtubeLiveUrl": "https://www.youtube.com/watch?v=WTnZQS367C8",
+    "snapshotUrl": "data/snapshots/2026-08-18-sunrise.jpg",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 1,
+      "lowCloud": 17
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 21,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 14,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 33.5,
+      "skyCoveragePct": 4.9,
+      "verifiedAt": "2026-08-18T00:03:23.052Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+    }
+  },
+  {
     "id": "rec-2026-08-17-sunset",
     "date": "2026-08-17",
     "session": "sunset",

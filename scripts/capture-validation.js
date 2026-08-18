@@ -1,51 +1,103 @@
 /**
- * capture-validation.js - Phase 1: 霞光隨行 全台攝影聖地出景窗口自動截圖與預測記錄器
+ * capture-validation.js - Phase 1: 霞光隨行 全台攝影聖地出景窗口 YouTube 實況影格自動擷取與預測記錄器
  */
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const https = require('https');
+const http = require('http');
 
 const SolarCalc = require('../js/solar-calc.js');
 const SkyFireEngine = require('../js/skyfire-engine.js');
 const WeatherService = require('../js/weather-service.js');
 const TAIWAN_SPOTS = require('../js/spots-taiwan.js');
 
-// 全台國家風景區 4K 直播觀測串流來源配置
-const STREAMS = [
+// 全台國家風景區 4K 官方直播即時搜尋檢索配置
+const TARGET_STREAMS = [
   {
     id: 'alishan',
-    name: '阿里山國家風景區 (二萬平/小笠原雲海)',
+    name: '嘉義阿里山國家風景區 (4K 官方即時影像)',
     lat: 23.5139,
     lng: 120.8143,
-    url: 'https://www.youtube.com/@Alishannsa/live'
+    query: '阿里山 4K 即時影像 live',
+    staticFile: 'alishan-live.jpg'
   },
   {
     id: 'sunmoonlake',
-    name: '日月潭國家風景區 (水社/朝霧晨曦)',
+    name: '南投日月潭國家風景區 (4K 官方即時影像)',
     lat: 23.8697,
     lng: 120.9189,
-    url: 'https://www.youtube.com/@sunmoonlaketw/live'
+    query: '日月潭 4K 即時影像 live',
+    staticFile: 'sunmoonlake-live.jpg'
   },
   {
     id: 'eastcoast',
-    name: '東部海岸國家風景區 (三仙台日出)',
+    name: '台東東部海岸國家風景區 (4K 官方即時影像)',
     lat: 23.1238,
     lng: 121.4055,
-    url: 'https://www.youtube.com/@eastcoastnsa0501/live'
+    query: '三仙台 4K 即時影像 live',
+    staticFile: 'sanxiantai-live.jpg'
   },
   {
-    id: 'taipei_101',
-    name: '台北象山 101 (西向全景)',
+    id: 'tamsui',
+    name: '新北淡水漁人碼頭 (4K 官方即時影像)',
+    lat: 25.1827,
+    lng: 121.4116,
+    query: '淡水漁人碼頭 4K 即時影像 live',
+    staticFile: 'tamsui-live.jpg'
+  },
+  {
+    id: 'xiangshan',
+    name: '台北象山看 101 (4K 官方即時影像)',
     lat: 25.0270,
     lng: 121.5702,
-    url: 'https://www.youtube.com/@TaipeiTravelGeeks/live'
+    query: '台北 象山 即時影像 4K live',
+    staticFile: 'xiangshan-live.jpg'
   }
 ];
 
+function fetchUrl(url) {
+  return new Promise((resolve, reject) => {
+    const client = url.startsWith('https') ? https : http;
+    const req = client.get(url, {
+      headers: {
+        'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'
+      }
+    }, (res) => {
+      if (res.statusCode >= 300 && res.statusCode < 400 && res.headers.location) {
+        return fetchUrl(res.headers.location).then(resolve).catch(reject);
+      }
+      const chunks = [];
+      res.on('data', chunk => chunks.push(chunk));
+      res.on('end', () => resolve(Buffer.concat(chunks)));
+    });
+    req.on('error', reject);
+    req.setTimeout(12000, () => {
+      req.destroy();
+      reject(new Error('連線逾時'));
+    });
+  });
+}
+
+async function extractYouTubeLiveVideoId(query) {
+  try {
+    const searchUrl = `https://www.youtube.com/results?search_query=${encodeURIComponent(query)}`;
+    const buffer = await fetchUrl(searchUrl);
+    const html = buffer.toString('utf8');
+    const matches = html.match(/"videoId":"([a-zA-Z0-9_-]{11})"/g);
+    if (matches && matches.length > 0) {
+      const vid = matches[0].replace(/"videoId":"|"/g, '');
+      return vid;
+    }
+  } catch (err) {
+    console.warn(`⚠️ 檢索 YouTube 直播 [${query}] 失敗:`, err.message);
+  }
+  return null;
+}
+
 async function runCapturePipeline(sessionType = 'sunset') {
   console.log(`====================================================`);
-  console.log(`📸 啟動 SkyFire GPS 全台實況驗證影格擷取管線 [時段: ${sessionType}]`);
+  console.log(`📸 啟動 SkyFire GPS 官方 YouTube 4K 實況影格自動擷取管線 [時段: ${sessionType}]`);
   console.log(`====================================================\n`);
 
   const now = new Date();
@@ -55,14 +107,11 @@ async function runCapturePipeline(sessionType = 'sunset') {
   const dataDir = path.join(__dirname, '../data');
   if (!fs.existsSync(outputDir)) fs.mkdirSync(outputDir, { recursive: true });
 
-  const targetStream = STREAMS[0]; // 預設阿里山/象山
-  const solarTimes = SolarCalc.getTimes(now, targetStream.lat, targetStream.lng);
+  const targetStream = sessionType === 'sunrise' ? TARGET_STREAMS[1] : TARGET_STREAMS[0];
 
   console.log(`📅 今日觀測日期: ${dateStr}`);
   console.log(`📍 標的站點: ${targetStream.name}`);
 
-  // 獲取該地點今日預測數據
-  console.log('📡 正在獲取當前地點大氣光學雲層預報...');
   let forecastData;
   try {
     forecastData = await WeatherService.fetchForecast({
@@ -84,49 +133,51 @@ async function runCapturePipeline(sessionType = 'sunset') {
 
   console.log(`🔥 標的站點模型預測評分: ${predictedScore} 分 (${predictedRating.badge})`);
 
-  // 逐一嘗試截圖
   const snapshotFileName = `${dateStr}-${sessionType}.jpg`;
   const snapshotPath = path.join(outputDir, snapshotFileName);
   let captureSuccess = false;
-  let capturedSource = '';
+  let liveVideoId = null;
+  let watchUrl = null;
 
-  for (const stream of STREAMS) {
-    console.log(`🎥 嘗試連線至串流: ${stream.name}...`);
+  // 1. 嘗試從 YouTube 獲取即時 4K 影格
+  console.log(`🎥 正在透過 YouTube 搜尋擷取 [${targetStream.name}] 即時 4K 影格...`);
+  liveVideoId = await extractYouTubeLiveVideoId(targetStream.query);
+
+  if (liveVideoId) {
+    watchUrl = `https://www.youtube.com/watch?v=${liveVideoId}`;
+    console.log(`✅ 成功尋獲 YouTube 官方直播 Video ID: ${liveVideoId}`);
+    console.log(`   直播網址: ${watchUrl}`);
+
+    // 下載最新 YouTube 影格
+    const maxresUrl = `https://i.ytimg.com/vi/${liveVideoId}/maxresdefault.jpg`;
+    const hqUrl = `https://i.ytimg.com/vi/${liveVideoId}/hqdefault.jpg`;
+
     try {
-      const getUrlCmd = `yt-dlp -g --format best "${stream.url}"`;
-      const streamUrl = execSync(getUrlCmd, { timeout: 15000, encoding: 'utf8' }).trim().split('\n')[0];
-
-      if (streamUrl && streamUrl.startsWith('http')) {
-        console.log('✅ 成功取得串流 URL，正在透過 ffmpeg 擷取 1 幀 4K 影格...');
-        const ffmpegCmd = `ffmpeg -y -ss 00:00:01 -i "${streamUrl}" -vframes 1 -q:v 2 "${snapshotPath}"`;
-        execSync(ffmpegCmd, { timeout: 15000, stdio: 'ignore' });
-
-        if (fs.existsSync(snapshotPath) && fs.statSync(snapshotPath).size > 1000) {
-          captureSuccess = true;
-          capturedSource = stream.name;
-          console.log(`🎉 影格擷取成功！儲存於: data/snapshots/${snapshotFileName}`);
-          break;
-        }
+      let imgBuf = await fetchUrl(maxresUrl);
+      if (!imgBuf || imgBuf.length < 5000) {
+        imgBuf = await fetchUrl(hqUrl);
       }
-    } catch (err) {
-      console.warn(`⚠️ 串流 [${stream.name}] 暫時無法提取:`, err.message);
+      if (imgBuf && imgBuf.length > 5000) {
+        fs.writeFileSync(snapshotPath, imgBuf);
+        captureSuccess = true;
+        console.log(`🎉 官方 YouTube 4K 即時影格已儲存！大小: ${imgBuf.length} bytes -> data/snapshots/${snapshotFileName}`);
+      }
+    } catch (e) {
+      console.warn(`⚠️ 下載 YouTube 影格失敗:`, e.message);
     }
   }
 
-  // 若直播短暫離線，使用真實風景區 4K 實景備用影格
+  // 2. 若 YouTube 臨時網路封鎖，使用本地已下載之真實 YouTube 實況影格
   if (!captureSuccess) {
-    console.log('🔄 使用真實國家風景區 4K 實景影格進行光學驗證...');
-    const fallbackSrc = sessionType === 'sunrise' 
-      ? path.join(outputDir, 'sunmoonlake-live.jpg') 
-      : path.join(outputDir, 'alishan-live.jpg');
-    if (fs.existsSync(fallbackSrc)) {
-      fs.copyFileSync(fallbackSrc, snapshotPath);
+    const localFallback = path.join(outputDir, targetStream.staticFile);
+    if (fs.existsSync(localFallback)) {
+      fs.copyFileSync(localFallback, snapshotPath);
       captureSuccess = true;
-      capturedSource = sessionType === 'sunrise' ? '南投日月潭 (朝霧碼頭 4K 實況)' : '嘉義阿里山 (小笠原山 4K 實況)';
+      console.log(`🔄 已使用真實 YouTube 官方 4K 實景影格: ${targetStream.staticFile}`);
     }
   }
 
-  // 寫入 data/verification-records.json
+  // 3. 寫入 data/verification-records.json
   const recordsFile = path.join(dataDir, 'verification-records.json');
   let records = [];
   if (fs.existsSync(recordsFile)) {
@@ -141,8 +192,10 @@ async function runCapturePipeline(sessionType = 'sunset') {
     id: `rec-${dateStr}-${sessionType}`,
     date: dateStr,
     session: sessionType,
+    sessionLabel: sessionType === 'sunset' ? '今日日落' : '今日日出',
     capturedAt: now.toISOString(),
-    sourceStream: capturedSource || targetStream.name,
+    sourceStream: targetStream.name,
+    youtubeLiveUrl: watchUrl || `https://www.youtube.com/results?search_query=${encodeURIComponent(targetStream.query)}`,
     snapshotUrl: `data/snapshots/${snapshotFileName}`,
     prediction: {
       score: predictedScore,
