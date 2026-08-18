@@ -34,7 +34,6 @@ class SkyFireGPSApp {
     // 啟動時自動嘗試獲取手機 GPS，若未獲准則使用預設值
     await this.autoLocateOrLoadDefault();
     this.startCountdownTimer();
-    this.loadVerificationCorridor();
   }
 
   /**
@@ -869,83 +868,6 @@ class SkyFireGPSApp {
           console.log('SW registration skipped:', err);
         });
       });
-    }
-  }
-
-  /**
-   * 載入並渲染每日實況驗證走廊 (Ground Truth Verification Corridor)
-   */
-  async loadVerificationCorridor() {
-    const container = document.getElementById('verificationCardsContainer');
-    const statAcc = document.getElementById('statAccuracyPct');
-    const statMAE = document.getElementById('statAvgMAE');
-    const statTotal = document.getElementById('statTotalVerified');
-
-    if (!container) return;
-
-    try {
-      const response = await fetch('data/verification-records.json');
-      if (!response.ok) return;
-      const records = await response.json();
-
-      if (!records || records.length === 0) {
-        container.innerHTML = '<div style="color: var(--text-muted); font-size: 0.85rem;">目前尚無歷史驗證資料。</div>';
-        return;
-      }
-
-      const verifiedList = records.filter(r => r.verification && r.verification.groundTruthScore !== null);
-      const totalVerified = verifiedList.length;
-      const totalError = verifiedList.reduce((acc, cur) => acc + (cur.verification.errorAbsolute || 0), 0);
-      const avgMAE = totalVerified > 0 ? (totalError / totalVerified).toFixed(1) : '3.8';
-      const withinTolerance = verifiedList.filter(r => r.verification.errorAbsolute <= 15).length;
-      const accuracyPct = totalVerified > 0 ? ((withinTolerance / totalVerified) * 100).toFixed(1) : '94.8';
-
-      if (statAcc) statAcc.innerText = `${accuracyPct}%`;
-      if (statMAE) statMAE.innerText = `±${avgMAE} 分`;
-      if (statTotal) statTotal.innerText = `${totalVerified} 場 (持續累積)`;
-
-      container.innerHTML = '';
-
-      records.forEach(rec => {
-        const v = rec.verification || {};
-        const p = rec.prediction || {};
-        const isVerified = v.groundTruthScore !== null;
-
-        const card = document.createElement('div');
-        card.className = 'verification-card-item';
-        card.innerHTML = `
-          <div class="verification-img-wrapper">
-            <img src="${rec.snapshotUrl || 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80'}" alt="實況截圖" loading="lazy">
-            <div class="verdict-floating-tag" style="color: ${isVerified && v.errorAbsolute <= 10 ? '#4ade80' : '#fbbf24'}; border-color: ${isVerified && v.errorAbsolute <= 10 ? 'rgba(74, 222, 128, 0.4)' : 'rgba(251, 191, 36, 0.4)'}">
-              ${v.verdictBadge || '⏳ 驗證中'}
-            </div>
-          </div>
-          <div class="verification-body">
-            <div class="verification-title-row">
-              <span class="verification-date">📅 ${rec.date} ${rec.sessionLabel || (rec.session === 'sunset' ? '日落' : '日出')}</span>
-              <span class="verification-source">📍 ${rec.sourceStream || '4K 即時觀測'}</span>
-            </div>
-            <div class="score-compare-bar">
-              <div class="compare-score-box">
-                <span>🤖 模型預測</span>
-                <strong style="color: ${p.color || '#ff6b00'};">${p.score || '--'} 分</strong>
-              </div>
-              <div class="compare-divider">⚡ VS ⚡</div>
-              <div class="compare-score-box">
-                <span>👁️ 實況光學觀測</span>
-                <strong style="color: #38bdf8;">${v.groundTruthScore !== null ? `${v.groundTruthScore} 分` : '觀測中'}</strong>
-              </div>
-            </div>
-            <div class="verification-metrics-chips">
-              <span>🌈 色彩純度 ${v.chromaticPurity || 88}%</span> •
-              <span>☁️ 漫射面積 ${v.skyCoveragePct || 75}%</span>
-            </div>
-          </div>
-        `;
-        container.appendChild(card);
-      });
-    } catch (err) {
-      console.warn('載入驗證資料失敗:', err);
     }
   }
 
