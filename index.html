@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SkyFire GPS 霞光隨行 - 全台/全球手機定位火燒雲預報與日出日落大氣光學指南</title>
-  <meta name="description" content="全台首創隨身 GPS 手機定位火燒雲（晚霞/朝霞）科學預測平台。支援全球與全台任意地點點選、高空中低雲層大氣光學剖面、太陽方位角射線、Open-Meteo 即時氣象與 20 大攝影聖地指南。">
+  <title>SkyFire GPS 霞光隨行 - 台灣手機定位火燒雲預報與日出日落大氣光學指南</title>
+  <meta name="description" content="台灣隨身 GPS 手機定位火燒雲（晚霞/朝霞）科學預測平台。支援台灣本島與離島地圖點選、高空中低雲層大氣光學剖面、太陽方位角射線、Open-Meteo 即時氣象與 20 大攝影聖地指南。">
   <meta name="keywords" content="火燒雲預報, GPS火燒雲, 晚霞預測, 朝霞預測, 霞光指數, 高美濕地夕陽, 阿里山日出, 合歡山夕陽, 井仔腳鹽田, 攝影機位, 黃金時刻, 藍調時刻">
   <meta name="author" content="SkyFire GPS Team">
   <meta name="theme-color" content="#090d16">
@@ -13,8 +13,8 @@
   <link rel="manifest" href="manifest.json">
 
   <!-- Open Graph -->
-  <meta property="og:title" content="SkyFire GPS 霞光隨行 - 全台/全球火燒雲隨身預報站">
-  <meta property="og:description" content="今天你那邊會出大景嗎？手機一鍵定位或在地圖任意點選，即時預測日出日落火燒雲爆發指數！">
+  <meta property="og:title" content="SkyFire GPS 霞光隨行 - 台灣火燒雲隨身預報站">
+  <meta property="og:description" content="今天台灣哪裡會出大景？手機一鍵定位或在台灣地圖選點，即時預測日出日落火燒雲爆發指數！">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="zh_TW">
 
@@ -56,9 +56,9 @@
         <div class="brand-text">
           <h1>
             SkyFire GPS 霞光隨行
-            <span class="brand-badge">GLOBAL V2.5</span>
+            <span class="brand-badge">TAIWAN V2.5</span>
           </h1>
-          <p>隨身手機 GPS ✕ 全台/全球任意點選 ✕ 火燒雲大氣光學預測</p>
+          <p>隨身手機 GPS ✕ 台灣本島與離島選點 ✕ 火燒雲大氣光學預測</p>
         </div>
       </div>
 
@@ -105,7 +105,7 @@
 
       <div class="live-status-bar">
         <span class="pulse-dot"></span>
-        <span id="liveStatusText">正在初始化全球 Open-Meteo 大氣觀測連線...</span>
+        <span id="liveStatusText">正在初始化台灣 Open-Meteo 大氣觀測連線...</span>
       </div>
     </div>
 
@@ -283,12 +283,12 @@
     </section>
 
     <!-- ==========================================
-         全台/全球互動地圖與 20 大攝影聖地
+         台灣互動地圖與 20 大攝影聖地
          ========================================== -->
     <section class="spots-section" id="interactiveMapSection">
       <div class="section-header-row">
-        <h2 class="section-title"><span>🗺️</span> 互動地圖任意點選 ✕ 全台 20 大火燒雲攝影聖地</h2>
-        <span class="info-chip">💡 提示：可點擊地圖任意位置進行預測</span>
+        <h2 class="section-title"><span>🗺️</span> 台灣地圖選點 ✕ 全台 20 大火燒雲攝影聖地</h2>
+        <span class="info-chip">💡 提示：可點擊台灣服務範圍內的位置進行預測</span>
       </div>
 
       <div class="spots-layout-grid">
@@ -299,7 +299,7 @@
             <span id="sunAzimuthOverlay">日落太陽方位角：計算中...</span>
           </div>
           <div class="map-hint-badge">
-            👆 點擊地圖上任何地點，立即獲取該處火燒雲預報！
+            👆 點擊台灣服務範圍內的地點，立即獲取該處火燒雲預報！
           </div>
           <div id="interactiveMap"></div>
         </div>
@@ -550,7 +550,7 @@
         <a href="javascript:void(0)" id="footerOpenSim">氣象物理沙盒</a>
         <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a>
       </div>
-      <p>© 2026 SkyFire GPS 霞光隨行 • 專為全台與全球追光攝影師打造 • 支援手機 GPS 即時定位</p>
+      <p>© 2026 SkyFire GPS 霞光隨行 • 專為台灣追光攝影師打造 • 支援台灣手機 GPS 即時定位</p>
     </footer>
 
   </div>
@@ -628,6 +628,7 @@
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
   <!-- 應用程式核心模組 -->
+  <script src="js/taiwan-scope.js"></script>
   <script src="js/solar-calc.js"></script>
   <script src="js/skyfire-engine.js"></script>
   <script src="js/geocoding.js"></script>

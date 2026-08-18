@@ -1,8 +1,9 @@
-const CACHE_NAME = 'skyfire-gps-v1';
+const CACHE_NAME = 'skyfire-gps-taiwan-v3';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
   './css/style.css',
+  './js/taiwan-scope.js',
   './js/solar-calc.js',
   './js/skyfire-engine.js',
   './js/geocoding.js',

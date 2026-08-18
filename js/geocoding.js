@@ -36,7 +36,7 @@ class GeocodingService {
           const locality = data.locality || data.city || '';
           name = `${admin} ${locality}`.trim();
         } else {
-          // 海外地區：例如 日本 東京都 / 美國 加州
+          // 非台灣回應僅作服務備援；產品介面會先套用台灣範圍限制
           const country = data.countryName || '';
           const city = data.city || data.principalSubdivision || '';
           name = `${country} ${city}`.trim();

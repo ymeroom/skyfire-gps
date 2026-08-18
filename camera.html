@@ -463,6 +463,7 @@
 
   <canvas id="captureCanvas" width="1080" height="1920"></canvas>
 
+  <script src="js/taiwan-scope.js"></script>
   <script>
     const video = document.getElementById('cameraVideo');
     const canvas = document.getElementById('captureCanvas');
@@ -540,7 +541,15 @@
     document.getElementById('btnAutoGPS').addEventListener('click', () => {
       if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(pos => {
-          currentLocationName = `GPS: ${pos.coords.latitude.toFixed(3)}°N, ${pos.coords.longitude.toFixed(3)}°E`;
+          const gpsLocation = TaiwanScope.formatGpsLocation(
+            pos.coords.latitude,
+            pos.coords.longitude
+          );
+          if (!gpsLocation) {
+            alert('目前僅提供台灣本島與離島的 GPS 位置標記。');
+            return;
+          }
+          currentLocationName = gpsLocation;
           document.getElementById('frameLocationText').innerText = currentLocationName;
           alert(`📍 GPS 定位成功：${currentLocationName}`);
         }, err => {
@@ -668,7 +677,7 @@
         ctx.fillStyle = '#94a3b8';
         ctx.font = '700 28px "JetBrains Mono"';
         ctx.fillText('高雲: 60%  |  低雲: 10%  |  透光窗: 95%  |  海拔: 2,488m', 100, 1690);
-        ctx.fillText('太陽方位角: 068° (ENE)  |  GLOBAL V2.5 ACCURACY: 94.8%', 100, 1745);
+        ctx.fillText('太陽方位角: 068° (ENE)  |  TAIWAN V2.5 ACCURACY: 94.8%', 100, 1745);
         ctx.restore();
       }
 

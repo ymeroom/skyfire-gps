@@ -1,17 +1,17 @@
-# 🧭 SkyFire GPS 霞光隨行 (Global & Taiwan SkyFire Predictor)
+# 🧭 SkyFire GPS 霞光隨行 (Taiwan SkyFire Predictor)
 
-> **隨身手機 GPS ✕ 全台/全球任意點選 ✕ 火燒雲大氣光學預報平台**
+> **隨身手機 GPS ✕ 台灣本島與離島選點 ✕ 火燒雲大氣光學預報平台**
 
-專為追光攝影師、日出日落愛好者與戶外玩家設計的科學化霞光預測網頁應用程式。整合 HTML5 Geolocation 定位、OpenStreetMap 逆地理編碼、Open-Meteo 全球多層雲量氣象數據與物理雷利/米氏散射模型，無論你身在合歡山頂、高美濕地、墾丁海邊還是東京巴黎，打開網頁即可一鍵預測當地的日出/日落火燒雲爆發指數！
+專為台灣追光攝影師、日出日落愛好者與戶外玩家設計的科學化霞光預測網頁應用程式。整合 HTML5 Geolocation 定位、逆地理編碼、Open-Meteo 多層雲量氣象數據與物理雷利/米氏散射模型，涵蓋台灣本島、澎湖、金門、馬祖、綠島與蘭嶼等地區。
 
 ---
 
 ## 🌟 核心特色 (Core Features)
 
-1. **📍 手機 GPS 一鍵隨身定位**
+1. **📍 台灣手機 GPS 一鍵隨身定位**
    - 瀏覽器授權後自動獲取精確經緯度，並透過逆地理編碼反查城鎮地名（如「台中市清水區」、「嘉義縣阿里山鄉」）。
-2. **🗺️ 互動地圖任意點選預測 (Interactive Map Pointing)**
-   - 點擊地圖任意位置，即刻計算該處的日落/日出時間與火燒雲發生率。
+2. **🗺️ 台灣互動地圖選點預測 (Interactive Map Pointing)**
+   - 點擊台灣本島或離島範圍，即刻計算該處的日落/日出時間與火燒雲發生率。
    - 動態在地圖上繪製從該點出發的「太陽方位角光錐射線 (Sun Azimuth Ray)」。
 3. **🔥 大氣光學物理演算引擎 (SkyFire Physics Engine V2.5)**
    - **高空卷雲天幕 (+45分)**：6,000m+ 冰晶雲層，長時間接收長波紅橙光。
@@ -39,11 +39,12 @@ skyfire-gps/
 │   └── style.css           # Glassmorphism 晨昏大氣主題樣式
 ├── js/
 │   ├── app.js              # 主控制器 (GPS 定位、地圖連動、倒數計時)
-│   ├── solar-calc.js       # 全球任意經緯度天文太陽時刻與方位角算法
+│   ├── taiwan-scope.js     # 台灣本島、離島服務範圍驗證
+│   ├── solar-calc.js       # 台灣各地天文太陽時刻與方位角算法
 │   ├── skyfire-engine.js   # 大氣光學火燒雲物理評分核心
 │   ├── geocoding.js        # 經緯度逆地理編碼服務
 │   ├── spots-taiwan.js     # 全台 20 大攝影聖地數據庫
-│   └── weather-service.js  # Open-Meteo API 全球氣象串接與快取
+│   └── weather-service.js  # Open-Meteo API 台灣氣象串接與快取
 └── README.md
 ```
 
@@ -69,6 +70,6 @@ skyfire-gps/
 
 ## 📄 License & Attribution
 
-- 天氣數據來源：[Open-Meteo Global Weather API](https://open-meteo.com/) (CC-BY 4.0)
+- 天氣數據來源：[Open-Meteo Weather API](https://open-meteo.com/) (CC-BY 4.0)
 - 地圖圖磚：[CartoDB Dark Matter](https://carto.com/) & [OpenStreetMap](https://www.openstreetmap.org/)
 - 逆地理編碼：[BigDataCloud](https://www.bigdatacloud.net/) & [OSM Nominatim](https://nominatim.org/)

@@ -58,17 +58,23 @@ class SkyFireGPSApp {
    */
   async autoLocateOrLoadDefault() {
     const savedLoc = localStorage.getItem('skyfire_last_location');
+    let hasSupportedSavedLocation = false;
     if (savedLoc) {
       try {
         const parsed = JSON.parse(savedLoc);
-        if (parsed && parsed.lat && parsed.lng) {
+        if (parsed && TaiwanScope.contains(parsed.lat, parsed.lng)) {
           this.currentLocation = parsed;
+          hasSupportedSavedLocation = true;
+        } else {
+          localStorage.removeItem('skyfire_last_location');
         }
-      } catch (e) {}
+      } catch (e) {
+        localStorage.removeItem('skyfire_last_location');
+      }
     }
 
     // 若瀏覽器支援且為 HTTPS，嘗試獲取當前定位
-    if (navigator.geolocation && !savedLoc) {
+    if (navigator.geolocation && !hasSupportedSavedLocation) {
       const statusText = document.getElementById('liveStatusText');
       if (statusText) statusText.innerText = '正在透過 GPS 定位您的位置...';
 
@@ -76,6 +82,11 @@ class SkyFireGPSApp {
         async (position) => {
           const lat = position.coords.latitude;
           const lng = position.coords.longitude;
+          if (!TaiwanScope.contains(lat, lng)) {
+            if (statusText) statusText.innerText = '目前僅提供台灣地區預報，已使用台北預設位置';
+            await this.loadForecastForCurrentLocation();
+            return;
+          }
           const name = await GeocodingService.reverseGeocode(lat, lng);
           
           this.setLocation(lat, lng, name, true);
@@ -110,6 +121,12 @@ class SkyFireGPSApp {
       async (pos) => {
         const lat = pos.coords.latitude;
         const lng = pos.coords.longitude;
+        if (!TaiwanScope.contains(lat, lng)) {
+          alert('目前僅提供台灣本島與離島的霞光預報。');
+          if (btnGPS) btnGPS.classList.remove('rotating');
+          if (statusText) statusText.innerText = '定位在台灣服務範圍外，維持目前位置預報';
+          return;
+        }
         if (statusText) statusText.innerText = '定位成功，正在反查城鎮地名與大氣數據...';
 
         const name = await GeocodingService.reverseGeocode(lat, lng);
@@ -131,6 +148,12 @@ class SkyFireGPSApp {
    * 設定當前目標位置並載入預報
    */
   async setLocation(lat, lng, name, saveToCache = true) {
+    if (!TaiwanScope.contains(lat, lng)) {
+      const statusText = document.getElementById('liveStatusText');
+      if (statusText) statusText.innerText = '所選座標超出台灣服務範圍，維持目前位置預報';
+      return false;
+    }
+
     this.currentLocation = { lat, lng, name };
     if (saveToCache) {
       try {
@@ -145,6 +168,7 @@ class SkyFireGPSApp {
     }
 
     await this.loadForecastForCurrentLocation(true);
+    return true;
   }
 
   /**
@@ -491,7 +515,7 @@ class SkyFireGPSApp {
   }
 
   /**
-   * 初始化 Leaflet 全球/全台地圖 (支援任意點點擊)
+   * 初始化 Leaflet 台灣地圖
    */
   initMap() {
     const mapElement = document.getElementById('interactiveMap');
@@ -500,7 +524,10 @@ class SkyFireGPSApp {
     // 預設以台灣全島視角居中
     this.map = L.map('interactiveMap', {
       center: [this.currentLocation.lat, this.currentLocation.lng],
-      zoom: 10,
+      zoom: 8,
+      minZoom: 7,
+      maxBounds: TaiwanScope.MAP_BOUNDS,
+      maxBoundsViscosity: 1,
       zoomControl: true
     });
 
@@ -511,10 +538,14 @@ class SkyFireGPSApp {
       maxZoom: 19
     }).addTo(this.map);
 
-    // 地圖點擊事件：點擊任意地點立即預測！
+    // 地圖點擊事件：僅接受台灣本島與離島座標
     this.map.on('click', async (e) => {
       const { lat, lng } = e.latlng;
       const statusText = document.getElementById('liveStatusText');
+      if (!TaiwanScope.contains(lat, lng)) {
+        if (statusText) statusText.innerText = '目前僅提供台灣本島與離島預報，請選擇台灣範圍內的地點';
+        return;
+      }
       if (statusText) statusText.innerText = `已點選新座標 (${lat.toFixed(3)}, ${lng.toFixed(3)})，正在反查地名與預測...`;
 
       const name = await GeocodingService.reverseGeocode(lat, lng);

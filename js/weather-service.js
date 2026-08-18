@@ -1,5 +1,5 @@
 /**
- * WeatherService - 串接 Open-Meteo 全球即時氣象 API 與多層雲量解析 (支援任意經緯度)
+ * WeatherService - 串接 Open-Meteo 台灣即時氣象 API 與多層雲量解析
  */
 
 const SolarCalcModule = typeof window !== 'undefined' ? window.SolarCalc : (typeof global !== 'undefined' && global.SolarCalc ? global.SolarCalc : require('./solar-calc.js'));
@@ -36,7 +36,7 @@ class WeatherService {
     }
 
     try {
-      // 串接 Open-Meteo 全球高精度大氣預報模型
+      // 串接 Open-Meteo 高精度大氣預報模型
       const url = `https://api.open-meteo.com/v1/forecast?latitude=${roundedLat}&longitude=${roundedLng}&hourly=cloudcover,cloudcover_low,cloudcover_mid,cloudcover_high,visibility,relativehumidity_2m,precipitation_probability,direct_normal_irradiance,temperature_2m,weathercode&daily=sunrise,sunset&timezone=auto&forecast_days=7`;
 
       const response = await fetch(url, { cache: 'no-store' });

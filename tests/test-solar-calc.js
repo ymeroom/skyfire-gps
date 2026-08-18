@@ -39,11 +39,11 @@ console.log('✅ 太陽方位角與高度角計算精確:', {
   sunsetAzimuth: sunsetPos.azimuth + '° (' + sunsetPos.azimuthCompass + ')'
 });
 
-// 3. 全球多地點經緯度測試 (東京、倫敦、雪梨)
+// 3. 台灣不同區域與離島經緯度測試
 const spots = [
-  { name: '東京 (Tokyo)', lat: 35.6762, lng: 139.6503 },
-  { name: '倫敦 (London)', lat: 51.5074, lng: -0.1278 },
-  { name: '雪梨 (Sydney)', lat: -33.8688, lng: 151.2093 }
+  { name: '高雄', lat: 22.6273, lng: 120.3014 },
+  { name: '澎湖', lat: 23.5711, lng: 119.5793 },
+  { name: '金門', lat: 24.4493, lng: 118.3767 }
 ];
 
 spots.forEach(spot => {

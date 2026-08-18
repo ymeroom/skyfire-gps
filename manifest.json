@@ -1,7 +1,7 @@
 {
   "name": "SkyFire GPS 霞光隨行",
   "short_name": "SkyFire GPS",
-  "description": "隨身手機 GPS ✕ 全台/全球任意點選 ✕ 火燒雲大氣光學即時預報",
+  "description": "隨身手機 GPS ✕ 台灣本島與離島選點 ✕ 火燒雲大氣光學即時預報",
   "start_url": "./index.html",
   "display": "standalone",
   "background_color": "#090d16",

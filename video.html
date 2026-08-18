@@ -412,7 +412,7 @@
           <button class="ep-btn active" data-ep="1">🌲 EP1: 全台痛點篇 (38s)</button>
           <button class="ep-btn" data-ep="2">📍 EP2: GPS 定位篇 (42s)</button>
           <button class="ep-btn" data-ep="3">🗺️ EP3: 全台 20 大聖地 (45s)</button>
-          <button class="ep-btn" data-ep="4">✈️ EP4: 全球點選篇 (40s)</button>
+          <button class="ep-btn" data-ep="4">🧭 EP4: 全台地圖選點 (40s)</button>
           <button class="ep-btn" data-ep="5">📲 EP5: PWA 免安裝 (35s)</button>
           <button class="ep-btn" data-ep="6">📹 EP6: 國家風景區驗證 (45s)</button>
         </div>
@@ -605,47 +605,47 @@
         ]
       },
       4: {
-        title: "EP4: 全球點選篇",
+        title: "EP4: 全台地圖選點",
         duration: 40,
         scenes: [
           {
             start: 0,
             end: 5,
-            tag: "分鏡 1: 出國看夕陽痛點",
-            voice: "去日本看富士山、去東京或歐美自由行，也能預測當天的夕陽火燒雲嗎？",
-            onscreen: "✈️ 出國去日本自由行，也能預測富士山火燒雲？",
+            tag: "分鏡 1: 台灣追霞選點痛點",
+            voice: "週末想追火燒雲，北海岸、高美濕地和東部海岸，到底該去哪一個點？",
+            onscreen: "🚗 台灣追霞選點：北海岸、高美還是東海岸？",
             type: "overcast_camp"
           },
           {
             start: 5,
             end: 18,
-            tag: "分鏡 2: 全球任意地圖點擊",
-            voice: "沒錯！霞光隨行支援全球任意地圖點選！在地圖上隨便點一個點，立刻計算當地火燒雲指數！",
-            onscreen: "🌍 全球任意地圖點選即測！支援全球經緯度換算",
-            type: "world_map"
+            tag: "分鏡 2: 台灣地圖自由選點",
+            voice: "霞光隨行專注台灣本島與離島！在台灣地圖選一個點，立刻計算當地火燒雲指數！",
+            onscreen: "🇹🇼 台灣本島與離島選點即測",
+            type: "taiwan_map"
           },
           {
             start: 18,
             end: 30,
-            tag: "分鏡 3: 富士山日落方位角",
-            voice: "自動轉換當地時區日落時間，連太陽從富士山哪一側沉下去都精準標出！",
-            onscreen: "⏰ 自動換算當地時區天文數據 | 掌握異國絕美落日！",
-            type: "world_map"
+            tag: "分鏡 3: 台灣日落方位角",
+            voice: "從淡水到墾丁，日出日落時間與太陽方位角都依台灣各地座標計算！",
+            onscreen: "⏰ 台灣各地日出日落時間與方位角",
+            type: "taiwan_map"
           },
           {
             start: 30,
             end: 35,
-            tag: "分鏡 4: 巴黎/紐約/冰島",
-            voice: "不管是巴黎、紐約還是冰島，全世界的天空都是你的攝影棚！",
-            onscreen: "🗼 巴黎 / 紐約 / 冰島全世界可用！",
+            tag: "分鏡 4: 北中南東與離島",
+            voice: "北中南東加上澎湖、金門、馬祖與蘭嶼，台灣追光行程一次掌握！",
+            onscreen: "🏝️ 北中南東 / 澎湖 / 金門 / 馬祖 / 蘭嶼",
             type: "epic_reveal_gps"
           },
           {
             start: 35,
             end: 40,
-            tag: "分鏡 5: 出國必備 CTA",
-            voice: "準備出國的朋友趕快把這網址存進手機！連結就在留言區！",
-            onscreen: "🛫 出國追光必備神器！",
+            tag: "分鏡 5: 台灣旅行 CTA",
+            voice: "準備環島或跳島追霞，先把這個台灣預報站存進手機！",
+            onscreen: "🇹🇼 台灣環島、跳島追光必備",
             type: "cta_gps"
           }
         ]
@@ -806,7 +806,7 @@
         updateTeleprompter(activeScene, sceneIdx + 1, scenes.length);
         if (isPlaying) {
           speakSceneVoice(activeScene.voice);
-          if (activeScene.type === 'gps_gauge' || activeScene.type === 'world_map') playSFX('gps_ping');
+          if (activeScene.type === 'gps_gauge' || activeScene.type === 'taiwan_map') playSFX('gps_ping');
         }
       }
 
@@ -831,8 +831,8 @@
         case 'taiwan_spots':
           renderTaiwanSpotsScene(sceneProgress);
           break;
-        case 'world_map':
-          renderWorldMapScene(sceneProgress);
+        case 'taiwan_map':
+          renderTaiwanMapScene(sceneProgress);
           break;
         case 'pwa_demo':
           renderPWADemoScene(sceneProgress);
@@ -1003,20 +1003,20 @@
       ctx.fillText('站在任何山頭都能精準避開遮擋', canvas.width / 2, 240);
     }
 
-    function renderWorldMapScene(progress) {
+    function renderTaiwanMapScene(progress) {
       ctx.fillStyle = '#0b0f19';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       ctx.textAlign = 'center';
       ctx.fillStyle = '#38bdf8';
       ctx.font = '900 48px "Noto Sans TC"';
-      ctx.fillText('🌍 全球任意地圖點選', canvas.width / 2, 200);
+      ctx.fillText('🇹🇼 台灣地圖自由選點', canvas.width / 2, 200);
 
       ctx.fillStyle = '#ffffff';
       ctx.font = '700 28px "Noto Sans TC"';
-      ctx.fillText('日本富士山 · 巴黎 · 紐約自由點選', canvas.width / 2, 255);
+      ctx.fillText('台灣本島 · 澎湖 · 金門 · 馬祖 · 蘭嶼', canvas.width / 2, 255);
 
-      // 地球 / 全球節點
+      // 台灣各區與離島節點
       ctx.save();
       ctx.fillStyle = 'rgba(15, 23, 42, 0.9)';
       ctx.strokeStyle = '#38bdf8';
@@ -1024,9 +1024,9 @@
       roundRect(ctx, 80, 320, canvas.width - 160, 500, 24);
       ctx.fill(); ctx.stroke();
 
-      drawGPSPin(canvas.width / 2, 450, '📍 日本 富士山河口湖', '#ff3366');
-      drawGPSPin(canvas.width / 2, 600, '📍 美國 紐約曼哈頓', '#ffb703');
-      drawGPSPin(canvas.width / 2, 750, '📍 法國 巴黎艾菲爾鐵塔', '#38bdf8');
+      drawGPSPin(canvas.width / 2, 450, '📍 新北 淡水漁人碼頭', '#ff3366');
+      drawGPSPin(canvas.width / 2, 600, '📍 花蓮 七星潭月牙灣', '#ffb703');
+      drawGPSPin(canvas.width / 2, 750, '📍 澎湖 奎壁山摩西分海', '#38bdf8');
       ctx.restore();
     }
 
