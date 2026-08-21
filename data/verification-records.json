@@ -1,5 +1,36 @@
 [
   {
+    "id": "rec-2026-08-21-sunset",
+    "date": "2026-08-21",
+    "session": "sunset",
+    "sessionLabel": "今日日落",
+    "capturedAt": "2026-08-21T11:03:22.433Z",
+    "sourceStream": "嘉義阿里山國家風景區 (4K 官方即時影像)",
+    "youtubeLiveUrl": "https://www.youtube.com/results?search_query=%E9%98%BF%E9%87%8C%E5%B1%B1%204K%20%E5%8D%B3%E6%99%82%E5%BD%B1%E5%83%8F%20live",
+    "snapshotUrl": "data/snapshots/2026-08-21-sunset.jpg",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 52,
+      "midCloud": 100,
+      "lowCloud": 100
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 39,
+      "groundTruthBadge": "平淡暮光",
+      "groundTruthLevel": "FAINT",
+      "errorAbsolute": 34,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 78.7,
+      "skyCoveragePct": 3.9,
+      "verifiedAt": "2026-08-21T11:55:17.118Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+    }
+  },
+  {
     "id": "rec-2026-08-20-sunset",
     "date": "2026-08-20",
     "session": "sunset",
