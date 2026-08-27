@@ -6,6 +6,7 @@ on:
     - cron: '45 10 * * *'
     # 每日日出時段 (台灣時間 05:30 = UTC 21:30)
     - cron: '30 21 * * *'
+  # 支援手動在 GitHub Actions 頁面一鍵觸發測試
   workflow_dispatch:
     inputs:
       session:
@@ -23,6 +24,8 @@ permissions:
 jobs:
   capture-and-record:
     runs-on: ubuntu-latest
+    env:
+      TZ: Asia/Taipei
 
     steps:
       - name: 📥 檢出程式碼庫 (Checkout)
@@ -33,21 +36,33 @@ jobs:
         with:
           node-version: '20'
 
+      - name: 🧪 執行擷取與預測單元測試
+        run: node tests/run-all-tests.js
+
+      - name: 🌅 解析本次天文驗證時段
+        id: session
+        env:
+          MANUAL_SESSION: ${{ inputs.session }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: |
+          SESSION="$(node -e "const { resolveSessionType } = require('./scripts/live-capture-core.js'); process.stdout.write(resolveSessionType(process.env.MANUAL_SESSION, process.env.EVENT_SCHEDULE));")"
+          echo "value=$SESSION" >> "$GITHUB_OUTPUT"
+          echo "Resolved capture session: $SESSION"
+
       - name: 🛠️ 安裝 ffmpeg, yt-dlp 與 Python 影像光學分析套件
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg python3-pip
           pip3 install --break-system-packages yt-dlp pillow numpy
 
-      - name: 📸 執行全台出景窗口即時影格擷取與預測記錄 (Phase 1)
-        run: |
-          SESSION="${{ github.event.inputs.session || 'sunset' }}"
-          node scripts/capture-validation.js "$SESSION"
+      - name: 📸 執行出景窗口即時影格擷取與預測記錄 (Phase 1)
+        run: node scripts/capture-validation.js "${{ steps.session.outputs.value }}"
+
+      - name: 🎬 執行 50 分鐘 11 連續縮時影格擷取 (前後 25 分鐘 / 每 5 分鐘 1 次)
+        run: python3 scripts/capture_timelapse_series.py "${{ steps.session.outputs.value }}"
 
       - name: 🔬 執行天空色彩光學直方圖分析與模型誤差檢驗 (Phase 2)
-        run: |
-          SESSION="${{ github.event.inputs.session || 'sunset' }}"
-          node scripts/score-ground-truth.js "$SESSION"
+        run: node scripts/score-ground-truth.js "${{ steps.session.outputs.value }}"
 
       - name: 🚀 提交驗證影像與數據至倉庫 (Commit & Push)
         run: |
