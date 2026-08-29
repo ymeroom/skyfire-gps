@@ -1,13 +1,13 @@
 /**
- * test-spots-data.js - 驗證全台 20 大攝影聖地資料完整度與經緯度邊界
+ * test-spots-data.js - 驗證全台 21 大攝影聖地資料完整度與經緯度邊界
  */
 
 const assert = require('assert');
 const TAIWAN_SPOTS = require('../js/spots-taiwan.js');
 
-console.log('--- 🧪 測試 4: 全台 20 大攝影聖地資料庫測試 ---');
+console.log('--- 🧪 測試 4: 全台 21 大攝影聖地資料庫測試 ---');
 
-assert.strictEqual(TAIWAN_SPOTS.length, 20, '應包含 20 大全台經典攝影熱點');
+assert.strictEqual(TAIWAN_SPOTS.length, 21, '應包含 21 大全台經典攝影熱點');
 
 const requiredFields = ['id', 'name', 'region', 'category', 'lat', 'lng', 'elevation', 'bestAzimuth', 'difficulty', 'recommendedFocal', 'description', 'traffic', 'tags'];
 const validRegions = ['north', 'central', 'south', 'east', 'island'];
@@ -29,6 +29,6 @@ TAIWAN_SPOTS.forEach(spot => {
   assert(Array.isArray(spot.tags) && spot.tags.length > 0, `景點 [${spot.name}] 標籤應為非空陣列`);
 });
 
-console.log('✅ 20 大攝影聖地經緯度座標、地區分類與參數完整性全數檢驗合格');
+console.log('✅ 21 大攝影聖地經緯度座標、地區分類與參數完整性全數檢驗合格');
 
 console.log('🎉 攝影聖地資料庫測試全數 PASS!\n');
