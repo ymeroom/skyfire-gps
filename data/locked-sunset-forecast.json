@@ -1,0 +1,55 @@
+{
+  "date": "2026-09-01",
+  "session": "sunset",
+  "lockedAt": "2026-08-31T16:14:33.784Z",
+  "skyfire": {
+    "score": 24,
+    "rating": {
+      "level": "OVERCAST",
+      "badge": "陰沉沉寂",
+      "icon": "☁️",
+      "color": "#5A6275",
+      "secondaryColor": "#394150",
+      "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+      "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
+    },
+    "metrics": {
+      "cloudQualityScore": 26,
+      "lowCloudPenalty": 0,
+      "horizonScore": 11,
+      "visibilityScore": 8,
+      "horizonClearance": 35,
+      "visKm": 10.3
+    },
+    "diagnostics": [
+      {
+        "label": "高空卷層雲 (6,000m+)",
+        "status": "fair",
+        "desc": "高雲量偏高 (96%)，漫射面積大但光線穿透度可能稍微受限。"
+      },
+      {
+        "label": "中空雲層 (2,000-6,000m)",
+        "status": "fair",
+        "desc": "中雲量厚實 (87%)，層次豐富但需留意下方陰影。"
+      },
+      {
+        "label": "遠方西方地平線透光窗",
+        "status": "fair",
+        "desc": "低雲量約 6%，地平線具有部分透光縫隙，呈現局部霞光。"
+      },
+      {
+        "label": "大氣能見度與通透度",
+        "status": "fair",
+        "desc": "能見度正常（10.34 公里），色彩呈現良好。"
+      }
+    ],
+    "photoTips": {
+      "bestTime": "日落後 20-35 分鐘之「藍調時刻 (Blue Hour)」",
+      "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
+      "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
+      "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
+      "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
+      "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
+    }
+  }
+}
