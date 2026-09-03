@@ -1,55 +1,55 @@
 {
-  "date": "2026-09-02",
+  "date": "2026-09-03",
   "session": "sunset",
-  "lockedAt": "2026-09-02T12:50:41.061Z",
+  "lockedAt": "2026-09-03T12:54:00.187Z",
   "skyfire": {
-    "score": 80,
+    "score": 16,
     "rating": {
-      "level": "GREAT",
-      "badge": "壯麗火燒雲",
-      "icon": "🔥",
-      "color": "#FF6B00",
-      "secondaryColor": "#FFB800",
-      "summary": "雲層立體・霞光萬道！高中雲層層次豐富，強烈建議攜帶相機出景。",
-      "bgGradient": "linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(255,184,0,0.2) 100%)"
+      "level": "OVERCAST",
+      "badge": "陰沉沉寂",
+      "icon": "☁️",
+      "color": "#5A6275",
+      "secondaryColor": "#394150",
+      "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+      "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 40,
-      "lowCloudPenalty": 0,
-      "horizonScore": 30,
-      "visibilityScore": 13,
-      "horizonClearance": 100,
-      "visKm": 20.2
+      "cloudQualityScore": 20,
+      "lowCloudPenalty": 7,
+      "horizonScore": 19,
+      "visibilityScore": 5,
+      "horizonClearance": 63,
+      "visKm": 7.2
     },
     "diagnostics": [
       {
         "label": "高空卷層雲 (6,000m+)",
         "status": "fair",
-        "desc": "高雲量偏高 (78%)，漫射面積大但光線穿透度可能稍微受限。"
+        "desc": "高雲量偏高 (100%)，漫射面積大但光線穿透度可能稍微受限。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
         "status": "fair",
-        "desc": "中雲量厚實 (82%)，層次豐富但需留意下方陰影。"
+        "desc": "中雲量厚實 (100%)，層次豐富但需留意下方陰影。"
       },
       {
         "label": "遠方西方地平線透光窗",
-        "status": "optimal",
-        "desc": "低雲遮蔽極低 (14%)，透光窗達 100%，陽光無阻直射雲底！"
+        "status": "fair",
+        "desc": "低雲量約 38%，地平線具有部分透光縫隙，呈現局部霞光。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "optimal",
-        "desc": "能見度優異（20.22 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+        "status": "bad",
+        "desc": "能見度受限（7.24 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
-      "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
-      "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
-      "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
-      "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
-      "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
-      "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+      "bestTime": "日落後 20-35 分鐘之「藍調時刻 (Blue Hour)」",
+      "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
+      "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
+      "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
+      "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
+      "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
     }
   }
 }
