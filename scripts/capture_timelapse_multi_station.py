@@ -4,18 +4,19 @@ capture_timelapse_multi_station.py
 
 日出/日落前後 40 分鐘、每 10 分鐘一張的多機位縮時光學評分 (13 站版)。
 
-  日出 (各站以自己座標算出的日出時刻)：望高寮、金龍山、阿里山生力農場、
-      二寮觀日亭、七星潭月牙灣、三仙台八拱跨海步橋、華源曙光觀景台、
-      阿里山小笠原山觀景台 (晨昏雙絕)              → 8 站 × 9 張 = 72 張
-  日落 (各站以自己座標算出的日落時刻)：高美濕地、阿里山二延平步道、
-      白河火山碧雲寺、桃園大古山、永安漁港、
-      阿里山小笠原山觀景台 (晨昏雙絕)              → 6 站 × 9 張 = 54 張
+  日出：望高寮、金龍山、阿里山生力農場、二寮觀日亭、七星潭月牙灣、
+      三仙台八拱跨海步橋、華源曙光觀景台、阿里山小笠原山觀景台
+      (晨昏雙絕)                                    → 8 站 × 9 張 = 72 張
+  日落：高美濕地、阿里山二延平步道、白河火山碧雲寺、桃園大古山、
+      永安漁港、阿里山小笠原山觀景台 (晨昏雙絕)      → 6 站 × 9 張 = 54 張
 
 時間點: T-40, T-30, T-20, T-10, T, T+10, T+20, T+30, T+40 (共 9 個)。
 
-跟 taipei-skyfire 的差異：這 13 站分散全台，經緯度橫跨超過 3 個緯度，
-日出/日落時刻可差到 10-20 分鐘，不能像台北盆地那樣共用同一個錨點 T ——
-每一站都用自己的座標各自算一次錨點時刻與暮光窗口。
+全台 13 站共用「同一組」錨點時刻 T 與暗夜閘門窗口 (見下方 REFERENCE_LAT/
+REFERENCE_LNG)。日出/日落時刻主要由季節決定，站點間的地理差距 (緯度、
+海拔) 影響很小 —— 例如 2026-09-05 平地日出 05:36/日落 18:09 (中央氣象署)，
+阿里山日出 05:41/日落 18:13 (山區觀日網站)，只差 4-5 分鐘，遠小於本工具
+10 分鐘一格的取樣間距，故不需要逐站個別計算天文時刻。
 
 作法是「事後 DVR 回溯」而非即時等待 —— 在事件發生 40 分鐘後（或任何時間，只要
 在直播 DVR 緩衝範圍內）執行一次，靠 yt-dlp 抓到的 m3u8 用 /sq/<n>/ 序號往回抓
@@ -94,11 +95,20 @@ SUNSET_STATIONS = [
 ]
 
 
-def get_anchor_time_utc(session, date_str, lat, lng):
-    """透過 js/solar-calc.js (SolarCalc, 單一事實來源) 取得該站座標當日日出/日落時刻。
+# 全台日出/日落時刻主要由「季節」決定，站點間的地理差距 (緯度/海拔) 影響
+# 很小 —— 例如 2026-09-05 平地日出 05:36、日落 18:09 (中央氣象署)，阿里山
+# 日出 05:41、日落 18:13 (山區觀日網站)，只差 4-5 分鐘。使用者確認「台高
+# 差距不大」，故全部 13 站統一用同一組參考座標算出的錨點時刻，不再逐站
+# 個別計算 (與 analyze_sky_ground_truth.py 的暗夜閘門共用同一組時刻)。
+REFERENCE_LAT = 23.9737  # 台灣本島地理中心 (南投縣埔里鎮) 附近，作為全台代表座標
+REFERENCE_LNG = 120.9820
 
-    刻意不在 Python 重寫天文公式，避免跟網站本身的計算結果分歧。以該站當地
-    時區中午為錨點日期基準 —— 全台皆為 UTC+8，用中午避免 UTC 換日抓錯一天。
+
+def get_anchor_time_utc(session, date_str):
+    """透過 js/solar-calc.js (SolarCalc, 單一事實來源) 取得全台統一代表座標的當日日出/日落時刻。
+
+    刻意不在 Python 重寫天文公式，避免跟網站本身的計算結果分歧。以中午為
+    錨點日期基準 —— 全台皆為 UTC+8，用中午避免 UTC 換日抓錯一天。
     """
     node_script = (
         "const SolarCalc = require('./js/solar-calc.js');"
@@ -107,7 +117,7 @@ def get_anchor_time_utc(session, date_str, lat, lng):
         "console.log(JSON.stringify({sunrise: t.sunrise, sunset: t.sunset}));"
     )
     r = subprocess.run(
-        ["node", "-e", node_script, date_str, str(lat), str(lng)],
+        ["node", "-e", node_script, date_str, str(REFERENCE_LAT), str(REFERENCE_LNG)],
         cwd=REPO_ROOT, capture_output=True, text=True, timeout=30
     )
     if r.returncode != 0:
@@ -177,16 +187,8 @@ def offset_label(offset_min):
     return f"t{'+' if offset_min >= 0 else ''}{offset_min:02d}"
 
 
-def run_station(station, session, date_str, now_utc, out_dir):
+def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
     print(f"  📡 {station['name']} ({station['id']})")
-
-    anchor_utc = get_anchor_time_utc(session, date_str, station["lat"], station["lng"])
-    anchor_local = anchor_utc.astimezone(datetime.timezone(datetime.timedelta(hours=8)))
-    twilight_window = get_twilight_window(date_str, session, station["lat"], station["lng"])
-    window_start_local = twilight_window[0].astimezone(datetime.timezone(datetime.timedelta(hours=8)))
-    window_end_local = twilight_window[1].astimezone(datetime.timezone(datetime.timedelta(hours=8)))
-    print(f"    錨點 T = {anchor_local.strftime('%H:%M:%S')} (台北時間) · "
-          f"暗夜閘門窗口 = {window_start_local.strftime('%H:%M:%S')} ~ {window_end_local.strftime('%H:%M:%S')}")
 
     rain_series = fetch_hourly_weather_series(station["lat"], station["lng"])
 
@@ -201,7 +203,7 @@ def run_station(station, session, date_str, now_utc, out_dir):
                 "ok": False,
                 "error": f"manifest 取得失敗: {e}"
             })
-        return frames, anchor_utc, twilight_window
+        return frames
 
     for offset_min in OFFSETS_MIN:
         target_dt = anchor_utc + datetime.timedelta(minutes=offset_min)
@@ -242,7 +244,7 @@ def run_station(station, session, date_str, now_utc, out_dir):
             print(f"    ❌ {label}: {e}")
             frames.append({"offsetMin": offset_min, "ok": False, "error": str(e)})
 
-    return frames, anchor_utc, twilight_window
+    return frames
 
 
 def build_html_report(report, html_path):
@@ -331,7 +333,6 @@ def build_html_report(report, html_path):
           <div class="station-head">
             <h2>{st['name']}</h2>
             <div class="station-stats">
-              <span>錨點 <b>{st['anchorLocalLabel']}</b></span>
               <span>峰值 <b style="color:{score_color(peak)}">{peak if peak is not None else '—'}</b></span>
               <span>平均 <b>{avg if avg is not None else '—'}</b></span>
             </div>
@@ -388,7 +389,7 @@ main {{ max-width:1040px; margin:0 auto; padding:20px 28px 80px; }}
 <body>
 <header>
   <h1>{report['date']} {session_label}縮時光學評分 · 全台 {len(report['stations'])} 站</h1>
-  <p>各站 T-40 ~ T+40，每 10 分鐘一張 · 每站以自己座標各自計算錨點與暮光窗口 (全台跨緯度日出/日落時刻不同) · 產生於 {generated_at}</p>
+  <p>錨點 T = {report['anchorLocalLabel']} (台北時間，全台統一) · T-40 ~ T+40，每 10 分鐘一張 · 產生於 {generated_at}</p>
   <p>🌙 暗夜閘門：暮光窗外的暖色像素強制視為人工光源，分數上限 12 分 · 🌧️ 雨天閘門：下雨時分數上限 30 分</p>
 </header>
 <main>
@@ -410,7 +411,17 @@ def run(session, date_str=None):
     taipei_tz = datetime.timezone(datetime.timedelta(hours=8))
     now_utc = datetime.datetime.now(datetime.timezone.utc)
 
+    # 全台 13 站統一用同一組錨點時刻與暗夜閘門窗口 (見 REFERENCE_LAT/LNG
+    # 註解)，不再逐站個別計算。
+    anchor_utc = get_anchor_time_utc(session, date_str)
+    anchor_local = anchor_utc.astimezone(taipei_tz)
+    twilight_window = get_twilight_window(date_str, session, REFERENCE_LAT, REFERENCE_LNG)
+    window_start_local = twilight_window[0].astimezone(taipei_tz)
+    window_end_local = twilight_window[1].astimezone(taipei_tz)
+
     print(f"=== 🎞️  {date_str} {session_label} 縮時擷取 (全台 {len(stations)} 站 × 9 張) ===")
+    print(f"    錨點 T = {anchor_local.strftime('%H:%M:%S')} (台北時間，全台統一) · "
+          f"暗夜閘門窗口 = {window_start_local.strftime('%H:%M:%S')} ~ {window_end_local.strftime('%H:%M:%S')}")
 
     out_dir = os.path.join(REPO_ROOT, "data", "timelapse", f"{date_str}-{session}")
     os.makedirs(out_dir, exist_ok=True)
@@ -418,20 +429,19 @@ def run(session, date_str=None):
     report = {
         "date": date_str,
         "session": session,
+        "anchorUtc": anchor_utc.isoformat(),
+        "anchorLocalLabel": anchor_local.strftime("%H:%M:%S"),
         "generatedAt": datetime.datetime.now().isoformat(),
         "stations": []
     }
 
     for station in stations:
-        frames, anchor_utc, twilight_window = run_station(station, session, date_str, now_utc, out_dir)
-        anchor_local = anchor_utc.astimezone(taipei_tz)
+        frames = run_station(station, anchor_utc, twilight_window, now_utc, out_dir)
         report["stations"].append({
             "id": station["id"],
             "name": station["name"],
             "lat": station["lat"],
             "lng": station["lng"],
-            "anchorUtc": anchor_utc.isoformat(),
-            "anchorLocalLabel": anchor_local.strftime("%H:%M:%S"),
             "frames": frames
         })
 
