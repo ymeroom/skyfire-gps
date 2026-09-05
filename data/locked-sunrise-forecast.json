@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-05",
+  "date": "2026-09-06",
   "session": "sunrise",
-  "lockedAt": "2026-09-04T18:34:07.901Z",
+  "lockedAt": "2026-09-05T17:42:33.070Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 33,
-      "lowCloudPenalty": 52,
+      "cloudQualityScore": 6,
+      "lowCloudPenalty": 53,
       "horizonScore": 0,
-      "visibilityScore": 1,
+      "visibilityScore": 2,
       "horizonClearance": 0,
-      "visKm": 1.2
+      "visKm": 3
     },
     "diagnostics": [
       {
-        "label": "高空卷雲天幕 (6,000m+)",
-        "status": "optimal",
-        "desc": "高雲量達 68%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+        "label": "高空卷雲 (6,000m+)",
+        "status": "low",
+        "desc": "高雲量僅 2%，上方缺少大面積紅色漫射反光板。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
-        "status": "low",
-        "desc": "中雲量稀疏 (24%)，雲彩層次感較為單純。"
+        "status": "fair",
+        "desc": "中雲量厚實 (100%)，層次豐富但需留意下方陰影。"
       },
       {
         "label": "遠方東方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 98%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 100%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "bad",
-        "desc": "能見度受限（1.18 公里），霧霾或水氣可能使天色偏灰白。"
+        "desc": "能見度受限（2.96 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
@@ -51,5 +51,18 @@
       "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
       "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
     }
+  },
+  "weather": {
+    "time": "2026-09-05T22:00:00.000Z",
+    "timeStr": "2026-09-06T06:00",
+    "cloudHigh": 2,
+    "cloudMid": 100,
+    "cloudLow": 100,
+    "cloudTotal": 100,
+    "visibility": 2960,
+    "humidity": 96,
+    "precipProb": 99,
+    "temp": 24.6,
+    "weatherCode": 55
   }
 }
