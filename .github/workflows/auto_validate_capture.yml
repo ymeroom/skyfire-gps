@@ -27,13 +27,25 @@ permissions:
 
 jobs:
   capture-and-record:
-    runs-on: ubuntu-latest
+    # CAPTURE_RUNNER 未設定時退回 GitHub 託管 runner —— 但託管 runner 是資料
+    # 中心 IP，Tier A (yt-dlp DVR 擷取) 必定被 YouTube bot-check 擋下，只能
+    # 降級 Tier B 海報影格。要拿到 Tier A 精確影格，須將 repo variable
+    # CAPTURE_RUNNER 設為 self-hosted (住宅 IP 的自架 runner)。
+    runs-on: ${{ vars.CAPTURE_RUNNER || 'ubuntu-latest' }}
+    defaults:
+      run:
+        shell: bash
     env:
       TZ: Asia/Taipei
 
     steps:
       - name: 📥 檢出程式碼庫 (Checkout)
         uses: actions/checkout@v4
+
+      - name: 🔧 補上 Git Bash 路徑 (自架 Windows runner)
+        if: runner.os == 'Windows'
+        shell: cmd
+        run: echo C:\Program Files\Git\bin>>"%GITHUB_PATH%"
 
       - name: ⚙️ 設定 Node.js 環境
         uses: actions/setup-node@v4
@@ -53,25 +65,44 @@ jobs:
           echo "value=$SESSION" >> "$GITHUB_OUTPUT"
           echo "Resolved capture session: $SESSION"
 
-      - name: 🛠️ 安裝 ffmpeg, yt-dlp 與 Python 影像光學分析套件
+      - name: 🛠️ 安裝 ffmpeg, yt-dlp 與 Python 影像光學分析套件 (GitHub 託管 Linux runner)
+        if: runner.os == 'Linux'
         run: |
           sudo apt-get update
           sudo apt-get install -y ffmpeg python3-pip
           pip3 install --break-system-packages yt-dlp pillow numpy
 
+      - name: 🐍 解析 Python 執行檔
+        run: |
+          if command -v python3 >/dev/null 2>&1; then PY=python3; else PY=python; fi
+          echo "PYTHON_BIN=$PY" >> "$GITHUB_ENV"
+          echo "使用 $PY: $($PY --version 2>&1)"
+
       - name: 📸 執行出景窗口即時影格擷取與預測記錄 (Phase 1)
+        continue-on-error: true
         run: node scripts/capture-validation.js "${{ steps.session.outputs.value }}"
 
       - name: 🎬 執行 50 分鐘 11 連續縮時影格擷取 (前後 25 分鐘 / 每 5 分鐘 1 次)
-        run: python3 scripts/capture_timelapse_series.py "${{ steps.session.outputs.value }}"
+        if: always()
+        continue-on-error: true
+        run: |
+          "$PYTHON_BIN" scripts/capture_timelapse_series.py "${{ steps.session.outputs.value }}"
 
+      # Phase 1 若失敗，後面的日報與 commit 步驟仍要照跑 (加 if: always())，
+      # 不能讓單一擷取失敗連坐拖垮整個排程，見 taipei-skyfire 2026-08-18
+      # 連續 33 次全紅的前車之鑑。
       - name: 🔬 執行天空色彩光學直方圖分析與模型誤差檢驗 (Phase 2)
+        if: always()
+        continue-on-error: true
         run: node scripts/score-ground-truth.js "${{ steps.session.outputs.value }}"
 
       - name: 📰 產生每日實況驗證日報與歷史歸檔 (Daily Ground Truth Briefing)
-        run: python3 scripts/generate_daily_briefing.py "${{ steps.session.outputs.value }}"
+        if: always()
+        run: |
+          "$PYTHON_BIN" scripts/generate_daily_briefing.py "${{ steps.session.outputs.value }}"
 
       - name: 🚀 提交驗證數據至倉庫 (Commit & Push)
+        if: always()
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action [SkyFire Bot]"
