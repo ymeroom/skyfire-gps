@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-09-05-sunset.jpg",
-      "sha256": "14bf1abc7aa9033a625af3fff162b6777dd33c8569e497d9932be6ffa567532f",
-      "capturedAt": "2026-09-05T13:09:13.904Z",
-      "offsetMinutes": 178,
+      "sha256": "613573e8e114811260a9ea21a4311fd9327eb25462583d58b5bdee754626c8ee",
+      "capturedAt": "2026-09-05T13:32:37.318Z",
+      "offsetMinutes": 202,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "posterQuality": null,
@@ -33,14 +33,14 @@
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 20,
+      "groundTruthScore": 21,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 1,
+      "errorAbsolute": 0,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
-      "chromaticPurity": 29,
-      "skyCoveragePct": 6.5,
+      "chromaticPurity": 30.2,
+      "skyCoveragePct": 7.1,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -54,7 +54,7 @@
         "precipitationMm": 0.2,
         "weatherCode": 51
       },
-      "verifiedAt": "2026-09-05T13:09:55.963Z",
+      "verifiedAt": "2026-09-05T13:32:52.597Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
