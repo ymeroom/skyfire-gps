@@ -1,15 +1,18 @@
 /**
- * test-spots-data.js - 驗證全台 7 大攝影聖地資料完整度與經緯度邊界
+ * test-spots-data.js - 驗證全台攝影聖地資料完整度與經緯度邊界
  */
 
 const assert = require('assert');
 const TAIWAN_SPOTS = require('../js/spots-taiwan.js');
 
-console.log('--- 🧪 測試 4: 全台 7 大攝影聖地資料庫測試 ---');
+console.log('--- 🧪 測試 4: 全台攝影聖地資料庫測試 ---');
 
-assert.strictEqual(TAIWAN_SPOTS.length, 7, '應包含 7 大全台經典攝影熱點');
+assert.strictEqual(TAIWAN_SPOTS.length, 13, '應包含使用者提供的 13 個實測直播機位');
 
-const requiredFields = ['id', 'name', 'region', 'category', 'lat', 'lng', 'elevation', 'bestAzimuth', 'difficulty', 'recommendedFocal', 'description', 'traffic', 'tags'];
+const spotIds = TAIWAN_SPOTS.map(s => s.id);
+assert.strictEqual(new Set(spotIds).size, spotIds.length, '機位 id 不得重複');
+
+const requiredFields = ['id', 'name', 'region', 'category', 'lat', 'lng', 'elevation', 'bestAzimuth', 'difficulty', 'recommendedFocal', 'description', 'traffic', 'tags', 'liveUrl'];
 const validRegions = ['north', 'central', 'south', 'east', 'island'];
 const validCategories = ['sunset', 'sunrise', 'both'];
 
@@ -27,8 +30,11 @@ TAIWAN_SPOTS.forEach(spot => {
   assert(validRegions.includes(spot.region), `景點 [${spot.name}] 地區無效: ${spot.region}`);
   assert(validCategories.includes(spot.category), `景點 [${spot.name}] 類別無效: ${spot.category}`);
   assert(Array.isArray(spot.tags) && spot.tags.length > 0, `景點 [${spot.name}] 標籤應為非空陣列`);
+
+  // 檢查直播網址格式
+  assert(/^https:\/\/www\.youtube\.com\/watch\?v=[\w-]{11}$/.test(spot.liveUrl), `景點 [${spot.name}] liveUrl 格式不正確: ${spot.liveUrl}`);
 });
 
-console.log('✅ 7 大攝影聖地經緯度座標、地區分類與參數完整性全數檢驗合格');
+console.log('✅ 13 個攝影聖地經緯度座標、地區分類、直播網址與參數完整性全數檢驗合格');
 
 console.log('🎉 攝影聖地資料庫測試全數 PASS!\n');
