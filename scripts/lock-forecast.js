@@ -7,7 +7,7 @@
 const fs = require('fs');
 const path = require('path');
 const WeatherService = require('../js/weather-service.js');
-const { getTaipeiDateString } = require('./live-capture-core.js');
+const { OFFICIAL_STREAMS, getTaipeiDateString } = require('./live-capture-core.js');
 
 async function lockForecast() {
   const schedule = process.env.EVENT_SCHEDULE || '';
@@ -38,7 +38,17 @@ async function lockForecast() {
 
   console.log(`[Lock Forecast] 準備鎖定 ${dateStr} 的 ${sessionType} 預測`);
 
-  const forecastData = await WeatherService.fetchForecast(true);
+  // 注意：WeatherService.fetchForecast 的簽名是 {lat,lng,locationName,forceRefresh}
+  // 物件，不是單一 boolean —— 先前這裡直接傳 `true`，解構後會全部落回
+  // DEFAULT_COORDS (台北市中心) 且 forceRefresh 永遠是 false (never true)，
+  // 等於鎖定作業一直在讀 15 分鐘快取、也從未真正對到本次驗證機位的座標。
+  const source = OFFICIAL_STREAMS[sessionType];
+  const forecastData = await WeatherService.fetchForecast({
+    lat: source.lat,
+    lng: source.lng,
+    locationName: source.name,
+    forceRefresh: true
+  });
   const matchingDay = forecastData.daysForecast.find(day =>
     getTaipeiDateString(new Date(day.date)) === dateStr
   ) || forecastData.daysForecast[0];

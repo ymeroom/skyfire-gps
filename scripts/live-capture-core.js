@@ -9,14 +9,18 @@ const OFFICIAL_STREAMS = Object.freeze({
     name: '象山看台北 101（4K 官方即時影像）',
     url: 'https://www.youtube.com/watch?v=z_fY1pj1VBw',
     videoId: 'z_fY1pj1VBw',
-    uploaderId: '@taipeitravelofficial'
+    uploaderId: '@taipeitravelofficial',
+    lat: 25.0270,
+    lng: 121.5702
   }),
   sunset: Object.freeze({
     id: 'dadaocheng',
     name: '大稻埕碼頭（4K 官方即時影像）',
     url: 'https://www.youtube.com/watch?v=Ndo_8RuefH4',
     videoId: 'Ndo_8RuefH4',
-    uploaderId: '@taipeitravelofficial'
+    uploaderId: '@taipeitravelofficial',
+    lat: 25.0569,
+    lng: 121.5074
   })
 });
 
