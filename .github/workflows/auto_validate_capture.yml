@@ -82,11 +82,13 @@ jobs:
         continue-on-error: true
         run: node scripts/capture-validation.js "${{ steps.session.outputs.value }}"
 
-      - name: 🎬 執行 50 分鐘 11 連續縮時影格擷取 (前後 25 分鐘 / 每 5 分鐘 1 次)
-        if: always()
-        continue-on-error: true
-        run: |
-          "$PYTHON_BIN" scripts/capture_timelapse_series.py "${{ steps.session.outputs.value }}"
+      # 註：50 分鐘 11 連續縮時擷取 (scripts/capture_timelapse_series.py)
+      # 已自排程移除。它假設出景前後 25 分鐘內即時擷取，但 GitHub 排程實測
+      # 延遲數小時，永遠命中不了那個窗口 —— 手動 dispatch 驗證 (run
+      # 33968006385) 11 張全部 404 not found，且腳本內部基準時刻也是過期
+      # 硬編碼值，不是當次執行的日期。腳本保留，待改以 DVR 回溯 (像
+      # capture_timelapse_multi_station.py 那樣) 於事後補抓再接回，見
+      # taipei-skyfire 同一個修法的先例。
 
       # Phase 1 若失敗，後面的日報與 commit 步驟仍要照跑 (加 if: always())，
       # 不能讓單一擷取失敗連坐拖垮整個排程，見 taipei-skyfire 2026-08-18

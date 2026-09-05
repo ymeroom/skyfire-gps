@@ -108,8 +108,15 @@ def is_reliable_record(record):
     3. 暗夜閘門已套用的紀錄：分數是「暮光窗外強制封頂 12 分」的人工判定，
        不是天氣參數驅動的真實光學觀測，拿去訓練「雲量 → 分數」的物理模型
        只會教壞它。
-    4. 雨天閘門已套用的紀錄：同理，分數是下雨強制封頂 30 分，不是純雲量
-       決定的結果。
+    4. 下雨當下拍到的紀錄：同理，濕路面/車燈反光容易被誤判為暖色調。這裡
+       故意不用 rainGate.applied 判斷 —— apply_rain_gate() 在
+       analyze_sky_ground_truth.py 裡，「有下雨但原始分數本來就已經 ≤30」
+       時會回報 applied: false, reason: "already at or below rain cap"，
+       因為封頂沒有實際改變分數。但那仍然是一張雨天光學畫面，分數仍然是
+       雨天反光的物理結果，不是純雲量決定的——只是這次巧合地已經低於封頂線。
+       用 applied 判斷會把這類紀錄誤判為乾淨樣本放進訓練集，所以直接檢查
+       rainGate.isRaining 這個原始氣象事實，而不是「有沒有實際改動分數」
+       的衍生判斷。
 
     另外，任何紀錄若明確標記 verification.reliable === False (例如遷移
     Tier A/B 前寫入、已知評分邏輯有臭蟲的舊樣本)，無論其他欄位長得多像
@@ -130,9 +137,9 @@ def is_reliable_record(record):
     if not snapshot_url.startswith('data/snapshots/'):
         return False
 
-    if verification.get('nightGate', {}).get('applied'):
+    if verification.get('rainGate', {}).get('isRaining'):
         return False
-    if verification.get('rainGate', {}).get('applied'):
+    if verification.get('nightGate', {}).get('applied'):
         return False
 
     return True
