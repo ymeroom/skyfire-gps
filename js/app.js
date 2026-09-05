@@ -418,7 +418,7 @@ class SkyFireGPSApp {
 
     if (channelTitle) channelTitle.innerText = `${type === 'sunrise' ? '🌅 日出' : '🌇 日落'}光路進光通道分析`;
     if (channelTag && upstream) {
-      channelTag.innerText = `方位角 ${upstream.coords?.azimuth || '--'}° · 延伸 60km (${upstream.locationLabel || '上游進光點'})`;
+      channelTag.innerText = `方位角 ${upstream.coords?.azimuth || '--'}° · 60-260km 分層光路 (${upstream.locationLabel || '上游進光點'})`;
     }
     if (valLocal) {
       valLocal.innerText = `高空卷雲 ${weather.cloudHigh}% · 頭頂低雲 ${weather.cloudLow}%`;

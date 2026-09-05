@@ -10,12 +10,13 @@ try {
   require('./test-solar-calc.js');
   require('./test-skyfire-engine.js');
   require('./test-weather-service.js');
+  require('./test-ray-path-model.js');
   require('./test-spots-data.js');
   require('./test-dom-bindings.js');
   require('./test-taiwan-scope.js');
 
   console.log('====================================================');
-  console.log('🏆 恭喜！所有 6 大核心模組、DOM 與台灣範圍測試案例 100% 通過！');
+  console.log('🏆 恭喜！所有 7 大核心模組、DOM 與台灣範圍測試案例 100% 通過！');
   console.log('====================================================');
 } catch (err) {
   console.error('\n❌ 測試未通過，錯誤詳情:', err.message);
