@@ -103,6 +103,14 @@ SUNSET_STATIONS = [
 REFERENCE_LAT = 23.9737  # 台灣本島地理中心 (南投縣埔里鎮) 附近，作為全台代表座標
 REFERENCE_LNG = 120.9820
 
+# ⚠️ 這組參考座標「只」用於算錨點時刻 (get_anchor_time_utc) 與暗夜閘門的
+# 暮光窗口 (get_twilight_window) —— 這兩者由季節決定，全台各站差距僅
+# 4-5 分鐘，可以共用。降雨與否是真正因地點而異的天氣現象 (下方
+# run_station 仍用各站自己的 station["lat"]/station["lng"] 呼叫
+# fetch_hourly_weather_series 抓雨量)，兩者刻意不對稱、不要「為了一致性」
+# 把雨天判定也改成用這組參考座標，那會讓雨天閘門對每一站都套用同一份
+# (可能完全不相關地點的) 降雨資料，反而是錯的。
+
 
 def get_anchor_time_utc(session, date_str):
     """透過 js/solar-calc.js (SolarCalc, 單一事實來源) 取得全台統一代表座標的當日日出/日落時刻。
@@ -190,6 +198,8 @@ def offset_label(offset_min):
 def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
     print(f"  📡 {station['name']} ({station['id']})")
 
+    # 用本站真實座標抓雨量 —— 與 anchor_utc/twilight_window 共用 REFERENCE_LAT/LNG
+    # 刻意不同 (見該常數旁的說明)：下雨是在地天氣現象，不能全台共用一份。
     rain_series = fetch_hourly_weather_series(station["lat"], station["lng"])
 
     frames = []

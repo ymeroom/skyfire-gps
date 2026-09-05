@@ -27,7 +27,9 @@
       "chromaticPurity": 58.3,
       "skyCoveragePct": 70.4,
       "verifiedAt": "2026-08-26T11:06:32.898Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -58,7 +60,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-25T21:51:29.862Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -89,7 +93,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-24T21:52:33.021Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -120,7 +126,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-23T21:44:05.031Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -151,7 +159,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-22T21:44:29.495Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -182,7 +192,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-21T21:47:03.279Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -213,7 +225,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-20T21:52:34.952Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -244,7 +258,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-19T21:50:09.302Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -275,7 +291,9 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-18T21:45:58.440Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -306,7 +324,9 @@
       "chromaticPurity": 33.5,
       "skyCoveragePct": 4.9,
       "verifiedAt": "2026-08-18T00:03:23.052Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -335,7 +355,9 @@
       "chromaticPurity": 47.8,
       "skyCoveragePct": 40.1,
       "verifiedAt": "2026-08-17T21:48:58.013Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)"
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -364,7 +386,9 @@
       "verdictBadge": "🎯 極致精準 (偏差 -3分)",
       "chromaticPurity": 88.5,
       "skyCoveragePct": 80,
-      "engine": "CIELAB/HSV Optical Scorer V2.5"
+      "engine": "CIELAB/HSV Optical Scorer V2.5",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -393,7 +417,9 @@
       "verdictBadge": "🎯 極致精準 (偏差 +5分)",
       "chromaticPurity": 79,
       "skyCoveragePct": 58,
-      "engine": "CIELAB/HSV Optical Scorer V2.5"
+      "engine": "CIELAB/HSV Optical Scorer V2.5",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -422,7 +448,9 @@
       "verdictBadge": "🎯 極致精準 (偏差 -3分)",
       "chromaticPurity": 84.2,
       "skyCoveragePct": 68,
-      "engine": "CIELAB/HSV Optical Scorer V2.5"
+      "engine": "CIELAB/HSV Optical Scorer V2.5",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   },
   {
@@ -451,7 +479,9 @@
       "verdictBadge": "🎯 極致精準 (偏差 +4分)",
       "chromaticPurity": 92.4,
       "skyCoveragePct": 86.5,
-      "engine": "CIELAB/HSV Optical Scorer V2.5"
+      "engine": "CIELAB/HSV Optical Scorer V2.5",
+      "reliable": false,
+      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
   }
 ]

@@ -94,27 +94,42 @@ def calculate_score(params, weights):
 def is_reliable_record(record):
     """該紀錄是否為可信賴的校準訓練樣本。
 
-    校準迴圈學的是「天氣參數 → 分數」的物理關係，必須排除三種汙染源：
+    校準迴圈學的是「天氣參數 → 分數」的物理關係，必須排除四種汙染源：
     1. 沒有真實直播影格證據 (capture.kind/validated 缺失或不合法) 的舊格式
        紀錄 —— 這些是移植 Tier A/B 管線前留下的，部分甚至來自舊版
        score-ground-truth.js 用隨機噪聲假造 ground truth 的臭蟲 (已修復，
        但歷史紀錄本身已經写入，無法回頭清乾淨)。
-    2. 暗夜閘門已套用的紀錄：分數是「暮光窗外強制封頂 12 分」的人工判定，
+    2. Tier B 降級影格 (capture.fidelity === 'degraded')：那是 YouTube 縮圖
+       CDN 在「不確定時刻」重新生成的靜態海報，不保證對應 targetTime 那一刻
+       的真實天空。評分 (score-ground-truth.js) 用它算分沒問題 —— 至少是
+       真實影像，比完全沒有好；但拿去訓練「雲量 → 分數」的物理模型時，這張
+       圖對應的曝光時刻本身就不可靠，等於用一組時間對不準的樣本教模型，只
+       會引入雜訊。校準只信任 Tier A 精確影格 (fidelity === 'exact')。
+    3. 暗夜閘門已套用的紀錄：分數是「暮光窗外強制封頂 12 分」的人工判定，
        不是天氣參數驅動的真實光學觀測，拿去訓練「雲量 → 分數」的物理模型
        只會教壞它。
-    3. 雨天閘門已套用的紀錄：同理，分數是下雨強制封頂 30 分，不是純雲量
+    4. 雨天閘門已套用的紀錄：同理，分數是下雨強制封頂 30 分，不是純雲量
        決定的結果。
+
+    另外，任何紀錄若明確標記 verification.reliable === False (例如遷移
+    Tier A/B 前寫入、已知評分邏輯有臭蟲的舊樣本)，無論其他欄位長得多像
+    合法紀錄，一律排除 —— 這是比對欄位型態更直接的「人工蓋章不可信」旗標。
     """
+    verification = record.get('verification') or {}
+    if verification.get('reliable') is False:
+        return False
+
     capture = record.get('capture') or {}
     if capture.get('kind') not in ('youtube-live-frame', 'youtube-live-poster'):
         return False
     if capture.get('validated') is not True:
         return False
+    if capture.get('fidelity') != 'exact':
+        return False
     snapshot_url = record.get('snapshotUrl') or ''
     if not snapshot_url.startswith('data/snapshots/'):
         return False
 
-    verification = record.get('verification') or {}
     if verification.get('nightGate', {}).get('applied'):
         return False
     if verification.get('rainGate', {}).get('applied'):
