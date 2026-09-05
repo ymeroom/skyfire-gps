@@ -7,6 +7,18 @@ import json
 import os
 import sys
 import copy
+import datetime
+
+# 樣本數低於此門檻時，175 組候選權重的網格搜尋幾乎必然會在極少樣本上
+# 找到「看似更好」的組合 —— 那是雜訊，不是真的校準。5 場以上才有基本的
+# 統計意義。
+MIN_SAMPLES_FOR_CALIBRATION = 5
+
+# 改善幅度門檻：同時要求絕對分數與相對比例都達標，避免校準在雜訊範圍內
+# (例如 42.87 → 42.82，只降 0.05 分帳面上「有改善」，但那完全在測量誤差
+# 內，不該就此覆寫權重、寫入 history)。
+MIN_IMPROVEMENT_ABS = 0.8
+MIN_IMPROVEMENT_REL = 0.03  # 3%
 
 if sys.platform == 'win32':
     try:
@@ -79,6 +91,38 @@ def calculate_score(params, weights):
 
     return max(5, min(100, int(round(raw))))
 
+def is_reliable_record(record):
+    """該紀錄是否為可信賴的校準訓練樣本。
+
+    校準迴圈學的是「天氣參數 → 分數」的物理關係，必須排除三種汙染源：
+    1. 沒有真實直播影格證據 (capture.kind/validated 缺失或不合法) 的舊格式
+       紀錄 —— 這些是移植 Tier A/B 管線前留下的，部分甚至來自舊版
+       score-ground-truth.js 用隨機噪聲假造 ground truth 的臭蟲 (已修復，
+       但歷史紀錄本身已經写入，無法回頭清乾淨)。
+    2. 暗夜閘門已套用的紀錄：分數是「暮光窗外強制封頂 12 分」的人工判定，
+       不是天氣參數驅動的真實光學觀測，拿去訓練「雲量 → 分數」的物理模型
+       只會教壞它。
+    3. 雨天閘門已套用的紀錄：同理，分數是下雨強制封頂 30 分，不是純雲量
+       決定的結果。
+    """
+    capture = record.get('capture') or {}
+    if capture.get('kind') not in ('youtube-live-frame', 'youtube-live-poster'):
+        return False
+    if capture.get('validated') is not True:
+        return False
+    snapshot_url = record.get('snapshotUrl') or ''
+    if not snapshot_url.startswith('data/snapshots/'):
+        return False
+
+    verification = record.get('verification') or {}
+    if verification.get('nightGate', {}).get('applied'):
+        return False
+    if verification.get('rainGate', {}).get('applied'):
+        return False
+
+    return True
+
+
 def evaluate_mae(dataset, weights):
     errors = []
     for item in dataset:
@@ -98,22 +142,6 @@ def run_calibration(records_path, params_path):
     print("🤖 啟動 SkyFire GPS Phase 4: 物理模型參數自適應進化閉環")
     print("====================================================\n")
 
-    if not os.path.exists(records_path):
-        print(f"⚠️ 找不到歷史觀測紀錄: {records_path}")
-        return
-
-    with open(records_path, 'r', encoding='utf-8') as f:
-        records = json.load(f)
-
-    verified_records = [r for r in records if r.get('verification', {}).get('groundTruthScore') is not None]
-    n_samples = len(verified_records)
-
-    print(f"📊 載入已驗證出景場次樣本數: {n_samples} 場")
-
-    if n_samples < 2:
-        print("ℹ️ 樣本數不足 2 場，維持當前基礎權重。")
-        return
-
     if os.path.exists(params_path):
         with open(params_path, 'r', encoding='utf-8') as f:
             params_data = json.load(f)
@@ -128,6 +156,48 @@ def run_calibration(records_path, params_path):
             },
             "history": []
         }
+
+    def finish(status, reason, total_records=0, reliable_records=0):
+        """每次執行都留下審查紀錄，即使沒有更新權重 —— 否則從參數檔完全看不出
+        校準器上次是「真的跑過但樣本不足跳過」還是「壓根沒在跑」。
+        舊版只在真的更新權重時才寫檔，lastCalibratedAt 因此長期停滯在
+        很久以前的日期，即使背後其實持續在執行 (跳過) 校準。"""
+        params_data['lastReviewedAt'] = datetime.datetime.now().astimezone().isoformat()
+        params_data['lastReviewOutcome'] = {
+            "status": status,
+            "reason": reason,
+            "totalRecords": total_records,
+            "reliableRecords": reliable_records
+        }
+        with open(params_path, 'w', encoding='utf-8') as f:
+            json.dump(params_data, f, ensure_ascii=False, indent=2)
+        print(f"📝 審查結果已記錄 ({status}): {reason}")
+        print("====================================================\n")
+
+    if not os.path.exists(records_path):
+        print(f"⚠️ 找不到歷史觀測紀錄: {records_path}")
+        finish("skipped_no_records", "verification-records.json 不存在")
+        return
+
+    with open(records_path, 'r', encoding='utf-8') as f:
+        records = json.load(f)
+
+    all_verified = [r for r in records if r.get('verification', {}).get('groundTruthScore') is not None]
+    verified_records = [r for r in all_verified if is_reliable_record(r)]
+    n_total = len(all_verified)
+    n_samples = len(verified_records)
+
+    print(f"📊 已驗證出景場次共 {n_total} 場，扣除缺乏真實影格證據／暗夜或雨天閘門"
+          f"強制封頂的不可靠樣本後，可用於校準的樣本數: {n_samples} 場")
+
+    if n_samples < MIN_SAMPLES_FOR_CALIBRATION:
+        print(f"ℹ️ 可靠樣本數不足 {MIN_SAMPLES_FOR_CALIBRATION} 場，維持當前基礎權重，不進行校準。")
+        finish(
+            "skipped_insufficient_samples",
+            f"可靠樣本 {n_samples} 場 < 門檻 {MIN_SAMPLES_FOR_CALIBRATION} 場",
+            n_total, n_samples
+        )
+        return
 
     current_weights = params_data['weights']
     baseline_mae = evaluate_mae(verified_records, current_weights)
@@ -151,13 +221,23 @@ def run_calibration(records_path, params_path):
                     best_weights = cand
                     improved = True
 
-    print(f"✨ 最佳化後模型 MAE: {best_mae:.2f} 分 (降低 {(baseline_mae - best_mae):.2f} 分)")
+    drop_abs = baseline_mae - best_mae
+    drop_rel = (drop_abs / baseline_mae) if baseline_mae > 0 else 0.0
+    print(f"✨ 網格搜尋最佳候選 MAE: {best_mae:.2f} 分 (降低 {drop_abs:.2f} 分, {drop_rel*100:.1f}%)")
 
-    if improved:
-        improvement_pct = ((baseline_mae - best_mae) / baseline_mae) * 100
+    # 樣本數小時，網格搜尋幾乎必然能找到某組合「看似更好」—— 那是雜訊，
+    # 不是真的校準。要求絕對與相對改善幅度都達標，才真正覆寫權重。
+    meets_threshold = improved and drop_abs >= MIN_IMPROVEMENT_ABS and drop_rel >= MIN_IMPROVEMENT_REL
+
+    if meets_threshold:
+        improvement_pct = drop_rel * 100
         print(f"🚀 成功進化！預測精度提升: {improvement_pct:.1f}%")
         params_data['calibrationCount'] = params_data.get('calibrationCount', 0) + 1
         params_data['sampleSize'] = n_samples
+        # 舊版這個欄位從未被更新過 (寫死在初始化時的值)，即使 history 已經
+        # 累積多筆真實校準紀錄；lastReviewedAt 才是每次執行都會更新的欄位，
+        # lastCalibratedAt 專指「上一次權重真的被改動」的時間點。
+        params_data['lastCalibratedAt'] = datetime.datetime.now().astimezone().isoformat()
         params_data['metrics'] = {
             "initialMAE": round(baseline_mae, 2),
             "calibratedMAE": round(best_mae, 2),
@@ -168,18 +248,24 @@ def run_calibration(records_path, params_path):
             "date": verified_records[0]['date'],
             "maeBefore": round(baseline_mae, 2),
             "maeAfter": round(best_mae, 2),
-            "adjustment": f"基於 {n_samples} 場觀測紀錄微調高低雲光學權重，MAE 降低 {(baseline_mae - best_mae):.2f} 分"
+            "sampleSize": n_samples,
+            "adjustment": f"基於 {n_samples} 場可靠觀測紀錄微調高低雲光學權重，MAE 降低 {drop_abs:.2f} 分"
         })
         if len(params_data['history']) > 20:
             params_data['history'] = params_data['history'][:20]
 
-        with open(params_path, 'w', encoding='utf-8') as f:
-            json.dump(params_data, f, ensure_ascii=False, indent=2)
-        print(f"💾 已將最新校準參數寫入: {params_path}")
+        finish(
+            "calibrated",
+            f"MAE {baseline_mae:.2f} → {best_mae:.2f} 分 (-{improvement_pct:.1f}%)",
+            n_total, n_samples
+        )
     else:
-        print("✅ 當前物理參數已處於最優解。")
-
-    print("====================================================\n")
+        reason = (
+            f"最佳候選僅降低 {drop_abs:.2f} 分 ({drop_rel*100:.1f}%)，"
+            f"未達門檻 (絕對 ≥{MIN_IMPROVEMENT_ABS} 分 且 相對 ≥{MIN_IMPROVEMENT_REL*100:.0f}%)，判定為雜訊"
+        ) if improved else "當前物理參數已處於區域最優解"
+        print(f"✅ {reason}，不更新權重。")
+        finish("no_significant_improvement", reason, n_total, n_samples)
 
 if __name__ == "__main__":
     records_file = sys.argv[1] if len(sys.argv) > 1 else os.path.join(os.path.dirname(__file__), '../data/verification-records.json')
