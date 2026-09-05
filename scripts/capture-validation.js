@@ -1,6 +1,6 @@
 /**
  * Phase 1: capture a real frame from an official YouTube livestream inside
- * the Taipei sunrise/sunset validation window, then record its provenance.
+ * the sunrise/sunset validation window, then record its provenance.
  */
 
 const fs = require('fs');
@@ -14,7 +14,7 @@ const {
   resolveSessionType,
   assertCaptureWindow
 } = require('./live-capture-core.js');
-const { captureLiveFrame } = require('./live-frame-capture.js');
+const { captureLiveFrame, capturePosterFrame } = require('./live-frame-capture.js');
 
 const MAX_CAPTURE_OFFSET_MINUTES = 600; // 支援 10 小時 YouTube DVR 時光機回溯窗口
 
@@ -48,22 +48,36 @@ async function runCapturePipeline(inputSession = '', options = {}) {
   const source = OFFICIAL_STREAMS[sessionType];
   const dateStr = getTaipeiDateString(now);
   const targetDate = new Date(`${dateStr}T12:00:00+08:00`);
-  const solarTimes = SolarCalc.getTimes(targetDate);
+  const solarTimes = SolarCalc.getTimes(targetDate, source.lat, source.lng);
   const eventTime = sessionType === 'sunrise' ? solarTimes.sunrise : solarTimes.sunset;
-  const preflightWindow = assertCaptureWindow({
-    now,
-    eventTime,
-    sessionType,
-    maxOffsetMinutes: MAX_CAPTURE_OFFSET_MINUTES
-  });
+  // 自架 runner 的機器可能關機，job 會排隊到開機才執行；GitHub 排程本身
+  // 也有數小時延遲。超出擷取窗口是可預期的營運狀況，不該讓整個 job 變紅，
+  // 但也絕不能拿窗口外的影格充當出景當刻的 ground truth。
+  // 因此：不擷取、誠實記錄，並以 exit 0 讓後續步驟照常產出。
+  const offsetMinutes = Math.round((now.getTime() - eventTime.getTime()) / 60000);
+  let windowError = null;
+  try {
+    assertCaptureWindow({
+      now,
+      eventTime,
+      sessionType,
+      maxOffsetMinutes: MAX_CAPTURE_OFFSET_MINUTES
+    });
+  } catch (error) {
+    windowError = error.message;
+  }
 
   console.log('====================================================');
   console.log(`📸 啟動實況影格擷取管線 [${sessionType}]`);
   console.log(`📅 台北觀測日期: ${dateStr}`);
-  console.log(`⏰ 天文時刻: ${SolarCalc.formatTime(eventTime)} / 啟動偏移: ${preflightWindow.offsetMinutes} 分鐘`);
+  console.log(`⏰ 天文時刻: ${SolarCalc.formatTime(eventTime)} / 啟動偏移: ${offsetMinutes} 分鐘`);
+  if (windowError) {
+    console.warn(`⚠️ ${windowError}`);
+    console.warn('   跳過擷取：窗口外的影格不能充當出景當刻的實況證據');
+  }
   console.log(`📍 官方直播: ${source.name}`);
 
-  const dataDir = path.join(__dirname, '../data');
+  const dataDir = options.dataDir || path.join(__dirname, '../data');
   const outputDir = path.join(dataDir, 'snapshots');
   const snapshotFileName = `${dateStr}-${sessionType}.jpg`;
   const snapshotPath = path.join(outputDir, snapshotFileName);
@@ -71,7 +85,7 @@ async function runCapturePipeline(inputSession = '', options = {}) {
 
   let predictionScore = null;
   let predictionData = {};
-  
+
   // 嘗試讀取提前鎖定的預測
   const lockFile = path.join(dataDir, `locked-${sessionType}-forecast.json`);
   if (fs.existsSync(lockFile)) {
@@ -84,9 +98,11 @@ async function runCapturePipeline(inputSession = '', options = {}) {
           score: lockedData.skyfire.score,
           rating: lockedData.skyfire.rating.badge,
           color: lockedData.skyfire.rating.color,
-          highCloud: lockedData.skyfire.diagnostics?.highCloud || 0,
-          midCloud: lockedData.skyfire.diagnostics?.midCloud || 0,
-          lowCloud: lockedData.skyfire.diagnostics?.lowCloud || 0,
+          // skyfire.diagnostics 是文字診斷清單，不含數值雲量欄位，
+          // 數值雲量要從 lock-forecast.js 另外存的 weather 取。
+          highCloud: lockedData.weather?.cloudHigh || 0,
+          midCloud: lockedData.weather?.cloudMid || 0,
+          lowCloud: lockedData.weather?.cloudLow || 0,
           horizonClearance: lockedData.skyfire.metrics.horizonClearance,
           visibilityKm: lockedData.skyfire.metrics.visKm,
           isSimulated: false,
@@ -100,13 +116,18 @@ async function runCapturePipeline(inputSession = '', options = {}) {
 
   // 如果沒有鎖定資料，則抓取即時資料
   if (!predictionScore) {
-    const forecastData = await WeatherService.fetchForecast(true);
+    const forecastData = await WeatherService.fetchForecast({
+      lat: source.lat,
+      lng: source.lng,
+      locationName: source.name,
+      forceRefresh: true
+    });
     const matchingDay = forecastData.daysForecast.find(day =>
       getTaipeiDateString(new Date(day.date)) === dateStr
     ) || forecastData.daysForecast[0];
     const sessionForecast = matchingDay[sessionType];
     console.log(`即時預測分數: ${sessionForecast.skyfire.score} 分 (${sessionForecast.skyfire.rating.badge})`);
-    
+
     predictionData = {
       score: sessionForecast.skyfire.score,
       rating: sessionForecast.skyfire.rating.badge,
@@ -123,57 +144,130 @@ async function runCapturePipeline(inputSession = '', options = {}) {
   console.log('準備利用 yt-dlp 擷取影片，再以 ffmpeg 輸出為截圖...');
 
   const capturedAt = options.now instanceof Date ? options.now : new Date();
-  const captureWindow = assertCaptureWindow({
-    now: capturedAt,
-    eventTime,
-    sessionType,
-    maxOffsetMinutes: MAX_CAPTURE_OFFSET_MINUTES
-  });
+  const captureWindow = windowError
+    ? { eventTime: eventTime.toISOString(), offsetMinutes, maxOffsetMinutes: MAX_CAPTURE_OFFSET_MINUTES }
+    : assertCaptureWindow({
+        now: capturedAt,
+        eventTime,
+        sessionType,
+        maxOffsetMinutes: MAX_CAPTURE_OFFSET_MINUTES
+      });
 
-  const capture = captureLiveFrame({
-    source,
-    outputPath: snapshotPath,
-    windowEvidence: captureWindow,
-    capturedAt,
-    runTool: options.runTool
-  });
+  // ------------------------------------------------------------------
+  // 分層擷取策略
+  //
+  // Tier A: yt-dlp + ffmpeg 取回精確直播影格 (fidelity: exact)
+  //   YouTube 對資料中心 IP 施行 bot check，GitHub 託管 runner 必然失敗。
+  //   改用自架 runner (residential IP) 即可啟用。
+  // Tier B: i.ytimg.com 靜態 CDN 的直播海報影格 (fidelity: degraded)
+  //   不經 bot check，是真實但可能落後數分鐘的畫面。
+  // 兩層皆失敗時誠實記錄 capture_unavailable，絕不捏造 ground truth，
+  // 也絕不拋出 —— 否則後續的光學評分會被連坐跳過。
+  // ------------------------------------------------------------------
+  let capture = null;
+  let fallbackReason = windowError;
 
-  const record = {
+  try {
+    if (windowError) {
+      throw new Error(windowError);
+    }
+    const exact = captureLiveFrame({
+      source,
+      outputPath: snapshotPath,
+      windowEvidence: captureWindow,
+      capturedAt,
+      runTool: options.runTool
+    });
+    capture = { ...exact, fidelity: 'exact' };
+    console.log(`Tier A 精確影格已驗證: ${capture.width}x${capture.height}`);
+  } catch (error) {
+    fallbackReason = error.message;
+    if (windowError) {
+      // 窗口外不做任何擷取：海報影格同樣無法代表出景當刻，
+      // 保持 capture = null，後續會產出 capture_unavailable 紀錄。
+      console.warn('已超出擷取窗口，不進行降級擷取');
+    } else {
+      console.warn(`Tier A (yt-dlp 精確影格) 失敗: ${error.message}`);
+      console.warn('降級嘗試 Tier B: i.ytimg.com 直播海報影格...');
+      try {
+        capture = capturePosterFrame({
+          source,
+          outputPath: snapshotPath,
+          windowEvidence: captureWindow,
+          capturedAt,
+          fetchImage: options.fetchImage
+        });
+        console.log(`Tier B 海報影格已取得: ${capture.width}x${capture.height} (${capture.posterQuality})`);
+      } catch (posterError) {
+        console.error(`Tier B 亦失敗: ${posterError.message}`);
+        fallbackReason = `${fallbackReason} | poster: ${posterError.message}`;
+      }
+    }
+  }
+
+  const baseRecord = {
     id: `rec-${dateStr}-${sessionType}`,
     date: dateStr,
     session: sessionType,
     targetTime: eventTime.toISOString(),
     source: source.name,
-    snapshotUrl: `data/snapshots/${snapshotFileName}`,
-    capture: {
-      width: capture.width,
-      height: capture.height,
-      fileName: snapshotFileName,
-      sha256: capture.sha256,
-      capturedAt: capturedAt.toISOString(),
-      offsetMinutes: captureWindow.offsetMinutes,
-      kind: 'youtube-live-frame',
-      validated: true
-    },
-    prediction: predictionData,
-    verification: {
-      status: 'captured_ready_for_scoring',
-      groundTruthScore: null,
-      errorAbsolute: null,
-      isSimulated: false
-    }
+    prediction: predictionData
   };
 
+  const record = capture
+    ? {
+        ...baseRecord,
+        snapshotUrl: `data/snapshots/${snapshotFileName}`,
+        capture: {
+          width: capture.width,
+          height: capture.height,
+          fileName: snapshotFileName,
+          sha256: capture.sha256,
+          capturedAt: capturedAt.toISOString(),
+          offsetMinutes: captureWindow.offsetMinutes,
+          kind: capture.kind || 'youtube-live-frame',
+          fidelity: capture.fidelity || 'exact',
+          posterQuality: capture.posterQuality || null,
+          fallbackReason: capture.fidelity === 'degraded' ? fallbackReason : null,
+          validated: true
+        },
+        verification: {
+          status: 'captured_ready_for_scoring',
+          groundTruthScore: null,
+          errorAbsolute: null,
+          isSimulated: false
+        }
+      }
+    : {
+        ...baseRecord,
+        snapshotUrl: null,
+        capture: {
+          kind: null,
+          fidelity: 'none',
+          validated: false,
+          capturedAt: capturedAt.toISOString(),
+          offsetMinutes: captureWindow.offsetMinutes,
+          error: fallbackReason
+        },
+        verification: {
+          status: 'capture_unavailable',
+          groundTruthScore: null,
+          errorAbsolute: null,
+          isSimulated: false
+        }
+      };
+
   writeRecord(recordsFile, record);
-  console.log(`✅ 實況影格已驗證: ${capture.width}x${capture.height}, SHA-256 ${capture.sha256}`);
-  console.log('💾 驗證紀錄已更新: data/verification-records.json');
+  console.log(capture
+    ? `驗證紀錄已更新 (${record.capture.fidelity}): SHA-256 ${capture.sha256}`
+    : '已誠實記錄 capture_unavailable，未捏造任何 ground truth');
   console.log('====================================================\n');
   return record;
 }
 
 if (require.main === module) {
   runCapturePipeline(process.argv[2] || '').catch(error => {
-    console.error(`❌ 實況擷取失敗，未寫入驗證紀錄: ${error.message}`);
+    console.error(`擷取管線設定錯誤 (時段解析／擷取窗口): ${error.message}`);
     process.exitCode = 1;
   });
 }

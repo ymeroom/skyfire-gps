@@ -63,7 +63,11 @@ async function lockForecast() {
     date: dateStr,
     session: sessionType,
     lockedAt: now.toISOString(),
-    skyfire: sessionForecast.skyfire
+    skyfire: sessionForecast.skyfire,
+    // skyfire.diagnostics 是文字診斷清單 (label/status/desc)，不含
+    // highCloud/midCloud/lowCloud 數值欄位；capture-validation.js 需要
+    // 這些數值來記錄「鎖定當時的雲量」，故與 skyfire 分開存一份 weather。
+    weather: sessionForecast.weather
   };
 
   const dataDir = path.join(__dirname, '../data');
