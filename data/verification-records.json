@@ -1,5 +1,65 @@
 [
   {
+    "id": "rec-2026-09-05-sunset",
+    "date": "2026-09-05",
+    "session": "sunset",
+    "targetTime": "2026-09-05T10:10:54.651Z",
+    "source": "大稻埕碼頭（4K 官方即時影像）",
+    "prediction": {
+      "score": 21,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 11,
+      "horizonClearance": 78,
+      "visibilityKm": 14.2,
+      "isSimulated": false,
+      "lockedAt": "2026-09-05T11:53:02.692Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-05-sunset.jpg",
+    "capture": {
+      "width": 1280,
+      "height": 720,
+      "fileName": "2026-09-05-sunset.jpg",
+      "sha256": "88c62c9fc59f82eb2a2f817e6ec6528e4072d089c2161d9a96c03c52e71015fa",
+      "capturedAt": "2026-09-05T13:03:53.751Z",
+      "offsetMinutes": 173,
+      "kind": "youtube-live-poster",
+      "fidelity": "degraded",
+      "posterQuality": "maxresdefault",
+      "fallbackReason": "yt-dlp exited with 1: ERROR: [youtube] Ndo_8RuefH4: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 27,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 6,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 49.5,
+      "skyCoveragePct": 3,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-05T09:40:32.824000+00:00",
+        "windowEnd": "2026-09-05T10:34:01.615000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.2,
+        "weatherCode": 51
+      },
+      "verifiedAt": "2026-09-05T13:04:00.127Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-08-26-sunset",
     "date": "2026-08-26",
     "session": "sunset",
