@@ -1,0 +1,411 @@
+{
+  "date": "2026-09-06",
+  "session": "sunset",
+  "lockedAt": "2026-09-06T12:59:55.013Z",
+  "stationCount": 6,
+  "failures": [],
+  "stations": [
+    {
+      "id": "gaomei",
+      "name": "台中・高美濕地木棧道",
+      "lat": 24.31284018839888,
+      "lng": 120.54737671005434,
+      "category": "sunset",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    },
+    {
+      "id": "alishan-eryanping",
+      "name": "嘉義・阿里山二延平步道",
+      "lat": 23.42464002262141,
+      "lng": 120.65270096094285,
+      "category": "sunset",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    },
+    {
+      "id": "alishan-xiaoluji",
+      "name": "嘉義・阿里山小笠原山觀景台",
+      "lat": 23.50633556703892,
+      "lng": 120.82379800316035,
+      "category": "both",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    },
+    {
+      "id": "baihe-biyun",
+      "name": "台南白河・火山碧雲寺",
+      "lat": 23.325448310944992,
+      "lng": 120.4802254991732,
+      "category": "sunset",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    },
+    {
+      "id": "dagushan",
+      "name": "桃園大古山",
+      "lat": 25.105746562588735,
+      "lng": 121.28990867601294,
+      "category": "sunset",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    },
+    {
+      "id": "yongan",
+      "name": "桃園永安漁港",
+      "lat": 24.988000105826483,
+      "lng": 121.01577075570127,
+      "category": "sunset",
+      "isSimulated": true,
+      "skyfire": {
+        "score": 93,
+        "rating": {
+          "level": "EPIC",
+          "badge": "史詩級爆發",
+          "icon": "🌟",
+          "color": "#FF3366",
+          "secondaryColor": "#FF9900",
+          "summary": "漫天紅霞・全城燃燒！極高機率出現遮天蔽日的史詩級火燒雲。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,51,102,0.35) 0%, rgba(255,153,0,0.25) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 45,
+          "lowCloudPenalty": 0,
+          "horizonScore": 23,
+          "visibilityScore": 15,
+          "horizonClearance": 76,
+          "visKm": 26
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 62%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空立體高積雲 (2,000-6,000m)",
+            "status": "optimal",
+            "desc": "中雲量達 40%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (12%)，透光窗達 75.8%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（26 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "cloudHigh": 62,
+        "cloudMid": 40,
+        "cloudLow": 12,
+        "visibility": 26000,
+        "humidity": 60,
+        "precipProb": 0,
+        "temp": 29
+      }
+    }
+  ]
+}
