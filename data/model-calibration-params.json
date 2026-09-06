@@ -45,11 +45,11 @@
       "adjustment": "自適應微調全台高空反光板係數與低雲穿透門檻"
     }
   ],
-  "lastReviewedAt": "2026-09-05T21:18:17.847095+08:00",
+  "lastReviewedAt": "2026-09-06T18:00:53.707575+00:00",
   "lastReviewOutcome": {
     "status": "skipped_insufficient_samples",
-    "reason": "可靠樣本 0 場 < 門檻 5 場",
-    "totalRecords": 16,
-    "reliableRecords": 0
+    "reason": "可靠樣本 1 場 (門檻 15)、不同日期 1 天 (門檻 5)，至少一項未達標",
+    "totalRecords": 23,
+    "reliableRecords": 1
   }
 }
