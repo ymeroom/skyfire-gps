@@ -46,8 +46,11 @@
   --radius-xl: 28px;
   --radius-full: 9999px;
 
-  /* 字體 */
-  --font-family: 'Plus Jakarta Sans', 'Noto Sans TC', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  /* 字體：中文一律走系統字型 (PingFang TC / 微軟正黑 / 思源黑體)，零下載、
+     零 FOUT，也不會在字體載入後觸發整頁重排。只有拉丁字母與數字用 Google 的
+     Plus Jakarta Sans (檔案小)。 */
+  --font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+    'PingFang TC', 'Microsoft JhengHei', 'Noto Sans CJK TC', 'Noto Sans TC', Roboto, sans-serif;
   --transition-smooth: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -103,8 +106,9 @@ body::before {
   transform: translateX(-50%);
   width: 850px;
   height: 450px;
-  background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.25) 0%, rgba(56, 189, 248, 0.15) 50%, transparent 75%);
-  filter: blur(70px);
+  /* 預先做寬鬆的漸層過渡，不用 filter: blur() —— blur(70px) 在大面積固定元素上
+     每次合成都要跑一次模糊 shader，是持續的 paint 成本。 */
+  background: radial-gradient(ellipse at center, rgba(255, 107, 0, 0.22) 0%, rgba(255, 107, 0, 0.12) 30%, rgba(56, 189, 248, 0.10) 55%, transparent 78%);
   z-index: -1;
   pointer-events: none;
   transition: var(--transition-smooth);
