@@ -29,7 +29,7 @@
       "ungatedFramesOk": 0,
       "peakRegionUngatedOk": 0,
       "sourceFramePath": "data/timelapse/2026-09-06-sunset/alishan-eryanping-t+30.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
       "status": "verified_completed",
@@ -39,12 +39,12 @@
       "errorAbsolute": 81,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 48.9,
-      "skyCoveragePct": 24,
+      "chromaticPurity": 49.7,
+      "skyCoveragePct": 21.3,
       "nightGate": {
         "applied": true,
         "reason": "capture time falls outside the twilight window — warm/saturated pixels here are almost certainly artificial light (street lamps, boat lights, lanterns), not afterglow",
-        "rawScoreBeforeGate": 52,
+        "rawScoreBeforeGate": 50,
         "rawLevelBeforeGate": "MODERATE",
         "windowStart": "2026-09-06T09:41:15.244000+00:00",
         "windowEnd": "2026-09-06T10:34:12.950000+00:00"
@@ -58,7 +58,7 @@
       },
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
@@ -93,18 +93,18 @@
       "ungatedFramesOk": 6,
       "peakRegionUngatedOk": 3,
       "sourceFramePath": "data/timelapse/2026-09-06-sunset/alishan-xiaoluji-t+00.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 14,
+      "groundTruthScore": 23,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 79,
+      "errorAbsolute": 70,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 24.6,
-      "skyCoveragePct": 2.5,
+      "chromaticPurity": 30.3,
+      "skyCoveragePct": 9.1,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -120,7 +120,7 @@
       },
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
@@ -155,18 +155,18 @@
       "ungatedFramesOk": 6,
       "peakRegionUngatedOk": 3,
       "sourceFramePath": "data/timelapse/2026-09-06-sunset/baihe-biyun-t+20.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 84,
-      "groundTruthBadge": "史詩級爆發",
-      "groundTruthLevel": "EPIC",
-      "errorAbsolute": 9,
+      "groundTruthScore": 77,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 16,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 83,
-      "skyCoveragePct": 32.3,
+      "chromaticPurity": 84.8,
+      "skyCoveragePct": 29.4,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -182,7 +182,7 @@
       },
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
@@ -192,8 +192,8 @@
     "date": "2026-09-06",
     "session": "sunset",
     "provenance": "multi-station-timelapse",
-    "source": "桃園大古山（13 站縮時 T+0）",
-    "targetTime": "2026-09-06T10:11:20+00:00",
+    "source": "桃園大古山（13 站縮時 T+20）",
+    "targetTime": "2026-09-06T10:31:20+00:00",
     "prediction": {
       "score": 93,
       "rating": "史詩級爆發",
@@ -211,24 +211,24 @@
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true,
-      "canonicalOffsetMin": 0,
+      "canonicalOffsetMin": 20,
       "framesOk": 9,
       "framesTotal": 9,
       "ungatedFramesOk": 6,
       "peakRegionUngatedOk": 3,
-      "sourceFramePath": "data/timelapse/2026-09-06-sunset/dagushan-t+00.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "sourceFramePath": "data/timelapse/2026-09-06-sunset/dagushan-t+20.jpg",
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 5,
+      "groundTruthScore": 12,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 88,
+      "errorAbsolute": 81,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 0,
-      "skyCoveragePct": 0,
+      "chromaticPurity": 24.9,
+      "skyCoveragePct": 0.1,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -239,12 +239,12 @@
         "applied": false,
         "reason": "already at or below rain cap",
         "isRaining": true,
-        "precipitationMm": 1.6,
-        "weatherCode": 80
+        "precipitationMm": 1.1,
+        "weatherCode": 55
       },
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
@@ -279,7 +279,7 @@
       "ungatedFramesOk": 6,
       "peakRegionUngatedOk": 3,
       "sourceFramePath": "data/timelapse/2026-09-06-sunset/gaomei-t+20.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
       "status": "verified_completed",
@@ -306,7 +306,7 @@
       },
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
@@ -316,8 +316,8 @@
     "date": "2026-09-06",
     "session": "sunset",
     "provenance": "multi-station-timelapse",
-    "source": "桃園永安漁港（13 站縮時 T+0）",
-    "targetTime": "2026-09-06T10:11:20+00:00",
+    "source": "桃園永安漁港（13 站縮時 未擷取）",
+    "targetTime": null,
     "prediction": {
       "score": 93,
       "rating": "史詩級爆發",
@@ -330,45 +330,28 @@
       "isSimulated": true,
       "lockedAt": "2026-09-06T12:59:55.013Z"
     },
-    "snapshotUrl": "data/snapshots/2026-09-06-sunset-yongan.jpg",
+    "snapshotUrl": null,
     "capture": {
       "kind": "youtube-live-frame",
       "fidelity": "exact",
-      "validated": true,
-      "canonicalOffsetMin": 0,
-      "framesOk": 9,
+      "validated": false,
+      "framesOk": 0,
       "framesTotal": 9,
-      "ungatedFramesOk": 6,
-      "peakRegionUngatedOk": 3,
-      "sourceFramePath": "data/timelapse/2026-09-06-sunset/yongan-t+00.jpg",
-      "capturedAt": "2026-09-06T13:03:45.542Z"
+      "ungatedFramesOk": 0,
+      "peakRegionUngatedOk": 0,
+      "capturedAt": "2026-09-06T14:09:50.985Z"
     },
     "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 5,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 88,
-      "verdict": "MISMATCH",
-      "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 0,
-      "skyCoveragePct": 0,
-      "nightGate": {
-        "applied": false,
-        "reason": "within twilight window",
-        "windowStart": "2026-09-06T09:41:15.244000+00:00",
-        "windowEnd": "2026-09-06T10:34:12.950000+00:00"
-      },
-      "rainGate": {
-        "applied": false,
-        "reason": "already at or below rain cap",
-        "isRaining": true,
-        "precipitationMm": 1.5,
-        "weatherCode": 80
-      },
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "verdict": null,
+      "verdictBadge": null,
+      "nightGate": null,
+      "rainGate": null,
       "reliable": false,
       "unreliableReason": "預測來自離線模擬資料 (Open-Meteo 當時不可用)",
-      "verifiedAt": "2026-09-06T13:03:45.542Z",
+      "verifiedAt": "2026-09-06T14:09:50.985Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
