@@ -1,5 +1,44 @@
 [
   {
+    "id": "rec-2026-09-07-sunrise",
+    "date": "2026-09-07",
+    "session": "sunrise",
+    "targetTime": "2026-09-06T21:38:08.614Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 2,
+      "lowCloud": 97,
+      "horizonClearance": 0,
+      "visibilityKm": 120,
+      "isSimulated": false,
+      "lockedAt": "2026-09-06T17:44:23.008Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-07-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-09-07-sunrise.jpg",
+      "sha256": "20cd37c67d82144acfefbbbf7ecbb953c6d2da555d8b61bf9709e92f81d7da8d",
+      "capturedAt": "2026-09-06T22:57:10.536Z",
+      "offsetMinutes": 79,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "posterQuality": null,
+      "fallbackReason": null,
+      "validated": true
+    },
+    "verification": {
+      "status": "captured_ready_for_scoring",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-09-06-sunset",
     "date": "2026-09-06",
     "session": "sunset",
@@ -114,7 +153,7 @@
         "precipitationMm": 0,
         "weatherCode": 3
       },
-      "verifiedAt": "2026-09-06T05:43:58.760Z",
+      "verifiedAt": "2026-09-06T22:57:21.439Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
