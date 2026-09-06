@@ -58,6 +58,70 @@ from analyze_sky_ground_truth import (  # noqa: E402
 
 OFFSETS_MIN = [-40, -30, -20, -10, 0, 10, 20, 30, 40]
 
+# 火燒雲峰值通常落在事件前後這段窗口 (日落後 / 日出前的暮光橘紅段)。
+# 校準用的 canonical ground truth 必須在這裡「有一張沒被暗夜閘門封頂的
+# 成功影格」，否則窗口取樣太稀、系統性低估峰值 —— merge 腳本會據此把
+# 該站標成 unreliable。
+PEAK_OFFSETS = {
+    "sunset": {0, 10, 20, 30},
+    "sunrise": {-20, -10, 0, 10},
+}
+
+
+def compute_canonical_ground_truth(session, frames):
+    """從一站 9 幀裡挑出代表當日的 ground truth ＝暮光窗口內分數最高的成功影格。
+
+    「窗口最高分」是「今天到底有沒有燒」的標準標記法：火燒雲可能只燒 10-15
+    分鐘，天文時刻那一幀往往還沒開始。回傳 dict 一律帶齊 reliability 判斷所需
+    的欄位，實際可不可信由 merge 腳本裁定。
+    """
+    ok_frames = [f for f in frames if f.get("ok") and f.get("score") is not None]
+    ungated = [f for f in ok_frames if not (f.get("nightGate") or {}).get("applied")]
+    peak_set = PEAK_OFFSETS.get(session, set())
+    peak_ungated = [f for f in ungated if f.get("offsetMin") in peak_set]
+
+    summary = {
+        "framesOk": len(ok_frames),
+        "framesTotal": len(frames),
+        "ungatedFramesOk": len(ungated),
+        "peakRegionUngatedOk": len(peak_ungated),
+    }
+
+    if not ok_frames:
+        return {**summary, "available": False, "reason": "no successful frame"}
+
+    # canonical 分數＝「峰值窗口內、未被暗夜閘門封頂」的成功影格裡最高分。
+    # 刻意限制在峰值窗口 (日落後 0~30 分 / 日出前 20 分~日出後 10 分)：
+    # 火燒雲的橘紅段就在這裡，取全 ±40 分窗口的 max 會把日落前 20-40 分的
+    # 白亮天空或鏡頭耀光也算進來，系統性高估 (2026-09-05 實測就有站點在
+    # T-20 被評到 100 分)。峰值窗口內沒有可用影格時 available 仍為 True (要
+    # 有 groundTruthScore 可記)，但下方 merge 腳本會依 peakRegionUngatedOk
+    # 把該站標成 unreliable。
+    if peak_ungated:
+        pool = peak_ungated
+    elif ungated:
+        pool = ungated
+    else:
+        pool = ok_frames
+    best = max(pool, key=lambda f: f.get("score", 0))
+
+    return {
+        **summary,
+        "available": True,
+        "allFramesNightGated": not ungated,
+        "canonicalFromPeakWindow": bool(peak_ungated),
+        "offsetMin": best.get("offsetMin"),
+        "capturedAtUtc": best.get("capturedAtUtc"),
+        "imagePath": best.get("imagePath"),
+        "score": best.get("score"),
+        "level": best.get("level"),
+        "badge": best.get("badge"),
+        "chromaticPurity": best.get("chromatic_purity"),
+        "skyCoveragePct": best.get("sky_coverage_pct"),
+        "nightGate": best.get("nightGate"),
+        "rainGate": best.get("rainGate"),
+    }
+
 # 座標與直播網址取自 js/spots-taiwan.js，2026-09-05 已用 yt-dlp -J
 # 逐一實測確認 is_live=true / live_status=is_live。
 SUNRISE_STATIONS = [
@@ -452,7 +516,8 @@ def run(session, date_str=None):
             "name": station["name"],
             "lat": station["lat"],
             "lng": station["lng"],
-            "frames": frames
+            "frames": frames,
+            "canonical": compute_canonical_ground_truth(session, frames)
         })
 
     reports_dir = os.path.join(REPO_ROOT, "data", "timelapse")

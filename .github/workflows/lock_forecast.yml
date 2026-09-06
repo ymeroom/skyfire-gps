@@ -41,6 +41,16 @@ jobs:
           EVENT_SCHEDULE: ${{ github.event.schedule }}
         run: node scripts/lock-forecast.js
 
+      # 多機位版：對 js/spots-taiwan.js 本時段的每個聖地各鎖一份預測，
+      # 供 auto_timelapse_multi_station.yml 之後跟 13 站縮時實測配對校準。
+      # 與上面單站 (象山/大稻埕) 的鎖定互相獨立，一個失敗不連坐另一個。
+      - name: Run Multi-Station Lock Forecast Script
+        continue-on-error: true
+        env:
+          MANUAL_SESSION: ${{ inputs.session }}
+          EVENT_SCHEDULE: ${{ github.event.schedule }}
+        run: node scripts/lock-forecast-multi.js
+
       - name: Commit & Push Locked Forecast
         run: |
           git config --local user.email "action@github.com"

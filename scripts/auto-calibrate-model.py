@@ -10,9 +10,21 @@ import copy
 import datetime
 
 # 樣本數低於此門檻時，175 組候選權重的網格搜尋幾乎必然會在極少樣本上
-# 找到「看似更好」的組合 —— 那是雜訊，不是真的校準。5 場以上才有基本的
-# 統計意義。
-MIN_SAMPLES_FOR_CALIBRATION = 5
+# 找到「看似更好」的組合 —— 那是雜訊，不是真的校準。
+#
+# 自從 13 站縮時 (multi-station-records.json) 一併餵進來後，單日就能產生
+# ~10 筆樣本，但同一天 13 站共用同一套綜觀天氣 —— 13 筆同日樣本不等於 13
+# 筆獨立樣本。所以除了總數門檻，另外要求「不同日期」達標，否則第一次校準
+# 會過擬合某一個下午的雲系型態。
+MIN_SAMPLES_FOR_CALIBRATION = 15
+MIN_DISTINCT_DAYS = 5
+
+# 13 站縮時樣本的 groundTruthScore 上限。光學評分器在高分區間 (>60) 未經
+# 人工比對驗證前，高分縮時樣本只記錄不進校準 (見 is_reliable_record 第 5 點)。
+# 校準的損失函數是「天氣參數 → GT」的重新模擬 (evaluate_mae 不看記錄下來的
+# prediction.score)，若放任未驗證的高分 GT 進去，網格搜尋會直接去壓
+# lowCloudSlope 之類的權重來擬合它們，把上個 session 硬化的參數帶偏。
+MULTI_STATION_GT_CEILING = 60
 
 # 改善幅度門檻：同時要求絕對分數與相對比例都達標，避免校準在雜訊範圍內
 # (例如 42.87 → 42.82，只降 0.05 分帳面上「有改善」，但那完全在測量誤差
@@ -121,6 +133,14 @@ def is_reliable_record(record):
     另外，任何紀錄若明確標記 verification.reliable === False (例如遷移
     Tier A/B 前寫入、已知評分邏輯有臭蟲的舊樣本)，無論其他欄位長得多像
     合法紀錄，一律排除 —— 這是比對欄位型態更直接的「人工蓋章不可信」旗標。
+
+    5. 13 站縮時來源 (provenance === 'multi-station-timelapse') 且
+       groundTruthScore > MULTI_STATION_GT_CEILING 的紀錄：光學評分器在
+       高分區間 (EPIC/GREAT) 尚未經人工比對驗證，2026-09-05 實測就出現
+       桃園站點 T+20 被評到 88-95 分而預測僅 5 分。在有人肉眼比對
+       data/snapshots/<date>-<session>-<id>.jpg 確認高分評分可信之前，這些
+       高分縮時樣本只記錄、不進校準 (低分段的縮時樣本仍照收，評分器在
+       低分段已被單站管線間接驗證過)。驗證後把 ceiling 調高或移除即可。
     """
     verification = record.get('verification') or {}
     if verification.get('reliable') is False:
@@ -134,7 +154,13 @@ def is_reliable_record(record):
     if capture.get('fidelity') != 'exact':
         return False
     snapshot_url = record.get('snapshotUrl') or ''
+    # data/snapshots/ 前綴既是路徑逸出防護，也是縮時來源影格的出處邊界 ——
+    # merge 腳本只把 canonical 影格複製到這個目錄下才會通過。
     if not snapshot_url.startswith('data/snapshots/'):
+        return False
+
+    if (record.get('provenance') == 'multi-station-timelapse'
+            and (verification.get('groundTruthScore') or 0) > MULTI_STATION_GT_CEILING):
         return False
 
     if verification.get('rainGate', {}).get('isRaining'):
@@ -204,21 +230,34 @@ def run_calibration(records_path, params_path):
     with open(records_path, 'r', encoding='utf-8') as f:
         records = json.load(f)
 
+    # 13 站縮時的窗口峰值樣本存在同目錄的另一個檔案 (寫成獨立檔是為了避開
+    # auto_validate_capture.yml 對 data/ 的併發 push 衝突，也方便日後若光學
+    # 評分器在高分段被證實有問題時整批撤出)。有就一併讀入。
+    multi_path = os.path.join(os.path.dirname(records_path), 'multi-station-records.json')
+    if os.path.exists(multi_path):
+        with open(multi_path, 'r', encoding='utf-8') as f:
+            multi_records = json.load(f)
+        if isinstance(multi_records, list):
+            records = records + multi_records
+            print(f"➕ 併入 13 站縮時樣本 {len(multi_records)} 筆 ({multi_path})")
+
     all_verified = [r for r in records if r.get('verification', {}).get('groundTruthScore') is not None]
     verified_records = [r for r in all_verified if is_reliable_record(r)]
     n_total = len(all_verified)
     n_samples = len(verified_records)
+    distinct_days = sorted({r['date'] for r in verified_records if r.get('date')})
+    n_days = len(distinct_days)
 
     print(f"📊 已驗證出景場次共 {n_total} 場，扣除缺乏真實影格證據／暗夜或雨天閘門"
-          f"強制封頂的不可靠樣本後，可用於校準的樣本數: {n_samples} 場")
+          f"強制封頂的不可靠樣本後，可用於校準的樣本數: {n_samples} 場，橫跨 {n_days} 個不同日期")
 
-    if n_samples < MIN_SAMPLES_FOR_CALIBRATION:
-        print(f"ℹ️ 可靠樣本數不足 {MIN_SAMPLES_FOR_CALIBRATION} 場，維持當前基礎權重，不進行校準。")
-        finish(
-            "skipped_insufficient_samples",
-            f"可靠樣本 {n_samples} 場 < 門檻 {MIN_SAMPLES_FOR_CALIBRATION} 場",
-            n_total, n_samples
+    if n_samples < MIN_SAMPLES_FOR_CALIBRATION or n_days < MIN_DISTINCT_DAYS:
+        reason = (
+            f"可靠樣本 {n_samples} 場 (門檻 {MIN_SAMPLES_FOR_CALIBRATION})、"
+            f"不同日期 {n_days} 天 (門檻 {MIN_DISTINCT_DAYS})，至少一項未達標"
         )
+        print(f"ℹ️ {reason}，維持當前基礎權重，不進行校準。")
+        finish("skipped_insufficient_samples", reason, n_total, n_samples)
         return
 
     current_weights = params_data['weights']
@@ -267,7 +306,7 @@ def run_calibration(records_path, params_path):
         }
         params_data['weights'] = best_weights
         params_data['history'].insert(0, {
-            "date": verified_records[0]['date'],
+            "date": max(r['date'] for r in verified_records if r.get('date')),
             "maeBefore": round(baseline_mae, 2),
             "maeAfter": round(best_mae, 2),
             "sampleSize": n_samples,

@@ -23,7 +23,10 @@ on:
           - sunrise
 
 permissions:
-  contents: read
+  # 需要 write 才能把 13 站校準樣本 (data/multi-station-records.json) 與
+  # canonical 影格 (data/snapshots/) commit 回 main。與 auto_validate_capture.yml
+  # 一樣，本 workflow 只有 schedule/workflow_dispatch 觸發，外部人無法觸發。
+  contents: write
 
 jobs:
   multi-station-timelapse:
@@ -100,3 +103,27 @@ jobs:
             data/timelapse/${{ steps.date.outputs.value }}-${{ steps.session.outputs.value }}/
           if-no-files-found: warn
           retention-days: 30
+
+      # 把各站「暮光窗口峰值」實測跟 lock-forecast-multi.js 事前鎖定的預測配對，
+      # 寫成 data/multi-station-records.json 供每週校準一併讀入。canonical 影格
+      # 複製一份到 data/snapshots/ (進版控) 供日後人工比對評分器。
+      - name: 🔗 合併 13 站校準樣本
+        run: |
+          node scripts/merge-multi-station-calibration.js "${{ steps.session.outputs.value }}" "${{ steps.date.outputs.value }}"
+
+      - name: 🚀 提交 13 站校準樣本 (Commit & Push)
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action [SkyFire Multi-Station Bot]"
+          git add data/multi-station-records.json data/snapshots/ || true
+          if git diff --staged --quiet; then
+            echo "沒有新的校準樣本，略過 commit。"
+            exit 0
+          fi
+          git commit -m "chore(calibration): record 13-station timelapse ground truth [skip ci]"
+          # 排程 bot 也會 push data/，撞到 non-fast-forward 就 rebase 重試。
+          for i in 1 2 3 4 5; do
+            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
+            echo "push 第 $i 次失敗，5 秒後重試…"; sleep 5
+          done
+          echo "::error::多次重試後仍無法 push 13 站校準樣本"; exit 1
