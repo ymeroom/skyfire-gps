@@ -651,11 +651,63 @@ class SkyFireGPSApp {
   }
 
   /**
-   * 初始化 Leaflet 台灣地圖
+   * 動態載入 Leaflet CSS + JS (只載一次)。地圖不在首屏，延後到捲動可見時才載，
+   * 首屏就不必扛 leaflet.js/css 這段 render-blocking 成本。
+   */
+  loadLeaflet() {
+    if (window.L) return Promise.resolve();
+    if (this._leafletLoading) return this._leafletLoading;
+
+    this._leafletLoading = new Promise((resolve, reject) => {
+      const css = document.createElement('link');
+      css.rel = 'stylesheet';
+      css.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+      css.integrity = 'sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=';
+      css.crossOrigin = '';
+      document.head.appendChild(css);
+
+      const js = document.createElement('script');
+      js.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+      js.integrity = 'sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=';
+      js.crossOrigin = '';
+      js.onload = () => resolve();
+      js.onerror = () => reject(new Error('Leaflet 載入失敗'));
+      document.body.appendChild(js);
+    });
+    return this._leafletLoading;
+  }
+
+  /**
+   * 初始化 Leaflet 台灣地圖 —— 捲動到地圖區塊時才真正載入函式庫並建圖。
    */
   initMap() {
     const mapElement = document.getElementById('interactiveMap');
     if (!mapElement) return;
+
+    const boot = () => this.loadLeaflet()
+      .then(() => this.buildMap())
+      .catch(err => console.warn('地圖初始化失敗:', err.message));
+
+    if (!('IntersectionObserver' in window)) {
+      boot();
+      return;
+    }
+
+    const io = new IntersectionObserver((entries, observer) => {
+      if (entries.some(e => e.isIntersecting)) {
+        observer.disconnect();
+        boot();
+      }
+    }, { rootMargin: '400px' });
+    io.observe(mapElement);
+  }
+
+  /**
+   * 建立 Leaflet 地圖本體 (需 window.L 已就緒)
+   */
+  buildMap() {
+    const mapElement = document.getElementById('interactiveMap');
+    if (!mapElement || this.map) return;
 
     // 預設以台灣全島視角居中
     this.map = L.map('interactiveMap', {
@@ -691,6 +743,10 @@ class SkyFireGPSApp {
     // 載入全台機位標記
     this.renderMapSpotMarkers();
     this.updateUserMapMarker(this.currentLocation.lat, this.currentLocation.lng, this.currentLocation.name);
+
+    // 若地圖是在預報渲染後才延遲建立的，補畫一次太陽方位角射線
+    const activeData = this.getActiveSessionData();
+    if (activeData) this.updateMapSunAzimuth(activeData);
   }
 
   /**

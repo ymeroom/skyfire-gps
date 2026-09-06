@@ -169,7 +169,7 @@ body::before {
 
 .brand-text h1 {
   font-size: 1.45rem;
-  font-weight: 900;
+  font-weight: 800;
   letter-spacing: -0.5px;
   background: linear-gradient(180deg, #ffffff 0%, #cbd5e1 100%);
   -webkit-background-clip: text;
@@ -466,7 +466,7 @@ body::before {
 
 .gauge-number {
   font-size: 3.2rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
   letter-spacing: -2px;
   background: linear-gradient(180deg, #ffffff 30%, #ffeedd 100%);
@@ -845,7 +845,7 @@ body::before {
 
 .card-score-num {
   font-size: 1.8rem;
-  font-weight: 900;
+  font-weight: 800;
   line-height: 1;
   margin-bottom: 8px;
 }
@@ -1437,7 +1437,7 @@ body::before {
 
 .compare-score-box strong {
   font-size: 1.1rem;
-  font-weight: 900;
+  font-weight: 800;
 }
 
 .compare-divider {
