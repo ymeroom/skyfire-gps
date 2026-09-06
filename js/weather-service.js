@@ -224,6 +224,59 @@ class WeatherService {
   }
 
   /**
+   * 評估單一場次 (日出或日落) 預測的可信度
+   *
+   * 分層光路模型在兩種情況下預測會明顯失準，但主分數本身看不出來：
+   * 1. 上游光路氣象資料抓不到完整 5 點階梯 (Open-Meteo 批次回應不足)，
+   *    退化成用觀測點資料近似整條光路 —— 遠方 60-260km 的實際雲況完全
+   *    沒進到計算。
+   * 2. 觀測點在內陸，太陽方位角光路被山體大幅擋住。此時就算高空有漂亮
+   *    的高雲，光也照不到地平線進光窗，實際出景會遠低於預測。
+   *
+   * @param {Object} params
+   * @param {Array} params.raySamples 該場次沿光路的取樣點 (含 elevationM/distanceKm)
+   * @param {boolean} params.upstreamDegraded 上游是否退化為觀測點近似
+   * @returns {{level:'high'|'medium'|'low', reasons:string[], terrainBlockingPct:number, upstreamDegraded:boolean}}
+   */
+  static computeSessionConfidence({ raySamples = [], upstreamDegraded = false } = {}) {
+    const reasons = [];
+    let demerit = 0;
+
+    if (upstreamDegraded) {
+      reasons.push('上游光路氣象資料不足，暫以觀測點資料近似整條光路');
+      demerit += 2;
+    }
+
+    let maxTerrainBlocking = 0;
+    for (const sample of raySamples) {
+      for (const band of Object.values(this.RAY_PATH_BANDS)) {
+        const t = this.computeTerrainBlocking({
+          elevationM: sample.elevationM,
+          distanceKm: sample.distanceKm,
+          targetAltitudeKm: band.targetAltitudeKm
+        });
+        if (t > maxTerrainBlocking) maxTerrainBlocking = t;
+      }
+    }
+
+    if (maxTerrainBlocking >= 60) {
+      reasons.push('太陽方位角光路被山體大幅遮擋，實際出景可能明顯低於預測');
+      demerit += 2;
+    } else if (maxTerrainBlocking >= 30) {
+      reasons.push('太陽方位角光路有部分地形遮擋');
+      demerit += 1;
+    }
+
+    const level = demerit >= 2 ? 'low' : demerit === 1 ? 'medium' : 'high';
+    return {
+      level,
+      reasons,
+      terrainBlockingPct: Math.round(maxTerrainBlocking),
+      upstreamDegraded
+    };
+  }
+
+  /**
    * 建立本次取樣所使用的上游光路幾何 (Ray-Path Sampling Geometry)
    * 上游氣象資料只會向 Open-Meteo 請求「一組」座標，這個方法就是那組座標的唯一真實來源。
    * fetchForecast 用它決定要抓哪裡，processRawData 用它回報資料實際來自哪裡，兩者保證一致。
@@ -392,6 +445,11 @@ class WeatherService {
     const sunsetUpstreamSeries = toUpstreamSeries(rawUpstreamSunset);
     const sunriseUpstreamSeries = toUpstreamSeries(rawUpstreamSunrise);
 
+    // 上游若不是完整的 5 點階梯陣列 (批次回應不足 / 舊單點 / null)，
+    // 代表遠方光路氣象是用觀測點資料近似的，預測可信度應下調。
+    const sunsetUpstreamDegraded = !Array.isArray(rawUpstreamSunset);
+    const sunriseUpstreamDegraded = !Array.isArray(rawUpstreamSunrise);
+
     const now = new Date();
     const daysForecast = [];
 
@@ -424,6 +482,15 @@ class WeatherService {
       const sunsetRaySamples = sampleRayPath(sunsetUpstreamSeries, solarTimes.sunset);
       const sunriseBandBlocking = blockingOf(sunriseRaySamples);
       const sunsetBandBlocking = blockingOf(sunsetRaySamples);
+
+      const sunriseConfidence = this.computeSessionConfidence({
+        raySamples: sunriseRaySamples,
+        upstreamDegraded: sunriseUpstreamDegraded
+      });
+      const sunsetConfidence = this.computeSessionConfidence({
+        raySamples: sunsetRaySamples,
+        upstreamDegraded: sunsetUpstreamDegraded
+      });
 
       // 錨點 (60km) 氣象，維持既有 upstream.weather 欄位
       const upstreamSunriseWeather = sunriseRaySamples[0] || {};
@@ -515,6 +582,7 @@ class WeatherService {
             bands: sunriseBandBlocking,
             weather: upstreamSunriseWeather,
             horizonClearance: Math.round(sunriseHorizonClearance),
+            confidence: sunriseConfidence,
             locationLabel: `東方海面 (方位角 ${geometry.sunrise.azimuth}° · 60-260km 光路)`
           }
         },
@@ -531,6 +599,7 @@ class WeatherService {
             bands: sunsetBandBlocking,
             weather: upstreamSunsetWeather,
             horizonClearance: Math.round(sunsetHorizonClearance),
+            confidence: sunsetConfidence,
             locationLabel: `西方海面 (方位角 ${geometry.sunset.azimuth}° · 60-260km 光路)`
           }
         }

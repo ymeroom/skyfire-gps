@@ -160,6 +160,9 @@
             <div class="rating-summary" id="ratingSummary">
               正在載入當前經緯度的大氣高空反射面與地平線透光度...
             </div>
+            <div class="confidence-notice" id="confidenceNotice" hidden
+                 style="margin-top: 8px; padding: 8px 12px; border-radius: var(--radius-md); font-size: 0.8rem; line-height: 1.5; background: rgba(250, 204, 21, 0.12); border: 1px solid rgba(250, 204, 21, 0.35); color: #facc15;">
+            </div>
             <div class="peak-window-bar">
               <span>⏰ 最佳出景窗口：</span>
               <strong id="peakWindowText">計算中...</strong>
@@ -532,34 +535,6 @@
           </div>
         </div>
 
-        <!-- 卡片 5: 眾包回報 -->
-        <div class="science-card" style="grid-column: 1 / -1;">
-          <div class="science-card-header">
-            <span>🗳️</span> 5. 現場出景眾包回報 (Ground Truth Feedback)
-          </div>
-          <div class="science-card-body">
-            <p>
-              您正在現場拍火燒雲嗎？請為當前出景狀況打分，協助我們的自適應演算法進行誤差校準：
-            </p>
-            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin: 12px 0;" id="feedbackBtnGroup">
-              <button class="btn-pill feedback-btn" data-rating="epic" style="justify-content: center;">
-                🌟 史詩級大景
-              </button>
-              <button class="btn-pill feedback-btn" data-rating="great" style="justify-content: center;">
-                🔥 壯麗火燒雲
-              </button>
-              <button class="btn-pill feedback-btn" data-rating="moderate" style="justify-content: center;">
-                ⛅ 局部微霞
-              </button>
-              <button class="btn-pill feedback-btn" data-rating="overcast" style="justify-content: center;">
-                ☁️ 槓龜陰暗
-              </button>
-            </div>
-            <div id="feedbackThanksMsg" style="display: none; padding: 10px; background: rgba(34, 197, 94, 0.15); border: 1px solid rgba(34, 197, 94, 0.3); border-radius: var(--radius-md); font-size: 0.82rem; color: #4ade80; text-align: center;">
-              ✅ 感謝您的現場回報！觀測數據已納入模型校準回饋庫。
-            </div>
-          </div>
-        </div>
       </div>
     </section>
 
@@ -572,19 +547,15 @@
         <span class="info-chip" id="accuracySummaryBadge">每日 09:00 / 21:00 定時發布</span>
       </div>
 
-      <!-- 累積準確率與模型性能指標 Banner -->
+      <!-- 驗證發布場次 Banner
+           註：準確率 / MAE 指標暫不對外顯示 —— 目前累積的驗證紀錄多為
+           遷移 Tier A/B 擷取管線前的舊格式，缺乏可信賴的真實影格證據，
+           算出來的數字沒有意義。待自架 runner 累積足量 Tier A 精確影格
+           紀錄後，再由 data/daily-reports.json 動態算出真實指標。 -->
       <div class="verification-stats-banner">
         <div class="stat-pill-box">
-          <div class="stat-pill-label">歷史累計預測準確率 (±15分內)</div>
-          <div class="stat-pill-value" id="statAccuracyPct">93.5%</div>
-        </div>
-        <div class="stat-pill-box">
-          <div class="stat-pill-label">平均絕對誤差 (MAE)</div>
-          <div class="stat-pill-value" id="statAvgMAE">±4.3 分</div>
-        </div>
-        <div class="stat-pill-box">
           <div class="stat-pill-label">定時驗證發布場次</div>
-          <div class="stat-pill-value" id="statTotalVerified">4 篇 (持續累積)</div>
+          <div class="stat-pill-value" id="statTotalVerified">累積中</div>
         </div>
       </div>
 

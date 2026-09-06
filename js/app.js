@@ -386,6 +386,26 @@ class SkyFireGPSApp {
     if (ratingBadgeText) ratingBadgeText.innerText = rating.badge;
     if (ratingSummary) ratingSummary.innerText = rating.summary;
 
+    // 預測可信度提示：離線模擬、上游光路資料不足、或太陽方位角被地形遮擋時，
+    // 明確告知使用者此處預測的把握度較低，而不是給一個看起來一樣確定的分數。
+    const confidenceNotice = document.getElementById('confidenceNotice');
+    if (confidenceNotice) {
+      const conf = data.isSimulated
+        ? { level: 'low', reasons: ['目前無法連上即時氣象，顯示的是離線物理模擬結果'] }
+        : (upstream && upstream.confidence) || null;
+
+      if (conf && conf.level && conf.level !== 'high' && conf.reasons?.length) {
+        const label = conf.level === 'low' ? '⚠️ 此地點預測信心偏低' : 'ℹ️ 此地點預測信心中等';
+        confidenceNotice.textContent = '';
+        const strong = document.createElement('strong');
+        strong.textContent = label;
+        confidenceNotice.append(strong, document.createElement('br'), conf.reasons.join('；'));
+        confidenceNotice.hidden = false;
+      } else {
+        confidenceNotice.hidden = true;
+      }
+    }
+
     // 最佳出景窗口
     const peakWindowText = document.getElementById('peakWindowText');
     if (peakWindowText) {
@@ -982,8 +1002,6 @@ class SkyFireGPSApp {
     const latestContainer = document.getElementById('latestReportContainer');
     const archiveDeck = document.getElementById('archiveReportsDeck');
     const badgeEl = document.getElementById('accuracySummaryBadge');
-    const statAcc = document.getElementById('statAccuracyPct');
-    const statMAE = document.getElementById('statAvgMAE');
     const statTotal = document.getElementById('statTotalVerified');
     const filterTabs = document.querySelectorAll('[data-archive-filter]');
 
@@ -1006,8 +1024,6 @@ class SkyFireGPSApp {
       // 計算歷史準確率與發布指標
       const totalCount = reports.length;
       if (statTotal) statTotal.innerText = `${totalCount} 篇 (持續累積)`;
-      if (statAcc) statAcc.innerText = '96.5%';
-      if (statMAE) statMAE.innerText = '±3.8 分';
       if (badgeEl) badgeEl.innerText = `每日 09:00 / 21:00 定時發布 (已累計 ${totalCount} 篇)`;
 
       // 渲染主展示區 (最新一期日報)
@@ -1118,20 +1134,6 @@ class SkyFireGPSApp {
         <p><strong>☁️ 雲層與大氣結構：</strong>${report.summaryAnalysis?.atmosphericReason || '觀測總結記錄中。'}</p>
         <p><strong>🎯 模型預測準確度：</strong>${report.summaryAnalysis?.modelPerformance || '模型持續精準校準中。'}</p>
       </div>
-
-      ${report.id === 'report-2026-08-27-sunset' ? `
-        <div style="margin-top: 16px; padding: 14px 20px; background: rgba(244, 63, 94, 0.15); border: 1px solid rgba(244, 63, 94, 0.4); border-radius: 10px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px;">
-          <div>
-            <strong style="color: #fda4af; font-size: 0.95rem; display: flex; align-items: center; gap: 6px;">
-              <span>🔥</span> 歷史級別大景特刊：2026-08-27 傍晚火燒雲巔峰（18:45:00）
-            </strong>
-            <div style="font-size: 0.8rem; color: #cbd5e1; margin-top: 2px;">本場 8/27 暮光二次散射巔峰已收錄至獨立高畫質圖冊（內嵌 4K 官方即時時間碼影格）</div>
-          </div>
-          <a href="peak_sunset_1845_show.html" target="_blank" class="btn-pill" style="text-decoration: none; padding: 7px 18px; background: #f43f5e; color: #fff; border-color: #f43f5e; font-weight: 700; font-size: 0.84rem; box-shadow: 0 4px 12px rgba(244, 63, 94, 0.4);">
-            🌟 開啟 18:45 史詩大景圖冊 ➔
-          </a>
-        </div>
-      ` : ''}
     `;
   }
 
@@ -1241,28 +1243,6 @@ class SkyFireGPSApp {
       });
     });
 
-    // 實況眾包回報 (Ground Truth)
-    document.querySelectorAll('.feedback-btn').forEach(btn => {
-      btn.addEventListener('click', () => {
-        const rating = btn.dataset.rating;
-        const group = document.getElementById('feedbackBtnGroup');
-        const thanks = document.getElementById('feedbackThanksMsg');
-        
-        try {
-          const feedbackLog = JSON.parse(localStorage.getItem('skyfire_gps_feedback') || '[]');
-          feedbackLog.push({
-            timestamp: new Date().toISOString(),
-            location: this.currentLocation,
-            reportedRating: rating,
-            modelScore: this.getActiveSessionData()?.skyfire?.score || null
-          });
-          localStorage.setItem('skyfire_gps_feedback', JSON.stringify(feedbackLog));
-        } catch (err) {}
-
-        if (group) group.style.display = 'none';
-        if (thanks) thanks.style.display = 'block';
-      });
-    });
   }
 }
 
