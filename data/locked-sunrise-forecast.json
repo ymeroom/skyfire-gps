@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-06",
+  "date": "2026-09-07",
   "session": "sunrise",
-  "lockedAt": "2026-09-05T17:42:33.070Z",
+  "lockedAt": "2026-09-06T17:44:23.008Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 6,
-      "lowCloudPenalty": 53,
+      "cloudQualityScore": 1,
+      "lowCloudPenalty": 51,
       "horizonScore": 0,
-      "visibilityScore": 2,
+      "visibilityScore": 15,
       "horizonClearance": 0,
-      "visKm": 3
+      "visKm": 120
     },
     "diagnostics": [
       {
         "label": "高空卷雲 (6,000m+)",
         "status": "low",
-        "desc": "高雲量僅 2%，上方缺少大面積紅色漫射反光板。"
+        "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
-        "status": "fair",
-        "desc": "中雲量厚實 (100%)，層次豐富但需留意下方陰影。"
+        "status": "low",
+        "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方東方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 100%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 97%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "bad",
-        "desc": "能見度受限（2.96 公里），霧霾或水氣可能使天色偏灰白。"
+        "status": "optimal",
+        "desc": "能見度優異（120 公里），大氣清澈通透，晚霞色彩飽和純淨。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-05T22:00:00.000Z",
-    "timeStr": "2026-09-06T06:00",
-    "cloudHigh": 2,
-    "cloudMid": 100,
-    "cloudLow": 100,
-    "cloudTotal": 100,
-    "visibility": 2960,
-    "humidity": 96,
-    "precipProb": 99,
-    "temp": 24.6,
-    "weatherCode": 55
+    "time": "2026-09-06T22:00:00.000Z",
+    "timeStr": "2026-09-07T06:00",
+    "cloudHigh": 0,
+    "cloudMid": 2,
+    "cloudLow": 97,
+    "cloudTotal": 97,
+    "visibility": 120,
+    "humidity": 100,
+    "precipProb": 5,
+    "temp": 23.4,
+    "weatherCode": 3
   }
 }
