@@ -1,4 +1,5 @@
-const CACHE_NAME = 'skyfire-gps-taiwan-v3';
+// 每次改動前端資產都要 bump 這個版號：activate 只會刪掉 key 不等於 CACHE_NAME 的舊快取。
+const CACHE_NAME = 'skyfire-gps-taiwan-v4';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',
@@ -16,7 +17,9 @@ const ASSETS_TO_CACHE = [
 self.addEventListener('install', (e) => {
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      return cache.addAll(ASSETS_TO_CACHE);
+      // {cache:'reload'} 強制略過 HTTP 快取，否則全新的 v4 可能又從 GitHub Pages 的
+      // max-age 回應重新灌入過期內容。
+      return cache.addAll(ASSETS_TO_CACHE.map((u) => new Request(u, { cache: 'reload' })));
     })
   );
   self.skipWaiting();
@@ -38,14 +41,21 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // 只快取同源靜態檔案，動態 API 請求優先網路
-  if (e.request.url.includes('open-meteo.com') || e.request.url.includes('bigdatacloud') || e.request.url.includes('nominatim')) {
-    return;
-  }
+  if (e.request.method !== 'GET') return;
+  // 只處理同源靜態檔案；氣象/逆地理 API 與 unpkg 上的 Leaflet 一律直接走網路。
+  if (new URL(e.request.url).origin !== self.location.origin) return;
 
+  // Network-first：永遠先拿最新版，成功就順手更新快取；離線時才回退到快取。
+  // 舊版是 cache-first 且從不重新驗證，任何前端改動都要等 CACHE_NAME bump 才會傳到回訪者。
   e.respondWith(
-    caches.match(e.request).then((res) => {
-      return res || fetch(e.request);
-    })
+    fetch(e.request)
+      .then((res) => {
+        if (res && res.ok) {
+          const copy = res.clone();
+          caches.open(CACHE_NAME).then((c) => c.put(e.request, copy));
+        }
+        return res;
+      })
+      .catch(() => caches.match(e.request))
   );
 });

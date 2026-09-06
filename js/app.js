@@ -803,7 +803,7 @@ class SkyFireGPSApp {
   }
 
   /**
-   * 繪製全台 20 大攝影聖地標記
+   * 繪製全台 13 大攝影聖地標記
    */
   renderMapSpotMarkers() {
     if (!this.map) return;
