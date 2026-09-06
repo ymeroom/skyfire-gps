@@ -6,8 +6,8 @@
 :root {
   /* 主題色盤 - 晨昏大氣光影 */
   --bg-space: #090d16;
-  --bg-surface-1: rgba(16, 22, 36, 0.8);
-  --bg-surface-2: rgba(26, 34, 54, 0.65);
+  --bg-surface-1: rgba(16, 22, 36, 0.93);
+  --bg-surface-2: rgba(24, 32, 52, 0.9);
   --bg-surface-hover: rgba(38, 50, 78, 0.85);
   --glass-border: rgba(255, 255, 255, 0.1);
   --glass-border-glow: rgba(255, 107, 0, 0.35);
@@ -219,7 +219,6 @@ body::before {
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
   cursor: pointer;
-  backdrop-filter: blur(12px);
   transition: var(--transition-smooth);
 }
 
@@ -278,7 +277,6 @@ body::before {
   padding: 4px;
   border-radius: var(--radius-full);
   border: 1px solid var(--glass-border);
-  backdrop-filter: blur(12px);
 }
 
 .tab-btn {
@@ -352,8 +350,6 @@ body::before {
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-lg);
   padding: 24px;
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
   box-shadow: var(--shadow-md);
   position: relative;
   overflow: hidden;
@@ -901,7 +897,6 @@ body::before {
   left: 14px;
   z-index: 10;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(12px);
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-full);
   padding: 6px 14px;
@@ -920,7 +915,6 @@ body::before {
   left: 14px;
   z-index: 10;
   background: rgba(2, 132, 199, 0.85);
-  backdrop-filter: blur(12px);
   border-radius: var(--radius-full);
   padding: 4px 12px;
   font-size: 0.78rem;
@@ -1226,7 +1220,6 @@ body::before {
   width: 100vw;
   height: 100vh;
   background: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(10px);
   z-index: 9999;
   display: none;
   align-items: center;
@@ -1387,7 +1380,6 @@ body::before {
   font-size: 0.72rem;
   font-weight: 800;
   background: rgba(15, 23, 42, 0.85);
-  backdrop-filter: blur(8px);
   color: #4ade80;
   border: 1px solid rgba(74, 222, 128, 0.4);
 }
