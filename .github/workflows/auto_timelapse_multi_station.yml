@@ -77,10 +77,26 @@ jobs:
           echo "PYTHON_BIN=$PY" >> "$GITHUB_ENV"
           echo "使用 $PY: $($PY --version 2>&1)"
 
+      - name: 🗓️ 解析擷取日期 (台灣時區)
+        id: date
+        run: echo "value=$(date +%F)" >> "$GITHUB_OUTPUT"
+
       - name: 🎞️ 執行多機位縮時擷取 (T-40 ~ T+40，每 10 分鐘一張)
         run: |
-          "$PYTHON_BIN" scripts/capture_timelapse_multi_station.py "${{ steps.session.outputs.value }}"
+          "$PYTHON_BIN" scripts/capture_timelapse_multi_station.py "${{ steps.session.outputs.value }}" "${{ steps.date.outputs.value }}"
 
-      # 產出寫入 data/timelapse/ (已加入 .gitignore)，只留在本機供人工檢視，
-      # 不進版控、不 commit/push —— 與 auto_validate_capture.yml 的正式驗證
-      # 管線 (象山/大稻埕兩站) 完全分開，互不影響。
+      # 產出寫入 data/timelapse/ (已加入 .gitignore)，不進版控/不 commit。
+      # 改上傳成 workflow artifact，這樣不必登進 runner 本機就能下載當日的
+      # report.html (圖片已內嵌 base64，單檔即可看) + 原始幀 + JSON 評分。
+      # 只打包「本次日期+時段」的產出，不含 runner 上累積的歷史日期。
+      - name: 📤 上傳當日縮時產出 (report.html + 原始幀 + JSON)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: timelapse-${{ steps.date.outputs.value }}-${{ steps.session.outputs.value }}
+          path: |
+            data/timelapse/${{ steps.date.outputs.value }}-${{ steps.session.outputs.value }}-report.html
+            data/timelapse/${{ steps.date.outputs.value }}-${{ steps.session.outputs.value }}.json
+            data/timelapse/${{ steps.date.outputs.value }}-${{ steps.session.outputs.value }}/
+          if-no-files-found: warn
+          retention-days: 30
