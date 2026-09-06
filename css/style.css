@@ -1055,6 +1055,27 @@ body::before {
   color: var(--text-muted);
 }
 
+.spot-card-live {
+  margin-top: 8px;
+}
+
+.spot-live-link {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-decoration: none;
+  color: #38bdf8;
+  padding: 3px 8px;
+  border: 1px solid rgba(56, 189, 248, 0.35);
+  border-radius: 6px;
+  transition: var(--transition-smooth);
+}
+
+.spot-live-link:hover {
+  background: rgba(56, 189, 248, 0.15);
+  border-color: rgba(56, 189, 248, 0.6);
+}
+
 /* ==========================================================================
    攝影師隨身小抄指南
    ========================================================================== */

@@ -1,5 +1,5 @@
 // 每次改動前端資產都要 bump 這個版號：activate 只會刪掉 key 不等於 CACHE_NAME 的舊快取。
-const CACHE_NAME = 'skyfire-gps-taiwan-v4';
+const CACHE_NAME = 'skyfire-gps-taiwan-v5';
 const ASSETS_TO_CACHE = [
   './',
   './index.html',

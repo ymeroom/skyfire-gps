@@ -29,6 +29,7 @@ class SkyFireGPSApp {
     this.bindEvents();
     this.initMap();
     this.renderSpotsList('all');
+    this.renderLiveCamList();
     this.initSimulator();
     this.initPWA();
     await this.loadActiveCalibration();
@@ -640,14 +641,52 @@ class SkyFireGPSApp {
           ${spot.tags.map(t => `<span class="spot-tag-pill">#${t}</span>`).join('')}
           <span class="spot-tag-pill" style="color: #ff9e00;">📷 ${spot.recommendedFocal}</span>
         </div>
+        ${spot.liveUrl ? `
+        <div class="spot-card-live">
+          <a href="${spot.liveUrl}" target="_blank" rel="noopener" class="spot-live-link">▶️ 看即時直播</a>
+        </div>` : ''}
       `;
 
       item.addEventListener('click', () => {
         this.selectSpot(spot);
       });
+      // 直播連結不應觸發整張卡片的「選為預測點」行為
+      const liveLink = item.querySelector('.spot-live-link');
+      if (liveLink) liveLink.addEventListener('click', (e) => e.stopPropagation());
 
       container.appendChild(item);
     });
+  }
+
+  /**
+   * 渲染「科學卡片 4」的即時直播機位清單。
+   * 單一資料來源＝TAIWAN_SPOTS，避免像舊版硬編碼那樣與攝影聖地清單漂移。
+   */
+  renderLiveCamList() {
+    const container = document.getElementById('liveCamListContainer');
+    if (!container) return;
+
+    const groups = [
+      { key: 'sunrise', label: '🌅 日出機位', color: '#38bdf8' },
+      { key: 'both', label: '🔄 晨昏雙絕', color: '#a78bfa' },
+      { key: 'sunset', label: '🌇 日落晚霞機位', color: '#f97316' }
+    ];
+
+    const withLive = TAIWAN_SPOTS.filter(s => s.liveUrl);
+    const countEl = document.getElementById('liveCamCount');
+    if (countEl) countEl.textContent = withLive.length;
+
+    container.innerHTML = groups.map(g => {
+      const spots = withLive.filter(s => s.category === g.key);
+      if (!spots.length) return '';
+      const links = spots.map((s, i) => `
+        <a href="${s.liveUrl}" target="_blank" rel="noopener" class="btn-pill" style="text-decoration: none; justify-content: flex-start; font-size: 0.8rem;">
+          <span>📹</span> ${i + 1}. ${s.name}
+        </a>`).join('');
+      return `
+        <h5 style="color: ${g.color}; margin: 12px 0 4px 0; font-size: 0.85rem;">${g.label}（${spots.length} 站）</h5>
+        <div style="display: flex; flex-direction: column; gap: 6px;">${links}</div>`;
+    }).join('');
   }
 
   /**
