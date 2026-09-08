@@ -70,25 +70,52 @@
       "rating": "平淡暮光",
       "color": "#7B88A8",
       "highCloud": 0,
-      "midCloud": 2,
+      "midCloud": 3,
       "lowCloud": 5,
-      "horizonClearance": 87,
-      "visibilityKm": 27.3,
-      "isSimulated": false
+      "horizonClearance": 85,
+      "visibilityKm": 25,
+      "isSimulated": false,
+      "lockedAt": "2026-09-08T12:56:36.419Z"
     },
-    "snapshotUrl": null,
+    "snapshotUrl": "data/snapshots/2026-09-08-sunset.jpg",
     "capture": {
-      "kind": null,
-      "fidelity": "none",
-      "validated": false,
-      "capturedAt": "2026-09-07T18:01:30.383Z",
-      "offsetMinutes": -966,
-      "error": "outside sunset capture window: offset -966 minutes exceeds ±600"
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-09-08-sunset.jpg",
+      "sha256": "01f9e8945752942ce8440d188499cce80167b8147fb766c4cc9e5d4cea071460",
+      "capturedAt": "2026-09-08T14:46:27.390Z",
+      "offsetMinutes": 279,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "posterQuality": null,
+      "fallbackReason": null,
+      "validated": true
     },
     "verification": {
-      "status": "capture_unavailable",
-      "groundTruthScore": null,
-      "errorAbsolute": null,
+      "status": "verified_completed",
+      "groundTruthScore": 19,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 16,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 28.6,
+      "skyCoveragePct": 6.2,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-08T09:37:26.770000+00:00",
+        "windowEnd": "2026-09-08T10:30:47.040000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "verifiedAt": "2026-09-08T14:46:41.204Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
   },
