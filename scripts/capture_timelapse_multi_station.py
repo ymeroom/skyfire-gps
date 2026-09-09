@@ -4,9 +4,10 @@ capture_timelapse_multi_station.py
 
 日出/日落前後 40 分鐘、每 10 分鐘一張的多機位縮時光學評分 (13 站版)。
 
-  日出：望高寮、金龍山、阿里山生力農場、二寮觀日亭、七星潭月牙灣、
+  日出：望高寮、阿里山生力農場、二寮觀日亭、七星潭月牙灣、
       三仙台八拱跨海步橋、華源曙光觀景台、阿里山小笠原山觀景台
-      (晨昏雙絕)                                    → 8 站 × 9 張 = 72 張
+      (晨昏雙絕)                                    → 7 站 × 9 張 = 63 張
+      (金龍山 DVR 過短已移出，見 SUNRISE_STATIONS 上方註解)
   日落：高美濕地、阿里山二延平步道、白河火山碧雲寺、桃園大古山、
       永安漁港、阿里山小笠原山觀景台 (晨昏雙絕)      → 6 站 × 9 張 = 54 張
 
@@ -39,7 +40,9 @@ import os
 import re
 import subprocess
 import sys
+import urllib.error
 import urllib.request
+from collections import Counter
 
 if sys.platform == 'win32':
     try:
@@ -88,7 +91,29 @@ def compute_canonical_ground_truth(session, frames):
     }
 
     if not ok_frames:
-        return {**summary, "available": False, "reason": "no successful frame"}
+        # 把失敗原因歸類 (每格的訊息帶不同 sq/分鐘數，不歸類會 9 格全不同)，
+        # 記下主要類別 + 一則樣本，供 merge 腳本寫進 multi-station-records.json
+        # 的 unreliableReason —— 下次同樣狀況不必再翻 workflow log。
+        def _bucket(err):
+            if "DVR 回溯範圍" in err:
+                return "直播 DVR 視窗過短 (清單下緣)"
+            if "實際可回溯範圍" in err or "CDN 回收" in err or "404" in err:
+                return "目標時刻已被 CDN 回收 (清單宣稱視窗 > 實際)"
+            if "manifest" in err or "is_live" in err or "m3u8" in err:
+                return "無法取得直播串流 manifest"
+            if "檔案過小" in err:
+                return "擷取影格損毀 / 過小"
+            if "尚未發生" in err:
+                return None
+            return err.split("(")[0].strip() or "unknown"
+
+        buckets = Counter(b for f in frames if (b := _bucket(f.get("error", ""))))
+        if buckets:
+            top, n = buckets.most_common(1)[0]
+            reason = f"{top} (9 格中 {n} 格)" if n < len([f for f in frames if f.get("error")]) else top
+        else:
+            reason = "no successful frame"
+        return {**summary, "available": False, "reason": reason}
 
     # canonical 分數＝「峰值窗口內、未被暗夜閘門封頂」的成功影格裡最高分。
     # 刻意限制在峰值窗口 (日落後 0~30 分 / 日出前 20 分~日出後 10 分)：
@@ -124,11 +149,14 @@ def compute_canonical_ground_truth(session, frames):
 
 # 座標與直播網址取自 js/spots-taiwan.js，2026-09-05 已用 yt-dlp -J
 # 逐一實測確認 is_live=true / live_status=is_live。
+# 金龍山 (tEcHWBlxAGM) 已移出縮時擷取清單：該直播的 DVR 視窗僅 ~25 秒
+# (播放清單只有 5 個 segment)，任何排程延遲都拿不到日出當刻的回溯影格，
+# 連準時執行也撈不到 T-40。目前無其他在線的金龍山 4K 直播可替代。它仍
+# 保留在 js/spots-taiwan.js 作為可造訪的攝影點 (地圖 / 直播連結不受影響)，
+# 只是不列入 ground truth 光學驗證。找到有 DVR 的替代源再加回。
 SUNRISE_STATIONS = [
     {"id": "gaowangliao", "name": "望高寮", "url": "https://www.youtube.com/watch?v=lhXXhDyjFtI",
      "lat": 24.151718912445833, "lng": 120.58055599700907},
-    {"id": "jinlongshan", "name": "金龍山", "url": "https://www.youtube.com/watch?v=tEcHWBlxAGM",
-     "lat": 24.118486835532135, "lng": 120.97498228389544},
     {"id": "alishan-shengli", "name": "阿里山生力農場", "url": "https://www.youtube.com/watch?v=agEzlv9n9Eg",
      "lat": 23.432136451292212, "lng": 120.66435735771614},
     {"id": "erliao", "name": "二寮觀日亭", "url": "https://www.youtube.com/watch?v=xbojeDKjcaM",
@@ -212,10 +240,15 @@ def fetch_stream_manifest(watch_url):
     if not data.get("is_live"):
         raise RuntimeError("直播目前非 is_live 狀態")
 
+    # 依偏好順序挑格式：480p 為主。360p (fmt 93) 對夜景 / 日出前的暗畫面
+    # 壓縮到 8KB 以下，會被 capture_frame_at 的體積下限判成「檔案過小」
+    # (三仙台 X_fchztvqI0 就是這樣連續 0/9)。480p 起跳可穩定過關，頻寬仍低，
+    # 對光學色彩直方圖分析也夠用。
+    by_id = {f.get("format_id"): f for f in data.get("formats", []) if f.get("url")}
     m3u8_url = None
-    for f in data.get("formats", []):
-        if f.get("format_id") in ["95", "96", "94", "93"] and f.get("url"):
-            m3u8_url = f["url"]
+    for fmt_id in ["94", "95", "96", "93"]:
+        if fmt_id in by_id:
+            m3u8_url = by_id[fmt_id]["url"]
             break
     if not m3u8_url:
         m3u8_url = data.get("manifest_url")
@@ -236,23 +269,55 @@ def fetch_stream_manifest(watch_url):
 
     latest_sq = int(m_sq.group(1))
     dur = float(m_dur.group(1)) if m_dur else 5.0
-    return latest_sq, dur, latest_url
+
+    # 播放清單第一條 http 行 = 宣稱的最舊 segment。實測有些站 (三仙台
+    # X_fchztvqI0) 清單宣稱 240 分鐘、實際只有 ~75 分鐘拿得到，更舊一律
+    # 404。這裡不做二分探測 (探測本身受 CDN 抖動影響，反而可能誤縮一個
+    # 好的視窗、害到本來能抓的站)。earliest_sq 只用來擋 target_sq 跌破
+    # 清單下緣 / 變負的硬錯 (金龍山 tEcHWBlxAGM 那種 ~0 DVR)；清單有效
+    # 但 CDN 對舊格 404 的情形，交給 capture_frame_at 把 404 歸類成
+    # 「超出實際可回溯範圍」再往上拋。
+    m_first = re.search(r'/sq/(\d+)/', lines[0])
+    earliest_sq = int(m_first.group(1)) if m_first else 0
+    return latest_sq, dur, latest_url, earliest_sq
 
 
-def capture_frame_at(latest_url, latest_sq, dur, seconds_ago, output_jpg):
-    target_sq = max(0, latest_sq - int(seconds_ago / dur))
+def capture_frame_at(latest_url, latest_sq, dur, seconds_ago, output_jpg, earliest_sq=0):
+    target_sq = latest_sq - int(seconds_ago / dur)
+    # 不再 clamp 到 0：若目標時刻早於 DVR 視窗最舊影格，clamp 會改抓「現在」
+    # 這一刻的影格 (直播若剛重啟、sq 從低號重編尤其危險)，它體積 > 10KB 會
+    # 通過大小檢查，被當成峰值窗口的 ground truth 記入校準 —— 這正是
+    # score-ground-truth.js 標頭警告過、比擷取失敗更危險的假分數。誠實報錯。
+    if target_sq < earliest_sq:
+        raise RuntimeError(
+            f"目標時刻超出直播 DVR 回溯範圍 (需回溯 {seconds_ago / 60:.0f} 分鐘，"
+            f"target sq={target_sq} < 可用最舊 sq={earliest_sq}；"
+            f"DVR 視窗僅約 {(latest_sq - earliest_sq) * dur / 60:.0f} 分鐘)"
+        )
     target_url = re.sub(r'/sq/\d+/', f'/sq/{target_sq}/', latest_url)
     temp_ts = output_jpg.replace('.jpg', '.ts')
     os.makedirs(os.path.dirname(output_jpg), exist_ok=True)
-    urllib.request.urlretrieve(target_url, temp_ts)
+    try:
+        urllib.request.urlretrieve(target_url, temp_ts)
+    except urllib.error.HTTPError as e:
+        if e.code == 404:
+            # segment 在清單裡但 CDN 已回收 —— 清單宣稱的視窗比實際可回溯的長。
+            raise RuntimeError(
+                f"目標時刻超出直播實際可回溯範圍 (回溯 {seconds_ago / 60:.0f} 分鐘, "
+                f"sq={target_sq} 已被 CDN 回收 / 404)"
+            ) from e
+        raise
     subprocess.run(
         ["ffmpeg", "-y", "-i", temp_ts, "-vframes", "1", "-q:v", "2", output_jpg],
         capture_output=True, timeout=30
     )
     if os.path.exists(temp_ts):
         os.remove(temp_ts)
-    if not (os.path.exists(output_jpg) and os.path.getsize(output_jpg) > 10000):
-        raise RuntimeError("擷取的影格檔案過小或不存在")
+    # 下限 4KB：一張合法的暗色夜景 JPEG (480p) 約 8-15KB，壞掉 / 空的
+    # ffmpeg 輸出是 0 或幾百 bytes。舊值 10KB 會誤殺偏暗的正常影格。
+    size = os.path.getsize(output_jpg) if os.path.exists(output_jpg) else 0
+    if size < 4000:
+        raise RuntimeError(f"擷取的影格檔案過小或不存在 ({size} bytes)")
 
 
 def offset_label(offset_min):
@@ -268,7 +333,7 @@ def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
 
     frames = []
     try:
-        latest_sq, dur, latest_url = fetch_stream_manifest(station["url"])
+        latest_sq, dur, latest_url, earliest_sq = fetch_stream_manifest(station["url"])
     except Exception as e:
         print(f"    ❌ 無法取得直播 manifest: {e}")
         for offset_min in OFFSETS_MIN:
@@ -278,6 +343,11 @@ def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
                 "error": f"manifest 取得失敗: {e}"
             })
         return frames
+
+    dvr_minutes = (latest_sq - earliest_sq) * dur / 60
+    oldest_lookback_min = (now_utc - (anchor_utc + datetime.timedelta(minutes=OFFSETS_MIN[0]))).total_seconds() / 60
+    if dvr_minutes + 5 < oldest_lookback_min:
+        print(f"    ⚠️  DVR 視窗僅約 {dvr_minutes:.0f} 分鐘，最舊擷取點需回溯 {oldest_lookback_min:.0f} 分鐘 —— 部分影格將超出範圍")
 
     for offset_min in OFFSETS_MIN:
         target_dt = anchor_utc + datetime.timedelta(minutes=offset_min)
@@ -291,7 +361,7 @@ def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
             continue
 
         try:
-            capture_frame_at(latest_url, latest_sq, dur, seconds_ago, out_jpg)
+            capture_frame_at(latest_url, latest_sq, dur, seconds_ago, out_jpg, earliest_sq)
             optics = analyze_image_optics(
                 out_jpg,
                 capture_time=target_dt,
