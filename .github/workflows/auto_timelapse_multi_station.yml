@@ -6,11 +6,23 @@ name: Auto Multi-Station Timelapse Capture (13 站)
 # 需要 repo 寫入權限，外部人士無法觸發。
 on:
   schedule:
-    # 日出 T-40 ~ T+40 全部窗口關閉後補跑 (台灣時間約 07:00，涵蓋 8 個日出機位；
-    # 13 站分散全台，各站日出時刻可差 10-20 分鐘，07:00 留足夠餘裕)
-    - cron: '0 23 * * *'
-    # 日落 T-40 ~ T+40 全部窗口關閉後補跑 (台灣時間約 19:15，涵蓋 6 個日落機位)
-    - cron: '15 11 * * *'
+    # GitHub 排程延遲常達 1-4 小時，且 YouTube 直播 DVR 只保留 ~4 小時。
+    # 一個時段排 5 個 cron、分散在「事件結束後 ~40 分」到「T-40 + 4 小時」
+    # 之間，賭至少一次落在還撈得到影格的窗口。merge-multi-station-calibration.js
+    # 對同一站「取證據較強者」，晚跑的失敗執行不會洗掉早跑的成功結果。
+    #
+    # 日出補跑 (事件約 05:35 台灣；擷取窗 ~06:15–08:55 台灣)
+    - cron: '20 22 * * *'   # 06:20 台灣
+    - cron: '0 23 * * *'    # 07:00 台灣
+    - cron: '40 23 * * *'   # 07:40 台灣
+    - cron: '20 0 * * *'    # 08:20 台灣
+    - cron: '50 0 * * *'    # 08:50 台灣
+    # 日落補跑 (事件約 18:08 台灣；擷取窗 ~18:48–21:28 台灣)
+    - cron: '50 10 * * *'   # 18:50 台灣
+    - cron: '15 11 * * *'   # 19:15 台灣
+    - cron: '50 11 * * *'   # 19:50 台灣
+    - cron: '30 12 * * *'   # 20:30 台灣
+    - cron: '10 13 * * *'   # 21:10 台灣
   workflow_dispatch:
     inputs:
       session:
@@ -59,13 +71,16 @@ jobs:
         run: |
           if [ -n "$MANUAL_SESSION" ]; then
             SESSION="$MANUAL_SESSION"
-          elif [ "$EVENT_SCHEDULE" = "0 23 * * *" ]; then
-            SESSION="sunrise"
           else
-            SESSION="sunset"
+            # cron 的小時欄 (UTC)：22/23/00 → 日出補跑；10-13 → 日落補跑
+            HOUR="$(echo "$EVENT_SCHEDULE" | awk '{print $2}')"
+            case "$HOUR" in
+              22|23|0|00) SESSION="sunrise" ;;
+              *)          SESSION="sunset" ;;
+            esac
           fi
           echo "value=$SESSION" >> "$GITHUB_OUTPUT"
-          echo "Resolved timelapse session: $SESSION"
+          echo "Resolved timelapse session: $SESSION (schedule='$EVENT_SCHEDULE')"
 
       - name: 🛠️ 安裝相依工具 (GitHub 託管 Linux runner)
         if: runner.os == 'Linux'
@@ -104,26 +119,36 @@ jobs:
           if-no-files-found: warn
           retention-days: 30
 
-      # 把各站「暮光窗口峰值」實測跟 lock-forecast-multi.js 事前鎖定的預測配對，
-      # 寫成 data/multi-station-records.json 供每週校準一併讀入。canonical 影格
-      # 複製一份到 data/snapshots/ (進版控) 供日後人工比對評分器。
-      - name: 🔗 合併 13 站校準樣本
-        run: |
-          node scripts/merge-multi-station-calibration.js "${{ steps.session.outputs.value }}" "${{ steps.date.outputs.value }}"
-
-      - name: 🚀 提交 13 站校準樣本 (Commit & Push)
+      # 把各站「暮光窗口峰值」實測跟鎖定預測配對寫進 multi-station-records.json，
+      # 再用最新樣本重建當日日報，然後 commit + push。
+      #
+      # merge 與 briefing 都是「從已 commit 狀態 + 本次縮時擷取輸出 (data/timelapse/，
+      # 未進版控)」的決定性重建，所以推送衝突時只要「硬同步 origin → 重跑重建 →
+      # 重新 commit」即可，永遠不會有 rebase 衝突。merge 對同一站「取證據較強者」，
+      # 較晚跑的失敗補跑不會洗掉較早跑的成功結果。
+      - name: 🔗 合併校準樣本 + 刷新日報 + 提交 (Commit & Push)
+        env:
+          SESSION: ${{ steps.session.outputs.value }}
+          DATE: ${{ steps.date.outputs.value }}
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action [SkyFire Multi-Station Bot]"
-          git add data/multi-station-records.json data/snapshots/ || true
-          if git diff --staged --quiet; then
-            echo "沒有新的校準樣本，略過 commit。"
-            exit 0
-          fi
-          git commit -m "chore(calibration): record 13-station timelapse ground truth [skip ci]"
-          # 排程 bot 也會 push data/，撞到 non-fast-forward 就 rebase 重試。
+
+          rebuild() {
+            node scripts/merge-multi-station-calibration.js "$SESSION" "$DATE"
+            "$PYTHON_BIN" scripts/generate_daily_briefing.py "$SESSION" "$DATE" || true
+            git add data/multi-station-records.json data/snapshots data/daily-reports.json || true
+          }
+
           for i in 1 2 3 4 5; do
-            git pull --rebase --autostash origin main && git push origin HEAD:main && exit 0
-            echo "push 第 $i 次失敗，5 秒後重試…"; sleep 5
+            git fetch origin main -q
+            git reset --hard origin/main -q     # 丟掉前次嘗試的 commit；未進版控的 data/timelapse/ 擷取輸出保留
+            rebuild
+            if git diff --staged --quiet; then
+              echo "沒有新的校準樣本 / 報告無變化，略過 commit。"; exit 0
+            fi
+            git commit -m "chore(calibration): record 13-station timelapse ground truth [skip ci]"
+            git push origin HEAD:main && exit 0
+            echo "push 第 $i 次失敗 (origin 有新 commit)，重抓後重建再試…"; sleep 5
           done
           echo "::error::多次重試後仍無法 push 13 站校準樣本"; exit 1

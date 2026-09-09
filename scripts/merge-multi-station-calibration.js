@@ -247,15 +247,50 @@ function main() {
       existing = [];
     }
   }
-  const newIds = new Set(newRecords.map((r) => r.id));
-  const merged = existing.filter((r) => !newIds.has(r.id)).concat(newRecords);
+  // 同 id「取較佳者」而非無條件覆寫。auto_timelapse_multi_station.yml 現在
+  // 一個時段排多個 cron (GitHub 排程延遲大，多丟幾次賭一次落在 DVR 視窗內)，
+  // 若無條件覆寫，一個「較晚、影格已過期」的失敗執行會把稍早成功那次的
+  // ground truth 洗掉。規則：有 GT 勝過沒 GT；都有 GT 時峰值窗口有效影格多者勝、
+  // 再比總影格數；分不出高下就保留既有那筆 (時間戳不動 → 無 diff → 不觸發
+  // commit，避免每次 cron 都刷一個 [skip ci])。
+  const evidence = (r) => {
+    const v = r.verification || {};
+    const c = r.capture || {};
+    return {
+      hasGt: v.groundTruthScore !== null && v.groundTruthScore !== undefined,
+      peak: c.peakRegionUngatedOk || 0,
+      frames: c.framesOk || 0
+    };
+  };
+  const incomingBeats = (inc, cur) => {
+    const a = evidence(inc);
+    const b = evidence(cur);
+    if (a.hasGt !== b.hasGt) return a.hasGt; // 有 GT 一律勝
+    if (!a.hasGt) return false; // 都沒 GT → 保留既有 (避免時間戳 churn)
+    if (a.peak !== b.peak) return a.peak > b.peak;
+    return a.frames > b.frames; // 平手就保留既有
+  };
+
+  const existingById = new Map(existing.map((r) => [r.id, r]));
+  const resolved = newRecords.map((inc) => {
+    const cur = existingById.get(inc.id);
+    if (cur && !incomingBeats(inc, cur)) {
+      console.log(`  ↩︎ ${inc.id}: 既有紀錄證據較強 (或本次未擷取到)，保留不覆寫`);
+      return cur;
+    }
+    return inc;
+  });
+  const newIds = new Set(resolved.map((r) => r.id));
+  const merged = existing.filter((r) => !newIds.has(r.id)).concat(resolved);
   merged.sort((a, b) => (a.id < b.id ? -1 : a.id > b.id ? 1 : 0));
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(merged, null, 2), 'utf8');
 
-  const reliableCount = newRecords.filter((r) => r.verification.reliable).length;
+  const keptCount = resolved.filter((r, i) => r !== newRecords[i]).length;
+  const reliableCount = resolved.filter((r) => r.verification.reliable).length;
   console.log(
-    `✅ 合併 ${newRecords.length} 站 (${reliableCount} 可靠 / ${newRecords.length - reliableCount} 不可靠) → ${OUT_FILE}`
+    `✅ 合併 ${resolved.length} 站 (${reliableCount} 可靠 / ${resolved.length - reliableCount} 不可靠` +
+      `${keptCount ? `; ${keptCount} 站保留既有` : ''}) → ${OUT_FILE}`
   );
   console.log(`   檔案現有 ${merged.length} 筆 (${new Set(merged.map((r) => r.date)).size} 個不同日期)`);
 }
