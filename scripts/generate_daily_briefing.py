@@ -151,20 +151,36 @@ def build_report(session, override_date=None):
     is_sunrise = session == "sunrise"
     records = collect_records(date_str, session)
 
-    # 代表預報：優先取各站紀錄自帶的鎖定分數（擷取當下鎖定，與該日對齊），
-    # 無紀錄時才退回目前 locked-<session> 檔。
-    rec_pred_scores = [
-        (r.get("prediction") or {}).get("score")
-        for r in records
-        if (r.get("prediction") or {}).get("score") is not None
-    ]
-    fc_score, fc_rating, fc_color = forecast_summary(session)
-    if rec_pred_scores:
-        pred_score = round(sum(rec_pred_scores) / len(rec_pred_scores))
-        pred_rating = fc_rating
-        pred_color = fc_color
+    # 只有「可信」紀錄能餵進統計/判定：merge / calibration 標了
+    # verification.reliable === false 的一律排除 (預測來自離線模擬、舊格式、
+    # 或影格證據不足)。這也讓歷史回填安全 —— 例如 2026-09-06 日落全部
+    # 6 站的預測是 Open-Meteo 當時掛掉時的模擬值 (score 93)，拿去比對毫無意義。
+    def _reliable(rec):
+        ver = rec.get("verification") or {}
+        return (
+            ver.get("reliable") is not False
+            and ver.get("groundTruthScore") is not None
+            and not (rec.get("prediction") or {}).get("isSimulated")
+        )
+
+    reliable_recs = [r for r in records if _reliable(r)]
+
+    # 代表預報 = 可信紀錄各自鎖定的預測分數平均；評級/顏色取最接近平均那站
+    # 自己帶的值 (不從 locked-<session> 檔讀 —— 那永遠是「今天」的預報，回填
+    # 舊日期會抓錯天)。完全沒有可信紀錄時才退回 locked 檔。
+    rel_preds = [(r.get("prediction") or {}).get("score") for r in reliable_recs
+                 if (r.get("prediction") or {}).get("score") is not None]
+    if rel_preds:
+        pred_score = round(sum(rel_preds) / len(rel_preds))
+        near = min(reliable_recs,
+                   key=lambda r: abs((r.get("prediction") or {}).get("score", 0) - pred_score))
+        np_ = near.get("prediction") or {}
+        pred_rating = np_.get("rating", "")
+        pred_color = np_.get("color", "#ff9e00")
+        pred_summary = f"{len(rel_preds)} 站鎖定預報平均"
     else:
-        pred_score, pred_rating, pred_color = fc_score, fc_rating, fc_color
+        pred_score, pred_rating, pred_color = forecast_summary(session)
+        pred_summary = f"locked-{session} 鎖定分數（無可信站點紀錄）"
 
     stations, errors, ground_truths = [], [], []
     verified_count = 0
@@ -174,18 +190,21 @@ def build_report(session, override_date=None):
         gt = ver.get("groundTruthScore")
         mae = ver.get("errorAbsolute")
         badge = ver.get("groundTruthBadge", "")
-        _, vbadge, _ = classify(mae)
+        rel = _reliable(rec)
+        _, vbadge, _ = classify(mae if rel else None)
         verdict_badge = ver.get("verdictBadge") or vbadge
+        if gt is not None and not rel:
+            verdict_badge = "◽ 不列入統計（模擬預測 / 證據不足）"
 
-        if mae is not None:
-            errors.append(mae)
-        if gt is not None:
+        if rel:
+            if mae is not None:
+                errors.append(mae)
             ground_truths.append(gt)
             verified_count += 1
 
         icon, tag = STATION_META.get(station_key(rec), ("📹", rec.get("source", "")))
         name = (rec.get("source") or rec.get("id", "")).split("（")[0].strip()
-        fire = "🔥 " if (gt is not None and gt >= 75) else ""
+        fire = "🔥 " if (rel and gt is not None and gt >= 75) else ""
         status = ver.get("status", "")
         if gt is not None:
             peak = f"{fire}實測光學 {gt} 分（{badge}）"
@@ -201,28 +220,35 @@ def build_report(session, override_date=None):
                 "phasePrep": f"模型預報 {pred.get('score', '--')} 分（{pred.get('rating', '')}）"
                 f"｜高雲 {pred.get('highCloud', '--')}% 低雲 {pred.get('lowCloud', '--')}%",
                 "phasePeak": peak,
-                "phasePost": (
-                    f"誤差 {mae} 分" if mae is not None else "—"
-                ),
+                "phasePost": (f"誤差 {mae} 分" if (rel and mae is not None) else "—"),
                 "forecast": f"{pred.get('score', '--')} 分",
                 "verdict": verdict_badge,
+                "reliable": rel,
             }
         )
 
     mean_mae = round(sum(errors) / len(errors)) if errors else None
     level, verdict_badge, verdict_color = classify(mean_mae)
+    # 可信實測站點 < 2 → 不對模型表現下定論 (樣本太少 / 全是模擬預測)
+    sufficient = verified_count >= 2
 
-    if not verified_count:
+    if not sufficient:
+        level = "UNVERIFIED"
+        verdict_badge = "❔ 有效樣本不足，不評模型"
+        verdict_color = "#94A3B8"
+        captured_any = any(s["phasePeak"].startswith(("實測", "🔥")) or "等待" in s["phasePeak"]
+                           for s in stations)
         atmospheric = (
-            "本時段所有測站影格擷取失敗（GitHub 排程延遲超出 ±擷取窗），"
-            "無地面實況可供比對。"
+            f"本時段僅 {verified_count} 站取得可信光學實況"
+            + ("（其餘為模擬預測或影格擷取失敗）。" if captured_any
+               else "（測站影格擷取失敗，排程延遲超出擷取窗）。")
         )
-        model_perf = "無實測資料，本報告不對模型表現下定論。"
+        model_perf = "有效樣本不足，本報告不對模型表現下定論。"
     else:
-        peak_gt = max(ground_truths) if ground_truths else None
-        mean_gt = round(sum(ground_truths) / len(ground_truths)) if ground_truths else None
+        peak_gt = max(ground_truths)
+        mean_gt = round(sum(ground_truths) / len(ground_truths))
         atmospheric = (
-            f"{verified_count}/{len(stations)} 站取得有效光學實況；"
+            f"{verified_count}/{len(stations)} 站取得可信光學實況；"
             f"實測平均 {mean_gt} 分、峰值 {peak_gt} 分，模型代表預報 {pred_score} 分。"
         )
         model_perf = {
@@ -232,7 +258,7 @@ def build_report(session, override_date=None):
                 f"模型顯著失準（平均誤差 {mean_mae} 分，峰值實測 {peak_gt} 分），"
                 "已標記進入校準樣本。"
             ),
-            "UNVERIFIED": "無實測資料，本報告不對模型表現下定論。",
+            "UNVERIFIED": "有效樣本不足，本報告不對模型表現下定論。",
         }[level]
 
     now = datetime.datetime.now()
@@ -244,16 +270,16 @@ def build_report(session, override_date=None):
         "publishedAt": now.isoformat(),
         "publishTimeLabel": "09:00 定時發布" if is_sunrise else "21:00 定時發布",
         "title": f"{date_str} {'清晨日出' if is_sunrise else '傍晚日落'}實況觀測 vs. 模型預報總結",
-        "verificationStatus": "verified" if verified_count else "unavailable",
+        "verificationStatus": (
+            "verified" if sufficient
+            else "insufficient" if verified_count or any(s["reliable"] for s in stations)
+            else "unavailable"
+        ),
         "prediction": {
             "score": pred_score,
             "rating": pred_rating,
             "color": pred_color,
-            "summary": (
-                f"{len(rec_pred_scores)} 站鎖定預報平均"
-                if rec_pred_scores
-                else f"locked-{session} 鎖定分數"
-            ),
+            "summary": pred_summary,
         },
         "groundTruth": {
             "score": round(sum(ground_truths) / len(ground_truths)) if ground_truths else None,

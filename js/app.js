@@ -1149,7 +1149,7 @@ class SkyFireGPSApp {
     const v = String(verdict);
     if (v.includes('⚠️') || v.includes('MISMATCH') || v.includes('需校準')) return '#f43f5e';
     if (v.includes('⚡') || v.includes('輕微偏差')) return '#fbbf24';
-    if (v.includes('❔') || v.includes('從缺') || v.includes('擷取失敗')) return '#94a3b8';
+    if (v.includes('❔') || v.includes('◽') || v.includes('從缺') || v.includes('擷取失敗') || v.includes('不列入') || v.includes('樣本不足')) return '#94a3b8';
     return '#4ade80';
   }
 
@@ -1196,9 +1196,9 @@ class SkyFireGPSApp {
         </div>
       </div>
 
-      ${report.verificationStatus === 'unavailable' ? `
+      ${(report.verificationStatus === 'unavailable' || report.verificationStatus === 'insufficient') ? `
       <div class="report-unavailable-banner">
-        ❔ 本場次驗證從缺 — ${report.summaryAnalysis?.atmosphericReason || '所有測站影格擷取失敗，無地面實況可供比對。'}
+        ❔ ${report.verificationStatus === 'insufficient' ? '有效樣本不足，本報告不對模型表現下定論' : '本場次驗證從缺'} — ${report.summaryAnalysis?.atmosphericReason || '所有測站影格擷取失敗，無地面實況可供比對。'}
       </div>` : ''}
 
       <!-- 預測 vs 實況 綜合對比欄 -->
