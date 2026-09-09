@@ -16,11 +16,11 @@ async function lockForecast() {
   let sessionType = 'sunset';
   if (manualSession) {
     sessionType = manualSession;
-  } else if (schedule.includes('50 15')) {
-    // 23:50 (UTC 15:50) 鎖定隔日日出
+  } else if (schedule.includes('45 15')) {
+    // 23:45 台灣 (UTC 15:45) 鎖定隔日日出
     sessionType = 'sunrise';
-  } else if (schedule.includes('30 8')) {
-    // 16:30 (UTC 08:30) 鎖定當日日落
+  } else if (schedule.includes('30 7')) {
+    // 15:30 台灣 (UTC 07:30) 鎖定當日日落
     sessionType = 'sunset';
   }
 

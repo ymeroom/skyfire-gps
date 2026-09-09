@@ -21,8 +21,8 @@ function resolveSession() {
   const schedule = process.env.EVENT_SCHEDULE || '';
   const manualSession = process.env.MANUAL_SESSION || '';
   if (manualSession) return manualSession;
-  if (schedule.includes('50 15')) return 'sunrise'; // 23:50 台灣，鎖隔日日出
-  return 'sunset'; // 16:30 台灣，鎖當日日落
+  if (schedule.includes('45 15')) return 'sunrise'; // 23:45 台灣，鎖隔日日出
+  return 'sunset'; // 15:30 台灣，鎖當日日落
 }
 
 function resolveTargetDate(sessionType) {
