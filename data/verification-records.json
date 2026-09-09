@@ -66,29 +66,56 @@
     "targetTime": "2026-09-09T10:06:40.596Z",
     "source": "大稻埕碼頭（4K 官方即時影像）",
     "prediction": {
-      "score": 39,
+      "score": 44,
       "rating": "平淡暮光",
       "color": "#7B88A8",
       "highCloud": 0,
-      "midCloud": 14,
-      "lowCloud": 8,
-      "horizonClearance": 84,
-      "visibilityKm": 11.3,
-      "isSimulated": false
+      "midCloud": 56,
+      "lowCloud": 11,
+      "horizonClearance": 83,
+      "visibilityKm": 9.4,
+      "isSimulated": false,
+      "lockedAt": "2026-09-09T08:06:19.768Z"
     },
-    "snapshotUrl": null,
+    "snapshotUrl": "data/snapshots/2026-09-09-sunset.jpg",
     "capture": {
-      "kind": null,
-      "fidelity": "none",
-      "validated": false,
-      "capturedAt": "2026-09-08T16:58:33.568Z",
-      "offsetMinutes": -1028,
-      "error": "outside sunset capture window: offset -1028 minutes exceeds ±600"
+      "width": 1280,
+      "height": 720,
+      "fileName": "2026-09-09-sunset.jpg",
+      "sha256": "88c62c9fc59f82eb2a2f817e6ec6528e4072d089c2161d9a96c03c52e71015fa",
+      "capturedAt": "2026-09-09T14:48:43.751Z",
+      "offsetMinutes": 282,
+      "kind": "youtube-live-poster",
+      "fidelity": "degraded",
+      "posterQuality": "maxresdefault",
+      "fallbackReason": "yt-dlp exited with 1: ERROR: [youtube] Ndo_8RuefH4: No video formats found!; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U",
+      "validated": true
     },
     "verification": {
-      "status": "capture_unavailable",
-      "groundTruthScore": null,
-      "errorAbsolute": null,
+      "status": "verified_completed",
+      "groundTruthScore": 27,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 17,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 49.5,
+      "skyCoveragePct": 3,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-09T09:36:23.877000+00:00",
+        "windowEnd": "2026-09-09T10:29:41.628000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
+      },
+      "verifiedAt": "2026-09-09T14:49:25.893Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
   },
