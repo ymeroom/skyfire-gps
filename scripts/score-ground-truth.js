@@ -16,6 +16,7 @@ const path = require('path');
 const { spawnSync } = require('child_process');
 const {
   OFFICIAL_STREAMS,
+  getTaipeiDateString,
   isValidatedLiveCaptureRecord,
   validateOpticalResult
 } = require('./live-capture-core.js');
@@ -68,12 +69,34 @@ function runGroundTruthScoring(targetDateStr = null, targetSession = 'sunset') {
   }
 
   let records = JSON.parse(fs.readFileSync(recordsFile, 'utf8'));
-  const nowStr = targetDateStr || new Date().toISOString().split('T')[0];
+  // Phase 1 (capture-validation.js) 用台北日期寫入 record id；此處必須用
+  // 同一基準。舊版用 new Date().toISOString()（UTC），在台北時間 00:00~08:00
+  // 之間執行時 UTC 日期落後一天，會去找不存在的 rec-<昨天>-<session>，
+  // 於是靜默略過評分 —— rec-2026-09-08-sunrise 卡在 captured_ready_for_scoring
+  // 就是這個 bug。
+  const nowStr = targetDateStr || getTaipeiDateString(new Date());
   const targetId = `rec-${nowStr}-${targetSession}`;
 
   let record = records.find(r => r.id === targetId);
   if (!record) {
+    // 保險：日期基準若仍有偏差，撿最近 2 天內「已擷取但未評分」的同時段紀錄。
+    const cutoff = Date.now() - 2 * 24 * 60 * 60 * 1000;
+    record = records
+      .filter(r =>
+        r.session === targetSession &&
+        r.id.startsWith('rec-') &&
+        (r.verification || {}).groundTruthScore == null &&
+        isValidatedLiveCaptureRecord(r) &&
+        new Date(r.date).getTime() >= cutoff
+      )
+      .sort((a, b) => String(b.date).localeCompare(String(a.date)))[0];
+    if (record) {
+      console.log(`ℹ️ 找不到 ${targetId}，改評分最近未評分的同時段紀錄: ${record.id}`);
+    }
+  }
+  if (!record) {
     console.log(`⚠️ 找不到今日紀錄 ${targetId}，尚無可驗證的紀錄。`);
+    process.exitCode = 1; // 讓 workflow 步驟顯示紅燈（不阻擋後續 commit），避免再次靜默略過
     return;
   }
 
