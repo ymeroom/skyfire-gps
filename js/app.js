@@ -1142,6 +1142,18 @@ class SkyFireGPSApp {
   }
 
   /**
+   * 依驗證判定字串（含 🎯 / ⚡ / ⚠️ / ❔ 標記或關鍵詞）回傳對應顏色。
+   * 單一事實來源，日報主表格與歸檔清單共用。
+   */
+  verdictColor(verdict = '') {
+    const v = String(verdict);
+    if (v.includes('⚠️') || v.includes('MISMATCH') || v.includes('需校準')) return '#f43f5e';
+    if (v.includes('⚡') || v.includes('輕微偏差')) return '#fbbf24';
+    if (v.includes('❔') || v.includes('從缺') || v.includes('擷取失敗')) return '#94a3b8';
+    return '#4ade80';
+  }
+
+  /**
    * 渲染選定的實況驗證日報（純表格與總結分析，0 笨重圖片）
    */
   renderSelectedReport(reportId) {
@@ -1155,16 +1167,19 @@ class SkyFireGPSApp {
     const isLatest = report.id === this.dailyReports[0].id;
 
     // 構建機位實況表格 HTML (純數據表格，無圖片)
-    const tableRows = (report.stations || []).map(st => `
+    const tableRows = (report.stations || []).map(st => {
+      const vColor = this.verdictColor(st.verdict || '');
+      const peakColor = st.phasePeak && st.phasePeak.includes('🔥') ? '#f43f5e' : '#e2e8f0';
+      return `
       <tr>
         <td><strong>${st.icon || '📹'} ${st.name}</strong><br><span style="font-size: 0.72rem; color: var(--text-muted);">${st.tag || ''}</span></td>
-        <td>${st.phasePrep || '--'}</td>
-        <td><strong style="color: ${st.phasePeak && st.phasePeak.includes('🔥') ? '#f43f5e' : '#e2e8f0'};">${st.phasePeak || '--'}</strong></td>
+        <td>${st.phasePrep || st.forecast || '--'}</td>
+        <td><strong style="color: ${peakColor};">${st.phasePeak || '--'}</strong></td>
         <td>${st.phasePost || '--'}</td>
-        <td><span style="color: #ff9e00; font-weight: 700;">${st.forecast || '--'}</span></td>
-        <td><span class="report-tag-pill" style="color: #4ade80; border-color: rgba(74, 222, 128, 0.4);">${st.verdict || '🎯 驗證通過'}</span></td>
+        <td><span class="report-tag-pill" style="color: ${vColor}; border-color: ${vColor}55;">${st.verdict || '🎯 驗證通過'}</span></td>
       </tr>
-    `).join('');
+    `;
+    }).join('');
 
     container.innerHTML = `
       <div class="report-header-banner">
@@ -1180,6 +1195,11 @@ class SkyFireGPSApp {
           </div>
         </div>
       </div>
+
+      ${report.verificationStatus === 'unavailable' ? `
+      <div class="report-unavailable-banner">
+        ❔ 本場次驗證從缺 — ${report.summaryAnalysis?.atmosphericReason || '所有測站影格擷取失敗，無地面實況可供比對。'}
+      </div>` : ''}
 
       <!-- 預測 vs 實況 綜合對比欄 -->
       <div class="report-score-banner-row">
@@ -1210,10 +1230,9 @@ class SkyFireGPSApp {
           <thead>
             <tr>
               <th>觀測機位</th>
-              <th>${isSunrise ? '日出前醞釀 (T-25m)' : '日落前醞釀 (T-25m)'}</th>
-              <th>${isSunrise ? '正日出時刻 (T±00m)' : '暮光巔峰 (T+20m)'}</th>
-              <th>${isSunrise ? '日出後收尾 (T+25m)' : '暮光收尾 (T+25m)'}</th>
               <th>模型預報</th>
+              <th>光學實測</th>
+              <th>誤差</th>
               <th>驗證判定</th>
             </tr>
           </thead>
@@ -1258,7 +1277,7 @@ class SkyFireGPSApp {
           <div class="archive-item-badges">
             ${rep.id === 'report-2026-08-27-sunset' ? '<span class="report-tag-pill" style="background: rgba(244, 63, 94, 0.25); color: #f43f5e; border-color: rgba(244, 63, 94, 0.5); font-weight: 800;">🔥 史詩大景</span>' : ''}
             <span class="report-tag-pill">${rep.publishTimeLabel}</span>
-            <span class="report-tag-pill highlight">${rep.groundTruth?.verdictBadge || '🎯 驗證通過'}</span>
+            <span class="report-tag-pill highlight" style="color: ${this.verdictColor(rep.groundTruth?.verdictBadge || '')};">${rep.groundTruth?.verdictBadge || '🎯 驗證通過'}</span>
             <span style="font-size: 0.8rem; color: #ff9e00;">${isSelected ? '📖 現正展示中' : '點擊查看 ➔'}</span>
           </div>
         </div>

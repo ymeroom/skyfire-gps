@@ -1,170 +1,321 @@
+"""
+每日實況驗證日報產生器 (Daily Ground-Truth Briefing)
+
+資料驅動：讀取當次驗證循環的真實紀錄再彙整，絕不寫死結論。
+
+來源檔：
+  - data/verification-records.json      單站 (台北主站) 光學驗證紀錄
+  - data/multi-station-records.json     13 站縮時多站點驗證紀錄
+  - data/locked-<session>-multi-forecast.json / locked-<session>-forecast.json
+                                        鎖定預報 (模型端分數)
+
+輸出：data/daily-reports.json 最前面插入 / 覆蓋一筆 report-<date>-<session>
+
+用法：
+  python scripts/generate_daily_briefing.py [sunrise|sunset] [YYYY-MM-DD]
+
+  第 2 參數為回填指定日期用；平時省略，腳本會鎖定「該時段最新一筆
+  驗證紀錄」的日期 —— 這樣即使 GitHub 排程延遲數小時、跨過午夜，
+  日報日期依然對齊天文事件當日，不會被執行當下的牆上時鐘帶跑。
+"""
+
 import os
 import sys
 import json
 import datetime
-import urllib.request
 
-sys.stdout.reconfigure(encoding='utf-8', errors='replace')
+sys.stdout.reconfigure(encoding="utf-8", errors="replace")
 
-def generate_briefing(session_override=None):
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+DATA = os.path.join(ROOT, "data")
+
+# 已知測站的顯示 metadata（多站縮時紀錄本身不帶 icon/tag）
+STATION_META = {
+    "gaomei": ("🌊", "台中海線・風車海平面"),
+    "dagushan": ("⛰️", "桃園大古山・盆地俯瞰"),
+    "alishan-eryanping": ("🌄", "嘉義阿里山・二延平雲海"),
+    "alishan-xiaoluji": ("🌄", "嘉義阿里山・小笠原山"),
+    "alishan-shengli": ("🌄", "嘉義阿里山・勝利眺望"),
+    "baihe-biyun": ("⛩️", "台南白河・碧雲寺"),
+    "yongan": ("🐟", "高雄永安・漁港海口"),
+    "erliao": ("🪨", "台南左鎮・二寮日出"),
+    "gaowangliao": ("🛤️", "台南龍崎・高望寮"),
+    "huayuan": ("🌉", "花蓮・花園夜景"),
+    "qixingtan": ("🌊", "花蓮・七星潭海灣"),
+    "xiangshan": ("🏙️", "台北信義・象山看 101"),
+    "dadaocheng": ("⛵", "台北大稻埕・淡水河畔"),
+}
+
+
+def load(name):
+    path = os.path.join(DATA, name)
+    if not os.path.exists(path):
+        return None
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except Exception as exc:  # noqa: BLE001
+        print(f"⚠️ 讀取 {name} 失敗: {exc}")
+        return None
+
+
+def classify(mae):
+    """依平均絕對誤差 (分) 判定，門檻與 score-ground-truth.js 對齊。"""
+    if mae is None:
+        return ("UNVERIFIED", "❔ 驗證從缺（影格擷取失敗）", "#94A3B8")
+    if mae <= 8:
+        return ("EXACT_MATCH", "🎯 極致精準 (誤差 ≤ 8分)", "#4ADE80")
+    if mae <= 18:
+        return ("SLIGHT_DEVIATION", "⚡ 輕微偏差 (誤差 ≤ 18分)", "#FBBF24")
+    return ("MISMATCH", "⚠️ 出現偏差需校準", "#F43F5E")
+
+
+def station_key(record):
+    """rec-2026-09-07-sunset-alishan-eryanping -> alishan-eryanping"""
+    rid = record.get("id", "")
+    parts = rid.split("-")
+    # rec / YYYY / MM / DD / session / <station...>
+    return "-".join(parts[5:]) if len(parts) > 5 else "taipei-main"
+
+
+def collect_records(date_str, session):
+    out = []
+    for rec in load("multi-station-records.json") or []:
+        if rec.get("date") == date_str and rec.get("session") == session:
+            out.append(rec)
+    for rec in load("verification-records.json") or []:
+        if rec.get("id") == f"rec-{date_str}-{session}":
+            out.append(rec)
+    return out
+
+
+def resolve_report_date(session, override=None):
+    """
+    鎖定「本時段最近一次真正完成驗證的日期」。
+
+    只認至少有一站 groundTruthScore 非 null 的日期 —— 排除排程延遲跨夜
+    時提前寫入、狀態為 capture_unavailable / captured_ready_for_scoring
+    的空殼紀錄（那些會把日期往未來帶跑）。全時段擷取失敗時退回鎖定
+    預報的日期（lock_forecast 於天文事件當日設定），仍對齊事件日。
+    """
+    if override:
+        return override
+    verified_dates = [
+        rec["date"]
+        for rec in (load("verification-records.json") or [])
+        + (load("multi-station-records.json") or [])
+        if rec.get("session") == session
+        and rec.get("date")
+        and (rec.get("verification") or {}).get("groundTruthScore") is not None
+    ]
+    if verified_dates:
+        return max(verified_dates)
+    locked = load(f"locked-{session}-multi-forecast.json") or load(
+        f"locked-{session}-forecast.json"
+    )
+    if locked and locked.get("date"):
+        return locked["date"]
+    # 最後退路：牆上時鐘。日落報告若在午夜後才跑，回推一天。
     now = datetime.datetime.now()
-    today_str = now.strftime("%Y-%m-%d")
-    
-    if session_override:
-        session = session_override
+    day = now.date()
+    if session == "sunset" and now.hour < 12:
+        day -= datetime.timedelta(days=1)
+    return day.isoformat()
+
+
+def forecast_summary(session):
+    """回傳 (代表分數, 代表評級, 顏色)。"""
+    multi = load(f"locked-{session}-multi-forecast.json")
+    if multi and multi.get("stations"):
+        scores, ratings, colors = [], [], []
+        for st in multi["stations"]:
+            sky = st.get("skyfire") or {}
+            if sky.get("score") is not None:
+                scores.append(sky["score"])
+                rating = sky.get("rating") or {}
+                ratings.append(rating.get("badge", ""))
+                colors.append(rating.get("color", "#ff9e00"))
+        if scores:
+            rep = round(sum(scores) / len(scores))
+            # 取最接近代表分數那站的評級/顏色
+            idx = min(range(len(scores)), key=lambda i: abs(scores[i] - rep))
+            return rep, ratings[idx], colors[idx]
+    single = load(f"locked-{session}-forecast.json") or {}
+    sky = single.get("skyfire") or {}
+    rating = sky.get("rating") or {}
+    return sky.get("score"), rating.get("badge", ""), rating.get("color", "#ff9e00")
+
+
+def build_report(session, override_date=None):
+    date_str = resolve_report_date(session, override_date)
+    is_sunrise = session == "sunrise"
+    records = collect_records(date_str, session)
+
+    # 代表預報：優先取各站紀錄自帶的鎖定分數（擷取當下鎖定，與該日對齊），
+    # 無紀錄時才退回目前 locked-<session> 檔。
+    rec_pred_scores = [
+        (r.get("prediction") or {}).get("score")
+        for r in records
+        if (r.get("prediction") or {}).get("score") is not None
+    ]
+    fc_score, fc_rating, fc_color = forecast_summary(session)
+    if rec_pred_scores:
+        pred_score = round(sum(rec_pred_scores) / len(rec_pred_scores))
+        pred_rating = fc_rating
+        pred_color = fc_color
     else:
-        # 早上 09:00 產出 sunrise；晚上 21:00 產出 sunset
-        session = "sunrise" if now.hour < 15 else "sunset"
-        
-    publish_time_label = "09:00 定時發布" if session == "sunrise" else "21:00 定時發布"
-    session_label = "清晨日出" if session == "sunrise" else "傍晚日落"
-    report_id = f"report-{today_str}-{session}"
-    
-    print(f"=== 📰 產生每日實況日報: {today_str} {session_label} ({publish_time_label}) ===")
-    
-    # 讀取現有報告資料庫
-    reports_path = os.path.join(os.path.dirname(__file__), "..", "data", "daily-reports.json")
-    reports = []
-    if os.path.exists(reports_path):
-        try:
-            with open(reports_path, "r", encoding="utf-8") as f:
-                reports = json.load(f)
-        except Exception as e:
-            print(f"讀取現有報告出錯: {e}")
-            reports = []
-            
-    # 檢查是否已存在今天該時段的報告
-    existing_idx = next((i for i, r in enumerate(reports) if r.get("id") == report_id), None)
-    
-    # 建立或更新報告結構
-    report_obj = {
-        "id": report_id,
-        "date": today_str,
+        pred_score, pred_rating, pred_color = fc_score, fc_rating, fc_color
+
+    stations, errors, ground_truths = [], [], []
+    verified_count = 0
+    for rec in records:
+        pred = rec.get("prediction") or {}
+        ver = rec.get("verification") or {}
+        gt = ver.get("groundTruthScore")
+        mae = ver.get("errorAbsolute")
+        badge = ver.get("groundTruthBadge", "")
+        _, vbadge, _ = classify(mae)
+        verdict_badge = ver.get("verdictBadge") or vbadge
+
+        if mae is not None:
+            errors.append(mae)
+        if gt is not None:
+            ground_truths.append(gt)
+            verified_count += 1
+
+        icon, tag = STATION_META.get(station_key(rec), ("📹", rec.get("source", "")))
+        name = (rec.get("source") or rec.get("id", "")).split("（")[0].strip()
+        fire = "🔥 " if (gt is not None and gt >= 75) else ""
+        status = ver.get("status", "")
+        if gt is not None:
+            peak = f"{fire}實測光學 {gt} 分（{badge}）"
+        elif status in ("captured_ready_for_scoring", "pending_scoring"):
+            peak = "影格已擷取，等待 Phase 2 光學評分"
+        else:
+            peak = "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況"
+        stations.append(
+            {
+                "name": name,
+                "icon": icon,
+                "tag": tag,
+                "phasePrep": f"模型預報 {pred.get('score', '--')} 分（{pred.get('rating', '')}）"
+                f"｜高雲 {pred.get('highCloud', '--')}% 低雲 {pred.get('lowCloud', '--')}%",
+                "phasePeak": peak,
+                "phasePost": (
+                    f"誤差 {mae} 分" if mae is not None else "—"
+                ),
+                "forecast": f"{pred.get('score', '--')} 分",
+                "verdict": verdict_badge,
+            }
+        )
+
+    mean_mae = round(sum(errors) / len(errors)) if errors else None
+    level, verdict_badge, verdict_color = classify(mean_mae)
+
+    if not verified_count:
+        atmospheric = (
+            "本時段所有測站影格擷取失敗（GitHub 排程延遲超出 ±擷取窗），"
+            "無地面實況可供比對。"
+        )
+        model_perf = "無實測資料，本報告不對模型表現下定論。"
+    else:
+        peak_gt = max(ground_truths) if ground_truths else None
+        mean_gt = round(sum(ground_truths) / len(ground_truths)) if ground_truths else None
+        atmospheric = (
+            f"{verified_count}/{len(stations)} 站取得有效光學實況；"
+            f"實測平均 {mean_gt} 分、峰值 {peak_gt} 分，模型代表預報 {pred_score} 分。"
+        )
+        model_perf = {
+            "EXACT_MATCH": f"模型與實測高度一致（平均誤差 {mean_mae} 分）。",
+            "SLIGHT_DEVIATION": f"模型方向正確，分數帶輕微偏差（平均誤差 {mean_mae} 分）。",
+            "MISMATCH": (
+                f"模型顯著失準（平均誤差 {mean_mae} 分，峰值實測 {peak_gt} 分），"
+                "已標記進入校準樣本。"
+            ),
+            "UNVERIFIED": "無實測資料，本報告不對模型表現下定論。",
+        }[level]
+
+    now = datetime.datetime.now()
+    return {
+        "id": f"report-{date_str}-{session}",
+        "date": date_str,
         "session": session,
-        "sessionLabel": session_label,
+        "sessionLabel": "清晨日出" if is_sunrise else "傍晚日落",
         "publishedAt": now.isoformat(),
-        "publishTimeLabel": publish_time_label,
-        "title": f"{today_str} {session_label}實況觀測 vs. 模型預報總結",
+        "publishTimeLabel": "09:00 定時發布" if is_sunrise else "21:00 定時發布",
+        "title": f"{date_str} {'清晨日出' if is_sunrise else '傍晚日落'}實況觀測 vs. 模型預報總結",
+        "verificationStatus": "verified" if verified_count else "unavailable",
         "prediction": {
-            "score": 5,
-            "rating": "陰沉沉寂",
-            "color": "#64748B",
-            "highCloud": 0,
-            "midCloud": 5,
-            "lowCloud": 95,
-            "summary": "低層厚雲籠罩，強烈壓制出景"
+            "score": pred_score,
+            "rating": pred_rating,
+            "color": pred_color,
+            "summary": (
+                f"{len(rec_pred_scores)} 站鎖定預報平均"
+                if rec_pred_scores
+                else f"locked-{session} 鎖定分數"
+            ),
         },
         "groundTruth": {
-            "score": 5,
-            "rating": "陰沉沉寂",
-            "verdict": "EXACT_MATCH",
-            "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-            "color": "#4ADE80"
+            "score": round(sum(ground_truths) / len(ground_truths)) if ground_truths else None,
+            "peakScore": max(ground_truths) if ground_truths else None,
+            "meanErrorAbsolute": mean_mae,
+            "verdict": level,
+            "verdictBadge": verdict_badge,
+            "color": verdict_color,
+            "stationsVerified": verified_count,
+            "stationsTotal": len(stations),
         },
-        "stations": [],
+        "stations": stations,
         "summaryAnalysis": {
-            "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-            "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
-        }
+            "atmosphericReason": atmospheric,
+            "modelPerformance": model_perf,
+        },
     }
-    
-    if session == "sunrise":
-        report_obj["stations"] = [
-            {
-                "name": "新北中和烘爐地",
-                "icon": "⛰️",
-                "tag": "雙北盆地俯瞰視角",
-                "phasePrep": "天際微亮，市區燈火清晰，低雲濃厚。",
-                "phasePeak": "盆地被厚重冷青藍色陰雲籠罩，無強烈朝霞。",
-                "phasePost": "路燈熄滅，轉入均勻平淡日間陰天平光。",
-                "forecast": "5 分 (低雲 95%)",
-                "verdict": "🎯 100% 命中陰天壓制"
-            },
-            {
-                "name": "基隆外木山濱海",
-                "icon": "🌊",
-                "tag": "太平洋日出第一線",
-                "phasePrep": "低空積雲翻湧，東方海平線被灰黑雲層阻隔。",
-                "phasePeak": "海平面被厚雲遮蔽，全陰天平光，無日出紅光。",
-                "phasePost": "天色大白，整片天空為均勻灰色陰天平光。",
-                "forecast": "5 分 (低雲 98%)",
-                "verdict": "🎯 100% 命中陰天壓制"
-            }
-        ]
+
+
+def generate_briefing(session_override=None, date_override=None):
+    session = session_override or (
+        "sunrise" if datetime.datetime.now().hour < 15 else "sunset"
+    )
+    if session not in ("sunrise", "sunset"):
+        raise SystemExit(f"未知時段: {session}")
+
+    report = build_report(session, date_override)
+    session_label = report["sessionLabel"]
+    print(
+        f"=== 📰 產生每日實況日報: {report['date']} {session_label} "
+        f"({report['publishTimeLabel']}) ==="
+    )
+
+    reports_path = os.path.join(DATA, "daily-reports.json")
+    reports = load("daily-reports.json") or []
+
+    idx = next(
+        (i for i, r in enumerate(reports) if r.get("id") == report["id"]), None
+    )
+    if idx is not None:
+        reports[idx] = report
     else:
-        report_obj["stations"] = [
-            {
-                "name": "新北淡水漁人碼頭",
-                "icon": "🌉",
-                "tag": "情人橋海口",
-                "phasePrep": "天色蒼白，低層雲層覆蓋海面。",
-                "phasePeak": "正日落海平面低空微弱泛粉；18:42 暮光窗口轉為均勻冷調深藍夜景，無火燒雲。",
-                "phasePost": "完全進入冷調港灣夜景模式。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            },
-            {
-                "name": "新北八里左岸",
-                "icon": "🌊",
-                "tag": "淡江大橋河海交界",
-                "phasePrep": "台北港上空低雲厚重，海口微弱光感。",
-                "phasePeak": "淡江大橋點燈，海天交界暗黃平光；18:42 呈暗藍灰冷調，無高空火紅卷雲。",
-                "phasePost": "夜景燈光倒映水面，天幕暗化。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            },
-            {
-                "name": "台北大稻埕碼頭",
-                "icon": "⛵",
-                "tag": "淡水河畔",
-                "phasePrep": "河岸天色陰沉，對岸三重天際厚雲。",
-                "phasePeak": "水面平靜，天色暗灰藍；18:42 呈現純藍調夜景，無天空二次散射反光。",
-                "phasePost": "市集夜燈明亮，完全進入夜景模式。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            },
-            {
-                "name": "台北象山看 101",
-                "icon": "🏙️",
-                "tag": "信義區俯瞰",
-                "phasePrep": "台北 101 與信義區天際線呈現均勻灰白雲層。",
-                "phasePeak": "101 點燈，後方觀音山輪廓灰暗；18:42 天空為均勻青灰色冷調夜景，無霞光暮色。",
-                "phasePost": "純粹都市夜景模式。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            },
-            {
-                "name": "台北貓空指南宮",
-                "icon": "⛩️",
-                "tag": "木柵山頂俯瞰",
-                "phasePrep": "俯瞰台北盆地，天際一片蒼白陰雲。",
-                "phasePeak": "雙北盆地被厚雲與冷青調覆蓋，萬家燈火亮起，上方無高空反光層。",
-                "phasePost": "盆地夜景全面鋪開。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            },
-            {
-                "name": "新北九份即時影像",
-                "icon": "🏮",
-                "tag": "東北角山海交界",
-                "phasePrep": "俯瞰基隆嶼海域與山城，厚雲密佈。",
-                "phasePeak": "山城紅色燈籠與山海漁火亮起，天空無霞光色彩。",
-                "phasePost": "九份璀璨山城夜景成形。",
-                "forecast": "5 分 (低雲 99%)",
-                "verdict": "🎯 100% 命中"
-            }
-        ]
-        
-    if existing_idx is not None:
-        reports[existing_idx] = report_obj
-    else:
-        reports.insert(0, report_obj)
-        
+        reports.append(report)
+
+    # 新到舊：先比日期，同日 sunset（傍晚較晚發生）排在 sunrise 之前
+    reports.sort(
+        key=lambda r: (r.get("date", ""), 1 if r.get("session") == "sunset" else 0),
+        reverse=True,
+    )
+
     with open(reports_path, "w", encoding="utf-8") as f:
         json.dump(reports, f, ensure_ascii=False, indent=2)
-        
-    print(f"✅ 成功寫入報告！總歸檔筆數: {len(reports)} 篇")
+
+    gt = report["groundTruth"]
+    print(
+        f"✅ {report['id']} · {gt['verdictBadge']} · "
+        f"{gt['stationsVerified']}/{gt['stationsTotal']} 站驗證 · "
+        f"總歸檔 {len(reports)} 篇"
+    )
+
 
 if __name__ == "__main__":
     sess = sys.argv[1] if len(sys.argv) > 1 else None
-    generate_briefing(sess)
+    date_arg = sys.argv[2] if len(sys.argv) > 2 else None
+    generate_briefing(sess, date_arg)
