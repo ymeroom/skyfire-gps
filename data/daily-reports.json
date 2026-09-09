@@ -4,7 +4,7 @@
     "date": "2026-09-09",
     "session": "sunset",
     "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-09T22:49:26.630166",
+    "publishedAt": "2026-09-10T00:57:42.611421",
     "publishTimeLabel": "21:00 定時發布",
     "title": "2026-09-09 傍晚日落實況觀測 vs. 模型預報總結",
     "verificationStatus": "insufficient",
@@ -22,9 +22,75 @@
       "verdictBadge": "❔ 有效樣本不足，不評模型",
       "color": "#94A3B8",
       "stationsVerified": 1,
-      "stationsTotal": 1
+      "stationsTotal": 7
     },
     "stations": [
+      {
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 19 分（陰沉沉寂）｜高雲 0% 低雲 18%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "19 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 97%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台南白河・火山碧雲寺",
+        "icon": "⛩️",
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 38 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "38 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 55 分（局部霞光）｜高雲 0% 低雲 9%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "55 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 53 分（局部霞光）｜高雲 0% 低雲 5%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "53 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 51 分（局部霞光）｜高雲 0% 低雲 5%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "51 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
       {
         "name": "大稻埕碼頭",
         "icon": "📹",
