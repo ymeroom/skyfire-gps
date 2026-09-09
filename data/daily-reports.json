@@ -4,192 +4,130 @@
     "date": "2026-09-09",
     "session": "sunrise",
     "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-09T07:29:55.487749",
+    "publishedAt": "2026-09-09T12:14:22.301669",
     "publishTimeLabel": "09:00 定時發布",
     "title": "2026-09-09 清晨日出實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
     "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
+      "score": 37,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "6 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
+      "score": 62,
+      "peakScore": 90,
+      "meanErrorAbsolute": 36,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 6,
+      "stationsTotal": 9
     },
     "stations": [
       {
-        "name": "新北中和烘爐地",
-        "icon": "⛰️",
-        "tag": "雙北盆地俯瞰視角",
-        "phasePrep": "天際微亮，市區燈火清晰，低雲濃厚。",
-        "phasePeak": "盆地被厚重冷青藍色陰雲籠罩，無強烈朝霞。",
-        "phasePost": "路燈熄滅，轉入均勻平淡日間陰天平光。",
-        "forecast": "5 分 (低雲 95%)",
-        "verdict": "🎯 100% 命中陰天壓制"
+        "name": "嘉義・阿里山生力農場",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・勝利眺望",
+        "phasePrep": "模型預報 34 分（平淡暮光）｜高雲 0% 低雲 30%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "34 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
       },
       {
-        "name": "基隆外木山濱海",
-        "icon": "🌊",
-        "tag": "太平洋日出第一線",
-        "phasePrep": "低空積雲翻湧，東方海平線被灰黑雲層阻隔。",
-        "phasePeak": "海平面被厚雲遮蔽，全陰天平光，無日出紅光。",
-        "phasePost": "天色大白，整片天空為均勻灰色陰天平光。",
-        "forecast": "5 分 (低雲 98%)",
-        "verdict": "🎯 100% 命中陰天壓制"
-      }
-    ],
-    "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
-    }
-  },
-  {
-    "id": "report-2026-09-09-sunset",
-    "date": "2026-09-09",
-    "session": "sunset",
-    "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-09T00:58:38.197126",
-    "publishTimeLabel": "21:00 定時發布",
-    "title": "2026-09-09 傍晚日落實況觀測 vs. 模型預報總結",
-    "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
-    },
-    "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
-    },
-    "stations": [
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 98%",
+        "phasePeak": "實測光學 27 分（陰沉沉寂）",
+        "phasePost": "誤差 22 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
       {
-        "name": "新北淡水漁人碼頭",
+        "name": "台南・左鎮二寮觀日亭",
+        "icon": "🪨",
+        "tag": "台南左鎮・二寮日出",
+        "phasePrep": "模型預報 67 分（局部霞光）｜高雲 54% 低雲 3%",
+        "phasePeak": "實測光學 35 分（平淡暮光）",
+        "phasePost": "誤差 32 分",
+        "forecast": "67 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台中・望高寮",
+        "icon": "🛤️",
+        "tag": "台南龍崎・高望寮",
+        "phasePrep": "模型預報 33 分（平淡暮光）｜高雲 3% 低雲 0%",
+        "phasePeak": "實測光學 73 分（壯麗火燒雲）",
+        "phasePost": "誤差 40 分",
+        "forecast": "33 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・華源曙光觀景台",
         "icon": "🌉",
-        "tag": "情人橋海口",
-        "phasePrep": "天色蒼白，低層雲層覆蓋海面。",
-        "phasePeak": "正日落海平面低空微弱泛粉；18:42 暮光窗口轉為均勻冷調深藍夜景，無火燒雲。",
-        "phasePost": "完全進入冷調港灣夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "tag": "花蓮・花園夜景",
+        "phasePrep": "模型預報 51 分（局部霞光）｜高雲 80% 低雲 32%",
+        "phasePeak": "🔥 實測光學 78 分（壯麗火燒雲）",
+        "phasePost": "誤差 27 分",
+        "forecast": "51 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
       },
       {
-        "name": "新北八里左岸",
+        "name": "南投・金龍山",
+        "icon": "📹",
+        "tag": "南投・金龍山（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 24 分（陰沉沉寂）｜高雲 0% 低雲 14%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "24 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "花蓮・新城七星潭月牙灣",
         "icon": "🌊",
-        "tag": "淡江大橋河海交界",
-        "phasePrep": "台北港上空低雲厚重，海口微弱光感。",
-        "phasePeak": "淡江大橋點燈，海天交界暗黃平光；18:42 呈暗藍灰冷調，無高空火紅卷雲。",
-        "phasePost": "夜景燈光倒映水面，天幕暗化。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "tag": "花蓮・七星潭海灣",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 76%",
+        "phasePeak": "實測光學 70 分（壯麗火燒雲）",
+        "phasePost": "誤差 65 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
       },
       {
-        "name": "台北大稻埕碼頭",
-        "icon": "⛵",
-        "tag": "淡水河畔",
-        "phasePrep": "河岸天色陰沉，對岸三重天際厚雲。",
-        "phasePeak": "水面平靜，天色暗灰藍；18:42 呈現純藍調夜景，無天空二次散射反光。",
-        "phasePost": "市集夜燈明亮，完全進入夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "台東・成功三仙台八拱跨海步橋",
+        "icon": "📹",
+        "tag": "台東・成功三仙台八拱跨海步橋（13 站縮時 T-20）",
+        "phasePrep": "模型預報 60 分（局部霞光）｜高雲 0% 低雲 5%",
+        "phasePeak": "🔥 實測光學 90 分（史詩級爆發）",
+        "phasePost": "誤差 30 分",
+        "forecast": "60 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
       },
       {
-        "name": "台北象山看 101",
-        "icon": "🏙️",
-        "tag": "信義區俯瞰",
-        "phasePrep": "台北 101 與信義區天際線呈現均勻灰白雲層。",
-        "phasePeak": "101 點燈，後方觀音山輪廓灰暗；18:42 天空為均勻青灰色冷調夜景，無霞光暮色。",
-        "phasePost": "純粹都市夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "台北貓空指南宮",
-        "icon": "⛩️",
-        "tag": "木柵山頂俯瞰",
-        "phasePrep": "俯瞰台北盆地，天際一片蒼白陰雲。",
-        "phasePeak": "雙北盆地被厚雲與冷青調覆蓋，萬家燈火亮起，上方無高空反光層。",
-        "phasePost": "盆地夜景全面鋪開。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "新北九份即時影像",
-        "icon": "🏮",
-        "tag": "東北角山海交界",
-        "phasePrep": "俯瞰基隆嶼海域與山城，厚雲密佈。",
-        "phasePeak": "山城紅色燈籠與山海漁火亮起，天空無霞光色彩。",
-        "phasePost": "九份璀璨山城夜景成形。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "象山看台北 101",
+        "icon": "📹",
+        "tag": "象山看台北 101（4K 官方即時影像）",
+        "phasePrep": "模型預報 46 分（平淡暮光）｜高雲 0% 低雲 2%",
+        "phasePeak": "影格已擷取，等待 Phase 2 光學評分",
+        "phasePost": "—",
+        "forecast": "46 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
-    }
-  },
-  {
-    "id": "report-2026-09-08-sunrise",
-    "date": "2026-09-08",
-    "session": "sunrise",
-    "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-08T13:49:19.575019",
-    "publishTimeLabel": "09:00 定時發布",
-    "title": "2026-09-08 清晨日出實況觀測 vs. 模型預報總結",
-    "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
-    },
-    "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
-    },
-    "stations": [
-      {
-        "name": "新北中和烘爐地",
-        "icon": "⛰️",
-        "tag": "雙北盆地俯瞰視角",
-        "phasePrep": "天際微亮，市區燈火清晰，低雲濃厚。",
-        "phasePeak": "盆地被厚重冷青藍色陰雲籠罩，無強烈朝霞。",
-        "phasePost": "路燈熄滅，轉入均勻平淡日間陰天平光。",
-        "forecast": "5 分 (低雲 95%)",
-        "verdict": "🎯 100% 命中陰天壓制"
-      },
-      {
-        "name": "基隆外木山濱海",
-        "icon": "🌊",
-        "tag": "太平洋日出第一線",
-        "phasePrep": "低空積雲翻湧，東方海平線被灰黑雲層阻隔。",
-        "phasePeak": "海平面被厚雲遮蔽，全陰天平光，無日出紅光。",
-        "phasePost": "天色大白，整片天空為均勻灰色陰天平光。",
-        "forecast": "5 分 (低雲 98%)",
-        "verdict": "🎯 100% 命中陰天壓制"
-      }
-    ],
-    "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
+      "atmosphericReason": "6/9 站取得可信光學實況；實測平均 62 分、峰值 90 分，模型代表預報 37 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 36 分，峰值實測 90 分），已標記進入校準樣本。"
     }
   },
   {
@@ -197,90 +135,337 @@
     "date": "2026-09-08",
     "session": "sunset",
     "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-08T22:46:41.581321",
+    "publishedAt": "2026-09-09T12:14:22.069237",
     "publishTimeLabel": "21:00 定時發布",
     "title": "2026-09-08 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
     "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "5 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
+      "score": 69,
+      "peakScore": 83,
+      "meanErrorAbsolute": 40,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 5,
+      "stationsTotal": 7
     },
     "stations": [
       {
-        "name": "新北淡水漁人碼頭",
-        "icon": "🌉",
-        "tag": "情人橋海口",
-        "phasePrep": "天色蒼白，低層雲層覆蓋海面。",
-        "phasePeak": "正日落海平面低空微弱泛粉；18:42 暮光窗口轉為均勻冷調深藍夜景，無火燒雲。",
-        "phasePost": "完全進入冷調港灣夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 73%",
+        "phasePeak": "實測光學 30 分（平淡暮光 (雨天反光判定)）",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "新北八里左岸",
-        "icon": "🌊",
-        "tag": "淡江大橋河海交界",
-        "phasePrep": "台北港上空低雲厚重，海口微弱光感。",
-        "phasePeak": "淡江大橋點燈，海天交界暗黃平光；18:42 呈暗藍灰冷調，無高空火紅卷雲。",
-        "phasePost": "夜景燈光倒映水面，天幕暗化。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 18 分（陰沉沉寂）｜高雲 0% 低雲 50%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "18 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "台北大稻埕碼頭",
-        "icon": "⛵",
-        "tag": "淡水河畔",
-        "phasePrep": "河岸天色陰沉，對岸三重天際厚雲。",
-        "phasePeak": "水面平靜，天色暗灰藍；18:42 呈現純藍調夜景，無天空二次散射反光。",
-        "phasePost": "市集夜燈明亮，完全進入夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "台北象山看 101",
-        "icon": "🏙️",
-        "tag": "信義區俯瞰",
-        "phasePrep": "台北 101 與信義區天際線呈現均勻灰白雲層。",
-        "phasePeak": "101 點燈，後方觀音山輪廓灰暗；18:42 天空為均勻青灰色冷調夜景，無霞光暮色。",
-        "phasePost": "純粹都市夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "台北貓空指南宮",
+        "name": "台南白河・火山碧雲寺",
         "icon": "⛩️",
-        "tag": "木柵山頂俯瞰",
-        "phasePrep": "俯瞰台北盆地，天際一片蒼白陰雲。",
-        "phasePeak": "雙北盆地被厚雲與冷青調覆蓋，萬家燈火亮起，上方無高空反光層。",
-        "phasePost": "盆地夜景全面鋪開。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 4% 低雲 2%",
+        "phasePeak": "🔥 實測光學 83 分（史詩級爆發）",
+        "phasePost": "誤差 48 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
       },
       {
-        "name": "新北九份即時影像",
-        "icon": "🏮",
-        "tag": "東北角山海交界",
-        "phasePrep": "俯瞰基隆嶼海域與山城，厚雲密佈。",
-        "phasePeak": "山城紅色燈籠與山海漁火亮起，天空無霞光色彩。",
-        "phasePost": "九份璀璨山城夜景成形。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 10%",
+        "phasePeak": "🔥 實測光學 81 分（壯麗火燒雲）",
+        "phasePost": "誤差 46 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "🔥 實測光學 79 分（壯麗火燒雲）",
+        "phasePost": "誤差 44 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 2%",
+        "phasePeak": "🔥 實測光學 83 分（史詩級爆發）",
+        "phasePost": "誤差 48 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "大稻埕碼頭",
+        "icon": "📹",
+        "tag": "大稻埕碼頭（4K 官方即時影像）",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 5%",
+        "phasePeak": "實測光學 19 分（陰沉沉寂）",
+        "phasePost": "誤差 16 分",
+        "forecast": "35 分",
+        "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+        "reliable": true
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
+      "atmosphericReason": "5/7 站取得可信光學實況；實測平均 69 分、峰值 83 分，模型代表預報 35 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 40 分，峰值實測 83 分），已標記進入校準樣本。"
+    }
+  },
+  {
+    "id": "report-2026-09-08-sunrise",
+    "date": "2026-09-08",
+    "session": "sunrise",
+    "sessionLabel": "清晨日出",
+    "publishedAt": "2026-09-09T12:14:21.836443",
+    "publishTimeLabel": "09:00 定時發布",
+    "title": "2026-09-08 清晨日出實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
+    "prediction": {
+      "score": 30,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "7 站鎖定預報平均"
+    },
+    "groundTruth": {
+      "score": 46,
+      "peakScore": 85,
+      "meanErrorAbsolute": 34,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 7,
+      "stationsTotal": 9
+    },
+    "stations": [
+      {
+        "name": "嘉義・阿里山生力農場",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・勝利眺望",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "實測光學 69 分（壯麗火燒雲）",
+        "phasePost": "誤差 34 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "誤差 30 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台南・左鎮二寮觀日亭",
+        "icon": "🪨",
+        "tag": "台南左鎮・二寮日出",
+        "phasePrep": "模型預報 25 分（陰沉沉寂）｜高雲 0% 低雲 1%",
+        "phasePeak": "實測光學 14 分（陰沉沉寂）",
+        "phasePost": "誤差 11 分",
+        "forecast": "25 分",
+        "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+        "reliable": true
+      },
+      {
+        "name": "台中・望高寮",
+        "icon": "🛤️",
+        "tag": "台南龍崎・高望寮",
+        "phasePrep": "模型預報 21 分（陰沉沉寂）｜高雲 0% 低雲 2%",
+        "phasePeak": "🔥 實測光學 85 分（史詩級爆發）",
+        "phasePost": "誤差 64 分",
+        "forecast": "21 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・華源曙光觀景台",
+        "icon": "🌉",
+        "tag": "花蓮・花園夜景",
+        "phasePrep": "模型預報 48 分（局部霞光）｜高雲 0% 低雲 13%",
+        "phasePeak": "實測光學 50 分（局部微霞）",
+        "phasePost": "誤差 2 分",
+        "forecast": "48 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      },
+      {
+        "name": "南投・金龍山",
+        "icon": "📹",
+        "tag": "南投・金龍山（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 26 分（陰沉沉寂）｜高雲 0% 低雲 40%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "26 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "花蓮・新城七星潭月牙灣",
+        "icon": "🌊",
+        "tag": "花蓮・七星潭海灣",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 69%",
+        "phasePeak": "🔥 實測光學 81 分（壯麗火燒雲）",
+        "phasePost": "誤差 76 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・成功三仙台八拱跨海步橋",
+        "icon": "📹",
+        "tag": "台東・成功三仙台八拱跨海步橋（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 70%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "象山看台北 101",
+        "icon": "📹",
+        "tag": "象山看台北 101（4K 官方即時影像）",
+        "phasePrep": "模型預報 42 分（平淡暮光）｜高雲 0% 低雲 2%",
+        "phasePeak": "實測光學 18 分（陰沉沉寂）",
+        "phasePost": "誤差 24 分",
+        "forecast": "42 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "7/9 站取得可信光學實況；實測平均 46 分、峰值 85 分，模型代表預報 30 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 34 分，峰值實測 85 分），已標記進入校準樣本。"
+    }
+  },
+  {
+    "id": "report-2026-09-07-sunset",
+    "date": "2026-09-07",
+    "session": "sunset",
+    "sessionLabel": "傍晚日落",
+    "publishedAt": "2026-09-09T12:14:21.600655",
+    "publishTimeLabel": "21:00 定時發布",
+    "title": "2026-09-07 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "3 站鎖定預報平均"
+    },
+    "groundTruth": {
+      "score": 81,
+      "peakScore": 100,
+      "meanErrorAbsolute": 46,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 3,
+      "stationsTotal": 6
+    },
+    "stations": [
+      {
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 4%",
+        "phasePeak": "🔥 實測光學 77 分（壯麗火燒雲）",
+        "phasePost": "誤差 42 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 16 分（陰沉沉寂）｜高雲 0% 低雲 34%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "16 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "台南白河・火山碧雲寺",
+        "icon": "⛩️",
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "35 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "🔥 實測光學 100 分（史詩級爆發）",
+        "phasePost": "誤差 65 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "實測光學 65 分（局部微霞）",
+        "phasePost": "誤差 30 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "35 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "3/6 站取得可信光學實況；實測平均 81 分、峰值 100 分，模型代表預報 35 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 46 分，峰值實測 100 分），已標記進入校準樣本。"
     }
   },
   {
@@ -288,50 +473,130 @@
     "date": "2026-09-07",
     "session": "sunrise",
     "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-07T13:54:27.263215",
+    "publishedAt": "2026-09-09T12:14:21.361154",
     "publishTimeLabel": "09:00 定時發布",
     "title": "2026-09-07 清晨日出實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
     "prediction": {
-      "score": 5,
+      "score": 18,
       "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
+      "color": "#5A6275",
+      "summary": "4 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
+      "score": 23,
+      "peakScore": 48,
+      "meanErrorAbsolute": 22,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 4,
+      "stationsTotal": 9
     },
     "stations": [
       {
-        "name": "新北中和烘爐地",
-        "icon": "⛰️",
-        "tag": "雙北盆地俯瞰視角",
-        "phasePrep": "天際微亮，市區燈火清晰，低雲濃厚。",
-        "phasePeak": "盆地被厚重冷青藍色陰雲籠罩，無強烈朝霞。",
-        "phasePost": "路燈熄滅，轉入均勻平淡日間陰天平光。",
-        "forecast": "5 分 (低雲 95%)",
-        "verdict": "🎯 100% 命中陰天壓制"
+        "name": "嘉義・阿里山生力農場",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・勝利眺望",
+        "phasePrep": "模型預報 37 分（平淡暮光）｜高雲 0% 低雲 24%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "37 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "基隆外木山濱海",
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 100%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台南・左鎮二寮觀日亭",
+        "icon": "🪨",
+        "tag": "台南左鎮・二寮日出",
+        "phasePrep": "模型預報 33 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "誤差 28 分",
+        "forecast": "33 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台中・望高寮",
+        "icon": "🛤️",
+        "tag": "台南龍崎・高望寮",
+        "phasePrep": "模型預報 29 分（陰沉沉寂）｜高雲 0% 低雲 0%",
+        "phasePeak": "實測光學 22 分（陰沉沉寂）",
+        "phasePost": "誤差 7 分",
+        "forecast": "29 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      },
+      {
+        "name": "台東・華源曙光觀景台",
+        "icon": "🌉",
+        "tag": "花蓮・花園夜景",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 100%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "南投・金龍山",
+        "icon": "📹",
+        "tag": "南投・金龍山（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 100%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "花蓮・新城七星潭月牙灣",
         "icon": "🌊",
-        "tag": "太平洋日出第一線",
-        "phasePrep": "低空積雲翻湧，東方海平線被灰黑雲層阻隔。",
-        "phasePeak": "海平面被厚雲遮蔽，全陰天平光，無日出紅光。",
-        "phasePost": "天色大白，整片天空為均勻灰色陰天平光。",
-        "forecast": "5 分 (低雲 98%)",
-        "verdict": "🎯 100% 命中陰天壓制"
+        "tag": "花蓮・七星潭海灣",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 99%",
+        "phasePeak": "實測光學 48 分（局部微霞）",
+        "phasePost": "誤差 43 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・成功三仙台八拱跨海步橋",
+        "icon": "📹",
+        "tag": "台東・成功三仙台八拱跨海步橋（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 100%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "象山看台北 101",
+        "icon": "📹",
+        "tag": "象山看台北 101（4K 官方即時影像）",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 97%",
+        "phasePeak": "實測光學 17 分（陰沉沉寂）",
+        "phasePost": "誤差 12 分",
+        "forecast": "5 分",
+        "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+        "reliable": true
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
+      "atmosphericReason": "4/9 站取得可信光學實況；實測平均 23 分、峰值 48 分，模型代表預報 18 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 22 分，峰值實測 48 分），已標記進入校準樣本。"
     }
   },
   {
@@ -339,90 +604,108 @@
     "date": "2026-09-06",
     "session": "sunset",
     "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-06T23:56:01.542201",
+    "publishedAt": "2026-09-09T12:14:21.129951",
     "publishTimeLabel": "21:00 定時發布",
     "title": "2026-09-06 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "insufficient",
     "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#64748B",
-      "highCloud": 0,
-      "midCloud": 5,
-      "lowCloud": 95,
-      "summary": "低層厚雲籠罩，強烈壓制出景"
+      "score": 93,
+      "rating": "史詩級爆發",
+      "color": "#FF3366",
+      "summary": "1 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 100% 精準命中陰雲壓制",
-      "color": "#4ADE80"
+      "score": 23,
+      "peakScore": 23,
+      "meanErrorAbsolute": 70,
+      "verdict": "UNVERIFIED",
+      "verdictBadge": "❔ 有效樣本不足，不評模型",
+      "color": "#94A3B8",
+      "stationsVerified": 1,
+      "stationsTotal": 7
     },
     "stations": [
       {
-        "name": "新北淡水漁人碼頭",
-        "icon": "🌉",
-        "tag": "情人橋海口",
-        "phasePrep": "天色蒼白，低層雲層覆蓋海面。",
-        "phasePeak": "正日落海平面低空微弱泛粉；18:42 暮光窗口轉為均勻冷調深藍夜景，無火燒雲。",
-        "phasePost": "完全進入冷調港灣夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 12 分（暮光窗外 (人工光源判定)）",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "新北八里左岸",
-        "icon": "🌊",
-        "tag": "淡江大橋河海交界",
-        "phasePrep": "台北港上空低雲厚重，海口微弱光感。",
-        "phasePeak": "淡江大橋點燈，海天交界暗黃平光；18:42 呈暗藍灰冷調，無高空火紅卷雲。",
-        "phasePost": "夜景燈光倒映水面，天幕暗化。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 23 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "台北大稻埕碼頭",
-        "icon": "⛵",
-        "tag": "淡水河畔",
-        "phasePrep": "河岸天色陰沉，對岸三重天際厚雲。",
-        "phasePeak": "水面平靜，天色暗灰藍；18:42 呈現純藍調夜景，無天空二次散射反光。",
-        "phasePost": "市集夜燈明亮，完全進入夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "台北象山看 101",
-        "icon": "🏙️",
-        "tag": "信義區俯瞰",
-        "phasePrep": "台北 101 與信義區天際線呈現均勻灰白雲層。",
-        "phasePeak": "101 點燈，後方觀音山輪廓灰暗；18:42 天空為均勻青灰色冷調夜景，無霞光暮色。",
-        "phasePost": "純粹都市夜景模式。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
-      },
-      {
-        "name": "台北貓空指南宮",
+        "name": "台南白河・火山碧雲寺",
         "icon": "⛩️",
-        "tag": "木柵山頂俯瞰",
-        "phasePrep": "俯瞰台北盆地，天際一片蒼白陰雲。",
-        "phasePeak": "雙北盆地被厚雲與冷青調覆蓋，萬家燈火亮起，上方無高空反光層。",
-        "phasePost": "盆地夜景全面鋪開。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 77 分（壯麗火燒雲）",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
       },
       {
-        "name": "新北九份即時影像",
-        "icon": "🏮",
-        "tag": "東北角山海交界",
-        "phasePrep": "俯瞰基隆嶼海域與山城，厚雲密佈。",
-        "phasePeak": "山城紅色燈籠與山海漁火亮起，天空無霞光色彩。",
-        "phasePost": "九份璀璨山城夜景成形。",
-        "forecast": "5 分 (低雲 99%)",
-        "verdict": "🎯 100% 命中"
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 12 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 63 分（局部微霞）",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "93 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "大稻埕碼頭",
+        "icon": "📹",
+        "tag": "大稻埕碼頭（4K 官方即時影像）",
+        "phasePrep": "模型預報 93 分（史詩級爆發）｜高雲 62% 低雲 12%",
+        "phasePeak": "實測光學 23 分（陰沉沉寂）",
+        "phasePost": "誤差 70 分",
+        "forecast": "93 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "北部低層水氣積聚，低雲覆蓋率高，中高空無有效反射天幕。",
-      "modelPerformance": "模型預報精準捕捉陰天壓制，成功預警避免攝影師撲空。"
+      "atmosphericReason": "本時段僅 1 站取得可信光學實況（其餘為模擬預測或影格擷取失敗）。",
+      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
     }
   },
   {
