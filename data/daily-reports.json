@@ -1,5 +1,48 @@
 [
   {
+    "id": "report-2026-09-11-sunrise",
+    "date": "2026-09-11",
+    "session": "sunrise",
+    "sessionLabel": "清晨日出",
+    "publishedAt": "2026-09-11T07:18:43.278817",
+    "publishTimeLabel": "09:00 定時發布",
+    "title": "2026-09-11 清晨日出實況觀測 vs. 模型預報總結",
+    "verificationStatus": "insufficient",
+    "prediction": {
+      "score": 23,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "summary": "1 站鎖定預報平均"
+    },
+    "groundTruth": {
+      "score": 18,
+      "peakScore": 18,
+      "meanErrorAbsolute": 5,
+      "verdict": "UNVERIFIED",
+      "verdictBadge": "❔ 有效樣本不足，不評模型",
+      "color": "#94A3B8",
+      "stationsVerified": 1,
+      "stationsTotal": 1
+    },
+    "stations": [
+      {
+        "name": "象山看台北 101",
+        "icon": "📹",
+        "tag": "象山看台北 101（4K 官方即時影像）",
+        "phasePrep": "模型預報 23 分（陰沉沉寂）｜高雲 0% 低雲 28%",
+        "phasePeak": "實測光學 18 分（陰沉沉寂）",
+        "phasePost": "誤差 5 分",
+        "forecast": "23 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "本時段僅 1 站取得可信光學實況（其餘為模擬預測或影格擷取失敗）。",
+      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+    }
+  },
+  {
     "id": "report-2026-09-10-sunset",
     "date": "2026-09-10",
     "session": "sunset",
