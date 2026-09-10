@@ -1,5 +1,38 @@
 [
   {
+    "id": "rec-2026-09-11-sunset",
+    "date": "2026-09-11",
+    "session": "sunset",
+    "targetTime": "2026-09-11T10:04:31.653Z",
+    "source": "大稻埕碼頭（4K 官方即時影像）",
+    "prediction": {
+      "score": 56,
+      "rating": "局部霞光",
+      "color": "#E5A50A",
+      "highCloud": 65,
+      "midCloud": 27,
+      "lowCloud": 35,
+      "horizonClearance": 42,
+      "visibilityKm": 10.3,
+      "isSimulated": false
+    },
+    "snapshotUrl": null,
+    "capture": {
+      "kind": null,
+      "fidelity": "none",
+      "validated": false,
+      "capturedAt": "2026-09-10T16:50:00.929Z",
+      "offsetMinutes": -1035,
+      "error": "outside sunset capture window: offset -1035 minutes exceeds ±600"
+    },
+    "verification": {
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-09-10-sunrise",
     "date": "2026-09-10",
     "session": "sunrise",
