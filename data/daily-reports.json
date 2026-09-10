@@ -4,27 +4,104 @@
     "date": "2026-09-10",
     "session": "sunrise",
     "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-10T07:24:34.454335",
+    "publishedAt": "2026-09-10T08:50:54.183396",
     "publishTimeLabel": "09:00 定時發布",
     "title": "2026-09-10 清晨日出實況觀測 vs. 模型預報總結",
-    "verificationStatus": "insufficient",
+    "verificationStatus": "verified",
     "prediction": {
-      "score": 37,
+      "score": 29,
       "rating": "平淡暮光",
       "color": "#7B88A8",
-      "summary": "1 站鎖定預報平均"
+      "summary": "7 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 19,
-      "peakScore": 19,
-      "meanErrorAbsolute": 18,
-      "verdict": "UNVERIFIED",
-      "verdictBadge": "❔ 有效樣本不足，不評模型",
-      "color": "#94A3B8",
-      "stationsVerified": 1,
-      "stationsTotal": 1
+      "score": 45,
+      "peakScore": 95,
+      "meanErrorAbsolute": 30,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 7,
+      "stationsTotal": 8
     },
     "stations": [
+      {
+        "name": "嘉義・阿里山生力農場",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・勝利眺望",
+        "phasePrep": "模型預報 32 分（平淡暮光）｜高雲 20% 低雲 44%",
+        "phasePeak": "實測光學 31 分（平淡暮光）",
+        "phasePost": "誤差 1 分",
+        "forecast": "32 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 5% 低雲 15%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "誤差 30 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台南・左鎮二寮觀日亭",
+        "icon": "🪨",
+        "tag": "台南左鎮・二寮日出",
+        "phasePrep": "模型預報 25 分（陰沉沉寂）｜高雲 2% 低雲 9%",
+        "phasePeak": "實測光學 35 分（平淡暮光）",
+        "phasePost": "誤差 10 分",
+        "forecast": "25 分",
+        "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+        "reliable": true
+      },
+      {
+        "name": "台中・望高寮",
+        "icon": "🛤️",
+        "tag": "台南龍崎・高望寮",
+        "phasePrep": "模型預報 23 分（陰沉沉寂）｜高雲 0% 低雲 0%",
+        "phasePeak": "🔥 實測光學 87 分（史詩級爆發）",
+        "phasePost": "誤差 64 分",
+        "forecast": "23 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・華源曙光觀景台",
+        "icon": "🌉",
+        "tag": "花蓮・花園夜景",
+        "phasePrep": "模型預報 44 分（平淡暮光）｜高雲 20% 低雲 38%",
+        "phasePeak": "🔥 實測光學 95 分（史詩級爆發）",
+        "phasePost": "誤差 51 分",
+        "forecast": "44 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "花蓮・新城七星潭月牙灣",
+        "icon": "🌊",
+        "tag": "花蓮・七星潭海灣",
+        "phasePrep": "模型預報 8 分（陰沉沉寂）｜高雲 0% 低雲 53%",
+        "phasePeak": "實測光學 46 分（平淡暮光）",
+        "phasePost": "誤差 38 分",
+        "forecast": "8 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台東・成功三仙台八拱跨海步橋",
+        "icon": "📹",
+        "tag": "台東・成功三仙台八拱跨海步橋（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 47 分（平淡暮光）｜高雲 10% 低雲 9%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "47 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
       {
         "name": "象山看台北 101",
         "icon": "📹",
@@ -38,8 +115,8 @@
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "本時段僅 1 站取得可信光學實況（其餘為模擬預測或影格擷取失敗）。",
-      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+      "atmosphericReason": "7/8 站取得可信光學實況；實測平均 45 分、峰值 95 分，模型代表預報 29 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 30 分，峰值實測 95 分），已標記進入校準樣本。"
     }
   },
   {
