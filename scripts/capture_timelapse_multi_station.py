@@ -40,6 +40,7 @@ import os
 import re
 import subprocess
 import sys
+import time
 import urllib.error
 import urllib.request
 from collections import Counter
@@ -566,6 +567,24 @@ def run(session, date_str=None):
     print(f"=== 🎞️  {date_str} {session_label} 縮時擷取 (全台 {len(stations)} 站 × 9 張) ===")
     print(f"    錨點 T = {anchor_local.strftime('%H:%M:%S')} (台北時間，全台統一) · "
           f"暗夜閘門窗口 = {window_start_local.strftime('%H:%M:%S')} ~ {window_end_local.strftime('%H:%M:%S')}")
+
+    # GitHub 排程延遲 0–4 小時，且直播 DVR 只保留 ~4 小時 —— 事件後才觸發的
+    # cron 常常撈不到、或只撈到已入夜被暗夜閘門封頂的影格。因應之道：cron
+    # 設在事件前 ~3 小時，job 進來後「睡到 T+45 分」再動手，讓延遲被 sleep
+    # 吸收、擷取時刻仍落在暮光內、DVR 回溯也只有 ~45–85 分鐘。
+    # backstop 的 late cron 已在窗尾之後，wait_sec <= 0，直接跳過等待。
+    MAX_STARTUP_WAIT_SEC = 4 * 3600
+    capture_after = anchor_utc + datetime.timedelta(minutes=OFFSETS_MIN[-1] + 5)
+    wait_sec = (capture_after - datetime.datetime.now(datetime.timezone.utc)).total_seconds()
+    if wait_sec > MAX_STARTUP_WAIT_SEC:
+        print(f"    ⚠️ 擷取窗在 {wait_sec / 3600:.1f} 小時後，超過等待上限 "
+              f"{MAX_STARTUP_WAIT_SEC / 3600:.0f}h（排程/日期可能設定錯誤）—— 不等待，直接跑")
+    elif wait_sec > 0:
+        target_local = capture_after.astimezone(taipei_tz).strftime("%H:%M")
+        print(f"    ⏳ 擷取窗尚未結束，睡 {wait_sec / 60:.0f} 分鐘到 "
+              f"T+{OFFSETS_MIN[-1] + 5}（台北 {target_local}）再擷取…")
+        time.sleep(wait_sec)
+        now_utc = datetime.datetime.now(datetime.timezone.utc)
 
     out_dir = os.path.join(REPO_ROOT, "data", "timelapse", f"{date_str}-{session}")
     os.makedirs(out_dir, exist_ok=True)
