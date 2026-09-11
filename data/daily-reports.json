@@ -1,5 +1,48 @@
 [
   {
+    "id": "report-2026-09-11-sunset",
+    "date": "2026-09-11",
+    "session": "sunset",
+    "sessionLabel": "傍晚日落",
+    "publishedAt": "2026-09-11T18:45:23.167402",
+    "publishTimeLabel": "21:00 定時發布",
+    "title": "2026-09-11 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "insufficient",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "summary": "1 站鎖定預報平均"
+    },
+    "groundTruth": {
+      "score": 27,
+      "peakScore": 27,
+      "meanErrorAbsolute": 22,
+      "verdict": "UNVERIFIED",
+      "verdictBadge": "❔ 有效樣本不足，不評模型",
+      "color": "#94A3B8",
+      "stationsVerified": 1,
+      "stationsTotal": 1
+    },
+    "stations": [
+      {
+        "name": "大稻埕碼頭",
+        "icon": "📹",
+        "tag": "大稻埕碼頭（4K 官方即時影像）",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 94%",
+        "phasePeak": "實測光學 27 分（陰沉沉寂）",
+        "phasePost": "誤差 22 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "本時段僅 1 站取得可信光學實況（其餘為模擬預測或影格擷取失敗）。",
+      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+    }
+  },
+  {
     "id": "report-2026-09-11-sunrise",
     "date": "2026-09-11",
     "session": "sunrise",
