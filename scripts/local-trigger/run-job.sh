@@ -24,13 +24,25 @@ JOB="${1:-}"
 REPO_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 cd "$REPO_ROOT"
 
+# 這台機器的 Git Bash 沒有 Asia/Taipei 的 zoneinfo (/usr/share/zoneinfo)，
+# `export TZ="Asia/Taipei"` 在這裡會讓 date 指令「靜默」退回 UTC —— 台北
+# 00:00-07:59 (=UTC 還是前一天) 觸發時，算出來的日期會早一天。2026-09-12
+# 04:17 手動補跑 timelapse-sunrise 就是這樣踩到的：日期算成 2026-09-11，
+# 拿「昨天日出」的錨點去跟 DVR 比對，當然全部回溯不到，0/63 張。
+# 改用 UTC+8 固定位移換算，不吃 zoneinfo，永遠正確 (台灣不用日光節約時間，
+# 沒有 DST 這個位移不會變動)。也不 export TZ，避免任何子行程 (node/python)
+# 被這個壞掉的 TZ 值連帶影響——反正兩邊都各自用明確參數算台北時間，不看
+# 環境變數 TZ (node 用 Intl timeZone 參數 · ICU 自帶完整時區資料庫跟
+# zoneinfo 無關；python 用寫死的 UTC+8 offset)，只有這支 shell 腳本自己
+# 呼叫的 `date` 需要這個 helper。
+taipei_now() { date -u -d "+8 hours" "$@"; }
+
 LOG_DIR="$REPO_ROOT/logs/local-trigger"
 mkdir -p "$LOG_DIR"
-STAMP="$(date +%Y-%m-%d_%H%M%S)"
+STAMP="$(taipei_now +%Y-%m-%d_%H%M%S)"
 LOG_FILE="$LOG_DIR/${JOB}-${STAMP}.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
-export TZ="Asia/Taipei"
 # Python 寫到管線 (非終端機) 時預設整批緩衝，不是即時 flush —— 縮時腳本
 # 睡到擷取窗前印的訊息會卡在緩衝區裡數小時才噴出來，log 看起來像卡住。
 # 逼它每行都 flush，log 才能即時反映進度 (實測 2026-09-11 15:40 那次觸發
@@ -77,7 +89,7 @@ case "$JOB" in
 
   timelapse-sunrise|timelapse-sunset)
     SESSION="${JOB#timelapse-}"
-    DATE_STR="$(date +%F)"
+    DATE_STR="$(taipei_now +%F)"
     "$PY" scripts/capture_timelapse_multi_station.py "$SESSION" "$DATE_STR"
     # merge + briefing + commit 是「已 commit 狀態 + 本次擷取輸出」的決定性
     # 重建，推送衝突時硬同步重跑即可 (與 auto_timelapse_multi_station.yml
