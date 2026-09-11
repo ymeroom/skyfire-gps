@@ -31,6 +31,11 @@ LOG_FILE="$LOG_DIR/${JOB}-${STAMP}.log"
 exec > >(tee -a "$LOG_FILE") 2>&1
 
 export TZ="Asia/Taipei"
+# Python 寫到管線 (非終端機) 時預設整批緩衝，不是即時 flush —— 縮時腳本
+# 睡到擷取窗前印的訊息會卡在緩衝區裡數小時才噴出來，log 看起來像卡住。
+# 逼它每行都 flush，log 才能即時反映進度 (實測 2026-09-11 15:40 那次觸發
+# 誤判成「卡住」，其實只是這個緩衝問題，process 一直健康地在睡)。
+export PYTHONUNBUFFERED=1
 echo "=== [$STAMP 台北] local-trigger job: $JOB (repo: $REPO_ROOT) ==="
 
 if command -v python3 >/dev/null 2>&1; then PY=python3; else PY=python; fi
