@@ -73,6 +73,14 @@ Start-ScheduledTask -TaskName "SkyFireGPS-Lock-Sunset"
 
 - **完全關機**（不是睡眠）時排程不會觸發，開機/登入後靠 Start when
   available 補跑一次，但補跑時機點可能已經超出 DVR 回溯窗口。
+- **電池限制**（2026-09-12 踩過一次）：`New-ScheduledTaskSettingsSet`
+  預設會擋掉「用電池供電時啟動」，若這台機器被 Windows 偵測到
+  `Win32_Battery`（例如接了會回報成電池的 UPS），UPS 自我測試瞬間切電池
+  供電就可能讓任務整個不啟動、且不會補跑，也不會留下明顯的錯誤紀錄
+  （`Get-ScheduledTaskInfo` 的 `LastTaskResult` 會是 `267011`
+  `SCHED_S_TASK_HAS_NOT_RUN`，代表從來沒跑過，不是跑了失敗）。
+  `setup-tasks.ps1` 已加 `-AllowStartIfOnBatteries -DontStopIfGoingOnBatteries`
+  修掉，但如果重灌/搬到別台機器上重新設定，記得這個坑。
 - **憑證**：push 走 HTTPS + Windows 既有的 Git Credential Manager 快取，
   跟你平常手動 push 用同一組，不需要另外設定 PAT。
 - 更新 `run-job.sh` 或任何腳本邏輯，只要 push 到 `origin/main`，機器人
