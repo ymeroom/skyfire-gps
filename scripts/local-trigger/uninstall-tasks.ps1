@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   移除 setup-tasks.ps1 註冊的全部 7 個本機排程任務 (不會刪除機器人 clone)。
 #>
@@ -12,3 +12,4 @@ foreach ($t in $Tasks) {
   Unregister-ScheduledTask -TaskName $t -Confirm:$false -ErrorAction SilentlyContinue
   Write-Host "已移除: $t"
 }
+

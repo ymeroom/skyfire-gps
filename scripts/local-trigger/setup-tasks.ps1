@@ -1,4 +1,4 @@
-<#
+﻿<#
 .SYNOPSIS
   一次性設定：建立獨立的「機器人 clone」+ 註冊 Windows 工作排程器任務，
   取代 4 個 GitHub Actions workflow 的 schedule 觸發。
@@ -108,3 +108,4 @@ Write-Host ""
 Write-Host "== 完成。用工作排程器 (taskschd.msc) 搜尋 'SkyFireGPS-' 可看到全部 7 個任務 =="
 Write-Host "== log 在 $BotRepo\logs\local-trigger\ (每次執行一個檔案，未進版控) =="
 Write-Host "== 手動測試一個任務: Start-ScheduledTask -TaskName SkyFireGPS-Lock-Sunset =="
+
