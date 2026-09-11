@@ -86,6 +86,13 @@ Start-ScheduledTask -TaskName "SkyFireGPS-Lock-Sunset"
 - 更新 `run-job.sh` 或任何腳本邏輯，只要 push 到 `origin/main`，機器人
   clone 下次執行時的 `git reset --hard origin/main` 就會自動抓到最新版，
   不需要重跑 `setup-tasks.ps1`（除非要改任務本身的時間/設定）。
+  **但改的是 `run-job.sh` 本身時要注意：推上去之後「下一次」觸發其實還是
+  跑舊版**——bash 執行時一開始就把整支腳本讀進記憶體了，腳本中途那行
+  `git reset --hard origin/main` 只更新硬碟上的檔案，不會讓正在跑的這個
+  process 改吃新內容；硬碟上的檔案變新版之後，要「再下一次」觸發才會真的
+  讀到修正過的邏輯。手動測試 `run-job.sh` 的修改時，要連續觸發兩次才能看到
+  修正生效（2026-09-12 debug TZ 那個 bug 就是這樣，第 2 次還是錯的，第 3
+  次才對）。
 
 ## 移除
 
