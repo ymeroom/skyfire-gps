@@ -73,7 +73,7 @@ flowchart LR
 | 腳本 | 鎖定對象 | 觸發時間（台北） | 輸出 |
 |---|---|---|---|
 | `lock-forecast.js` | 象山 + 大稻埕 2 個官方站 | 日落 15:30 / 日出 23:45（隔日） | `locked-sunset-forecast.json` / `locked-sunrise-forecast.json` |
-| `lock-forecast-multi.js` | `spots-taiwan.js` 中屬於本時段的 6-8 個聖地 | 同上（同一次觸發） | `locked-sunset-multi-forecast.json` / `locked-sunrise-multi-forecast.json` |
+| `lock-forecast-multi.js` | `spots-taiwan.js` 中屬於本時段、且未被排除的聖地（日出 7 / 日落 6，跟下面縮時擷取站數一致） | 同上（同一次觸發） | `locked-sunset-multi-forecast.json` / `locked-sunrise-multi-forecast.json` |
 
 兩支互相獨立、一個失敗不連坐另一個。時段判斷靠 `MANUAL_SESSION` 環境變數（手動觸發時）或呼叫端直接指定，不再依賴解析 cron 字串。
 
@@ -85,7 +85,7 @@ flowchart LR
 
 ## 5. Ground Truth 擷取 — 13 站縮時
 
-`capture_timelapse_multi_station.py` 是重頭戲：對 7-8 個 YouTube 直播機位，在事件前後 `T-40` 到 `T+40` 分鐘、每 10 分鐘擷取一張（共 9 張/站），全部走 yt-dlp DVR 回溯（無 Tier B 降級）。
+`capture_timelapse_multi_station.py` 是重頭戲：日出 7 站、日落 6 站（`SUNRISE_STATIONS`/`SUNSET_STATIONS`，阿里山小笠原山觀景台晨昏雙絕兩邊都算），在事件前後 `T-40` 到 `T+40` 分鐘、每 10 分鐘擷取一張（共 9 張/站，日出 63 張／日落 54 張），全部走 yt-dlp DVR 回溯（無 Tier B 降級）。`lock-forecast-multi.js` 鎖定的站點清單刻意跟這裡保持一致（見上一節的 `EXCLUDED_FROM_LOCK`）。
 
 - **暗夜閘門 (Night Gate)**：入夜後的暖色像素會被誤判成火燒雲，所以窗口外的影格一律封頂在 12 分。
 - **Canonical Ground Truth**：同一站 9 張影格中，取「暮光窗口內、未被暗夜閘門封頂」的最高分作代表值。

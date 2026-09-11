@@ -35,11 +35,20 @@ function resolveTargetDate(sessionType) {
   return getTaipeiDateString(targetDate);
 }
 
+// 在 spots-taiwan.js 裡仍分類為本時段 (仍是可造訪景點/仍可供 GPS 即時預測)，
+// 但已被 capture_timelapse_multi_station.py 的 SUNRISE_STATIONS/SUNSET_STATIONS
+// 移出縮時擷取清單 (DVR 太短等原因，見該檔檔頭註解) 的站——鎖了也永遠不會有
+// 對應的實測配對，故不鎖，讓 lock 清單跟實際會被驗證的站點數一致
+// (日出 7 站、日落 6 站)。
+const EXCLUDED_FROM_LOCK = new Set([
+  'jinlongshan' // 南投金龍山：YouTube 直播 DVR 只剩 ~25 秒，2026-09-09 移出擷取清單
+]);
+
 function spotsForSession(sessionType) {
   // 晨昏雙絕 (both) 的機位在日出與日落時段都要鎖。縮時腳本兩個時段的
   // 站點清單也都各自包含 alishan-xiaoluji，靠 id 對得起來。
   const wanted = sessionType === 'sunrise' ? ['sunrise', 'both'] : ['sunset', 'both'];
-  return TAIWAN_SPOTS.filter((s) => wanted.includes(s.category));
+  return TAIWAN_SPOTS.filter((s) => wanted.includes(s.category) && !EXCLUDED_FROM_LOCK.has(s.id));
 }
 
 async function lockOneSpot(spot, sessionType, dateStr) {
