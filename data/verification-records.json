@@ -79,16 +79,16 @@
     },
     "snapshotUrl": "data/snapshots/2026-09-11-sunset.jpg",
     "capture": {
-      "width": 640,
-      "height": 360,
+      "width": 1280,
+      "height": 720,
       "fileName": "2026-09-11-sunset.jpg",
-      "sha256": "7f3fcf3ed9a4afcc37e39fd0642b2e9cb76909168c06ace747a790de14f4f91e",
-      "capturedAt": "2026-09-11T10:45:04.643Z",
-      "offsetMinutes": 41,
-      "kind": "youtube-live-frame",
-      "fidelity": "exact",
-      "posterQuality": null,
-      "fallbackReason": null,
+      "sha256": "88c62c9fc59f82eb2a2f817e6ec6528e4072d089c2161d9a96c03c52e71015fa",
+      "capturedAt": "2026-09-11T13:00:04.469Z",
+      "offsetMinutes": 176,
+      "kind": "youtube-live-poster",
+      "fidelity": "degraded",
+      "posterQuality": "maxresdefault",
+      "fallbackReason": "yt-dlp exited with 1: ERROR: [youtube] Ndo_8RuefH4: No video formats found!; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U",
       "validated": true
     },
     "verification": {
@@ -99,8 +99,8 @@
       "errorAbsolute": 22,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 50.4,
-      "skyCoveragePct": 2.9,
+      "chromaticPurity": 49.5,
+      "skyCoveragePct": 3,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -111,10 +111,10 @@
         "applied": false,
         "reason": "already at or below rain cap",
         "isRaining": true,
-        "precipitationMm": 0.1,
+        "precipitationMm": 0.2,
         "weatherCode": 51
       },
-      "verifiedAt": "2026-09-11T10:45:22.283Z",
+      "verifiedAt": "2026-09-11T13:00:15.200Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
