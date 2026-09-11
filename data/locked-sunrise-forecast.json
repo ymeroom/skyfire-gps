@@ -1,9 +1,9 @@
 {
-  "date": "2026-09-11",
+  "date": "2026-09-12",
   "session": "sunrise",
-  "lockedAt": "2026-09-10T18:41:04.675Z",
+  "lockedAt": "2026-09-11T15:45:04.062Z",
   "skyfire": {
-    "score": 23,
+    "score": 28,
     "rating": {
       "level": "OVERCAST",
       "badge": "陰沉沉寂",
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 2,
+      "cloudQualityScore": 14,
       "lowCloudPenalty": 3,
-      "horizonScore": 14,
-      "visibilityScore": 4,
-      "horizonClearance": 46,
-      "visKm": 6
+      "horizonScore": 2,
+      "visibilityScore": 8,
+      "horizonClearance": 8,
+      "visKm": 11.6
     },
     "diagnostics": [
       {
-        "label": "高空卷雲 (6,000m+)",
-        "status": "low",
-        "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+        "label": "高空卷層雲 (6,000m+)",
+        "status": "fair",
+        "desc": "高雲量偏高 (96%)，漫射面積大但光線穿透度可能稍微受限。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
         "status": "low",
-        "desc": "中雲量稀疏 (4%)，雲彩層次感較為單純。"
+        "desc": "中雲量稀疏 (3%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方東方地平線透光窗",
         "status": "fair",
-        "desc": "低雲量約 28%，地平線具有部分透光縫隙，呈現局部霞光。"
+        "desc": "低雲量約 27%，地平線具有部分透光縫隙，呈現局部霞光。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "bad",
-        "desc": "能見度受限（6.02 公里），霧霾或水氣可能使天色偏灰白。"
+        "status": "fair",
+        "desc": "能見度正常（11.56 公里），色彩呈現良好。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-10T22:00:00.000Z",
-    "timeStr": "2026-09-11T06:00",
-    "cloudHigh": 0,
-    "cloudMid": 4,
-    "cloudLow": 28,
-    "cloudTotal": 30,
-    "visibility": 6020,
+    "time": "2026-09-11T22:00:00.000Z",
+    "timeStr": "2026-09-12T06:00",
+    "cloudHigh": 96,
+    "cloudMid": 3,
+    "cloudLow": 27,
+    "cloudTotal": 97,
+    "visibility": 11560,
     "humidity": 94,
-    "precipProb": 0,
-    "temp": 23.2,
-    "weatherCode": 1
+    "precipProb": 5,
+    "temp": 25.2,
+    "weatherCode": 3
   }
 }
