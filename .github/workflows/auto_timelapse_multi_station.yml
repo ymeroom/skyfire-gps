@@ -4,24 +4,14 @@ name: Auto Multi-Station Timelapse Capture (13 站)
 # 執行。絕對不要為本 workflow 加上 pull_request 觸發 —— 任何人 fork 後開 PR
 # 就能在你的機器上執行任意程式碼。僅有 schedule 與 workflow_dispatch，後者
 # 需要 repo 寫入權限，外部人士無法觸發。
+# 2026-09-11 起排程觸發改走本機 Windows 工作排程器 (見
+# scripts/local-trigger/README.md)，此處只留 workflow_dispatch 供手動
+# 測試/補跑。GitHub schedule 常有 1-4 小時相關性延遲，加上 YouTube 直播
+# DVR 只保留 ~4 小時，事件後才觸發常撈不到或只撈到已入夜被暗夜閘門封頂
+# 的影格；本機用電腦自己的時鐘觸發不受影響，順便靠住宅 IP 過
+# YouTube bot-check。capture_timelapse_multi_station.py 內建的「睡到
+# T+45 分再擷取」邏輯仍保留當防呆邊界。
 on:
-  schedule:
-    # GitHub 排程延遲常達 1-4 小時，且 YouTube 直播 DVR 只保留 ~4 小時 ——
-    # 事件後才觸發的 cron 常撈不到、或只撈到已入夜被暗夜閘門封頂的影格。
-    # 策略：cron 設在事件前 ~2.5 小時，job 進來後「睡到 T+45 分」再擷取
-    # (capture_timelapse_multi_station.py 內建，上限 4h)，讓排程延遲被 sleep
-    # 吸收、擷取時刻仍落在暮光內、DVR 回溯只有 ~45–85 分鐘。
-    # 每時段 2 個提早 cron (防 GitHub 偶爾整個略過一次) + 1 個 late backstop
-    # (延遲 >4h 時退回事後 DVR 回溯，通常已被暗夜閘門封頂但聊勝於無)。
-    #
-    # 日出 (事件約 05:35 台灣)
-    - cron: '5 19 * * *'    # 03:05 台灣 (提早 ~2.5h，job 睡到 ~06:20 台灣)
-    - cron: '50 19 * * *'   # 03:50 台灣 (提早 ~2h)
-    - cron: '30 0 * * *'    # 08:30 台灣 (backstop)
-    # 日落 (事件約 18:08 台灣)
-    - cron: '40 7 * * *'    # 15:40 台灣 (提早 ~2.5h，job 睡到 ~18:53 台灣)
-    - cron: '25 8 * * *'    # 16:25 台灣 (提早 ~1.75h)
-    - cron: '10 13 * * *'   # 21:10 台灣 (backstop)
   workflow_dispatch:
     inputs:
       session:

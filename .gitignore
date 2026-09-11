@@ -12,3 +12,6 @@ data/timelapse/
 
 # 交班單 (本機，不進版控)
 HANDOFF.md
+
+# 本機排程觸發的執行紀錄 (scripts/local-trigger/，*.log 已涵蓋副檔名但這裡明示整個目錄)
+logs/local-trigger/

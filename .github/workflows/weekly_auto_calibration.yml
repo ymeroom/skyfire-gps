@@ -1,9 +1,9 @@
 name: Weekly Autonomous Model Calibration Loop
 
+# 2026-09-11 起排程觸發改走本機 Windows 工作排程器 (見
+# scripts/local-trigger/README.md)，此處只留 workflow_dispatch 供手動
+# 測試/補跑。
 on:
-  schedule:
-    # 每週日午夜 (台灣時間週一 00:00 = UTC 週日 16:00)
-    - cron: '0 16 * * 0'
   workflow_dispatch:
 
 permissions:

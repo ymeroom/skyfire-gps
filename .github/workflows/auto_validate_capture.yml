@@ -1,15 +1,9 @@
 name: Auto Ground-Truth YouTube Capture & Validation
 
+# 2026-09-11 起排程觸發改走本機 Windows 工作排程器 (見
+# scripts/local-trigger/README.md)，此處只留 workflow_dispatch 供手動
+# 測試/補跑。
 on:
-  schedule:
-    # 每日清晨日出日報發布 (台灣時間 09:00 = UTC 01:00)
-    - cron: '0 1 * * *'
-    # 每日傍晚日落日報發布 (台灣時間 21:00 = UTC 13:00)
-    - cron: '0 13 * * *'
-    # 每日日落出景當刻擷取 (台灣時間 18:45 = UTC 10:45)
-    - cron: '45 10 * * *'
-    # 每日日出出景當刻擷取 (台灣時間 05:30 = UTC 21:30)
-    - cron: '30 21 * * *'
   # 支援手動在 GitHub Actions 頁面一鍵觸發測試
   workflow_dispatch:
     inputs:

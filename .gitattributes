@@ -1,0 +1,4 @@
+# *.sh 必須維持 LF：core.autocrlf=true 的 Windows checkout (含
+# scripts/local-trigger 的機器人 clone) 若轉成 CRLF，bash 解析
+# case/esac、函式與續行時會出錯或行為異常。
+*.sh text eol=lf

@@ -1,11 +1,10 @@
 name: Lock Forecast Prediction
 
+# 2026-09-11 起排程觸發改走本機 Windows 工作排程器 (見
+# scripts/local-trigger/README.md)，此處只留 workflow_dispatch 供手動
+# 測試/補跑；GitHub schedule 常有 1-4 小時相關性延遲，本機用電腦自己的
+# 時鐘觸發不受影響。
 on:
-  schedule:
-    # 台灣時間 15:30 (UTC 07:30) 鎖定當日日落預測
-    - cron: '30 7 * * *'
-    # 台灣時間 23:45 (UTC 15:45) 鎖定隔日日出預測
-    - cron: '45 15 * * *'
   workflow_dispatch:
     inputs:
       session:
