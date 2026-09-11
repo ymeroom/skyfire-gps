@@ -4,7 +4,7 @@
     "date": "2026-09-11",
     "session": "sunrise",
     "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-11T07:18:43.278817",
+    "publishedAt": "2026-09-11T13:35:52.987821",
     "publishTimeLabel": "09:00 定時發布",
     "title": "2026-09-11 清晨日出實況觀測 vs. 模型預報總結",
     "verificationStatus": "insufficient",
@@ -22,9 +22,86 @@
       "verdictBadge": "❔ 有效樣本不足，不評模型",
       "color": "#94A3B8",
       "stationsVerified": 1,
-      "stationsTotal": 1
+      "stationsTotal": 8
     },
     "stations": [
+      {
+        "name": "嘉義・阿里山生力農場",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・勝利眺望",
+        "phasePrep": "模型預報 15 分（陰沉沉寂）｜高雲 5% 低雲 53%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "15 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 2% 低雲 28%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "35 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台南・左鎮二寮觀日亭",
+        "icon": "🪨",
+        "tag": "台南左鎮・二寮日出",
+        "phasePrep": "模型預報 45 分（平淡暮光）｜高雲 90% 低雲 4%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "45 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台中・望高寮",
+        "icon": "🛤️",
+        "tag": "台南龍崎・高望寮",
+        "phasePrep": "模型預報 32 分（平淡暮光）｜高雲 0% 低雲 1%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "32 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台東・華源曙光觀景台",
+        "icon": "🌉",
+        "tag": "花蓮・花園夜景",
+        "phasePrep": "模型預報 69 分（壯麗火燒雲）｜高雲 100% 低雲 11%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "69 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "花蓮・新城七星潭月牙灣",
+        "icon": "🌊",
+        "tag": "花蓮・七星潭海灣",
+        "phasePrep": "模型預報 37 分（平淡暮光）｜高雲 2% 低雲 10%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "37 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台東・成功三仙台八拱跨海步橋",
+        "icon": "📹",
+        "tag": "台東・成功三仙台八拱跨海步橋（13 站縮時 未擷取）",
+        "phasePrep": "模型預報 61 分（局部霞光）｜高雲 98% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "61 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
       {
         "name": "象山看台北 101",
         "icon": "📹",
