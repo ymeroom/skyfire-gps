@@ -56,12 +56,25 @@ function ToBashPath([string]$winPath) {
 }
 $RunJobBash = ToBashPath $RunJob
 
+# -DisallowStartIfOnBatteries/-StopIfGoingOnBatteries 明確關掉：PowerShell
+# 預設會把這兩個打開，這台機器被 Windows 偵測到 Win32_Battery (很可能是
+# UPS 回報成電池裝置)，UPS 半夜自我測試短暫切電池供電的瞬間若被 Task
+# Scheduler 採樣到，整個任務會直接被拒絕啟動、且不會補跑 (StartWhenAvailable
+# 只處理電腦真的關機/睡眠的情況，不處理「醒著但被電池條件擋下」)——
+# 2026-09-12 03:05 的 SkyFireGPS-Timelapse-Sunrise 就是這樣一次都沒跑到
+# (LastTaskResult=267011 SCHED_S_TASK_HAS_NOT_RUN)。
+# 這台系統的 ScheduledTasks 模組版本，開關電池限制的參數是正向命名的
+# -AllowStartIfOnBatteries / -DontStopIfGoingOnBatteries (不是文件常見的
+# -DisallowStartIfOnBatteries:$false 那種寫法，那個參數名在這裡不存在，
+# 用 Get-Command New-ScheduledTaskSettingsSet 才確認到實際參數名)。
 $Settings = New-ScheduledTaskSettingsSet `
   -WakeToRun `
   -StartWhenAvailable `
   -DontStopOnIdleEnd `
   -MultipleInstances IgnoreNew `
-  -ExecutionTimeLimit (New-TimeSpan -Hours 5)
+  -ExecutionTimeLimit (New-TimeSpan -Hours 5) `
+  -AllowStartIfOnBatteries `
+  -DontStopIfGoingOnBatteries
 
 $Principal = New-ScheduledTaskPrincipal -UserId "$env:USERDOMAIN\$env:USERNAME" -LogonType Interactive -RunLevel Limited
 
