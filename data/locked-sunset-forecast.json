@@ -1,7 +1,7 @@
 {
   "date": "2026-09-11",
   "session": "sunset",
-  "lockedAt": "2026-09-11T05:50:03.598Z",
+  "lockedAt": "2026-09-11T07:30:04.279Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 36,
-      "lowCloudPenalty": 48,
+      "cloudQualityScore": 16,
+      "lowCloudPenalty": 50,
       "horizonScore": 0,
-      "visibilityScore": 4,
+      "visibilityScore": 5,
       "horizonClearance": 0,
-      "visKm": 6.1
+      "visKm": 7.8
     },
     "diagnostics": [
       {
-        "label": "高空卷層雲 (6,000m+)",
-        "status": "fair",
-        "desc": "高雲量偏高 (81%)，漫射面積大但光線穿透度可能稍微受限。"
+        "label": "高空卷雲 (6,000m+)",
+        "status": "low",
+        "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
       },
       {
         "label": "中空立體高積雲 (2,000-6,000m)",
         "status": "optimal",
-        "desc": "中雲量達 27%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+        "desc": "中雲量達 30%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
       },
       {
         "label": "遠方西方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 91%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 94%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "bad",
-        "desc": "能見度受限（6.14 公里），霧霾或水氣可能使天色偏灰白。"
+        "desc": "能見度受限（7.82 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
@@ -55,12 +55,12 @@
   "weather": {
     "time": "2026-09-11T10:00:00.000Z",
     "timeStr": "2026-09-11T18:00",
-    "cloudHigh": 81,
-    "cloudMid": 27,
-    "cloudLow": 91,
-    "cloudTotal": 98,
-    "visibility": 6140,
-    "humidity": 89,
+    "cloudHigh": 0,
+    "cloudMid": 30,
+    "cloudLow": 94,
+    "cloudTotal": 95,
+    "visibility": 7820,
+    "humidity": 88,
     "precipProb": 72,
     "temp": 25.4,
     "weatherCode": 51
