@@ -4,27 +4,93 @@
     "date": "2026-09-11",
     "session": "sunset",
     "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-11T18:45:23.167402",
+    "publishedAt": "2026-09-11T18:53:23.729298",
     "publishTimeLabel": "21:00 定時發布",
     "title": "2026-09-11 傍晚日落實況觀測 vs. 模型預報總結",
-    "verificationStatus": "insufficient",
+    "verificationStatus": "verified",
     "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#5A6275",
-      "summary": "1 站鎖定預報平均"
+      "score": 30,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "5 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 27,
-      "peakScore": 27,
-      "meanErrorAbsolute": 22,
-      "verdict": "UNVERIFIED",
-      "verdictBadge": "❔ 有效樣本不足，不評模型",
-      "color": "#94A3B8",
-      "stationsVerified": 1,
-      "stationsTotal": 1
+      "score": 35,
+      "peakScore": 65,
+      "meanErrorAbsolute": 16,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "color": "#FBBF24",
+      "stationsVerified": 5,
+      "stationsTotal": 7
     },
     "stations": [
+      {
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 74% 低雲 100%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 39 分（平淡暮光）｜高雲 24% 低雲 29%",
+        "phasePeak": "實測光學 12 分（陰沉沉寂）",
+        "phasePost": "誤差 27 分",
+        "forecast": "39 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台南白河・火山碧雲寺",
+        "icon": "⛩️",
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 55 分（局部霞光）｜高雲 100% 低雲 2%",
+        "phasePeak": "實測光學 59 分（局部微霞）",
+        "phasePost": "誤差 4 分",
+        "forecast": "55 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      },
+      {
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 2% 低雲 54%",
+        "phasePeak": "實測光學 14 分（陰沉沉寂）",
+        "phasePost": "誤差 9 分",
+        "forecast": "5 分",
+        "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+        "reliable": true
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 46 分（平淡暮光）｜高雲 90% 低雲 5%",
+        "phasePeak": "實測光學 65 分（局部微霞）",
+        "phasePost": "誤差 19 分",
+        "forecast": "46 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 18 分（陰沉沉寂）｜高雲 73% 低雲 61%",
+        "phasePeak": "實測光學 13 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "18 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
       {
         "name": "大稻埕碼頭",
         "icon": "📹",
@@ -38,8 +104,8 @@
       }
     ],
     "summaryAnalysis": {
-      "atmosphericReason": "本時段僅 1 站取得可信光學實況（其餘為模擬預測或影格擷取失敗）。",
-      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+      "atmosphericReason": "5/7 站取得可信光學實況；實測平均 35 分、峰值 65 分，模型代表預報 30 分。",
+      "modelPerformance": "模型方向正確，分數帶輕微偏差（平均誤差 16 分）。"
     }
   },
   {
