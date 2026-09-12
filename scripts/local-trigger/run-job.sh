@@ -94,6 +94,11 @@ case "$JOB" in
     # merge + briefing + commit 是「已 commit 狀態 + 本次擷取輸出」的決定性
     # 重建，推送衝突時硬同步重跑即可 (與 auto_timelapse_multi_station.yml
     # 原本的 retry 迴圈邏輯相同)。
+    # PUSH_OK 追蹤結果，統一 fall through 到迴圈外層共用的「完成」結尾行
+    # (之前這裡不管成功/略過/失敗都直接 exit，log 裡永遠看不到共用的
+    # `完成 ===` 標記，2026-09-12 debug 才發現——63/63 張全部擷取成功、
+    # push 也成功的一次執行，靠 grep `完成 ===` 判斷完全看不出來已經跑完)。
+    PUSH_OK=0
     for i in 1 2 3 4 5; do
       git fetch origin main -q
       git reset --hard origin/main -q
@@ -102,16 +107,22 @@ case "$JOB" in
       git add data/multi-station-records.json data/snapshots data/daily-reports.json || true
       if git diff --staged --quiet; then
         echo "沒有新的校準樣本 / 報告無變化，略過 commit。"
-        exit 0
+        PUSH_OK=1
+        break
       fi
       git -c user.name="SkyFire Local Bot" -c user.email="local-bot@skyfire.local" \
         commit -m "chore(calibration): record 13-station timelapse ground truth [skip ci]"
-      git push origin HEAD:main && exit 0
+      if git push origin HEAD:main; then
+        PUSH_OK=1
+        break
+      fi
       echo "push 第 $i 次失敗，重抓後重建再試…"
       sleep 5
     done
-    echo "::error:: 多次重試後仍無法 push 13 站校準樣本"
-    exit 1
+    if [ "$PUSH_OK" -ne 1 ]; then
+      echo "::error:: 多次重試後仍無法 push 13 站校準樣本"
+      exit 1
+    fi
     ;;
 
   validate-sunrise|validate-sunset)
