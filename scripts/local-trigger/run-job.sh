@@ -91,6 +91,18 @@ case "$JOB" in
     SESSION="${JOB#timelapse-}"
     DATE_STR="$(taipei_now +%F)"
     "$PY" scripts/capture_timelapse_multi_station.py "$SESSION" "$DATE_STR"
+
+    # 判讀完的完整產出 (report.html + 原始影格 + 逐幀評分 JSON) 複製一份到
+    # D:\working space，方便直接瀏覽，不用登進機器人 clone 找。跟後面
+    # merge/push 到 git 是否成功無關 (data/timelapse/ 本來就不進版控)，
+    # 所以擷取一結束就複製，複製失敗也不影響主流程 (|| true)。
+    EXPORT_DIR="/d/working space/skyfire-timelapse/${DATE_STR}-${SESSION}"
+    mkdir -p "$EXPORT_DIR/frames"
+    cp -f "data/timelapse/${DATE_STR}-${SESSION}-report.html" "$EXPORT_DIR/report.html" 2>/dev/null || true
+    cp -f "data/timelapse/${DATE_STR}-${SESSION}.json" "$EXPORT_DIR/scores.json" 2>/dev/null || true
+    cp -f "data/timelapse/${DATE_STR}-${SESSION}"/*.jpg "$EXPORT_DIR/frames/" 2>/dev/null || true
+    echo "📤 已複製本次縮時完整產出 (report.html + frames/ + scores.json) 到 $EXPORT_DIR"
+
     # merge + briefing + commit 是「已 commit 狀態 + 本次擷取輸出」的決定性
     # 重建，推送衝突時硬同步重跑即可 (與 auto_timelapse_multi_station.yml
     # 原本的 retry 迴圈邏輯相同)。
