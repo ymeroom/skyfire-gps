@@ -54,6 +54,22 @@ powershell -ExecutionPolicy Bypass -File "scripts\local-trigger\setup-tasks.ps1"
 內建的「睡到 T+45 分再擷取」邏輯繼續保留當防呆邊界，配合 Task Scheduler
 的 wake + 補跑機制已經夠用。
 
+## 縮時完整產出（含原始影格）在哪裡看
+
+每次 `timelapse-sunrise`/`timelapse-sunset` 擷取完，會自動複製一份完整
+產出到：
+
+```
+D:\working space\skyfire-timelapse\<日期>-<sunrise 或 sunset>\
+├── report.html   # 單檔可看，圖片內嵌 base64，雙擊直接在瀏覽器打開
+├── scores.json   # 逐幀評分原始資料
+└── frames/       # 全部原始 jpg（N 站 × 9 張）
+```
+
+不用登進機器人 clone 找。這份複製跟後面 merge/push 進 git 有沒有成功
+無關（`data/timelapse/` 本身就不進版控，只是內部工作檔案），複製本身
+失敗也不影響主流程。
+
 ## 檢查有沒有跑
 
 Log 在機器人 clone 底下的 `logs/local-trigger/<job>-<時間戳記>.log`
