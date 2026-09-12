@@ -1,46 +1,46 @@
 {
-  "date": "2026-09-11",
+  "date": "2026-09-12",
   "session": "sunset",
-  "lockedAt": "2026-09-11T07:30:04.279Z",
+  "lockedAt": "2026-09-12T07:30:03.607Z",
   "skyfire": {
-    "score": 5,
+    "score": 44,
     "rating": {
-      "level": "OVERCAST",
-      "badge": "陰沉沉寂",
-      "icon": "☁️",
-      "color": "#5A6275",
-      "secondaryColor": "#394150",
-      "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
-      "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
+      "level": "FAINT",
+      "badge": "平淡暮光",
+      "icon": "🌤️",
+      "color": "#7B88A8",
+      "secondaryColor": "#A0AEC0",
+      "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
+      "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 16,
-      "lowCloudPenalty": 50,
+      "cloudQualityScore": 26,
+      "lowCloudPenalty": 0,
       "horizonScore": 0,
-      "visibilityScore": 5,
-      "horizonClearance": 0,
-      "visKm": 7.8
+      "visibilityScore": 12,
+      "horizonClearance": 1,
+      "visKm": 17
     },
     "diagnostics": [
       {
-        "label": "高空卷雲 (6,000m+)",
-        "status": "low",
-        "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+        "label": "高空卷層雲 (6,000m+)",
+        "status": "fair",
+        "desc": "高雲量偏高 (77%)，漫射面積大但光線穿透度可能稍微受限。"
       },
       {
-        "label": "中空立體高積雲 (2,000-6,000m)",
-        "status": "optimal",
-        "desc": "中雲量達 30%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+        "label": "中空雲層 (2,000-6,000m)",
+        "status": "low",
+        "desc": "中雲量稀疏 (3%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方西方地平線透光窗",
-        "status": "bad",
-        "desc": "低雲遮蔽高達 94%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "status": "fair",
+        "desc": "低雲量約 7%，地平線具有部分透光縫隙，呈現局部霞光。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "bad",
-        "desc": "能見度受限（7.82 公里），霧霾或水氣可能使天色偏灰白。"
+        "status": "fair",
+        "desc": "能見度正常（17.04 公里），色彩呈現良好。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-11T10:00:00.000Z",
-    "timeStr": "2026-09-11T18:00",
-    "cloudHigh": 0,
-    "cloudMid": 30,
-    "cloudLow": 94,
-    "cloudTotal": 95,
-    "visibility": 7820,
-    "humidity": 88,
-    "precipProb": 72,
-    "temp": 25.4,
-    "weatherCode": 51
+    "time": "2026-09-12T10:00:00.000Z",
+    "timeStr": "2026-09-12T18:00",
+    "cloudHigh": 77,
+    "cloudMid": 3,
+    "cloudLow": 7,
+    "cloudTotal": 78,
+    "visibility": 17040,
+    "humidity": 85,
+    "precipProb": 12,
+    "temp": 27.1,
+    "weatherCode": 2
   }
 }
