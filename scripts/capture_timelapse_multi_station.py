@@ -62,6 +62,14 @@ from analyze_sky_ground_truth import (  # noqa: E402
 
 OFFSETS_MIN = [-40, -30, -20, -10, 0, 10, 20, 30, 40]
 
+# 站與站之間的間隔秒數。2026-09-15 日出這一場 7 站全部在抓 manifest 時被
+# YouTube 擋下 (「Sign in to confirm you're not a bot」)，0/63 張。同一台
+# 機器、同一個 IP，當天 05:30 與 09:00 的單站擷取都正常拿到 Tier A 影格
+# —— 所以觸發條件是「短時間內連續打 7 站」的請求量，不是來源 IP 本身。
+# 7 站共 6 個間隔，25 秒 × 6 = 多花 2.5 分鐘，擷取仍落在 DVR 回溯範圍內
+# (擷取點在 T+45，DVR 約 4 小時)，代價可以忽略。
+STATION_STAGGER_SEC = 25
+
 # 火燒雲峰值通常落在事件前後這段窗口 (日落後 / 日出前的暮光橘紅段)。
 # 校準用的 canonical ground truth 必須在這裡「有一張沒被暗夜閘門封頂的
 # 成功影格」，否則窗口取樣太稀、系統性低估峰值 —— merge 腳本會據此把
@@ -325,7 +333,7 @@ def offset_label(offset_min):
     return f"t{'+' if offset_min >= 0 else ''}{offset_min:02d}"
 
 
-def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
+def run_station(station, anchor_utc, twilight_window, out_dir):
     print(f"  📡 {station['name']} ({station['id']})")
 
     # 用本站真實座標抓雨量 —— 與 anchor_utc/twilight_window 共用 REFERENCE_LAT/LNG
@@ -344,6 +352,14 @@ def run_station(station, anchor_utc, twilight_window, now_utc, out_dir):
                 "error": f"manifest 取得失敗: {e}"
             })
         return frames
+
+    # seconds_ago 會被 capture_frame_at 換算成 target_sq = latest_sq - seconds_ago/dur，
+    # 而 latest_sq 是「剛剛這一刻」manifest 裡的最新影格 —— 所以 seconds_ago 必須
+    # 從「抓到 manifest 的當下」起算。本函式因此自己取時間，不再由呼叫端傳進來：
+    # 以前站與站之間幾乎沒有間隔，共用一個 now_utc 的誤差小到看不出來；加入
+    # STATION_STAGGER_SEC 之後排在後面的站會落後好幾分鐘，沿用主迴圈那個舊時間會
+    # 讓 seconds_ago 少算、target_sq 偏新，抓到的影格比目標時刻晚，越後面錯越多。
+    now_utc = datetime.datetime.now(datetime.timezone.utc)
 
     dvr_minutes = (latest_sq - earliest_sq) * dur / 60
     oldest_lookback_min = (now_utc - (anchor_utc + datetime.timedelta(minutes=OFFSETS_MIN[0]))).total_seconds() / 60
@@ -554,7 +570,6 @@ def run(session, date_str=None):
     stations = SUNRISE_STATIONS if session == "sunrise" else SUNSET_STATIONS
     session_label = "日出" if session == "sunrise" else "日落"
     taipei_tz = datetime.timezone(datetime.timedelta(hours=8))
-    now_utc = datetime.datetime.now(datetime.timezone.utc)
 
     # 全台 13 站統一用同一組錨點時刻與暗夜閘門窗口 (見 REFERENCE_LAT/LNG
     # 註解)，不再逐站個別計算。
@@ -584,7 +599,6 @@ def run(session, date_str=None):
         print(f"    ⏳ 擷取窗尚未結束，睡 {wait_sec / 60:.0f} 分鐘到 "
               f"T+{OFFSETS_MIN[-1] + 5}（台北 {target_local}）再擷取…")
         time.sleep(wait_sec)
-        now_utc = datetime.datetime.now(datetime.timezone.utc)
 
     out_dir = os.path.join(REPO_ROOT, "data", "timelapse", f"{date_str}-{session}")
     os.makedirs(out_dir, exist_ok=True)
@@ -598,8 +612,13 @@ def run(session, date_str=None):
         "stations": []
     }
 
-    for station in stations:
-        frames = run_station(station, anchor_utc, twilight_window, now_utc, out_dir)
+    for idx, station in enumerate(stations):
+        # 錯開請求，避開 YouTube bot-check (見 STATION_STAGGER_SEC)。放在站與站
+        # 「之間」而非每站之前，所以第一站不必空等。
+        if idx > 0:
+            print(f"    ⏱️  間隔 {STATION_STAGGER_SEC} 秒再抓下一站（避開 YouTube bot-check）…")
+            time.sleep(STATION_STAGGER_SEC)
+        frames = run_station(station, anchor_utc, twilight_window, out_dir)
         report["stations"].append({
             "id": station["id"],
             "name": station["name"],
