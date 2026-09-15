@@ -170,5 +170,6 @@ flowchart LR
 
 - **暗夜閘門**會讓延遲擷取的影格全部封頂在 12 分，即使真的補跑到也可能是沒用的資料。
 - **DVR 回溯窗口長度因站而異**且不可靠（HEAD 200 不代表 GET 能抓到），已擷取失敗的站點會誠實記錄原因而非造假分數。
+- **YouTube bot-check 會擋整場縮時**。2026-09-15 日出首次踩到：7 站全部在抓 manifest 時被擋（`Sign in to confirm you're not a bot`），0/63 張。同一台機器、同一個 IP，當天 05:30 / 09:00 的單站擷取都正常拿到 Tier A 影格——觸發條件是「短時間連續打 7 站」的請求量，不是來源 IP。現以 `STATION_STAGGER_SEC`（25 秒）錯開站與站之間的請求；若之後仍被擋，下一步是給 yt-dlp `--cookies-from-browser` / `--cookies`。管線本身降級正確（7 站全標 `capture_unavailable` + unreliable），失敗不會污染校準樣本池。
 - **本機觸發喚不醒完全關機**的電腦（只能喚醒睡眠），且無法喚醒 BIOS 排程開機；完全關機時的排程會被跳過，等下次開機才補跑一次，屆時擷取窗可能已過。
 - **高分區間的光學評分器準確度尚未人工驗證**，`auto-calibrate-model.py` 對縮時管線的高分樣本設了 ceiling containment（見第 6 節），人工驗證後才會考慮鬆綁。
