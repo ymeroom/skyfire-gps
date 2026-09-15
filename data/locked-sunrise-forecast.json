@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-15",
+  "date": "2026-09-16",
   "session": "sunrise",
-  "lockedAt": "2026-09-14T15:45:04.621Z",
+  "lockedAt": "2026-09-15T15:45:05.438Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 5,
-      "lowCloudPenalty": 49,
+      "cloudQualityScore": 11,
+      "lowCloudPenalty": 29,
       "horizonScore": 0,
-      "visibilityScore": 4,
+      "visibilityScore": 11,
       "horizonClearance": 0,
-      "visKm": 5.8
+      "visKm": 15.7
     },
     "diagnostics": [
       {
         "label": "高空卷雲 (6,000m+)",
         "status": "low",
-        "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+        "desc": "高雲量僅 14%，上方缺少大面積紅色漫射反光板。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
         "status": "low",
-        "desc": "中雲量稀疏 (9%)，雲彩層次感較為單純。"
+        "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方東方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 93%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 63%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "bad",
-        "desc": "能見度受限（5.82 公里），霧霾或水氣可能使天色偏灰白。"
+        "status": "fair",
+        "desc": "能見度正常（15.66 公里），色彩呈現良好。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-14T22:00:00.000Z",
-    "timeStr": "2026-09-15T06:00",
-    "cloudHigh": 0,
-    "cloudMid": 9,
-    "cloudLow": 93,
-    "cloudTotal": 94,
-    "visibility": 5820,
-    "humidity": 96,
-    "precipProb": 32,
-    "temp": 24.1,
-    "weatherCode": 51
+    "time": "2026-09-15T22:00:00.000Z",
+    "timeStr": "2026-09-16T06:00",
+    "cloudHigh": 14,
+    "cloudMid": 2,
+    "cloudLow": 63,
+    "cloudTotal": 69,
+    "visibility": 15660,
+    "humidity": 89,
+    "precipProb": 1,
+    "temp": 24.2,
+    "weatherCode": 2
   }
 }
