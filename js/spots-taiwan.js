@@ -35,6 +35,7 @@ const TAIWAN_SPOTS = [
     description: '俯瞰台中盆地與大肚山系，日出時城市天際線染上金色晨光。',
     photoTips: '可拍攝城市夜景轉日出的縮時序列。',
     traffic: '開車至大肚山望高寮觀景平台。',
+    sunriseHorizonProfile: [[64, 2.06], [70, 2.86], [76, 2.39], [82, 2.27], [88, 2.65], [94, 1.83], [100, 1.89], [106, 1.77], [112, 1.23], [118, 2.19]],
     liveUrl: 'https://www.youtube.com/watch?v=lhXXhDyjFtI'
   },
   {
@@ -52,6 +53,7 @@ const TAIWAN_SPOTS = [
     description: '南投知名雲海日出秘境，晨曦破曉時常見翻騰雲海與日月潭群山剪影。',
     photoTips: '雲海生成視當日逆溫層條件而定，建議提前確認雲海機率。',
     traffic: '開車至魚池鄉金龍山觀景平台。',
+    sunriseHorizonProfile: [[64, 9.36], [70, 10.94], [76, 7.90], [82, 4.71], [88, 5.50], [94, 5.73], [100, 4.34], [106, 7.26], [112, 9.61], [118, 8.58]],
     liveUrl: 'https://www.youtube.com/watch?v=tEcHWBlxAGM'
   },
   {
@@ -69,6 +71,7 @@ const TAIWAN_SPOTS = [
     description: '阿里山公路旁高人氣雲海日出點，開闊視野可遠眺玉山山脈與翻騰雲海。',
     photoTips: '秋冬雲海機率較高，建議日出前 30 分鐘先卡位。',
     traffic: '沿阿里山公路 (台18線) 開車可達。',
+    sunriseHorizonProfile: [[64, 3.33], [70, 3.32], [76, 3.89], [82, 4.65], [88, 4.58], [94, 3.71], [100, 4.52], [106, 4.50], [112, 4.88], [118, 3.52]],
     liveUrl: 'https://www.youtube.com/watch?v=agEzlv9n9Eg'
   },
   {
@@ -103,6 +106,7 @@ const TAIWAN_SPOTS = [
     description: '360 度環景木平台，正對玉山主峰日出！晨曦彩霞染紅玉山積雪或翠綠山脊，傍晚則可眺望塔山晚霞雲海。',
     photoTips: '建議搭阿里山森林小火車至祝山站再步行前往，日出前需摸黑上山。',
     traffic: '祝山車站步行 10 分鐘。',
+    sunriseHorizonProfile: [[64, 2.02], [70, 1.58], [76, 0.79], [82, 1.17], [88, 1.95], [94, 4.31], [100, 4.97], [106, 4.84], [112, 4.27], [118, 4.31]],
     liveUrl: 'https://www.youtube.com/watch?v=6Y97q9KrhwA'
   },
   {
@@ -137,6 +141,7 @@ const TAIWAN_SPOTS = [
     description: '南台灣三大日出秘境之一，月世界惡地地形在晨光與雲海中呈現層次分明的立體光影。',
     photoTips: '惡地溝壑地形適合長焦壓縮，捕捉光影層次。',
     traffic: '開車至左鎮二寮觀日亭停車場。',
+    sunriseHorizonProfile: [[64, 2.75], [70, 2.90], [76, 2.97], [82, 3.38], [88, 2.84], [94, 2.73], [100, 2.45], [106, 2.33], [112, 2.60], [118, 2.67]],
     liveUrl: 'https://www.youtube.com/watch?v=xbojeDKjcaM'
   },
   {
@@ -154,6 +159,7 @@ const TAIWAN_SPOTS = [
     description: '優美的新月形礫石海灣，正對浩瀚太平洋！旭日從海平面跳出時，晨彩將浪花與光滑石礫染成金色熔岩。',
     photoTips: '慢速快門拍出浪花流動感，鵝卵石可作前景。',
     traffic: '開車或騎車至七星潭風景區。',
+    sunriseHorizonProfile: [[64, 0.00], [70, 0.00], [76, 0.00], [82, 0.00], [88, 0.00], [94, 0.00], [100, 0.00], [106, 0.00], [112, 0.00], [118, 0.00]],
     liveUrl: 'https://www.youtube.com/watch?v=qg-aHp2mvS8'
   },
   {
@@ -171,6 +177,7 @@ const TAIWAN_SPOTS = [
     description: '全台灣迎接新年第一道曙光的最神聖地標！八拱巨龍橫跨太平洋巨浪，朝霞破曉時海天交映出極致紫紅光暈。',
     photoTips: '以八拱橋為前景引導線，捕捉曙光穿橋而出。',
     traffic: '成功鎮三仙台風景區，步行跨海步橋。',
+    sunriseHorizonProfile: [[64, 0.00], [70, 0.00], [76, 0.00], [82, 0.00], [88, 0.00], [94, 0.00], [100, 0.00], [106, 0.00], [112, 0.00], [118, 0.00]],
     liveUrl: 'https://www.youtube.com/watch?v=X_fchztvqI0'
   },
   {
@@ -188,6 +195,7 @@ const TAIWAN_SPOTS = [
     description: '俯瞰華源海灣弧形海岸線，日出時漸層藍調轉金黃霞光灑落海灣，公路蜿蜒其間。',
     photoTips: '居高臨下可將海灣弧線與台九線公路一併入鏡。',
     traffic: '台9線華源海灣觀景台，開車可達。',
+    sunriseHorizonProfile: [[64, 0.00], [70, 0.00], [76, 0.00], [82, 0.00], [88, 0.00], [94, 0.00], [100, 0.00], [106, 0.00], [112, 0.00], [118, 0.00]],
     liveUrl: 'https://www.youtube.com/watch?v=TY4qQElcUrA'
   },
   {

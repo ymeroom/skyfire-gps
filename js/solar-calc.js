@@ -121,6 +121,97 @@ class SolarCalc {
     };
   }
 
+  /**
+   * 查表取得某方位角上的「視地平線仰角」(度)
+   *
+   * getTimes 的 sunrise 用的是 -0.833° —— 那是海平面、無遮蔽地平線的定義
+   * (大氣折射 + 太陽視半徑)。西部與山區機位的東方有中央山脈擋著，太陽要再
+   * 爬一段才真的看得見，實測相差 8-15 分鐘。
+   *
+   * profile 是 [[方位角, 仰角], ...]，由 scripts/measure-sunrise-horizon.js
+   * 沿各方位角掃 DEM 量出來，存在 spots-taiwan.js 的 sunriseHorizonProfile。
+   * 之所以要整條剖面而不是單一角度：日出方位角一年之間從約 64° (夏至) 擺到
+   * 116° (冬至)，跨 52°，不同季節擋在前面的是山脈的不同段落。
+   *
+   * @param {Array<[number, number]>} profile 方位角→仰角對照表
+   * @param {number} azimuthDeg 太陽方位角 (度)
+   * @returns {number} 視地平線仰角 (度)；無資料時回傳 0
+   */
+  static horizonAngleAt(profile, azimuthDeg) {
+    if (!Array.isArray(profile) || profile.length === 0) return 0;
+    const az = Number(azimuthDeg);
+    if (!Number.isFinite(az)) return 0;
+
+    const pts = profile
+      .filter(p => Array.isArray(p) && Number.isFinite(Number(p[0])) && Number.isFinite(Number(p[1])))
+      .map(p => [Number(p[0]), Number(p[1])])
+      .sort((a, b) => a[0] - b[0]);
+    if (pts.length === 0) return 0;
+
+    // 超出量測範圍就夾在兩端，不外插 —— 外插會在冬至前後憑空長出角度。
+    if (az <= pts[0][0]) return pts[0][1];
+    if (az >= pts[pts.length - 1][0]) return pts[pts.length - 1][1];
+
+    for (let i = 1; i < pts.length; i++) {
+      if (az <= pts[i][0]) {
+        const [a0, v0] = pts[i - 1];
+        const [a1, v1] = pts[i];
+        if (a1 === a0) return v1;
+        return v0 + ((az - a0) / (a1 - a0)) * (v1 - v0);
+      }
+    }
+    return pts[pts.length - 1][1];
+  }
+
+  /**
+   * 計算「實際看得到太陽」的日出時刻 (考慮遠方地形遮蔽)
+   *
+   * 刻意回傳新欄位而不是覆寫 getTimes().sunrise：縮時錨點、鎖定預測、暗夜閘門
+   * 全部以天文日出為基準，改掉會讓歷史樣本與新樣本口徑不一致。這裡只提供給
+   * 「要告訴使用者幾點到場」的顯示用途。
+   *
+   * 仰角與方位角互相牽動 (太陽邊爬邊往南偏)，所以逐步推進時每一步都重新查表，
+   * 而不是先用天文日出的方位角查好一個固定角度。
+   *
+   * @param {Date} date 日期
+   * @param {number} lat 緯度
+   * @param {number} lng 經度
+   * @param {Array<[number, number]>} profile 視地平線剖面
+   * @param {number} [maxDelayMin=90] 最多往後找幾分鐘
+   * @returns {{time: Date, delayMinutes: number, horizonAngleDeg: number}|null}
+   */
+  static getVisibleSunrise(date = new Date(), lat = this.DEFAULT_LOCATION.lat,
+                           lng = this.DEFAULT_LOCATION.lng, profile = null, maxDelayMin = 90) {
+    const times = this.getTimes(date, lat, lng);
+    if (!times.sunrise) return null;
+    if (!Array.isArray(profile) || profile.length === 0) {
+      return { time: times.sunrise, delayMinutes: 0, horizonAngleDeg: 0 };
+    }
+
+    // 剖面值 0 代表「海平面／無遮蔽」，那正是 getTimes 的 -0.833° 已經涵蓋的
+    // 情形 (該角度含大氣折射與太陽視半徑)。若在此仍要求仰角爬到 0°，等於把
+    // 折射修正重算一次，海邊機位會平白多出約 2.5 分鐘延遲。
+    const azAtSunrise = this.getPosition(times.sunrise, lat, lng).azimuth;
+    if (this.horizonAngleAt(profile, azAtSunrise) <= 0) {
+      return { time: times.sunrise, delayMinutes: 0, horizonAngleDeg: 0 };
+    }
+
+    const base = times.sunrise.getTime();
+    for (let m = 0; m <= maxDelayMin; m += 0.5) {
+      const t = new Date(base + m * 60000);
+      const pos = this.getPosition(t, lat, lng);
+      const need = this.horizonAngleAt(profile, pos.azimuth);
+      if (pos.elevation >= need) {
+        return {
+          time: t,
+          delayMinutes: m,
+          horizonAngleDeg: parseFloat(need.toFixed(2))
+        };
+      }
+    }
+    return null;
+  }
+
   static toDays(date) {
     return date.getTime() / 86400000 - 10957.5;
   }

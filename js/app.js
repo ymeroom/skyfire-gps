@@ -550,7 +550,21 @@ class SkyFireGPSApp {
     const blueEl = document.getElementById('timeBlueHour');
 
     if (dawnEl) dawnEl.innerText = SolarCalc.formatTime(times.civilDawn);
-    if (sunriseEl) sunriseEl.innerText = SolarCalc.formatTime(times.sunrise);
+
+    // 天文日出是海平面無遮蔽的定義。選定機位若東方有山擋著 (中央山脈沿線與
+    // 阿里山各站實測延後 13-22 分鐘)，一併標出真正看得到太陽的時刻 —— 這是
+    // 「幾點到場卡位」真正該看的數字。沿用同一個 DOM 節點，不新增 ID。
+    if (sunriseEl) {
+      const astronomical = SolarCalc.formatTime(times.sunrise);
+      const spot = this.selectedSpot;
+      const visible = spot && spot.sunriseHorizonProfile
+        ? SolarCalc.getVisibleSunrise(times.sunrise, spot.lat, spot.lng, spot.sunriseHorizonProfile)
+        : null;
+      sunriseEl.innerText = visible && visible.delayMinutes >= 1
+        ? `${astronomical} → 見日 ${SolarCalc.formatTime(visible.time)}`
+        : astronomical;
+    }
+
     if (sunsetEl) sunsetEl.innerText = SolarCalc.formatTime(times.sunset);
     
     if (peakEl) {

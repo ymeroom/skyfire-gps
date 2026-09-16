@@ -4,6 +4,7 @@
 
 const assert = require('assert');
 const SolarCalc = require('../js/solar-calc.js');
+const TAIWAN_SPOTS = require('../js/spots-taiwan.js');
 
 console.log('--- 🧪 測試 1: SolarCalc 天文算法測試 ---');
 
@@ -58,5 +59,60 @@ spots.forEach(spot => {
 assert.strictEqual(SolarCalc.formatTime(null), '--:--');
 assert.strictEqual(SolarCalc.formatTime(new Date('invalid')), '--:--');
 console.log('✅ 時間格式化防呆測試通過');
+
+// 5. 地形視地平線與「實際見日」時刻
+//    天文日出用的 -0.833° 是海平面無遮蔽的定義；西部與山區機位東方有中央山脈
+//    擋著，太陽要再爬一段才看得見。剖面由 scripts/measure-sunrise-horizon.js
+//    掃 DEM 量出，存在 spots-taiwan.js 的 sunriseHorizonProfile。
+
+// 5-1 方位角內插
+const demoProfile = [[64, 2.0], [70, 3.0], [76, 2.0]];
+assert.strictEqual(SolarCalc.horizonAngleAt(demoProfile, 67), 2.5, '應在量測點之間線性內插');
+assert.strictEqual(SolarCalc.horizonAngleAt(demoProfile, 70), 3.0, '量測點上應回傳該點值');
+// 超出量測範圍夾在兩端，不外插 —— 外插會在冬至前後憑空長出角度
+assert.strictEqual(SolarCalc.horizonAngleAt(demoProfile, 20), 2.0, '低於範圍應夾在首點');
+assert.strictEqual(SolarCalc.horizonAngleAt(demoProfile, 200), 2.0, '高於範圍應夾在末點');
+assert.strictEqual(SolarCalc.horizonAngleAt(null, 87), 0, '無剖面應回傳 0');
+assert.strictEqual(SolarCalc.horizonAngleAt([], 87), 0, '空剖面應回傳 0');
+
+const testDay = new Date('2026-09-16T00:00:00+08:00');
+
+// 5-2 海平面機位 (剖面全 0) 不應產生任何延遲。
+//     -0.833° 已含大氣折射與太陽視半徑，若再要求仰角爬到 0° 等於重算一次折射，
+//     海邊機位會平白多出約 2.5 分鐘。
+const seaSpot = TAIWAN_SPOTS.find(s => s.id === 'qixingtan');
+const seaVisible = SolarCalc.getVisibleSunrise(testDay, seaSpot.lat, seaSpot.lng, seaSpot.sunriseHorizonProfile);
+assert.strictEqual(seaVisible.delayMinutes, 0, '海平面機位不應有地形延遲');
+assert.strictEqual(
+  seaVisible.time.getTime(),
+  SolarCalc.getTimes(testDay, seaSpot.lat, seaSpot.lng).sunrise.getTime(),
+  '海平面機位的見日時刻應等於天文日出'
+);
+
+// 5-3 西部機位應延後約 10-20 分鐘 (實測 2026-09-16 望高寮 14.5 分)
+const westSpot = TAIWAN_SPOTS.find(s => s.id === 'gaowangliao');
+const westVisible = SolarCalc.getVisibleSunrise(testDay, westSpot.lat, westSpot.lng, westSpot.sunriseHorizonProfile);
+assert(
+  westVisible.delayMinutes >= 8 && westVisible.delayMinutes <= 25,
+  `望高寮日出應因中央山脈延後 8-25 分鐘，實際 ${westVisible.delayMinutes} 分`
+);
+assert(westVisible.horizonAngleDeg > 1, '望高寮的視地平線仰角應明顯大於 0');
+
+// 5-4 沒有剖面時退回天文日出，不得拋錯 (日落機位沒有這個欄位)
+const noProfile = SolarCalc.getVisibleSunrise(testDay, westSpot.lat, westSpot.lng, undefined);
+assert.strictEqual(noProfile.delayMinutes, 0, '無剖面應退回天文日出');
+
+// 5-5 每個日出機位都必須備妥剖面，且涵蓋全年日出方位角擺盪範圍 (約 64°-116°)
+TAIWAN_SPOTS
+  .filter(s => s.category === 'sunrise' || s.category === 'both')
+  .forEach(s => {
+    assert(Array.isArray(s.sunriseHorizonProfile) && s.sunriseHorizonProfile.length > 0,
+      `${s.name} 應有 sunriseHorizonProfile`);
+    const azs = s.sunriseHorizonProfile.map(p => p[0]);
+    assert(Math.min(...azs) <= 64 && Math.max(...azs) >= 116,
+      `${s.name} 的剖面應涵蓋 64°-116° 的日出方位角範圍`);
+  });
+
+console.log('✅ 地形視地平線與實際見日時刻計算正確');
 
 console.log('🎉 SolarCalc 所有測試案例全數 PASS!\n');
