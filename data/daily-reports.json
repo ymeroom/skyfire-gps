@@ -1,5 +1,36 @@
 [
   {
+    "id": "report-2026-09-16-sunset",
+    "date": "2026-09-16",
+    "session": "sunset",
+    "sessionLabel": "傍晚日落",
+    "publishedAt": "2026-09-16T20:02:00.317376",
+    "publishTimeLabel": "21:00 定時發布",
+    "title": "2026-09-16 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "unavailable",
+    "prediction": {
+      "score": 26,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "summary": "locked-sunset 鎖定分數（無可信站點紀錄）"
+    },
+    "groundTruth": {
+      "score": null,
+      "peakScore": null,
+      "meanErrorAbsolute": null,
+      "verdict": "UNVERIFIED",
+      "verdictBadge": "❔ 有效樣本不足，不評模型",
+      "color": "#94A3B8",
+      "stationsVerified": 0,
+      "stationsTotal": 0
+    },
+    "stations": [],
+    "summaryAnalysis": {
+      "atmosphericReason": "本時段僅 0 站取得可信光學實況（測站影格擷取失敗，排程延遲超出擷取窗）。",
+      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+    }
+  },
+  {
     "id": "report-2026-09-16-sunrise",
     "date": "2026-09-16",
     "session": "sunrise",
