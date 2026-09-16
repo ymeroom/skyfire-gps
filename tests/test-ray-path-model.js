@@ -271,6 +271,53 @@ assert.strictEqual(
 
 console.log('✅ 帶狀遮蔽同時涵蓋雲層與地形');
 
+// G2. 整段光路地形遮蔽 (cumulativeTerrain) —— 山是從地面長上來的不透光障礙，
+//     射線要抵達遠方的雲，沿途每一座山都得先飛過去。預設維持舊行為 (只看本帶
+//     自己的取樣距離)，日出才開啟。
+//     取樣值取自 2026-09-16 實測：二寮觀日亭日出方位角 86.3°，上游 60km 的
+//     Open-Meteo 網格高度 1812m (中央山脈)，110km 以後已是太平洋。
+const erliaoSunriseSamples = [
+  { distanceKm: 60,  cloudLow: 0, cloudTotal: 0, elevationM: 1812 },
+  { distanceKm: 110, cloudLow: 0, cloudTotal: 0, elevationM: 0 },
+  { distanceKm: 160, cloudLow: 0, cloudTotal: 0, elevationM: 0 },
+  { distanceKm: 210, cloudLow: 0, cloudTotal: 0, elevationM: 0 },
+  { distanceKm: 260, cloudLow: 0, cloudTotal: 0, elevationM: 0 }
+];
+
+// 中雲帶取樣 110/160km，60km 的山不在清單裡 —— 這正是修正前漏掉的情形
+assert.strictEqual(
+  WeatherService.computeBandBlocking(erliaoSunriseSamples, 'mid'),
+  0,
+  '預設行為：中雲帶只看自己的取樣距離，看不到 60km 處的山'
+);
+
+// 抵達 3km 中雲的射線在 60km 處僅 1441m 高，1812m 的山體完全擋死
+assert.strictEqual(
+  WeatherService.computeBandBlocking(erliaoSunriseSamples, 'mid', { cumulativeTerrain: true }),
+  100,
+  '開啟整段光路地形遮蔽後，中雲帶應看到 60km 處 1812m 的山體並判定完全遮斷'
+);
+
+// 低雲帶本來就取樣 60km，開不開都一樣 —— 確認沒有重複計算或行為漂移
+assert.strictEqual(
+  WeatherService.computeBandBlocking(erliaoSunriseSamples, 'low', { cumulativeTerrain: true }),
+  WeatherService.computeBandBlocking(erliaoSunriseSamples, 'low'),
+  '低雲帶已涵蓋 60km，開啟後結果不應改變'
+);
+
+// 重要限制，刻意用測試釘住：抵達 6km 高雲的射線在 60km 處已爬到 3679m，
+// 而 Open-Meteo 的 elevation 是網格平均值，中央山脈實測僅約 1800m
+// (1812/3679 = 0.49，低於 0.6 起扣門檻) —— 佔 0.5 權重的天幕帶即使開啟
+// 整段光路地形遮蔽仍然是 0。要讓天幕帶反映山脈，需要的是真實峰高而非
+// 網格平均高度，不是這個修正能解決的。
+assert.strictEqual(
+  WeatherService.computeBandBlocking(erliaoSunriseSamples, 'high', { cumulativeTerrain: true }),
+  0,
+  '網格平均高度 1812m 不足以遮蔽 60km 處 3679m 的天幕帶射線 (已知限制)'
+);
+
+console.log('✅ 整段光路地形遮蔽 (日出) 與其已知限制正確');
+
 // 端到端：取樣點必須揭露地形資訊
 const makeRawTerrain = (cloudLow, elevation) => {
   const raw = makeRaw(cloudLow);

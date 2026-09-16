@@ -169,9 +169,12 @@ class WeatherService {
    *
    * @param {Array<{distanceKm:number, cloudLow:number, elevationM:number}>} samples 各取樣距離的氣象與地形
    * @param {'low'|'mid'|'high'} bandKey 光路帶代號
+   * @param {Object} [options]
+   * @param {boolean} [options.cumulativeTerrain=false] 地形遮蔽是否涵蓋整段光路
+   *        (從觀測點到本帶最遠取樣點)，而非只看本帶自己的取樣距離。
    * @returns {number} 該帶的遮蔽率 (0-100)
    */
-  static computeBandBlocking(samples, bandKey) {
+  static computeBandBlocking(samples, bandKey, { cumulativeTerrain = false } = {}) {
     const band = this.RAY_PATH_BANDS[bandKey];
     if (!band) {
       throw new Error(`unknown ray-path band: ${bandKey}`);
@@ -181,15 +184,32 @@ class WeatherService {
     const inBand = samples.filter(sample => band.distancesKm.includes(sample.distanceKm));
     if (inBand.length === 0) return 0;
 
-    return inBand.reduce((worst, sample) => {
-      const cloudBlocking = Number(sample.cloudLow) || 0;
-      const terrainBlocking = this.computeTerrainBlocking({
+    const cloudWorst = inBand.reduce(
+      (worst, sample) => Math.max(worst, Number(sample.cloudLow) || 0),
+      0
+    );
+
+    // 雲與山刻意用不同的取樣範圍，這個不對稱是有意的：
+    // 低雲是「某個高度上的一層」，只有落在本帶取樣距離上的雲才擋得到本帶的射線；
+    // 山體則是從地面長上來的不透光障礙，射線要抵達 260km 外的高雲，得先飛越沿途
+    // 每一座山。原本兩者共用 band.distancesKm，導致中雲帶 (取樣 110/160km) 完全
+    // 看不到 60km 處的山 —— 二寮觀日亭日出就是這個情形 (60km 處 1812m，中雲帶射線
+    // 在該處僅 1441m，實際完全擋死，但因 60km 不在 [110,160] 清單裡而算成 0)。
+    const terrainMaxDistanceKm = Math.max(...band.distancesKm);
+    const terrainScope = cumulativeTerrain
+      ? samples.filter(sample => Number(sample.distanceKm) <= terrainMaxDistanceKm)
+      : inBand;
+
+    const terrainWorst = terrainScope.reduce((worst, sample) => Math.max(
+      worst,
+      this.computeTerrainBlocking({
         elevationM: sample.elevationM,
         distanceKm: sample.distanceKm,
         targetAltitudeKm: band.targetAltitudeKm
-      });
-      return Math.max(worst, cloudBlocking, terrainBlocking);
-    }, 0);
+      })
+    ), 0);
+
+    return Math.max(cloudWorst, terrainWorst);
   }
 
   /**
@@ -472,15 +492,19 @@ class WeatherService {
         elevationM: item.elevationM,
         terrain: this.classifyTerrain(item.elevationM)
       }));
-      const blockingOf = (samples) => ({
-        low: this.computeBandBlocking(samples, 'low'),
-        mid: this.computeBandBlocking(samples, 'mid'),
-        high: this.computeBandBlocking(samples, 'high')
+      const blockingOf = (samples, options) => ({
+        low: this.computeBandBlocking(samples, 'low', options),
+        mid: this.computeBandBlocking(samples, 'mid', options),
+        high: this.computeBandBlocking(samples, 'high', options)
       });
 
       const sunriseRaySamples = sampleRayPath(sunriseUpstreamSeries, solarTimes.sunrise);
       const sunsetRaySamples = sampleRayPath(sunsetUpstreamSeries, solarTimes.sunset);
-      const sunriseBandBlocking = blockingOf(sunriseRaySamples);
+      // 整段光路的地形遮蔽目前只開給日出。幾何本身跟時段無關 (日落同樣是掠射角、
+      // 山同樣不透光)，這裡只開一半純粹是範圍控制：西部站的日出光路要穿越中央山脈，
+      // 證據與待驗證的偏差都在日出這一側，先讓日出跑幾場累積樣本再決定要不要開給
+      // 日落。不要把這行讀成「日落的幾何不一樣」。
+      const sunriseBandBlocking = blockingOf(sunriseRaySamples, { cumulativeTerrain: true });
       const sunsetBandBlocking = blockingOf(sunsetRaySamples);
 
       const sunriseConfidence = this.computeSessionConfidence({
