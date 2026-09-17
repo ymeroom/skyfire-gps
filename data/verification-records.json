@@ -19,12 +19,12 @@
     },
     "snapshotUrl": "data/snapshots/2026-09-17-sunset.jpg",
     "capture": {
-      "width": 640,
-      "height": 360,
+      "width": 1920,
+      "height": 1080,
       "fileName": "2026-09-17-sunset.jpg",
-      "sha256": "707ff02ea7374900a33d470c05d773f8e8ecf07624e746c706e0ff68483cd18d",
-      "capturedAt": "2026-09-17T10:45:04.181Z",
-      "offsetMinutes": 47,
+      "sha256": "3d319d1d110eaca46d79356b8e40470b742bfe379a27ce7f7fd1259013de5551",
+      "capturedAt": "2026-09-17T13:00:06.075Z",
+      "offsetMinutes": 182,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "posterQuality": null,
@@ -33,14 +33,14 @@
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 17,
+      "groundTruthScore": 28,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 18,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 30.4,
-      "skyCoveragePct": 3.5,
+      "errorAbsolute": 7,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 38.4,
+      "skyCoveragePct": 9.2,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -52,9 +52,9 @@
         "reason": "not raining",
         "isRaining": false,
         "precipitationMm": 0,
-        "weatherCode": 1
+        "weatherCode": 0
       },
-      "verifiedAt": "2026-09-17T10:45:16.739Z",
+      "verifiedAt": "2026-09-17T13:00:34.618Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
