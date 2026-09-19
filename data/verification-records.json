@@ -19,12 +19,12 @@
     },
     "snapshotUrl": "data/snapshots/2026-09-19-sunrise.jpg",
     "capture": {
-      "width": 1920,
-      "height": 1080,
+      "width": 640,
+      "height": 360,
       "fileName": "2026-09-19-sunrise.jpg",
-      "sha256": "4573d445752416dd566062988accab873755602756a1ed91e1311d643c85a5d4",
-      "capturedAt": "2026-09-18T21:30:04.363Z",
-      "offsetMinutes": -12,
+      "sha256": "c4e72f9fab8dbda7f977d4f403b7f558b1a6d6dcd5f804a4ed9fbfb28a033cc4",
+      "capturedAt": "2026-09-19T01:00:03.980Z",
+      "offsetMinutes": 198,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "posterQuality": null,
@@ -33,14 +33,14 @@
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 20,
+      "groundTruthScore": 12,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 15,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 40.8,
-      "skyCoveragePct": 0.5,
+      "errorAbsolute": 23,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 23.2,
+      "skyCoveragePct": 0.8,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -54,7 +54,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-09-18T21:30:18.241Z",
+      "verifiedAt": "2026-09-19T01:00:12.645Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
