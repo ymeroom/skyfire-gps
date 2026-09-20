@@ -285,13 +285,16 @@ class SkyFireGPSApp {
       }
     } else {
       primary.onclick = null;
-      primary.setAttribute('target', '_blank');
       if (spot) {
         primary.textContent = `導航到${spot.name}`;
         primary.href = DecisionHero.mapsDirectionsUrl(spot.lat, spot.lng);
+        primary.setAttribute('target', '_blank');
       } else {
+        // 同頁錨點不能帶 target="_blank"——那不會捲到地圖，會開一個空白分頁。
+        // 未選機位是預設狀態，這是首屏唯一的主要行動呼叫。
         primary.textContent = '選一個機位';
         primary.href = '#interactiveMapSection';
+        primary.removeAttribute('target');
       }
       secondary.hidden = true;
     }

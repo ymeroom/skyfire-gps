@@ -1855,7 +1855,7 @@ body::before {
 /* ==========================================
    決策優先首頁：同頁錨點捲動
    ========================================== */
-html { scroll-behavior: smooth; }
+/* scroll-behavior 已在檔頭的 html 規則定義，這裡只補錨點停靠位置 */
 #cloudProfileSection, #forecast7daySection, #interactiveMapSection, #verifySection {
   scroll-margin-top: 24px;
 }
