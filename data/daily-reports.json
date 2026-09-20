@@ -1,5 +1,103 @@
 [
   {
+    "id": "report-2026-09-20-sunset",
+    "date": "2026-09-20",
+    "session": "sunset",
+    "sessionLabel": "傍晚日落",
+    "publishedAt": "2026-09-20T18:44:29.497397",
+    "publishTimeLabel": "21:00 定時發布",
+    "title": "2026-09-20 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "unavailable",
+    "prediction": {
+      "score": 37,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "locked-sunset 鎖定分數（無可信站點紀錄）"
+    },
+    "groundTruth": {
+      "score": null,
+      "peakScore": null,
+      "meanErrorAbsolute": null,
+      "verdict": "UNVERIFIED",
+      "verdictBadge": "❔ 有效樣本不足，不評模型",
+      "color": "#94A3B8",
+      "stationsVerified": 0,
+      "stationsTotal": 6
+    },
+    "stations": [
+      {
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 21% 低雲 100%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 48 分（局部霞光）｜高雲 19% 低雲 23%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "48 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台南白河・火山碧雲寺",
+        "icon": "⛩️",
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 36 分（平淡暮光）｜高雲 20% 低雲 29%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "36 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "35 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 64 分（局部霞光）｜高雲 15% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "64 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 5% 低雲 0%",
+        "phasePeak": "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況",
+        "phasePost": "—",
+        "forecast": "35 分",
+        "verdict": "❔ 驗證從缺（影格擷取失敗）",
+        "reliable": false
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "本時段僅 0 站取得可信光學實況（測站影格擷取失敗，排程延遲超出擷取窗）。",
+      "modelPerformance": "有效樣本不足，本報告不對模型表現下定論。"
+    }
+  },
+  {
     "id": "report-2026-09-20-sunrise",
     "date": "2026-09-20",
     "session": "sunrise",
