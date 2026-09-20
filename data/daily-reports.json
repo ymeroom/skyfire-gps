@@ -4,7 +4,7 @@
     "date": "2026-09-20",
     "session": "sunset",
     "sessionLabel": "傍晚日落",
-    "publishedAt": "2026-09-20T18:45:28.660052",
+    "publishedAt": "2026-09-20T21:00:20.714203",
     "publishTimeLabel": "21:00 定時發布",
     "title": "2026-09-20 傍晚日落實況觀測 vs. 模型預報總結",
     "verificationStatus": "insufficient",
@@ -15,9 +15,9 @@
       "summary": "1 站鎖定預報平均"
     },
     "groundTruth": {
-      "score": 27,
-      "peakScore": 27,
-      "meanErrorAbsolute": 8,
+      "score": 14,
+      "peakScore": 14,
+      "meanErrorAbsolute": 21,
       "verdict": "UNVERIFIED",
       "verdictBadge": "❔ 有效樣本不足，不評模型",
       "color": "#94A3B8",
@@ -96,10 +96,10 @@
         "icon": "📹",
         "tag": "大稻埕碼頭（4K 官方即時影像）",
         "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 0%",
-        "phasePeak": "實測光學 27 分（陰沉沉寂）",
-        "phasePost": "誤差 8 分",
+        "phasePeak": "實測光學 14 分（陰沉沉寂）",
+        "phasePost": "誤差 21 分",
         "forecast": "35 分",
-        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "verdict": "⚠️ 出現偏差需校準",
         "reliable": true
       }
     ],
