@@ -92,6 +92,80 @@ const DecisionHero = {
       })
       .sort((a, b) => a.distanceKm - b.distanceKm)
       .slice(0, limit);
+  },
+
+  /** Google 地圖路線 deep link；車程時間交給 Google 算，本專案無此資料來源 */
+  mapsDirectionsUrl(lat, lng) {
+    return `https://www.google.com/maps/dir/?api=1&destination=${lat},${lng}`;
+  },
+
+  /** Date → ics 的 UTC 基本格式 YYYYMMDDTHHMMSSZ */
+  toIcsUtc(date) {
+    const p = (n) => String(n).padStart(2, '0');
+    return `${date.getUTCFullYear()}${p(date.getUTCMonth() + 1)}${p(date.getUTCDate())}` +
+      `T${p(date.getUTCHours())}${p(date.getUTCMinutes())}${p(date.getUTCSeconds())}Z`;
+  },
+
+  /**
+   * 組 .ics 字串。零後端、離線可用：呼叫端以 Blob + createObjectURL 下載，
+   * 提醒交給使用者自己的行事曆。
+   */
+  buildIcs({ title, start, durationMinutes, location, description }) {
+    const end = new Date(start.getTime() + durationMinutes * 60 * 1000);
+    const esc = (s) => String(s || '').replace(/([,;\\])/g, '\\$1').replace(/\n/g, '\\n');
+    const lines = [
+      'BEGIN:VCALENDAR',
+      'VERSION:2.0',
+      'PRODID:-//SkyFire GPS//Taiwan//TW',
+      'CALSCALE:GREGORIAN',
+      'BEGIN:VEVENT',
+      `UID:skyfire-${start.getTime()}@skyfire-gps`,
+      `DTSTAMP:${DecisionHero.toIcsUtc(new Date())}`,
+      `DTSTART:${DecisionHero.toIcsUtc(start)}`,
+      `DTEND:${DecisionHero.toIcsUtc(end)}`,
+      `SUMMARY:${esc(title)}`,
+      `LOCATION:${esc(location)}`,
+      `DESCRIPTION:${esc(description)}`,
+      'END:VEVENT',
+      'END:VCALENDAR'
+    ];
+    // RFC 5545 的 75 octet 折行：超長行以 CRLF + 單一空格續行
+    const folded = lines.map((line) => {
+      if (line.length <= 75) return line;
+      const parts = [line.slice(0, 75)];
+      let rest = line.slice(75);
+      while (rest.length > 74) {
+        parts.push(' ' + rest.slice(0, 74));
+        rest = rest.slice(74);
+      }
+      if (rest.length) parts.push(' ' + rest);
+      return parts.join('\r\n');
+    });
+    return folded.join('\r\n') + '\r\n';
+  },
+
+  /**
+   * 接下來三場（日出/日落交錯），資料取自 app.js 已載入的
+   * this.currentForecastData.daysForecast，不新增任何抓取。
+   */
+  nextThreeSessions(daysForecast, afterSessionType) {
+    const seq = [];
+    daysForecast.forEach((day, idx) => {
+      seq.push({ idx, type: 'sunrise', data: day.sunrise, day });
+      seq.push({ idx, type: 'sunset', data: day.sunset, day });
+    });
+    // 'today-sunset' 之後 = 明日日出起算；'today-sunrise' 之後 = 今日日落起算
+    const startAt = afterSessionType === 'today-sunrise'
+      ? seq.findIndex((s) => s.idx === 0 && s.type === 'sunset')
+      : seq.findIndex((s) => s.idx === 1 && s.type === 'sunrise');
+    return seq.slice(startAt, startAt + 3).map((s) => ({
+      type: s.type,
+      label: `${s.day.dateFormatted} ${s.type === 'sunrise' ? '日出' : '日落'}`,
+      timeLabel: s.data.time instanceof Date
+        ? `${String(s.data.time.getHours()).padStart(2, '0')}:${String(s.data.time.getMinutes()).padStart(2, '0')}`
+        : '--:--',
+      score: s.data.skyfire ? s.data.skyfire.score : null
+    }));
   }
 };
 

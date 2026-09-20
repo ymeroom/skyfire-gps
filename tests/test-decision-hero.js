@@ -134,3 +134,54 @@ assert.strictEqual(DecisionHero.formatLockedAt(null), null, '缺值回 null');
 assert.strictEqual(DecisionHero.formatLockedAt('not-a-date'), null, '無效值回 null');
 
 console.log('✅ 鎖定時間正確轉為台北時間');
+
+// 6. Google 地圖路線連結（車程分鐘數交給 Google，不自己合成）
+const mapsUrl = DecisionHero.mapsDirectionsUrl(24.31284018839888, 120.54737671005434);
+assert(mapsUrl.startsWith('https://www.google.com/maps/dir/?api=1&destination='), '應為 Maps 路線 deep link');
+assert(mapsUrl.includes('24.31284'), '應帶入緯度');
+assert(mapsUrl.includes('120.54737'), '應帶入經度');
+assert(!/分鐘|minute/.test(mapsUrl), '不自行合成車程時間');
+
+console.log('✅ 導航連結格式正確:', mapsUrl);
+
+// 7. .ics 行事曆（零後端，離線可用）
+const ics = DecisionHero.buildIcs({
+  title: '明日日出火燒雲 64 分',
+  start: new Date('2026-09-18T05:47:00+08:00'),
+  durationMinutes: 30,
+  location: '台中・望高寮',
+  description: '霞光指數 64，巔峰 05:47'
+});
+
+assert(ics.startsWith('BEGIN:VCALENDAR\r\n'), 'ics 必須以 BEGIN:VCALENDAR 起始且用 CRLF');
+assert(ics.trimEnd().endsWith('END:VCALENDAR'), 'ics 必須以 END:VCALENDAR 結尾');
+assert(ics.includes('BEGIN:VEVENT\r\n'), '應含 VEVENT');
+assert(ics.includes('DTSTART:20260917T214700Z'), '05:47+08:00 應為 UTC 21:47（前一日），不可算錯時區');
+assert(ics.includes('DTEND:20260917T221700Z'), '結束時間應為起始 +30 分');
+assert(ics.includes('SUMMARY:明日日出火燒雲 64 分'), '應含標題');
+assert(ics.includes('LOCATION:台中・望高寮'), '應含地點');
+assert(ics.includes('巔峰'), '用字為「巔峰」而非「顛峰」');
+assert(!ics.includes('顛峰'), '不可出現錯字「顛峰」');
+assert(ics.split('\r\n').every(l => l.length <= 75 || l.startsWith(' ')), 'ics 行長應符合折行規範');
+
+console.log('✅ .ics 行事曆字串格式正確');
+
+// 8. 接下來三場：直接讀記憶體中的 7 天預報，不新增抓取
+// 注意：時刻以本機時區的 Date 建構（new Date(y, m, d, h, min)），使 timeLabel 的斷言
+// 不受執行機器時區影響——nextThreeSessions 用的是 getHours()，與 app.js 一致。
+const daysForecast = [
+  { dateFormatted: '9/17', sunrise: { time: new Date(2026, 8, 17, 5, 46), skyfire: { score: 12 } },
+    sunset: { time: new Date(2026, 8, 17, 18, 1), skyfire: { score: 12 } } },
+  { dateFormatted: '9/18', sunrise: { time: new Date(2026, 8, 18, 5, 47), skyfire: { score: 64 } },
+    sunset: { time: new Date(2026, 8, 18, 18, 0), skyfire: { score: 31 } } },
+  { dateFormatted: '9/19', sunrise: { time: new Date(2026, 8, 19, 5, 48), skyfire: { score: 57 } },
+    sunset: { time: new Date(2026, 8, 19, 17, 59), skyfire: { score: 20 } } }
+];
+
+const next3 = DecisionHero.nextThreeSessions(daysForecast, 'today-sunset');
+assert.strictEqual(next3.length, 3, '應回傳三場');
+assert.deepStrictEqual(next3.map(s => s.score), [64, 31, 57], '應為明日日出、明日日落、後日日出');
+assert.strictEqual(next3[0].type, 'sunrise', '第一場為日出');
+assert(next3[0].timeLabel.includes('05:47'), '應帶巔峰/場次時刻');
+
+console.log('✅ 接下來三場取自既有 7 天預報:', next3.map(s => `${s.label} ${s.score}`));
