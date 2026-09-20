@@ -1849,3 +1849,11 @@ body::before {
 .footer-links a:hover {
   color: #ff9e00;
 }
+
+/* ==========================================
+   決策優先首頁：同頁錨點捲動
+   ========================================== */
+html { scroll-behavior: smooth; }
+#cloudProfileSection, #forecast7daySection, #interactiveMapSection, #verifySection {
+  scroll-margin-top: 24px;
+}
