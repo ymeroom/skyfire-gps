@@ -1314,6 +1314,8 @@ body::before {
   padding: 16px;
   text-align: center;
   margin-top: 18px;
+}
+
 /* ==========================================================================
    實況驗證走廊與統計 Banner (Live Ground Truth Corridor)
    ========================================================================== */
@@ -1848,4 +1850,214 @@ body::before {
 
 .footer-links a:hover {
   color: #ff9e00;
+}
+
+/* ==========================================
+   決策優先首頁：同頁錨點捲動
+   ========================================== */
+/* scroll-behavior 已在檔頭的 html 規則定義，這裡只補錨點停靠位置 */
+#cloudProfileSection, #forecast7daySection, #interactiveMapSection, #verifySection {
+  scroll-margin-top: 24px;
+}
+
+/* ==========================================
+   決策區：首屏只回答「現在值得出門嗎」
+   ========================================== */
+.decision-hero {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 32px;
+  align-items: center;
+  background: var(--bg-surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  padding: 32px;
+  margin-bottom: 16px;
+}
+
+.decision-gauge-wrap { position: relative; width: 200px; height: 200px; }
+.decision-gauge { width: 100%; height: 100%; transform: rotate(-90deg); }
+.decision-gauge-track {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 12;
+}
+.decision-gauge-fill {
+  fill: none;
+  stroke: url(#gaugeGradient);
+  stroke-width: 12;
+  stroke-linecap: round;
+  transition: stroke-dashoffset 0.8s ease;
+}
+.decision-gauge-center {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.decision-score-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 4rem;
+  font-weight: 800;
+  line-height: 1;
+  color: var(--text-primary);
+}
+.decision-score-label { font-size: 0.85rem; color: var(--text-secondary); }
+
+.decision-verdict-badge {
+  display: inline-block;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: 8px;
+}
+.decision-verdict-line {
+  font-size: 2rem;
+  margin: 0 0 12px;
+  color: var(--text-primary);
+}
+.decision-reason {
+  color: var(--text-secondary);
+  margin: 0 0 20px;
+  max-width: 62ch;
+}
+
+.decision-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 16px; }
+.decision-primary-btn,
+.decision-secondary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  padding: 0 24px;
+  border-radius: var(--radius-full);
+  font-weight: 700;
+  text-decoration: none;
+}
+.decision-primary-btn {
+  background: var(--accent-sunset);
+  color: var(--text-primary);
+  box-shadow: var(--shadow-glow-orange);
+}
+.decision-secondary-btn {
+  border: 1px solid var(--glass-border);
+  color: var(--text-secondary);
+}
+
+.decision-timing {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: baseline;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+.decision-timing strong { color: var(--text-primary); font-size: 1.1rem; }
+
+/* 低分夜：同一套版面、相反的答案 */
+.decision-hero[data-verdict="low"] .decision-gauge-fill {
+  stroke: var(--fire-overcast);
+  /* round 在低分那種短弧上會多出約 12 單位圓頭，12 分看起來像 15 分 */
+  stroke-linecap: butt;
+}
+.decision-hero[data-verdict="low"] .decision-primary-btn {
+  background: var(--bg-surface-hover);
+  color: var(--text-primary);
+  box-shadow: none;
+}
+
+/* ==========================================
+   今晚其他機位
+   ========================================== */
+.other-spots-section {
+  background: var(--bg-surface-1);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+  padding: 20px 24px;
+  margin-bottom: 16px;
+}
+.other-spots-list { display: flex; flex-direction: column; }
+.other-spot-row {
+  display: grid;
+  grid-template-columns: 1fr auto auto;
+  gap: 16px;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid var(--glass-border);
+}
+.other-spot-row:last-child { border-bottom: none; }
+.other-spot-name { color: var(--text-primary); font-weight: 700; }
+.other-spot-meta { font-size: 0.82rem; color: var(--text-muted); }
+.other-spot-score {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.6rem;
+  font-weight: 800;
+  color: var(--text-primary);
+}
+.other-spot-noscore {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  max-width: 20ch;
+  text-align: right;
+}
+.other-spot-nav {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 16px;
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-full);
+  color: var(--text-secondary);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.other-spots-note { font-size: 0.8rem; color: var(--text-muted); margin: 12px 0 0; }
+
+/* ==========================================
+   深層資訊入口列
+   ========================================== */
+.deep-dive-nav {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  margin-bottom: 24px;
+}
+.deep-dive-nav a {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 4px;
+  min-height: 44px;
+  padding: 16px;
+  background: var(--bg-surface-2);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius-md);
+  text-decoration: none;
+}
+.deep-dive-nav a:hover { background: var(--bg-surface-hover); }
+.deep-dive-nav strong { color: var(--text-primary); font-size: 0.95rem; }
+.deep-dive-nav span { color: var(--text-muted); font-size: 0.78rem; }
+
+/* 手機 390px：單手、戶外、光線暗 */
+@media (max-width: 640px) {
+  .decision-hero {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+    gap: 20px;
+    padding: 24px 20px;
+  }
+  .decision-gauge-wrap { width: 168px; height: 168px; }
+  .decision-score-num { font-size: 3.2rem; }
+  .decision-verdict-line { font-size: 1.5rem; }
+  .decision-actions { justify-content: center; width: 100%; }
+  .decision-primary-btn, .decision-secondary-btn { width: 100%; }
+  .decision-timing { justify-content: center; }
+  .other-spot-row { grid-template-columns: 1fr auto; row-gap: 8px; }
+  .other-spot-nav { grid-column: 2; }
+  .other-spot-noscore { grid-column: 1 / -1; text-align: left; max-width: none; }
+  .deep-dive-nav { grid-template-columns: repeat(2, 1fr); }
 }

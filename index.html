@@ -134,6 +134,72 @@
     </div>
 
     <!-- ==========================================
+         決策區：首屏只回答一個問題「現在值得出門嗎」
+         深層資訊全部退到下方，由 #deepDiveNav 的錨點抵達
+         ========================================== -->
+    <section class="decision-hero" id="decisionHero" data-verdict="pending">
+      <div class="decision-gauge-wrap">
+        <svg class="decision-gauge" viewBox="0 0 160 160">
+          <circle class="decision-gauge-track" cx="80" cy="80" r="70"></circle>
+          <!-- 漸層沿用既有 #gaugeGradient（#ff3366 → #ff6b00 → #ffb800） -->
+          <circle class="decision-gauge-fill" id="decisionGaugeFill" cx="80" cy="80" r="70"></circle>
+        </svg>
+        <div class="decision-gauge-center">
+          <div class="decision-score-num" id="decisionScoreNum">--</div>
+          <div class="decision-score-label">霞光指數</div>
+        </div>
+      </div>
+
+      <div class="decision-answer">
+        <div class="decision-verdict-badge" id="decisionVerdictBadge">分析中...</div>
+        <h2 class="decision-verdict-line" id="decisionVerdictLine">正在判斷今晚值不值得出門</h2>
+        <p class="decision-reason" id="decisionReasonText">正在初始化台灣 Open-Meteo 大氣觀測連線...</p>
+
+        <div class="decision-actions">
+          <a class="decision-primary-btn" id="decisionPrimaryBtn" href="#" target="_blank" rel="noopener">計算中...</a>
+          <a class="decision-secondary-btn" id="decisionSecondaryBtn" href="#" target="_blank" rel="noopener" hidden>看直播就好</a>
+        </div>
+
+        <div class="decision-timing">
+          <span class="decision-timing-label">最佳拍攝時刻</span>
+          <strong id="decisionPeakTime">--:--</strong>
+          <span id="decisionCountdown">倒數計算中...</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- 今晚其他機位：分數來自每日鎖定檔，逐列標鎖定時間；
+         當前所選機位會被排除，避免現算分數與鎖定分數互相矛盾 -->
+    <section class="other-spots-section" id="otherSpotsSection">
+      <div class="card-title-bar">
+        <h3 id="otherSpotsTitle">今晚其他機位</h3>
+        <a class="info-chip" href="#interactiveMapSection">看全部機位</a>
+      </div>
+      <div class="other-spots-list" id="otherSpotsList"></div>
+      <p class="other-spots-note" id="otherSpotsNote"></p>
+    </section>
+
+    <!-- 深層資訊入口：同頁錨點，四個目標都是既有區塊 -->
+    <nav class="deep-dive-nav" id="deepDiveNav">
+      <a href="#cloudProfileSection">
+        <strong>垂直雲層剖面</strong>
+        <span>高／中／低雲與上游光路取樣</span>
+      </a>
+      <a href="#forecast7daySection">
+        <strong>未來一週趨勢</strong>
+        <span>日出與日落雙軌 7 天預報</span>
+      </a>
+      <a href="#interactiveMapSection">
+        <strong>全台機位地圖</strong>
+        <span>同時比較各站今晚指數</span>
+      </a>
+      <a href="#verifySection">
+        <strong>每日實況日報</strong>
+        <span>昨日預測 vs 實測，逐日歸檔</span>
+      </a>
+    </nav>
+
+    <!-- ==========================================
          Hero 核心大氣火燒雲儀表板
          ========================================== -->
     <section class="hero-dashboard-grid">
@@ -227,7 +293,7 @@
       </div>
 
       <!-- 右側：大氣三維垂直雲層剖面卡片 -->
-      <div class="glass-card cloud-cross-card">
+      <div class="glass-card cloud-cross-card" id="cloudProfileSection">
         <div class="card-title-bar">
           <h3><span>☁️</span> 當前垂直大氣雲層剖面</h3>
           <span class="info-chip" id="cloudProfileChip">光學穿透模型</span>
@@ -322,7 +388,7 @@
     <!-- ==========================================
          未來 7 日火燒雲趨勢預報 (7-Day Deck)
          ========================================== -->
-    <section class="forecast-7day-section">
+    <section class="forecast-7day-section" id="forecast7daySection">
       <div class="section-header-row">
         <h2 class="section-title"><span>📅</span> 未來一週該地點霞光趨勢預報</h2>
         <span class="info-chip">點擊卡片切換預報詳情</span>
@@ -653,6 +719,7 @@
   <script defer src="js/geocoding.js"></script>
   <script defer src="js/spots-taiwan.js"></script>
   <script defer src="js/weather-service.js"></script>
+  <script defer src="js/decision-hero.js"></script>
   <script defer src="js/app.js"></script>
 </body>
 </html>

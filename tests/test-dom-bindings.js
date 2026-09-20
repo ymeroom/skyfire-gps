@@ -67,3 +67,38 @@ assert(
 console.log('✅ 靜態 JS 模組相依性載入順序校驗通過');
 
 console.log('🎉 DOM 綁定完整性測試全數 PASS!\n');
+
+// 決策優先版面：骨架與錨點必須齊備
+const decisionIds = [
+  'decisionHero', 'decisionScoreNum', 'decisionGaugeFill', 'decisionVerdictBadge',
+  'decisionVerdictLine', 'decisionReasonText', 'decisionPrimaryBtn', 'decisionSecondaryBtn',
+  'decisionCountdown', 'decisionPeakTime', 'otherSpotsTitle', 'otherSpotsList',
+  'otherSpotsNote', 'deepDiveNav'
+];
+const missingDecisionIds = decisionIds.filter(id => !new RegExp(`id=['"]${id}['"]`).test(htmlContent));
+assert.strictEqual(missingDecisionIds.length, 0, `index.html 缺少決策區 DOM ID: ${missingDecisionIds.join(', ')}`);
+
+// 決策區必須排在既有儀表板之前（首屏只回答一個問題）
+const decisionIndex = htmlContent.indexOf('id="decisionHero"');
+const heroGridIndex = htmlContent.indexOf('class="hero-dashboard-grid"');
+assert(decisionIndex >= 0 && heroGridIndex >= 0, '兩個區塊都應存在');
+assert(decisionIndex < heroGridIndex, '決策區應插在 hero-dashboard-grid 之前');
+
+// 四個入口的錨點目標都必須真的存在於同一頁（方案 A：同頁錨點，不新增頁面）
+['cloudProfileSection', 'forecast7daySection', 'interactiveMapSection', 'verifySection']
+  .forEach((anchorId) => {
+    assert(new RegExp(`id=['"]${anchorId}['"]`).test(htmlContent), `錨點目標 #${anchorId} 應存在`);
+    assert(htmlContent.includes(`href="#${anchorId}"`), `入口列應有連往 #${anchorId} 的連結`);
+  });
+
+// decision-hero.js 必須在 app.js 之前載入
+const decisionScriptIndex = htmlContent.indexOf('js/decision-hero.js');
+assert(decisionScriptIndex >= 0, 'HTML 應引入 decision-hero.js');
+assert(decisionScriptIndex < htmlContent.indexOf('js/app.js'), 'decision-hero.js 應在 app.js 前載入');
+
+// 文案不得寫死站數（逐時段 7 站 / 6 站，其中 12 站有分數）
+assert(!/13\s*(個|站)/.test(htmlContent), 'index.html 不應寫死「13 個/13 站」');
+// 全站正字為「巔峰」
+assert(!htmlContent.includes('顛峰'), 'index.html 不應出現錯字「顛峰」');
+
+console.log('✅ 決策優先版面骨架、錨點與載入順序皆正確');
