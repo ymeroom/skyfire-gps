@@ -198,11 +198,199 @@ class SkyFireGPSApp {
           : `已更新 (${new Date().toLocaleTimeString('zh-TW', { hour: '2-digit', minute: '2-digit' })}) • ${this.currentLocation.name}`;
       }
 
+      // 逐站鎖定預報與氣象各自獨立：抓不到只是少顯示分數，不擋主畫面
+      await this.loadLockedStations();
+
       this.render();
     } catch (err) {
       console.error('載入氣象失敗', err);
       if (statusText) statusText.innerText = '氣象連線異常，已切換至備援大氣物理模型';
     }
+  }
+
+  /**
+   * 載入每日鎖定的逐站預報。scripts/lock-forecast-multi.js 每天算好並 commit，
+   * 前端只抓這一個靜態檔——不對 Open-Meteo 發逐站請求，也不需要自己做快取
+   * （sw.js 對同源檔案是 network-first，離線才回退）。
+   * 鎖定工作是容錯的（run-job.sh:86），抓不到或過期都只是少顯示分數，不擋主流程。
+   */
+  async loadLockedStations() {
+    this.lockedStations = { sunrise: null, sunset: null };
+    await Promise.all(['sunrise', 'sunset'].map(async (session) => {
+      try {
+        const res = await fetch(`data/locked-${session}-multi-forecast.json`);
+        if (!res.ok) return;
+        this.lockedStations[session] = await res.json();
+      } catch (err) {
+        console.warn(`鎖定逐站預報載入失敗 (${session})，將只顯示距離`, err);
+      }
+    }));
+  }
+
+  /**
+   * 渲染決策區。資料全部來自 getActiveSessionData()，與 renderHeroGauge 同一份，
+   * 不發任何新請求。
+   */
+  renderDecisionHero(data) {
+    const hero = document.getElementById('decisionHero');
+    if (!hero || !data) return;
+
+    const score = data.skyfire.score;
+    const rating = data.skyfire.rating;
+    const isLow = ['OVERCAST', 'FAINT'].includes(rating.level);
+    hero.dataset.verdict = isLow ? 'low' : 'go';
+
+    document.getElementById('decisionScoreNum').textContent = score;
+    document.getElementById('decisionVerdictBadge').textContent = `${rating.icon} ${rating.badge}`;
+    document.getElementById('decisionVerdictLine').textContent = isLow
+      ? (data.type === 'sunrise' ? '明早不用特地出門' : '今晚不用特地出門')
+      : (data.type === 'sunrise' ? '明早值得出門' : '今晚值得出門');
+    document.getElementById('decisionReasonText').textContent = rating.summary;
+
+    // 分數環：週長 440（r=70），與既有 gaugeFillCircle 用同一個值
+    const fill = document.getElementById('decisionGaugeFill');
+    fill.style.strokeDasharray = '440';
+    fill.style.strokeDashoffset = `${440 - (440 * score) / 100}`;
+
+    // 巔峰時刻：照既有 peakWindowText 的取法
+    const windowObj = data.type === 'sunset'
+      ? data.dayMeta.solarTimes.sunsetSkyfireWindow
+      : data.dayMeta.solarTimes.sunriseSkyfireWindow;
+    document.getElementById('decisionPeakTime').textContent =
+      windowObj ? SolarCalc.formatTime(windowObj.peak) : SolarCalc.formatTime(data.time);
+    // 倒數由 startCountdownTimer 的共用更新器寫入，這裡不另外算
+
+    const primary = document.getElementById('decisionPrimaryBtn');
+    const secondary = document.getElementById('decisionSecondaryBtn');
+    const spot = this.selectedSpot;
+
+    if (isLow) {
+      // 低分夜：主按鈕改為加入行事曆（零後端），次要按鈕看直播
+      const next = DecisionHero.nextThreeSessions(
+        this.currentForecastData.daysForecast, this.activeSessionType
+      )[0];
+      primary.textContent = next
+        ? `${next.label}有 ${next.score} 分，加入行事曆`
+        : '加入行事曆';
+      primary.removeAttribute('target');
+      primary.onclick = (e) => {
+        e.preventDefault();
+        this.downloadNextSessionIcs();
+      };
+      if (spot && spot.liveUrl) {
+        secondary.hidden = false;
+        secondary.href = spot.liveUrl;
+      } else {
+        secondary.hidden = true;
+      }
+    } else {
+      primary.onclick = null;
+      primary.setAttribute('target', '_blank');
+      if (spot) {
+        primary.textContent = `導航到${spot.name}`;
+        primary.href = DecisionHero.mapsDirectionsUrl(spot.lat, spot.lng);
+      } else {
+        primary.textContent = '選一個機位';
+        primary.href = '#interactiveMapSection';
+      }
+      secondary.hidden = true;
+    }
+  }
+
+  /** 低分夜：把下一場寫成 .ics 下載（提醒交給使用者自己的行事曆） */
+  downloadNextSessionIcs() {
+    const next = DecisionHero.nextThreeSessions(
+      this.currentForecastData.daysForecast, this.activeSessionType
+    )[0];
+    if (!next) return;
+    const spotName = this.selectedSpot ? this.selectedSpot.name : '所選機位';
+    const [hh, mm] = next.timeLabel.split(':').map(Number);
+    const start = new Date(this.currentForecastData.daysForecast[1][next.type].time);
+    start.setHours(hh, mm, 0, 0);
+    const ics = DecisionHero.buildIcs({
+      title: `${next.label}火燒雲 ${next.score} 分`,
+      start,
+      durationMinutes: 30,
+      location: spotName,
+      description: `霞光指數 ${next.score}，巔峰 ${next.timeLabel}（SkyFire GPS 預報）`
+    });
+    const url = URL.createObjectURL(new Blob([ics], { type: 'text/calendar;charset=utf-8' }));
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `skyfire-${next.type}-${next.timeLabel.replace(':', '')}.ics`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
+  /**
+   * 渲染「今晚其他機位」。分數只在鎖定檔的日期與時段都對得上時顯示，
+   * 且排除當前所選機位——否則畫面上會同時出現現算分數與鎖定分數。
+   */
+  renderOtherSpots(data) {
+    const list = document.getElementById('otherSpotsList');
+    const note = document.getElementById('otherSpotsNote');
+    const title = document.getElementById('otherSpotsTitle');
+    if (!list || !data) return;
+
+    const session = data.type;
+    const isLow = ['OVERCAST', 'FAINT'].includes(data.skyfire.rating.level);
+
+    // 低分夜換成「接下來三場」——同一塊版位，相反的答案
+    if (isLow) {
+      title.textContent = '接下來三場';
+      const sessions = DecisionHero.nextThreeSessions(
+        this.currentForecastData.daysForecast, this.activeSessionType
+      );
+      list.innerHTML = sessions.map((s) => `
+        <div class="other-spot-row">
+          <div class="other-spot-main">
+            <div class="other-spot-name">${s.label} ${s.timeLabel}</div>
+          </div>
+          <div class="other-spot-score">${s.score}</div>
+        </div>
+      `).join('');
+      note.textContent = '分數為模型預報，日齡越大信心越低。';
+      return;
+    }
+
+    title.textContent = session === 'sunrise' ? '明早其他機位' : '今晚其他機位';
+
+    // sv-SE 的日期格式恰為 YYYY-MM-DD，與鎖定檔的 date 欄位對得起來
+    const todayStr = new Date().toLocaleDateString('sv-SE', { timeZone: 'Asia/Taipei' });
+    const locked = this.lockedStations ? this.lockedStations[session] : null;
+    const matches = DecisionHero.lockedSessionMatches(locked, this.activeSessionType, todayStr);
+    // 距離原點：已選機位優先，否則用使用者定位
+    const origin = this.selectedSpot || this.currentLocation;
+
+    const rows = DecisionHero.buildOtherSpots({
+      spots: TAIWAN_SPOTS,
+      locked: matches ? locked : null,
+      userLat: origin.lat,
+      userLng: origin.lng,
+      session,
+      excludeSpotId: this.selectedSpot ? this.selectedSpot.id : null,
+      limit: 3
+    });
+
+    list.innerHTML = rows.map((r) => `
+      <div class="other-spot-row">
+        <div class="other-spot-main">
+          <div class="other-spot-name">${r.name}</div>
+          <div class="other-spot-meta">
+            ${r.distanceKm.toFixed(0)} 公里${r.lockedAtLabel ? ` · ${r.lockedAtLabel} 鎖定` : ''}
+          </div>
+        </div>
+        ${r.score !== null
+          ? `<div class="other-spot-score">${r.score}</div>`
+          : `<div class="other-spot-noscore">${r.noScoreReason}</div>`}
+        <a class="other-spot-nav" href="${DecisionHero.mapsDirectionsUrl(r.lat, r.lng)}"
+           target="_blank" rel="noopener">導航</a>
+      </div>
+    `).join('');
+
+    note.textContent = matches
+      ? '分數為當日預先鎖定的逐站預報，與上方現算分數不同時刻產生。'
+      : '此時段尚未鎖定逐站預報，僅顯示距離。';
   }
 
   /**
@@ -215,6 +403,8 @@ class SkyFireGPSApp {
     const currentData = this.getActiveSessionData();
     if (!currentData) return;
 
+    this.renderDecisionHero(currentData);
+    this.renderOtherSpots(currentData);
     this.renderHeroGauge(currentData);
     this.renderCloudCrossSection(currentData);
     this.renderSolarTimeline(currentData);
@@ -961,6 +1151,9 @@ class SkyFireGPSApp {
 
     const updateCountdown = () => {
       const countdownText = document.getElementById('countdownText');
+      // 決策區的倒數共用這一個更新器：兩份各自 setInterval 會在跨秒時顯示
+      // 不同時間，同一畫面上看起來像 bug。
+      const decisionCountdown = document.getElementById('decisionCountdown');
       if (!countdownText || !this.currentForecastData) return;
 
       const currentData = this.getActiveSessionData();
@@ -970,19 +1163,19 @@ class SkyFireGPSApp {
       const target = currentData.time.getTime();
       const diff = target - now;
 
+      let label;
       if (diff > 0) {
         const hours = Math.floor(diff / (1000 * 60 * 60));
         const mins = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
         const secs = Math.floor((diff % (1000 * 60)) / 1000);
-        countdownText.innerText = `距出景約 ${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+        label = `距出景約 ${String(hours).padStart(2, '0')}:${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
       } else {
         const passMins = Math.floor(Math.abs(diff) / 60000);
-        if (passMins < 45) {
-          countdownText.innerText = `🔥 正在出景窗口中！(進行中)`;
-        } else {
-          countdownText.innerText = `本日時段已過`;
-        }
+        label = passMins < 45 ? `🔥 正在出景窗口中！(進行中)` : `本日時段已過`;
       }
+
+      countdownText.innerText = label;
+      if (decisionCountdown) decisionCountdown.innerText = label;
     };
 
     updateCountdown();
