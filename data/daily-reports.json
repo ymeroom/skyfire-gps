@@ -4,7 +4,7 @@
     "date": "2026-09-20",
     "session": "sunrise",
     "sessionLabel": "清晨日出",
-    "publishedAt": "2026-09-20T06:33:35.593409",
+    "publishedAt": "2026-09-20T09:00:15.979805",
     "publishTimeLabel": "09:00 定時發布",
     "title": "2026-09-20 清晨日出實況觀測 vs. 模型預報總結",
     "verificationStatus": "verified",
@@ -17,7 +17,7 @@
     "groundTruth": {
       "score": 42,
       "peakScore": 97,
-      "meanErrorAbsolute": 30,
+      "meanErrorAbsolute": 29,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
       "color": "#F43F5E",
@@ -107,8 +107,8 @@
         "icon": "📹",
         "tag": "象山看台北 101（4K 官方即時影像）",
         "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 0% 低雲 100%",
-        "phasePeak": "實測光學 20 分（陰沉沉寂）",
-        "phasePost": "誤差 15 分",
+        "phasePeak": "實測光學 17 分（陰沉沉寂）",
+        "phasePost": "誤差 12 分",
         "forecast": "5 分",
         "verdict": "⚡ 輕微偏差 (誤差 ≤ 18分)",
         "reliable": true
@@ -116,7 +116,7 @@
     ],
     "summaryAnalysis": {
       "atmosphericReason": "7/8 站取得可信光學實況；實測平均 42 分、峰值 97 分，模型代表預報 26 分。",
-      "modelPerformance": "模型顯著失準（平均誤差 30 分，峰值實測 97 分），已標記進入校準樣本。"
+      "modelPerformance": "模型顯著失準（平均誤差 29 分，峰值實測 97 分），已標記進入校準樣本。"
     }
   },
   {
