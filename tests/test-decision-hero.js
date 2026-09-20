@@ -92,3 +92,45 @@ assert.strictEqual(jinRow.score, null, '金龍山不可顯示 0 分，應為 nul
 assert.strictEqual(jinRow.noScoreReason, DecisionHero.NO_SCORE_REASONS.EXCLUDED, '應標示未納入驗證的原因');
 
 console.log('✅ 金龍山正確標示為無預報:', jinRow.noScoreReason);
+
+// 4. 鎖定檔時段對應：只有「今天的那一場」才算對得上
+const lockedToday = { date: '2026-09-17', session: 'sunset', lockedAt: '2026-09-17T07:30:10.934Z' };
+
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'today-sunset', '2026-09-17'), true,
+  '今日日落 + 當天的日落鎖定檔 → 對得上'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'today-sunrise', '2026-09-17'), false,
+  '時段別不同（日出 vs 日落）→ 對不上'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'tomorrow-sunset', '2026-09-17'), false,
+  '明日日落沒有鎖定檔 → 對不上，不可拿今天的頂替'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'day2-sunrise', '2026-09-17'), false,
+  '後日日出沒有鎖定檔 → 對不上'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'custom', '2026-09-17'), false,
+  '自訂時段 → 對不上'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(lockedToday, 'today-sunset', '2026-09-18'), false,
+  '鎖定檔日期不是今天（鎖定工作失敗過）→ 對不上，絕不顯示昨天的分數'
+);
+assert.strictEqual(
+  DecisionHero.lockedSessionMatches(null, 'today-sunset', '2026-09-17'), false,
+  '抓取失敗 → 對不上'
+);
+
+console.log('✅ 鎖定檔時段對應正確（過期與非當日時段皆不顯示分數）');
+
+// 5. 鎖定時間轉台北時間
+assert.strictEqual(DecisionHero.formatLockedAt('2026-09-16T15:45:24.562Z'), '23:45', 'UTC 15:45 → 台北 23:45');
+assert.strictEqual(DecisionHero.formatLockedAt('2026-09-17T07:30:10.934Z'), '15:30', 'UTC 07:30 → 台北 15:30');
+assert.strictEqual(DecisionHero.formatLockedAt(null), null, '缺值回 null');
+assert.strictEqual(DecisionHero.formatLockedAt('not-a-date'), null, '無效值回 null');
+
+console.log('✅ 鎖定時間正確轉為台北時間');

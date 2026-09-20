@@ -38,6 +38,19 @@ const DecisionHero = {
   },
 
   /**
+   * 鎖定檔是否對應到當前選中的時段。
+   * 鎖定檔只涵蓋「今天的那一場」，其餘時段（明日、後日、自訂）一律回 false，
+   * 日期不是今天時（鎖定工作失敗）也回 false——絕不拿前一天的分數頂替。
+   */
+  lockedSessionMatches(locked, activeSessionType, todayStr) {
+    if (!locked || !locked.date || !locked.session) return false;
+    if (locked.date !== todayStr) return false;
+    if (activeSessionType === 'today-sunrise') return locked.session === 'sunrise';
+    if (activeSessionType === 'today-sunset') return locked.session === 'sunset';
+    return false;
+  },
+
+  /**
    * 組出「今晚其他機位」清單。
    * locked 為 null（或時段對不上，由呼叫端先以 lockedSessionMatches 判定）時，
    * 所有列的 score 為 null、原因為 SESSION_UNLOCKED——絕不拿別的時段的分數頂替。
