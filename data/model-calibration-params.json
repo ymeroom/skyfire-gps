@@ -45,11 +45,11 @@
       "adjustment": "自適應微調全台高空反光板係數與低雲穿透門檻"
     }
   ],
-  "lastReviewedAt": "2026-09-14T00:00:03.088831+08:00",
+  "lastReviewedAt": "2026-09-21T00:00:03.375895+08:00",
   "lastReviewOutcome": {
     "status": "no_significant_improvement",
-    "reason": "最佳候選僅降低 0.19 分 (1.1%)，未達門檻 (絕對 ≥0.8 分 且 相對 ≥3%)，判定為雜訊",
-    "totalRecords": 107,
-    "reliableRecords": 36
+    "reason": "最佳候選僅降低 0.20 分 (1.0%)，未達門檻 (絕對 ≥0.8 分 且 相對 ≥3%)，判定為雜訊",
+    "totalRecords": 187,
+    "reliableRecords": 82
   }
 }
