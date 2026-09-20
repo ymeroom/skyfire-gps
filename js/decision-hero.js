@@ -154,17 +154,30 @@ const DecisionHero = {
       seq.push({ idx, type: 'sunrise', data: day.sunrise, day });
       seq.push({ idx, type: 'sunset', data: day.sunset, day });
     });
-    // 'today-sunset' 之後 = 明日日出起算；'today-sunrise' 之後 = 今日日落起算
-    const startAt = afterSessionType === 'today-sunrise'
-      ? seq.findIndex((s) => s.idx === 0 && s.type === 'sunset')
-      : seq.findIndex((s) => s.idx === 1 && s.type === 'sunrise');
+    // 一律從「當前這一場的下一場」起算。若從固定的明日日出起算，看「明日日出」
+    // 時第一筆就會是當前這一場，主畫面、主按鈕與清單會出現同一個數字三次。
+    const CURRENT = {
+      'today-sunrise': { idx: 0, type: 'sunrise' },
+      'today-sunset': { idx: 0, type: 'sunset' },
+      'tomorrow-sunrise': { idx: 1, type: 'sunrise' },
+      'tomorrow-sunset': { idx: 1, type: 'sunset' },
+      'day2-sunrise': { idx: 2, type: 'sunrise' }
+    };
+    const cur = CURRENT[afterSessionType];
+    // 自訂時段（地圖／7 天卡片點選）無法對應到固定場次，退回今日日落之後
+    const curIndex = cur
+      ? seq.findIndex((s) => s.idx === cur.idx && s.type === cur.type)
+      : seq.findIndex((s) => s.idx === 0 && s.type === 'sunset');
+    const startAt = curIndex + 1;
     return seq.slice(startAt, startAt + 3).map((s) => ({
       type: s.type,
       label: `${s.day.dateFormatted} ${s.type === 'sunrise' ? '日出' : '日落'}`,
       timeLabel: s.data.time instanceof Date
         ? `${String(s.data.time.getHours()).padStart(2, '0')}:${String(s.data.time.getMinutes()).padStart(2, '0')}`
         : '--:--',
-      score: s.data.skyfire ? s.data.skyfire.score : null
+      score: s.data.skyfire ? s.data.skyfire.score : null,
+      // 該場次的實際 Date：呼叫端據此組行事曆，不可自行假設日期索引
+      time: s.data.time instanceof Date ? s.data.time : null
     }));
   }
 };

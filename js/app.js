@@ -304,9 +304,10 @@ class SkyFireGPSApp {
     )[0];
     if (!next) return;
     const spotName = this.selectedSpot ? this.selectedSpot.name : '所選機位';
-    const [hh, mm] = next.timeLabel.split(':').map(Number);
-    const start = new Date(this.currentForecastData.daysForecast[1][next.type].time);
-    start.setHours(hh, mm, 0, 0);
+    // 場次的實際 Date 由 nextThreeSessions 帶回；不可假設它一定是明日（索引 1），
+    // 看「明日日落」時下一場其實在後日。
+    if (!next.time) return;
+    const start = new Date(next.time);
     const ics = DecisionHero.buildIcs({
       title: `${next.label}火燒雲 ${next.score} 分`,
       start,

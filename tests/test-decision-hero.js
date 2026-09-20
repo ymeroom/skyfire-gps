@@ -185,3 +185,42 @@ assert.strictEqual(next3[0].type, 'sunrise', '第一場為日出');
 assert(next3[0].timeLabel.includes('05:47'), '應帶巔峰/場次時刻');
 
 console.log('✅ 接下來三場取自既有 7 天預報:', next3.map(s => `${s.label} ${s.score}`));
+
+// 9. 「接下來三場」必須從當前這一場之後起算
+// 看「明日日出」時，清單第一筆不可又是明日日出——那會讓主畫面、主按鈕、
+// 清單三處出現同一個數字，正是本次改版要避免的自相矛盾。
+const afterTomorrowSunrise = DecisionHero.nextThreeSessions(daysForecast, 'tomorrow-sunrise');
+assert.strictEqual(afterTomorrowSunrise[0].type, 'sunset', '明日日出之後應為明日日落');
+assert.strictEqual(afterTomorrowSunrise[0].score, 31, '應為明日日落 31 分');
+assert.deepStrictEqual(
+  afterTomorrowSunrise.map(s => s.score), [31, 57, 20],
+  '應為明日日落、後日日出、後日日落'
+);
+
+const afterTodaySunrise = DecisionHero.nextThreeSessions(daysForecast, 'today-sunrise');
+assert.strictEqual(afterTodaySunrise[0].score, 12, '今日日出之後應為今日日落');
+
+const afterTomorrowSunset = DecisionHero.nextThreeSessions(daysForecast, 'tomorrow-sunset');
+assert.strictEqual(afterTomorrowSunset[0].score, 57, '明日日落之後應為後日日出');
+
+const afterDay2Sunrise = DecisionHero.nextThreeSessions(daysForecast, 'day2-sunrise');
+assert.strictEqual(afterDay2Sunrise[0].score, 20, '後日日出之後應為後日日落');
+
+// 當前這一場永遠不可出現在清單裡
+['today-sunrise', 'today-sunset', 'tomorrow-sunrise', 'tomorrow-sunset'].forEach((sess) => {
+  const dayIdx = sess.startsWith('today') ? 0 : 1;
+  const type = sess.endsWith('sunrise') ? 'sunrise' : 'sunset';
+  const selfLabel = `${daysForecast[dayIdx].dateFormatted} ${type === 'sunrise' ? '日出' : '日落'}`;
+  const list = DecisionHero.nextThreeSessions(daysForecast, sess);
+  assert(!list.some(s => s.label === selfLabel), `${sess}：清單不可包含當前這一場 (${selfLabel})`);
+});
+
+console.log('✅ 接下來三場從當前場次之後起算，不重複當前這一場');
+
+// 10. 每一場都要帶回實際的 Date，呼叫端才不必假設日期索引
+const seqCheck = DecisionHero.nextThreeSessions(daysForecast, 'tomorrow-sunset');
+assert(seqCheck[0].time instanceof Date, '應回傳該場次的 Date');
+assert.strictEqual(seqCheck[0].time.getDate(), 19, '明日日落之後應為 9/19 當天');
+assert.strictEqual(seqCheck[0].time.getHours(), 5, '應為該日日出時刻 05:48');
+
+console.log('✅ 場次帶回實際 Date（行事曆不再假設日期索引）');
