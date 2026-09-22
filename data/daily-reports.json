@@ -1,5 +1,103 @@
 [
   {
+    "id": "report-2026-09-22-sunset",
+    "date": "2026-09-22",
+    "session": "sunset",
+    "sessionLabel": "傍晚日落",
+    "publishedAt": "2026-09-22T18:43:09.301893",
+    "publishTimeLabel": "21:00 定時發布",
+    "title": "2026-09-22 傍晚日落實況觀測 vs. 模型預報總結",
+    "verificationStatus": "verified",
+    "prediction": {
+      "score": 38,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "summary": "4 站鎖定預報平均"
+    },
+    "groundTruth": {
+      "score": 68,
+      "peakScore": 94,
+      "meanErrorAbsolute": 29,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "color": "#F43F5E",
+      "stationsVerified": 4,
+      "stationsTotal": 6
+    },
+    "stations": [
+      {
+        "name": "嘉義・阿里山二延平步道",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・二延平雲海",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 64% 低雲 100%",
+        "phasePeak": "實測光學 5 分（陰沉沉寂）",
+        "phasePost": "—",
+        "forecast": "5 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "嘉義・阿里山小笠原山觀景台",
+        "icon": "🌄",
+        "tag": "嘉義阿里山・小笠原山",
+        "phasePrep": "模型預報 12 分（陰沉沉寂）｜高雲 2% 低雲 53%",
+        "phasePeak": "實測光學 5 分（暮光窗外 (人工光源判定)）",
+        "phasePost": "—",
+        "forecast": "12 分",
+        "verdict": "◽ 不列入統計（模擬預測 / 證據不足）",
+        "reliable": false
+      },
+      {
+        "name": "台南白河・火山碧雲寺",
+        "icon": "⛩️",
+        "tag": "台南白河・碧雲寺",
+        "phasePrep": "模型預報 5 分（陰沉沉寂）｜高雲 32% 低雲 100%",
+        "phasePeak": "實測光學 38 分（平淡暮光）",
+        "phasePost": "誤差 33 分",
+        "forecast": "5 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "桃園大古山",
+        "icon": "⛰️",
+        "tag": "桃園大古山・盆地俯瞰",
+        "phasePrep": "模型預報 35 分（平淡暮光）｜高雲 0% 低雲 1%",
+        "phasePeak": "🔥 實測光學 87 分（史詩級爆發）",
+        "phasePost": "誤差 52 分",
+        "forecast": "35 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "台中・高美濕地木棧道",
+        "icon": "🌊",
+        "tag": "台中海線・風車海平面",
+        "phasePrep": "模型預報 64 分（局部霞光）｜高雲 13% 低雲 3%",
+        "phasePeak": "🔥 實測光學 94 分（史詩級爆發）",
+        "phasePost": "誤差 30 分",
+        "forecast": "64 分",
+        "verdict": "⚠️ 出現偏差需校準",
+        "reliable": true
+      },
+      {
+        "name": "桃園永安漁港",
+        "icon": "🐟",
+        "tag": "高雄永安・漁港海口",
+        "phasePrep": "模型預報 49 分（局部霞光）｜高雲 6% 低雲 0%",
+        "phasePeak": "實測光學 51 分（局部微霞）",
+        "phasePost": "誤差 2 分",
+        "forecast": "49 分",
+        "verdict": "🎯 極致精準 (誤差 ≤ 8分)",
+        "reliable": true
+      }
+    ],
+    "summaryAnalysis": {
+      "atmosphericReason": "4/6 站取得可信光學實況；實測平均 68 分、峰值 94 分，模型代表預報 38 分。",
+      "modelPerformance": "模型顯著失準（平均誤差 29 分，峰值實測 94 分），已標記進入校準樣本。"
+    }
+  },
+  {
     "id": "report-2026-09-22-sunrise",
     "date": "2026-09-22",
     "session": "sunrise",
