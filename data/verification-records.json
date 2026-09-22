@@ -1,5 +1,65 @@
 [
   {
+    "id": "rec-2026-09-22-sunset",
+    "date": "2026-09-22",
+    "session": "sunset",
+    "targetTime": "2026-09-22T09:52:31.229Z",
+    "source": "大稻埕碼頭（4K 官方即時影像）",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 2,
+      "horizonClearance": 91,
+      "visibilityKm": 27.6,
+      "isSimulated": false,
+      "lockedAt": "2026-09-22T07:30:04.559Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-22-sunset.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-09-22-sunset.jpg",
+      "sha256": "bf33a966bbf31b473464484ba79fa00c8502079ce91cb815ee95ceda37079e42",
+      "capturedAt": "2026-09-22T10:45:08.554Z",
+      "offsetMinutes": 53,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "posterQuality": null,
+      "fallbackReason": null,
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 21,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 14,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 31.6,
+      "skyCoveragePct": 6.4,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-22T09:22:20.530000+00:00",
+        "windowEnd": "2026-09-22T10:15:21.095000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "verifiedAt": "2026-09-22T10:45:29.729Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-09-22-sunrise",
     "date": "2026-09-22",
     "session": "sunrise",
