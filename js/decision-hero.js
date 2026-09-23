@@ -15,6 +15,46 @@ const DecisionHero = {
     SESSION_UNLOCKED: '該時段尚未鎖定逐站預報'
   },
 
+  // 與 renderDecisionScore 同一組低分評級：低分夜不值得特地安排行程
+  LOW_LEVELS: ['OVERCAST', 'FAINT'],
+  // 舊資料沒有 rating.level 時的退路，取 skyfire-engine 的 MODERATE 門檻
+  MIN_WORTH_SCORE: 48,
+
+  /**
+   * 判斷句的場次用語。只看 type 會把「明日日落」講成「今晚」，
+   * 所以一律帶 dayIndex（0=今天）。第 4 天起沒有口語說法，退回日期。
+   */
+  sessionPhrase(dayIndex, type, dateFormatted) {
+    const isSunrise = type === 'sunrise';
+    const words = isSunrise ? ['今早', '明早', '後天早上'] : ['今晚', '明晚', '後天晚上'];
+    if (words[dayIndex]) return words[dayIndex];
+    // dateFormatted 形如「9/25 (週五)」，只取月日
+    const md = typeof dateFormatted === 'string' ? dateFormatted.trim().split(' ')[0] : '';
+    if (!md) return '這一場';
+    return `${md} ${isSunrise ? '早上' : '晚上'}`;
+  },
+
+  /** 這一場是否值得特地出門（評級優先，缺評級才看分數） */
+  isWorthGoing(session) {
+    if (!session || typeof session.score !== 'number') return false;
+    if (session.level) return !DecisionHero.LOW_LEVELS.includes(session.level);
+    return session.score >= DecisionHero.MIN_WORTH_SCORE;
+  },
+
+  /**
+   * 低分夜要推進行事曆的那一場：接下來三場裡分數最高、且真的比現在好的一場。
+   * 直接拿「下一場」會推出比現在更低的分數（35 分的夜晚叫人去看 19 分）。
+   * 同分取較早的一場；沒有值得推的就回 null，由呼叫端改口。
+   */
+  pickPlannedSession(sessions, currentScore) {
+    if (!Array.isArray(sessions)) return null;
+    return sessions.reduce((best, s) => {
+      if (!DecisionHero.isWorthGoing(s) || !s.time) return best;
+      if (typeof currentScore === 'number' && s.score <= currentScore) return best;
+      return !best || s.score > best.score ? s : best;
+    }, null);
+  },
+
   /** Haversine 距離（公里），不四捨五入，顯示端自行決定精度 */
   distanceKm(lat1, lng1, lat2, lng2) {
     const R = 6371;
@@ -176,6 +216,8 @@ const DecisionHero = {
         ? `${String(s.data.time.getHours()).padStart(2, '0')}:${String(s.data.time.getMinutes()).padStart(2, '0')}`
         : '--:--',
       score: s.data.skyfire ? s.data.skyfire.score : null,
+      // 評級讓呼叫端判斷這一場值不值得推薦，不必自己套分數門檻
+      level: s.data.skyfire && s.data.skyfire.rating ? s.data.skyfire.rating.level : null,
       // 該場次的實際 Date：呼叫端據此組行事曆，不可自行假設日期索引
       time: s.data.time instanceof Date ? s.data.time : null
     }));
