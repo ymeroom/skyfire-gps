@@ -255,9 +255,12 @@ class SkyFireGPSApp {
     if (!hero || !data) return;
 
     const isLow = this.renderDecisionScore(data.skyfire);
-    document.getElementById('decisionVerdictLine').textContent = isLow
-      ? (data.type === 'sunrise' ? '明早不用特地出門' : '今晚不用特地出門')
-      : (data.type === 'sunrise' ? '明早值得出門' : '今晚值得出門');
+    // 用語跟著實際日期走：看「明日日落」時不能講「今晚」
+    const phrase = DecisionHero.sessionPhrase(
+      data.dayMeta.dayIndex, data.type, data.dayMeta.dateFormatted
+    );
+    document.getElementById('decisionVerdictLine').textContent =
+      `${phrase}${isLow ? '不用特地出門' : '值得出門'}`;
 
     // 巔峰時刻：照既有 peakWindowText 的取法
     const windowObj = data.type === 'sunset'
@@ -272,18 +275,27 @@ class SkyFireGPSApp {
     const spot = this.selectedSpot;
 
     if (isLow) {
-      // 低分夜：主按鈕改為加入行事曆（零後端），次要按鈕看直播
-      const next = DecisionHero.nextThreeSessions(
-        this.currentForecastData.daysForecast, this.activeSessionType
-      )[0];
-      primary.textContent = next
-        ? `${next.label}有 ${next.score} 分，加入行事曆`
-        : '加入行事曆';
+      // 低分夜：主按鈕改為加入行事曆（零後端），次要按鈕看直播。
+      // 只推真的比現在好的那一場——推一個更低的分數等於叫人白跑。
+      const planned = DecisionHero.pickPlannedSession(
+        DecisionHero.nextThreeSessions(
+          this.currentForecastData.daysForecast, this.activeSessionType
+        ),
+        data.skyfire.score
+      );
       primary.removeAttribute('target');
-      primary.onclick = (e) => {
-        e.preventDefault();
-        this.downloadNextSessionIcs();
-      };
+      if (planned) {
+        primary.textContent = `${planned.label}有 ${planned.score} 分，加入行事曆`;
+        primary.href = '#';
+        primary.onclick = (e) => {
+          e.preventDefault();
+          this.downloadSessionIcs(planned);
+        };
+      } else {
+        primary.textContent = '接下來三場都不看好，看一週趨勢';
+        primary.href = '#forecast7daySection';
+        primary.onclick = null;
+      }
       if (spot && spot.liveUrl) {
         secondary.hidden = false;
         secondary.href = spot.liveUrl;
@@ -307,16 +319,15 @@ class SkyFireGPSApp {
     }
   }
 
-  /** 低分夜：把下一場寫成 .ics 下載（提醒交給使用者自己的行事曆） */
-  downloadNextSessionIcs() {
-    const next = DecisionHero.nextThreeSessions(
-      this.currentForecastData.daysForecast, this.activeSessionType
-    )[0];
-    if (!next) return;
-    const spotName = this.selectedSpot ? this.selectedSpot.name : '所選機位';
+  /**
+   * 低分夜：把指定場次寫成 .ics 下載（提醒交給使用者自己的行事曆）。
+   * 場次由 pickPlannedSession 挑出，不在這裡重算——按鈕上寫哪一場就下載哪一場。
+   */
+  downloadSessionIcs(next) {
     // 場次的實際 Date 由 nextThreeSessions 帶回；不可假設它一定是明日（索引 1），
     // 看「明日日落」時下一場其實在後日。
-    if (!next.time) return;
+    if (!next || !next.time) return;
+    const spotName = this.selectedSpot ? this.selectedSpot.name : '所選機位';
     const start = new Date(next.time);
     const ics = DecisionHero.buildIcs({
       title: `${next.label}火燒雲 ${next.score} 分`,

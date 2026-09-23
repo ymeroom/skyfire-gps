@@ -224,3 +224,71 @@ assert.strictEqual(seqCheck[0].time.getDate(), 19, '明日日落之後應為 9/1
 assert.strictEqual(seqCheck[0].time.getHours(), 5, '應為該日日出時刻 05:48');
 
 console.log('✅ 場次帶回實際 Date（行事曆不再假設日期索引）');
+
+// 11. 場次用語：判斷句要跟著實際日期與時段走，看「明日日落」不能寫成「今晚」
+assert.strictEqual(DecisionHero.sessionPhrase(0, 'sunset', '今天 (9/22 週二)'), '今晚');
+assert.strictEqual(DecisionHero.sessionPhrase(0, 'sunrise', '今天 (9/22 週二)'), '今早');
+assert.strictEqual(DecisionHero.sessionPhrase(1, 'sunrise', '明天 (9/23 週三)'), '明早');
+assert.strictEqual(DecisionHero.sessionPhrase(1, 'sunset', '明天 (9/23 週三)'), '明晚',
+  '明日日落是「明晚」，不是「今晚」');
+assert.strictEqual(DecisionHero.sessionPhrase(2, 'sunrise', '後天 (9/24 週四)'), '後天早上');
+assert.strictEqual(DecisionHero.sessionPhrase(2, 'sunset', '後天 (9/24 週四)'), '後天晚上');
+// 第 4 天起沒有口語說法，退回日期；dateFormatted 形如「9/25 (週五)」
+assert.strictEqual(DecisionHero.sessionPhrase(3, 'sunset', '9/25 (週五)'), '9/25 晚上');
+assert.strictEqual(DecisionHero.sessionPhrase(4, 'sunrise', '9/26 (週六)'), '9/26 早上');
+// 缺資料時不可組出「undefined 晚上」
+assert.strictEqual(DecisionHero.sessionPhrase(5, 'sunset', undefined), '這一場');
+
+console.log('✅ 判斷句用語跟著日期與時段');
+
+// 12. 低分夜的行事曆推薦：只推「真的比現在好」的場次，不可推更低分的下一場
+const lowSessions = [
+  { label: '後天 (9/24) 日出', score: 19, level: 'OVERCAST', time: new Date(2026, 8, 24, 5, 44) },
+  { label: '後天 (9/24) 日落', score: 35, level: 'FAINT', time: new Date(2026, 8, 24, 17, 50) },
+  { label: '9/25 日出', score: 5, level: 'OVERCAST', time: new Date(2026, 8, 25, 5, 44) }
+];
+assert.strictEqual(DecisionHero.pickPlannedSession(lowSessions, 35), null,
+  '三場都不比現在好（且都是低分評級）時不可推薦');
+
+const mixedSessions = [
+  { label: '後天日出', score: 19, level: 'OVERCAST', time: new Date(2026, 8, 24, 5, 44) },
+  { label: '後天日落', score: 71, level: 'GREAT', time: new Date(2026, 8, 24, 17, 50) },
+  { label: '9/25 日出', score: 55, level: 'MODERATE', time: new Date(2026, 8, 25, 5, 44) }
+];
+assert.strictEqual(DecisionHero.pickPlannedSession(mixedSessions, 35).score, 71,
+  '應挑三場裡分數最高的那一場');
+
+// 分數雖高於現在，但評級仍屬低分夜 → 不值得特地安排
+assert.strictEqual(
+  DecisionHero.pickPlannedSession(
+    [{ label: 'x', score: 40, level: 'FAINT', time: new Date() }], 35
+  ),
+  null,
+  '比現在高但仍是 FAINT 的場次不算值得出門'
+);
+
+// 同分時取較早的那一場
+const tieSessions = [
+  { label: '早', score: 60, level: 'MODERATE', time: new Date(2026, 8, 24, 5, 44) },
+  { label: '晚', score: 60, level: 'MODERATE', time: new Date(2026, 8, 24, 17, 50) }
+];
+assert.strictEqual(DecisionHero.pickPlannedSession(tieSessions, 35).label, '早', '同分取較早的一場');
+
+// 沒有 level 時（舊資料）退回分數門檻
+assert.strictEqual(DecisionHero.pickPlannedSession([{ label: 'y', score: 60, time: new Date() }], 35).score, 60);
+assert.strictEqual(DecisionHero.pickPlannedSession([{ label: 'y', score: 40, time: new Date() }], 35), null);
+// 無分數、無時間的場次不可入選（行事曆會組不出來）
+assert.strictEqual(DecisionHero.pickPlannedSession([{ label: 'z', score: null, time: new Date() }], 10), null);
+assert.strictEqual(DecisionHero.pickPlannedSession([{ label: 'z', score: 80, level: 'EPIC', time: null }], 10), null);
+assert.strictEqual(DecisionHero.pickPlannedSession([], 10), null);
+
+console.log('✅ 低分夜只推薦真的比現在好的場次');
+
+// nextThreeSessions 要帶回評級，上面的挑選才有依據
+const withLevels = DecisionHero.nextThreeSessions([
+  { dateFormatted: '9/17', sunrise: { time: new Date(2026, 8, 17, 5, 46), skyfire: { score: 12, rating: { level: 'OVERCAST' } } },
+    sunset: { time: new Date(2026, 8, 17, 18, 1), skyfire: { score: 70, rating: { level: 'GREAT' } } } }
+], 'today-sunrise');
+assert.strictEqual(withLevels[0].level, 'GREAT', '場次應帶回 rating.level');
+
+console.log('✅ 接下來三場帶回評級');
