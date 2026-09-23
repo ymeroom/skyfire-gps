@@ -228,6 +228,25 @@ class SkyFireGPSApp {
   }
 
   /**
+   * 決策區的分數環、評級徽章與理由。沙盒「套用」也走這裡，才不會出現
+   * 分數環與下方指標各說各話。回傳是否為低分夜。
+   */
+  renderDecisionScore(skyfire) {
+    const { score, rating } = skyfire;
+    const isLow = ['OVERCAST', 'FAINT'].includes(rating.level);
+    document.getElementById('decisionHero').dataset.verdict = isLow ? 'low' : 'go';
+    document.getElementById('decisionScoreNum').textContent = score;
+    document.getElementById('decisionVerdictBadge').textContent = `${rating.icon} ${rating.badge}`;
+    document.getElementById('decisionReasonText').textContent = rating.summary;
+
+    // 分數環：週長 440（r=70）
+    const fill = document.getElementById('decisionGaugeFill');
+    fill.style.strokeDasharray = '440';
+    fill.style.strokeDashoffset = `${440 - (440 * score) / 100}`;
+    return isLow;
+  }
+
+  /**
    * 渲染決策區。資料全部來自 getActiveSessionData()，與 renderHeroGauge 同一份，
    * 不發任何新請求。
    */
@@ -235,22 +254,10 @@ class SkyFireGPSApp {
     const hero = document.getElementById('decisionHero');
     if (!hero || !data) return;
 
-    const score = data.skyfire.score;
-    const rating = data.skyfire.rating;
-    const isLow = ['OVERCAST', 'FAINT'].includes(rating.level);
-    hero.dataset.verdict = isLow ? 'low' : 'go';
-
-    document.getElementById('decisionScoreNum').textContent = score;
-    document.getElementById('decisionVerdictBadge').textContent = `${rating.icon} ${rating.badge}`;
+    const isLow = this.renderDecisionScore(data.skyfire);
     document.getElementById('decisionVerdictLine').textContent = isLow
       ? (data.type === 'sunrise' ? '明早不用特地出門' : '今晚不用特地出門')
       : (data.type === 'sunrise' ? '明早值得出門' : '今晚值得出門');
-    document.getElementById('decisionReasonText').textContent = rating.summary;
-
-    // 分數環：週長 440（r=70），與既有 gaugeFillCircle 用同一個值
-    const fill = document.getElementById('decisionGaugeFill');
-    fill.style.strokeDasharray = '440';
-    fill.style.strokeDashoffset = `${440 - (440 * score) / 100}`;
 
     // 巔峰時刻：照既有 peakWindowText 的取法
     const windowObj = data.type === 'sunset'
@@ -541,45 +548,19 @@ class SkyFireGPSApp {
   }
 
   /**
-   * 渲染 Hero 儀表板
+   * 渲染細節層（四項指標、光路分析）與決策區的情境列、信心提示、出景窗口。
+   * 分數環、判斷句、倒數由 renderDecisionHero 負責，這裡不重複寫。
    */
   renderHeroGauge(data) {
-    const { skyfire, time, weather, dayMeta, type, upstream, singlePoint, rayPath } = data;
-    const { score, rating, metrics } = skyfire;
+    const { weather, dayMeta, type, upstream, singlePoint, rayPath } = data;
+    const { rating, metrics } = data.skyfire;
 
-    // 標籤與日期
+    // 情境列：地點已在 location chip，這裡只寫日期、場次；非預設模型才標註
     const targetDateText = document.getElementById('targetDateText');
     if (targetDateText) {
-      const modeLabel = this.activeModelMode === 'singlePoint' ? '【📍 經典單點模型】' : '【🎯 向量光路雙點模型】';
-      targetDateText.innerText = `${this.currentLocation.name} • ${dayMeta.dateFormatted} ${type === 'sunset' ? '日落' : '日出'}火燒雲預報 ${modeLabel}`;
+      const modeLabel = this.activeModelMode === 'singlePoint' ? ' · 經典單點模型' : '';
+      targetDateText.innerText = `${dayMeta.dateFormatted} ${type === 'sunset' ? '日落' : '日出'}火燒雲預報${modeLabel}`;
     }
-
-    // 圓形計量表 (周長 440)
-    const circle = document.getElementById('gaugeFillCircle');
-    const scoreNum = document.getElementById('gaugeScoreNum');
-    if (circle) {
-      const offset = 440 - (440 * score) / 100;
-      circle.style.strokeDashoffset = offset;
-      circle.style.stroke = rating.color;
-    }
-    if (scoreNum) {
-      scoreNum.innerText = score;
-    }
-
-    // 評級徽章與簡評
-    const ratingBadge = document.getElementById('ratingBadge');
-    const ratingIcon = document.getElementById('ratingIcon');
-    const ratingBadgeText = document.getElementById('ratingBadgeText');
-    const ratingSummary = document.getElementById('ratingSummary');
-
-    if (ratingBadge) {
-      ratingBadge.style.backgroundColor = `${rating.color}25`;
-      ratingBadge.style.borderColor = `${rating.color}66`;
-      ratingBadge.style.color = rating.color;
-    }
-    if (ratingIcon) ratingIcon.innerText = rating.icon;
-    if (ratingBadgeText) ratingBadgeText.innerText = rating.badge;
-    if (ratingSummary) ratingSummary.innerText = rating.summary;
 
     // 預測可信度提示：離線模擬、上游光路資料不足、或太陽方位角被地形遮擋時，
     // 明確告知使用者此處預測的把握度較低，而不是給一個看起來一樣確定的分數。
@@ -608,9 +589,10 @@ class SkyFireGPSApp {
         ? dayMeta.solarTimes.sunsetSkyfireWindow 
         : dayMeta.solarTimes.sunriseSkyfireWindow;
 
-      if (windowObj) {
-        peakWindowText.innerText = `${SolarCalc.formatTime(windowObj.start)} - ${SolarCalc.formatTime(windowObj.end)} (巔峰 ${SolarCalc.formatTime(windowObj.peak)})`;
-      }
+      // 巔峰時刻已由決策區大字顯示，這裡只補窗口起訖
+      peakWindowText.innerText = windowObj
+        ? `窗口 ${SolarCalc.formatTime(windowObj.start)}–${SolarCalc.formatTime(windowObj.end)}`
+        : '';
     }
 
     // 4 大關鍵診斷指標
@@ -760,20 +742,36 @@ class SkyFireGPSApp {
     }
 
     if (sunsetEl) sunsetEl.innerText = SolarCalc.formatTime(times.sunset);
-    
-    if (peakEl) {
-      const peakTime = data.type === 'sunset' 
-        ? times.sunsetSkyfireWindow?.peak 
-        : times.sunriseSkyfireWindow?.peak;
-      peakEl.innerText = SolarCalc.formatTime(peakTime);
-    }
 
-    if (blueEl) {
-      const blueTime = data.type === 'sunset' 
-        ? times.blueHourSunsetStart 
-        : times.civilDawn;
-      blueEl.innerText = SolarCalc.formatTime(blueTime);
-    }
+    const peakTime = data.type === 'sunset'
+      ? times.sunsetSkyfireWindow?.peak
+      : times.sunriseSkyfireWindow?.peak;
+    if (peakEl) peakEl.innerText = SolarCalc.formatTime(peakTime);
+
+    const blueTime = data.type === 'sunset'
+      ? times.blueHourSunsetStart
+      : times.civilDawn;
+    if (blueEl) blueEl.innerText = SolarCalc.formatTime(blueTime);
+    // 日出場沒有獨立的藍調時刻資料（退回民用曙光），依時間排序後會出現兩張
+    // 同為 05:21 的卡片並排，乾脆不顯示
+    const blueCard = document.getElementById('cardBlueHour');
+    if (blueCard) blueCard.style.display = data.type === 'sunrise' ? 'none' : '';
+
+    // 卡片依實際時刻排序：日落場的巔峰在日落「之後」，固定 DOM 順序會把
+    // 18:18 排在 18:03 左邊。用 CSS order 排，不搬動節點（ID 綁定不變）。
+    const cardTimes = {
+      cardDawn: times.civilDawn,
+      cardSunrise: times.sunrise,
+      cardSunsetWindow: peakTime,
+      cardSunset: times.sunset,
+      cardBlueHour: blueTime
+    };
+    Object.entries(cardTimes).forEach(([id, t]) => {
+      const card = document.getElementById(id);
+      if (card && t instanceof Date && !isNaN(t)) {
+        card.style.order = String(Math.round(t.getTime() / 60000));
+      }
+    });
   }
 
   /**
@@ -1154,11 +1152,8 @@ class SkyFireGPSApp {
     if (this.countdownInterval) clearInterval(this.countdownInterval);
 
     const updateCountdown = () => {
-      const countdownText = document.getElementById('countdownText');
-      // 決策區的倒數共用這一個更新器：兩份各自 setInterval 會在跨秒時顯示
-      // 不同時間，同一畫面上看起來像 bug。
       const decisionCountdown = document.getElementById('decisionCountdown');
-      if (!countdownText || !this.currentForecastData) return;
+      if (!decisionCountdown || !this.currentForecastData) return;
 
       const currentData = this.getActiveSessionData();
       if (!currentData || !currentData.time) return;
@@ -1178,8 +1173,7 @@ class SkyFireGPSApp {
         label = passMins < 45 ? `🔥 正在出景窗口中！(進行中)` : `本日時段已過`;
       }
 
-      countdownText.innerText = label;
-      if (decisionCountdown) decisionCountdown.innerText = label;
+      decisionCountdown.innerText = label;
     };
 
     updateCountdown();
@@ -1288,6 +1282,10 @@ class SkyFireGPSApp {
         },
         type: 'sunset'
       });
+
+      // 決策區同步顯示沙盒分數，並明講這不是預報；切換時段或更新預報即恢復
+      this.renderDecisionScore(simResult);
+      document.getElementById('decisionVerdictLine').textContent = '沙盒模擬結果（非實際預報）';
 
       this.renderCloudCrossSection({
         weather: {

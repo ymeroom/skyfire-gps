@@ -73,28 +73,17 @@
         </div>
       </div>
 
+      <!-- 只留出門前會按的三個動作；其餘入口在 #deepDiveNav 與頁尾 -->
       <div class="header-actions">
-        <a href="camera.html" target="_blank" class="btn-pill primary" style="text-decoration: none; background: linear-gradient(135deg, #38bdf8, #ff6b00); box-shadow: 0 4px 14px rgba(56, 189, 248, 0.4);">
-          <span>📸</span> 霞光打卡相機
-        </a>
-        <a href="video.html" target="_blank" class="btn-pill" style="text-decoration: none; border-color: rgba(255, 107, 0, 0.4); color: #ff9e00;">
-          <span>🎬</span> 短影音介紹
-        </a>
         <button class="btn-pill gps-btn" id="btnGPSLocate" title="透過手機 GPS 定位我當前的位置">
           <span>📍</span> 定位我的位置
-        </button>
-        <a href="#interactiveMap" class="btn-pill" style="text-decoration: none;">
-          <span>🗺️</span> 地圖點選
-        </a>
-        <a href="#scienceSection" class="btn-pill" style="text-decoration: none;">
-          <span>🔬</span> 科學原理
-        </a>
-        <button class="btn-pill" id="btnOpenSimulator" title="開啟氣象參數沙盒">
-          <span>🧪</span> 氣象沙盒
         </button>
         <button class="btn-pill primary" id="btnRefreshWeather" title="重新整理當前氣象數據">
           <span>🔄</span> 更新預報
         </button>
+        <a href="camera.html" target="_blank" class="btn-pill">
+          <span>📸</span> 霞光打卡相機
+        </a>
       </div>
     </header>
 
@@ -112,19 +101,6 @@
         <button class="tab-btn" data-session="tomorrow-sunset">
           <span>🌆</span> 明日日落
         </button>
-      </div>
-
-      <!-- 雙版本預測演算法模式切換開關 -->
-      <div class="model-algorithm-switcher" id="modelAlgorithmSwitcher">
-        <span class="switcher-title"><span>🧠</span> 預測演算法模式：</span>
-        <div class="model-tabs">
-          <button class="model-tab-btn active" data-model-mode="rayPath" id="btnModelRayPath">
-            <span>🎯</span> 向量光路雙點模型 (上游 60km 開窗率)
-          </button>
-          <button class="model-tab-btn" data-model-mode="singlePoint" id="btnModelSinglePoint">
-            <span>📍</span> 經典單點大氣模型 (本地垂直柱)
-          </button>
-        </div>
       </div>
 
       <div class="live-status-bar">
@@ -151,9 +127,15 @@
       </div>
 
       <div class="decision-answer">
+        <div class="decision-context">
+          <span class="location-chip" id="currentLocationBadge">📍 台北市中心 (預設)</span>
+          <span id="targetDateText">今日日落火燒雲預報</span>
+        </div>
         <div class="decision-verdict-badge" id="decisionVerdictBadge">分析中...</div>
         <h2 class="decision-verdict-line" id="decisionVerdictLine">正在判斷今晚值不值得出門</h2>
         <p class="decision-reason" id="decisionReasonText">正在初始化台灣 Open-Meteo 大氣觀測連線...</p>
+        <!-- 信心偏低時必須跟分數出現在同一眼範圍，不能藏在下方細節裡 -->
+        <div class="confidence-notice" id="confidenceNotice" hidden></div>
 
         <div class="decision-actions">
           <a class="decision-primary-btn" id="decisionPrimaryBtn" href="#" target="_blank" rel="noopener">計算中...</a>
@@ -163,7 +145,8 @@
         <div class="decision-timing">
           <span class="decision-timing-label">最佳拍攝時刻</span>
           <strong id="decisionPeakTime">--:--</strong>
-          <span id="decisionCountdown">倒數計算中...</span>
+          <span class="decision-window" id="peakWindowText"></span>
+          <span class="decision-countdown" id="decisionCountdown">倒數計算中...</span>
         </div>
       </div>
     </section>
@@ -200,50 +183,24 @@
     </nav>
 
     <!-- ==========================================
-         Hero 核心大氣火燒雲儀表板
+         細節層：分數背後的四項指標、光路分析與垂直雲層
+         （分數、判斷、倒數只在上方決策區出現一次）
          ========================================== -->
     <section class="hero-dashboard-grid">
-      
-      <!-- 主指數卡片 -->
-      <div class="glass-card main-gauge-card">
-        <div class="gauge-header">
-          <div class="target-time-label" id="currentSessionLabel">
-            <span class="location-chip" id="currentLocationBadge">📍 台北市中心 (預設)</span>
-            <span id="targetDateText">今日日落火燒雲預報</span>
-          </div>
-          <div class="countdown-box" id="countdownBox">
-            <span>⏱️</span> <span id="countdownText">倒數計算中...</span>
-          </div>
-        </div>
 
-        <div class="gauge-content-row">
-          <!-- 圓形儀表 -->
-          <div class="circular-gauge-wrapper">
-            <svg class="circular-gauge-svg" viewBox="0 0 160 160">
-              <circle class="gauge-bg-circle" cx="80" cy="80" r="70"></circle>
-              <circle class="gauge-fill-circle" id="gaugeFillCircle" cx="80" cy="80" r="70"></circle>
-            </svg>
-            <div class="gauge-center-text">
-              <div class="gauge-number" id="gaugeScoreNum">--</div>
-              <div class="gauge-unit">指數 / 100</div>
-            </div>
-          </div>
-
-          <!-- 評級與簡評 -->
-          <div class="gauge-verdict">
-            <div class="rating-badge" id="ratingBadge">
-              <span id="ratingIcon">🔥</span> <span id="ratingBadgeText">分析中...</span>
-            </div>
-            <div class="rating-summary" id="ratingSummary">
-              正在載入當前經緯度的大氣高空反射面與地平線透光度...
-            </div>
-            <div class="confidence-notice" id="confidenceNotice" hidden
-                 style="margin-top: 8px; padding: 8px 12px; border-radius: var(--radius-md); font-size: 0.8rem; line-height: 1.5; background: rgba(250, 204, 21, 0.12); border: 1px solid rgba(250, 204, 21, 0.35); color: #facc15;">
-            </div>
-            <div class="peak-window-bar">
-              <span>⏰ 最佳出景窗口：</span>
-              <strong id="peakWindowText">計算中...</strong>
-            </div>
+      <div class="glass-card detail-metrics-card">
+        <div class="card-title-bar">
+          <h3><span>📊</span> 分數怎麼來的</h3>
+          <!-- 雙版本預測演算法模式切換：比對用，放在細節層而非首屏 -->
+          <div class="model-tabs" id="modelAlgorithmSwitcher" role="group" aria-label="預測演算法模式">
+            <button class="model-tab-btn active" data-model-mode="rayPath" id="btnModelRayPath"
+                    title="向量光路雙點模型：取樣上游 60km 的地平線開窗率">
+              <span>🎯</span> 向量光路
+            </button>
+            <button class="model-tab-btn" data-model-mode="singlePoint" id="btnModelSinglePoint"
+                    title="經典單點大氣模型：只看本地垂直氣柱">
+              <span>📍</span> 經典單點
+            </button>
           </div>
         </div>
 
@@ -290,6 +247,10 @@
             </div>
           </div>
         </div>
+
+        <button type="button" class="detail-sim-btn" id="btnOpenSimulator">
+          <span>🧪</span> 自己調雲量試算（氣象沙盒）
+        </button>
       </div>
 
       <!-- 右側：大氣三維垂直雲層剖面卡片 -->
@@ -439,6 +400,49 @@
     </section>
 
     <!-- ==========================================
+         即時出景驗證走廊與每日定時日報 (Daily Ground Truth Briefing & Archive)
+         ========================================== -->
+    <section class="science-section" id="verifySection">
+      <div class="section-header-row">
+        <h2 class="section-title"><span>📰</span> 每日出景實況驗證日報與歷史歸檔（Daily Ground Truth Briefing）</h2>
+        <span class="info-chip" id="accuracySummaryBadge">每日 09:00 / 21:00 定時發布</span>
+      </div>
+
+      <!-- 驗證發布場次 Banner
+           註：準確率 / MAE 指標暫不對外顯示 —— 目前累積的驗證紀錄多為
+           遷移 Tier A/B 擷取管線前的舊格式，缺乏可信賴的真實影格證據，
+           算出來的數字沒有意義。待自架 runner 累積足量 Tier A 精確影格
+           紀錄後，再由 data/daily-reports.json 動態算出真實指標。 -->
+      <div class="verification-stats-banner">
+        <div class="stat-pill-box">
+          <div class="stat-pill-label">定時驗證發布場次</div>
+          <div class="stat-pill-value" id="statTotalVerified">累積中</div>
+        </div>
+      </div>
+
+      <!-- 最新一期實況日報卡片 (純表格與總結分析，0 笨重圖片) -->
+      <div class="latest-report-card" id="latestReportContainer">
+        <!-- 由 JavaScript 動態生成最新實況日報與機位對比表格 -->
+      </div>
+
+      <!-- 歷史日報觀測歸檔庫 (Historical Archive) -->
+      <div class="archive-section-box">
+        <div class="archive-header-row">
+          <h3 class="archive-title"><span>📚</span> 歷史日報觀測歸檔庫（點擊查閱歷史報告）</h3>
+          <div class="archive-filter-tabs" id="archiveFilterTabs">
+            <button class="filter-chip active" data-archive-filter="all">全部歸檔</button>
+            <button class="filter-chip" data-archive-filter="sunrise">🌅 日出觀測</button>
+            <button class="filter-chip" data-archive-filter="sunset">🌇 日落晚霞</button>
+          </div>
+        </div>
+        <div class="archive-list-deck" id="archiveReportsDeck">
+          <!-- 由 JavaScript 動態生成歷史日報清單卡片 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================
+         參考資料（放在最後：不影響今天出不出門）
          攝影師隨身小抄指南
          ========================================== -->
     <section class="photo-guide-section">
@@ -586,55 +590,14 @@
     </section>
 
     <!-- ==========================================
-         即時出景驗證走廊與每日定時日報 (Daily Ground Truth Briefing & Archive)
-         ========================================== -->
-    <section class="science-section" id="verifySection">
-      <div class="section-header-row">
-        <h2 class="section-title"><span>📰</span> 每日出景實況驗證日報與歷史歸檔（Daily Ground Truth Briefing）</h2>
-        <span class="info-chip" id="accuracySummaryBadge">每日 09:00 / 21:00 定時發布</span>
-      </div>
-
-      <!-- 驗證發布場次 Banner
-           註：準確率 / MAE 指標暫不對外顯示 —— 目前累積的驗證紀錄多為
-           遷移 Tier A/B 擷取管線前的舊格式，缺乏可信賴的真實影格證據，
-           算出來的數字沒有意義。待自架 runner 累積足量 Tier A 精確影格
-           紀錄後，再由 data/daily-reports.json 動態算出真實指標。 -->
-      <div class="verification-stats-banner">
-        <div class="stat-pill-box">
-          <div class="stat-pill-label">定時驗證發布場次</div>
-          <div class="stat-pill-value" id="statTotalVerified">累積中</div>
-        </div>
-      </div>
-
-      <!-- 最新一期實況日報卡片 (純表格與總結分析，0 笨重圖片) -->
-      <div class="latest-report-card" id="latestReportContainer">
-        <!-- 由 JavaScript 動態生成最新實況日報與機位對比表格 -->
-      </div>
-
-      <!-- 歷史日報觀測歸檔庫 (Historical Archive) -->
-      <div class="archive-section-box">
-        <div class="archive-header-row">
-          <h3 class="archive-title"><span>📚</span> 歷史日報觀測歸檔庫（點擊查閱歷史報告）</h3>
-          <div class="archive-filter-tabs" id="archiveFilterTabs">
-            <button class="filter-chip active" data-archive-filter="all">全部歸檔</button>
-            <button class="filter-chip" data-archive-filter="sunrise">🌅 日出觀測</button>
-            <button class="filter-chip" data-archive-filter="sunset">🌇 日落晚霞</button>
-          </div>
-        </div>
-        <div class="archive-list-deck" id="archiveReportsDeck">
-          <!-- 由 JavaScript 動態生成歷史日報清單卡片 -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ==========================================
          頁尾資訊
          ========================================== -->
     <footer class="site-footer">
       <div class="footer-links">
         <a href="#interactiveMapSection">全台攝影聖地地圖</a>
         <a href="#scienceSection">科學預測原理</a>
-        <a href="javascript:void(0)" id="footerOpenSim">氣象物理沙盒</a>
+        <button type="button" class="footer-link-btn" id="footerOpenSim">氣象物理沙盒</button>
+        <a href="video.html" target="_blank">短影音介紹</a>
         <a href="https://open-meteo.com/" target="_blank" rel="noopener">Open-Meteo API</a>
       </div>
       <p>© 2026 SkyFire GPS 霞光隨行 • 專為台灣追光攝影師打造 • 支援台灣手機 GPS 即時定位</p>
@@ -651,7 +614,7 @@
         <h3><span>🧪</span> 火燒雲氣象物理沙盒模擬器</h3>
         <button class="modal-close-btn" id="btnCloseSimulator">✕</button>
       </div>
-      <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 18px;">
+      <p class="modal-intro">
         隨意調整下方大氣各高度雲量與能見度滑桿，即時測試不同氣象條件對火燒雲形成的影響！
       </p>
 
@@ -696,15 +659,15 @@
       </div>
 
       <div class="sim-preview-box">
-        <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 6px;">即時模擬火燒雲指數預測結果：</div>
-        <div style="font-size: 2.2rem; font-weight: 800; color: #ff6b00;" id="simResultScore">86 分</div>
-        <div style="font-size: 1.05rem; font-weight: 700;" id="simResultRating">🔥 壯麗火燒雲</div>
-        <p style="font-size: 0.82rem; color: var(--text-muted); margin-top: 8px;" id="simResultDesc">
+        <div class="sim-preview-label">即時模擬火燒雲指數預測結果：</div>
+        <div class="sim-preview-score" id="simResultScore">86 分</div>
+        <div class="sim-preview-rating" id="simResultRating">🔥 壯麗火燒雲</div>
+        <p class="sim-preview-desc" id="simResultDesc">
           高雲適量接收晚霞紅光，低雲無遮擋，夕陽可直射雲底！
         </p>
       </div>
 
-      <div style="display: flex; justify-content: flex-end; gap: 12px; margin-top: 20px;">
+      <div class="modal-actions">
         <button class="btn-pill" id="btnResetSimulator">重設理想值</button>
         <button class="btn-pill primary" id="btnApplySimulator">套用模擬結果至主畫面</button>
       </div>
