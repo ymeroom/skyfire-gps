@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-22",
+  "date": "2026-09-23",
   "session": "sunset",
-  "lockedAt": "2026-09-22T07:30:04.559Z",
+  "lockedAt": "2026-09-23T07:30:04.554Z",
   "skyfire": {
     "score": 35,
     "rating": {
@@ -16,10 +16,10 @@
     "metrics": {
       "cloudQualityScore": 0,
       "lowCloudPenalty": 0,
-      "horizonScore": 27,
-      "visibilityScore": 15,
-      "horizonClearance": 91,
-      "visKm": 27.6
+      "horizonScore": 28,
+      "visibilityScore": 14,
+      "horizonClearance": 92,
+      "visKm": 22.3
     },
     "diagnostics": [
       {
@@ -35,12 +35,12 @@
       {
         "label": "遠方西方地平線透光窗",
         "status": "optimal",
-        "desc": "低雲遮蔽極低 (2%)，透光窗達 91%，陽光無阻直射雲底！"
+        "desc": "低雲遮蔽極低 (6%)，透光窗達 92%，陽光無阻直射雲底！"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "optimal",
-        "desc": "能見度優異（27.62 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+        "desc": "能見度優異（22.3 公里），大氣清澈通透，晚霞色彩飽和純淨。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-22T10:00:00.000Z",
-    "timeStr": "2026-09-22T18:00",
+    "time": "2026-09-23T10:00:00.000Z",
+    "timeStr": "2026-09-23T18:00",
     "cloudHigh": 0,
     "cloudMid": 0,
-    "cloudLow": 2,
-    "cloudTotal": 2,
-    "visibility": 27620,
-    "humidity": 71,
+    "cloudLow": 6,
+    "cloudTotal": 6,
+    "visibility": 22300,
+    "humidity": 73,
     "precipProb": 0,
-    "temp": 25,
+    "temp": 26,
     "weatherCode": 0
   }
 }
