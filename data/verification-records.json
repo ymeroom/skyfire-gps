@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-09-25-sunset.jpg",
-      "sha256": "c2f890d7dc581910ea9fe31d3688482aa78e379315257c2fb1c3b6c70571e8fc",
-      "capturedAt": "2026-09-25T10:45:04.786Z",
-      "offsetMinutes": 56,
+      "sha256": "1a701ad4bf03ba909117c61006c80b4a39ad9bc9ab9d7a4392dd6923d56b6a69",
+      "capturedAt": "2026-09-25T13:00:05.596Z",
+      "offsetMinutes": 191,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "posterQuality": null,
@@ -39,7 +39,7 @@
       "errorAbsolute": 13,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 46.7,
+      "chromaticPurity": 46.1,
       "skyCoveragePct": 0.2,
       "nightGate": {
         "applied": false,
@@ -54,7 +54,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-09-25T10:45:15.917Z",
+      "verifiedAt": "2026-09-25T13:00:20.669Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
