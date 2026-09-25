@@ -14278,5 +14278,441 @@
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-alishan-shengli",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "嘉義・阿里山生力農場（13 站縮時 T+30）",
+    "targetTime": "2026-09-25T22:17:14.087000+00:00",
+    "prediction": {
+      "score": 27,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 30,
+      "horizonClearance": 32,
+      "visibilityKm": 380,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-alishan-shengli.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 30,
+      "framesOk": 2,
+      "framesTotal": 9,
+      "ungatedFramesOk": 0,
+      "peakRegionUngatedOk": 0,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/alishan-shengli-t+30.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 12,
+      "groundTruthBadge": "暮光窗外 (人工光源判定)",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 15,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 26.1,
+      "skyCoveragePct": 9.6,
+      "nightGate": {
+        "applied": true,
+        "reason": "capture time falls outside the twilight window — warm/saturated pixels here are almost certainly artificial light (street lamps, boat lights, lanterns), not afterglow",
+        "rawScoreBeforeGate": 21,
+        "rawLevelBeforeGate": "OVERCAST",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "reliable": false,
+      "unreliableReason": "全部成功影格都被暗夜閘門封頂，窗口最高分只是 12 分封頂假象",
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-alishan-xiaoluji",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "嘉義・阿里山小笠原山觀景台（13 站縮時 T-20）",
+    "targetTime": "2026-09-25T21:27:14.087000+00:00",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 13,
+      "horizonClearance": 69,
+      "visibilityKm": 1000,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-alishan-xiaoluji.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": -20,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/alishan-xiaoluji-t-20.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 5,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 30,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 0,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-erliao",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "台南・左鎮二寮觀日亭（13 站縮時 T+10）",
+    "targetTime": "2026-09-25T21:57:14.087000+00:00",
+    "prediction": {
+      "score": 30,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 16,
+      "horizonClearance": 30,
+      "visibilityKm": 460,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-erliao.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 10,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/erliao-t+10.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 19,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 11,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 28.5,
+      "skyCoveragePct": 5.8,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-gaowangliao",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "台中・望高寮（13 站縮時 T-20）",
+    "targetTime": "2026-09-25T21:27:14.087000+00:00",
+    "prediction": {
+      "score": 34,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 2,
+      "horizonClearance": 50,
+      "visibilityKm": 20,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-gaowangliao.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": -20,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/gaowangliao-t-20.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 5,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 29,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 0,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-huayuan",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "台東・華源曙光觀景台（13 站縮時 T+10）",
+    "targetTime": "2026-09-25T21:57:14.087000+00:00",
+    "prediction": {
+      "score": 46,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 55,
+      "midCloud": 0,
+      "lowCloud": 44,
+      "horizonClearance": 37,
+      "visibilityKm": 300,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-huayuan.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 10,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/huayuan-t+10.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 80,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 34,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 52.6,
+      "skyCoveragePct": 39.7,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-qixingtan",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "花蓮・新城七星潭月牙灣（13 站縮時 T+10）",
+    "targetTime": "2026-09-25T21:57:14.087000+00:00",
+    "prediction": {
+      "score": 11,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 57,
+      "horizonClearance": 34,
+      "visibilityKm": 260,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-qixingtan.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 10,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/qixingtan-t+10.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 68,
+      "groundTruthBadge": "壯麗火燒雲",
+      "groundTruthLevel": "GREAT",
+      "errorAbsolute": 57,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 45.8,
+      "skyCoveragePct": 31.7,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 2
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-09-26-sunrise-sanxiantai",
+    "date": "2026-09-26",
+    "session": "sunrise",
+    "provenance": "multi-station-timelapse",
+    "source": "台東・成功三仙台八拱跨海步橋（13 站縮時 T+10）",
+    "targetTime": "2026-09-25T21:57:14.087000+00:00",
+    "prediction": {
+      "score": 22,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 2,
+      "midCloud": 0,
+      "lowCloud": 45,
+      "horizonClearance": 46,
+      "visibilityKm": 600,
+      "isSimulated": false,
+      "lockedAt": "2026-09-25T15:45:21.020Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-09-26-sunrise-sanxiantai.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 10,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 5,
+      "peakRegionUngatedOk": 4,
+      "sourceFramePath": "data/timelapse/2026-09-26-sunrise/sanxiantai-t+10.jpg",
+      "capturedAt": "2026-09-25T22:35:39.114Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 98,
+      "groundTruthBadge": "史詩級爆發",
+      "groundTruthLevel": "EPIC",
+      "errorAbsolute": 76,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 71.5,
+      "skyCoveragePct": 88.6,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-09-25T21:24:36.826000+00:00",
+        "windowEnd": "2026-09-25T22:17:10.684000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-09-25T22:35:39.114Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
   }
 ]
