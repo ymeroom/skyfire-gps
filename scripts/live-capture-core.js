@@ -172,7 +172,8 @@ function validateOpticalResult(result) {
 
 // Tier A 取得的精確直播影格
 const EXACT_CAPTURE_KIND = 'youtube-live-frame';
-// Tier B 取得的直播海報影格：真實影像但可能落後數分鐘
+// 已停用的 Tier B 海報影格。擷取端不再產生，僅為辨識歷史紀錄而保留
+// （實測為頻道靜態宣傳縮圖，不是直播畫面）
 const DEGRADED_CAPTURE_KIND = 'youtube-live-poster';
 const SCORABLE_CAPTURE_KINDS = Object.freeze([EXACT_CAPTURE_KIND, DEGRADED_CAPTURE_KIND]);
 

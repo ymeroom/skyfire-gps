@@ -4,6 +4,7 @@
  * 09:00 / 21:00 的補拍要從 YouTube DVR 倒回日出／日落當刻。舊版在回溯片段已被
  * CDN 回收時，默默改抓「現在」的直播畫面（或頻道的靜態宣傳縮圖），仍標成 exact，
  * 還覆蓋掉 05:30 / 18:45 已經拍好的紀錄（rec-2026-09-25-sunrise 等四筆）。
+ * 現在只收精確影格：擷取失敗就記 capture_unavailable，不再有任何降級來源。
  */
 
 const assert = require('assert');
@@ -171,48 +172,54 @@ const silence = (fn) => async (...args) => {
 };
 
 (async () => {
-  // 4. 已有 05:30 的精確紀錄，09:00 回溯失敗 → 原紀錄與影格原封不動，也不去抓海報
+  // 4. 已有 05:30 的精確紀錄，09:00 回溯失敗 → 原紀錄與影格原封不動
   {
     const dataDir = setupDataDir('pipe-keep', { withExistingExact: true });
     const recordsFile = path.join(dataDir, 'verification-records.json');
     const snapshotFile = path.join(dataDir, 'snapshots', '2026-09-25-sunrise.jpg');
     const recordsBefore = fs.readFileSync(recordsFile, 'utf8');
     const snapshotBefore = fs.readFileSync(snapshotFile);
-    let posterFetched = false;
     const { runTool, calls } = makeRunTool({ source: sunriseSource, segmentAvailable: false });
 
-    const record = await silence(runCapturePipeline)('sunrise', {
-      now: nineAm,
-      dataDir,
-      runTool,
-      fetchImage: () => { posterFetched = true; throw new Error('should not be called'); }
-    });
+    const record = await silence(runCapturePipeline)('sunrise', { now: nineAm, dataDir, runTool });
 
     assert(!usedLiveEdge(calls), '管線不可改抓直播當下');
-    assert(!posterFetched, '需要回溯的時段不可退到海報影格（海報只代表現在，甚至只是頻道縮圖）');
     assert.strictEqual(fs.readFileSync(recordsFile, 'utf8'), recordsBefore, '既有的精確紀錄不可被覆蓋');
     assert(fs.readFileSync(snapshotFile).equals(snapshotBefore), '既有影格不可被覆蓋');
     assert.strictEqual(record.verification.groundTruthScore, 19, '應回傳保留下來的原紀錄');
     console.log('✅ 補拍失敗時保留 05:30 的精確紀錄');
   }
 
-  // 5. 沒有既有紀錄，09:00 回溯失敗 → 誠實記錄 capture_unavailable，不抓海報
+  // 5. 沒有既有紀錄，09:00 回溯失敗 → 誠實記錄 capture_unavailable
   {
     const dataDir = setupDataDir('pipe-empty', { withExistingExact: false });
-    let posterFetched = false;
     const { runTool } = makeRunTool({ source: sunriseSource, segmentAvailable: false });
 
-    const record = await silence(runCapturePipeline)('sunrise', {
-      now: nineAm,
-      dataDir,
-      runTool,
-      fetchImage: () => { posterFetched = true; throw new Error('should not be called'); }
-    });
+    const record = await silence(runCapturePipeline)('sunrise', { now: nineAm, dataDir, runTool });
 
-    assert(!posterFetched, '需要回溯的時段不可退到海報影格');
     assert.strictEqual(record.verification.status, 'capture_unavailable');
     assert.strictEqual(record.capture.validated, false);
-    console.log('✅ 沒有可用畫面時誠實記錄 capture_unavailable');
+    assert(/DVR/.test(record.capture.error), '失敗原因應寫進紀錄');
+    console.log('✅ 補拍回溯失敗時誠實記錄 capture_unavailable');
+  }
+
+  // 5b. 05:30（日出前 15 分鐘，不需回溯）yt-dlp 失敗 → 同樣記 capture_unavailable，
+  //     不寫出任何影格（舊版會退到頻道的靜態宣傳縮圖）
+  {
+    const dataDir = setupDataDir('pipe-early-fail', { withExistingExact: false });
+    const failingTool = (cmd) => {
+      if (cmd === 'yt-dlp') throw new Error('Sign in to confirm you are not a bot');
+      throw new Error(`unexpected tool ${cmd}`);
+    };
+    const halfPastFive = new Date(sunriseAt.getTime() - 15 * 60000);
+
+    const record = await silence(runCapturePipeline)('sunrise', { now: halfPastFive, dataDir, runTool: failingTool });
+
+    assert.strictEqual(record.verification.status, 'capture_unavailable');
+    assert.strictEqual(record.snapshotUrl, null);
+    assert(!fs.existsSync(path.join(dataDir, 'snapshots', '2026-09-25-sunrise.jpg')), '失敗時不可寫出任何影格');
+    assert(/bot/.test(record.capture.error), '失敗原因應寫進紀錄');
+    console.log('✅ 一般擷取失敗時也不降級，直接記 capture_unavailable');
   }
 
   // 6. 已有 05:30 紀錄，09:00 回溯成功 → 照設計以回溯影格定稿
