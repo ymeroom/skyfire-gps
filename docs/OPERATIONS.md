@@ -79,7 +79,7 @@ flowchart LR
 
 ## 4. Ground Truth 擷取 — 單站 (Tier A/B)
 
-`capture-validation.js` 在出景窗口對官方直播做 **yt-dlp DVR 精確回溯**擷取一張影格（Tier A）；抓不到（bot-check、DVR 過期）就降級抓 YouTube 縮圖海報格（Tier B，`fidelity: "poster"`）；再抓不到就誠實記 `capture_unavailable`，**不編造資料**。
+`capture-validation.js` 在出景窗口對官方直播做 **yt-dlp DVR 精確回溯**擷取一張影格（Tier A）；抓不到（bot-check、DVR 過期）就誠實記 `capture_unavailable`，**不編造資料**。09:00 / 21:00 的補拍若 DVR 回溯失敗，保留 05:30 / 18:45 已拍到的精確紀錄，不覆蓋。舊版的 Tier B 海報影格降級已於 2026-09-26 移除：實測抓到的是頻道靜態宣傳縮圖，不是直播畫面。
 
 `score-ground-truth.js` 讀影格做 **CIELAB/HSV 色彩直方圖分析**，算出光學實測分數，跟同一天鎖定的 `locked-*-forecast.json` 配對，寫 `verification-records.json`（欄位含 `prediction`/`verification`/`errorAbsolute`/`verdict`，判定門檻見第 7 節）。
 

@@ -22,9 +22,9 @@ permissions:
 jobs:
   capture-and-record:
     # CAPTURE_RUNNER 未設定時退回 GitHub 託管 runner —— 但託管 runner 是資料
-    # 中心 IP，Tier A (yt-dlp DVR 擷取) 必定被 YouTube bot-check 擋下，只能
-    # 降級 Tier B 海報影格。要拿到 Tier A 精確影格，須將 repo variable
-    # CAPTURE_RUNNER 設為 self-hosted (住宅 IP 的自架 runner)。
+    # 中心 IP，yt-dlp DVR 擷取必定被 YouTube bot-check 擋下，只會記下
+    # capture_unavailable（不再降級抓海報影格）。要拿到精確影格，須將 repo
+    # variable CAPTURE_RUNNER 設為 self-hosted (住宅 IP 的自架 runner)。
     runs-on: ${{ vars.CAPTURE_RUNNER || 'ubuntu-latest' }}
     defaults:
       run:

@@ -15,7 +15,7 @@ const {
   assertCaptureWindow,
   isExactLiveFrameRecord
 } = require('./live-capture-core.js');
-const { captureLiveFrame, capturePosterFrame, requiresDvrRewind } = require('./live-frame-capture.js');
+const { captureLiveFrame, requiresDvrRewind } = require('./live-frame-capture.js');
 
 const MAX_CAPTURE_OFFSET_MINUTES = 600; // 支援 10 小時 YouTube DVR 時光機回溯窗口
 
@@ -155,18 +155,16 @@ async function runCapturePipeline(inputSession = '', options = {}) {
       });
 
   // ------------------------------------------------------------------
-  // 分層擷取策略
-  //
-  // Tier A: yt-dlp + ffmpeg 取回精確直播影格 (fidelity: exact)
-  //   YouTube 對資料中心 IP 施行 bot check，GitHub 託管 runner 必然失敗。
-  //   改用自架 runner (residential IP) 即可啟用。
-  // Tier B: i.ytimg.com 靜態 CDN 的直播海報影格 (fidelity: degraded)
-  //   不經 bot check，是真實但可能落後數分鐘的畫面。
-  // 兩層皆失敗時誠實記錄 capture_unavailable，絕不捏造 ground truth，
-  // 也絕不拋出 —— 否則後續的光學評分會被連坐跳過。
+  // 擷取策略：只收 yt-dlp + ffmpeg 取回的精確直播影格 (fidelity: exact)。
+  //   YouTube 對資料中心 IP 施行 bot check，GitHub 託管 runner 必然失敗，
+  //   須用自架 runner (residential IP)。
+  // 失敗就誠實記錄 capture_unavailable，絕不捏造 ground truth，也絕不拋出
+  // —— 否則後續的光學評分會被連坐跳過。
+  // 舊版失敗時會降級抓 i.ytimg.com 海報影格 (Tier B)，但實測那是頻道的
+  // 靜態宣傳縮圖 (9/9、9/11 兩天 SHA-256 相同)，不是直播畫面，已移除。
   // ------------------------------------------------------------------
   // 05:30 / 18:45 已拍到的精確紀錄。09:00 / 21:00 的補拍只能用更好的精確影格取代它，
-  // 失敗或降級時保留原紀錄 (rec-2026-09-25-sunrise 曾被一張 08:59 的市景蓋掉)。
+  // 失敗時保留原紀錄 (rec-2026-09-25-sunrise 曾被一張 08:59 的市景蓋掉)。
   const existingRecord = loadRecords(recordsFile).find(item => item.id === `rec-${dateStr}-${sessionType}`);
   const existingExact = isExactLiveFrameRecord(existingRecord) ? existingRecord : null;
 
@@ -185,39 +183,12 @@ async function runCapturePipeline(inputSession = '', options = {}) {
       runTool: options.runTool
     });
     capture = { ...exact, fidelity: 'exact' };
-    console.log(`Tier A 精確影格已驗證: ${capture.width}x${capture.height}`);
+    console.log(`精確影格已驗證: ${capture.width}x${capture.height}`);
   } catch (error) {
     fallbackReason = error.message;
-    if (windowError) {
-      // 窗口外不做任何擷取：海報影格同樣無法代表出景當刻，
-      // 保持 capture = null，後續會產出 capture_unavailable 紀錄。
-      console.warn('已超出擷取窗口，不進行降級擷取');
-    } else if (requiresDvrRewind(captureWindow.offsetMinutes)) {
-      // 海報影格只代表「現在」（實測 9/9、9/11 甚至是頻道的靜態宣傳縮圖），
-      // 對需要回溯的補拍一樣不能代表出景當刻。
-      console.warn(`Tier A 回溯失敗: ${error.message}`);
-      console.warn('補拍時段距出景當刻太遠，不以海報影格降級');
-    } else if (existingExact) {
-      // 降級影格會直接寫進 snapshotPath，蓋掉既有精確紀錄所指的檔案
-      console.warn(`Tier A 失敗: ${error.message}`);
-      console.warn('已有精確影格紀錄，不以海報影格覆蓋');
-    } else {
-      console.warn(`Tier A (yt-dlp 精確影格) 失敗: ${error.message}`);
-      console.warn('降級嘗試 Tier B: i.ytimg.com 直播海報影格...');
-      try {
-        capture = capturePosterFrame({
-          source,
-          outputPath: snapshotPath,
-          windowEvidence: captureWindow,
-          capturedAt,
-          fetchImage: options.fetchImage
-        });
-        console.log(`Tier B 海報影格已取得: ${capture.width}x${capture.height} (${capture.posterQuality})`);
-      } catch (posterError) {
-        console.error(`Tier B 亦失敗: ${posterError.message}`);
-        fallbackReason = `${fallbackReason} | poster: ${posterError.message}`;
-      }
-    }
+    console.warn(windowError
+      ? '已超出擷取窗口，不擷取'
+      : `擷取失敗${requiresDvrRewind(captureWindow.offsetMinutes) ? '（DVR 回溯）' : ''}: ${error.message}`);
   }
 
   const baseRecord = {
@@ -241,9 +212,7 @@ async function runCapturePipeline(inputSession = '', options = {}) {
           capturedAt: capturedAt.toISOString(),
           offsetMinutes: captureWindow.offsetMinutes,
           kind: capture.kind || 'youtube-live-frame',
-          fidelity: capture.fidelity || 'exact',
-          posterQuality: capture.posterQuality || null,
-          fallbackReason: capture.fidelity === 'degraded' ? fallbackReason : null,
+          fidelity: 'exact',
           validated: true
         },
         verification: {
@@ -272,8 +241,8 @@ async function runCapturePipeline(inputSession = '', options = {}) {
         }
       };
 
-  if (existingExact && record.capture.fidelity !== 'exact') {
-    console.log(`保留既有精確紀錄 ${existingExact.id}（本次 ${record.capture.fidelity}：${fallbackReason}）`);
+  if (existingExact && !capture) {
+    console.log(`保留既有精確紀錄 ${existingExact.id}（本次擷取失敗：${fallbackReason}）`);
     console.log('====================================================\n');
     return existingExact;
   }
