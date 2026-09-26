@@ -15,6 +15,7 @@ try {
   require('./test-dom-bindings.js');
   require('./test-taiwan-scope.js');
   require('./test-decision-hero.js');
+  require('./test-capture-validation.js');
 
   console.log('====================================================');
   console.log('🏆 恭喜！所有 7 大核心模組、DOM 與台灣範圍測試案例 100% 通過！');

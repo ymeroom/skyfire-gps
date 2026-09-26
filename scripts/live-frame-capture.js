@@ -197,6 +197,62 @@ function capturePosterFrame({
   throw new Error(`poster frame unavailable — ${failures.join('; ')}`);
 }
 
+// 啟動時間距出景當刻超過這個秒數，直播當下的畫面就不能代表那一刻，必須走 DVR 回溯
+const DVR_REWIND_MIN_SECONDS = 60;
+
+function requiresDvrRewind(offsetMinutes) {
+  return Number.isFinite(offsetMinutes) && offsetMinutes * 60 > DVR_REWIND_MIN_SECONDS;
+}
+
+/**
+ * 依 HLS 片段序號 (sq) 倒回 offsetSeconds 秒，把該片段第一格寫到 temporaryPath。
+ * 成功回傳 null，失敗回傳原因字串，由呼叫端決定是否視為錯誤。
+ * 最常見的失敗是目標片段已超出 DVR 視窗、被 CDN 回收，下載回來是空檔。
+ */
+function seekDvrSegment({ metadata, offsetSeconds, temporaryPath, runTool }) {
+  const tempTs = `${temporaryPath}.ts`;
+  try {
+    const formats = (metadata.formats || []).filter(f => ['95', '96', '94', '93'].includes(String(f.format_id)) && f.url);
+    const m3u8UrlToFetch = formats.length > 0 ? formats[0].url : metadata.manifest_url;
+    if (!m3u8UrlToFetch) return 'no HLS manifest';
+
+    const m3u8Content = runTool('curl', ['-s', m3u8UrlToFetch]) || '';
+    const lines = m3u8Content.split('\n').filter(l => l.startsWith('http'));
+    if (lines.length === 0) return 'empty HLS manifest';
+
+    const latestUrl = lines[lines.length - 1];
+    const sqMatch = latestUrl.match(/\/sq\/(\d+)\//);
+    if (!sqMatch) return 'segment URL has no sequence number';
+    const durMatch = latestUrl.match(/\/dur\/([\d\.]+)\//);
+    const latestSq = parseInt(sqMatch[1], 10);
+    const dur = durMatch ? parseFloat(durMatch[1]) : 5.0;
+
+    const targetSq = latestSq - Math.floor(offsetSeconds / dur);
+    const targetSegUrl = latestUrl.replace(/\/sq\/\d+\//, `/sq/${targetSq}/`);
+    runTool('curl', ['-s', '-L', '-o', tempTs, targetSegUrl]);
+
+    // 有效的 ts 片段通常 > 50KB
+    if (!fs.existsSync(tempTs) || fs.statSync(tempTs).size <= 10000) {
+      return `segment sq=${targetSq} reclaimed by CDN`;
+    }
+    runTool('ffmpeg', [
+      '-hide_banner',
+      '-loglevel', 'error',
+      '-y',
+      '-i', tempTs,
+      '-frames:v', '1',
+      '-q:v', '2',
+      temporaryPath
+    ]);
+    if (!fs.existsSync(temporaryPath)) return 'ffmpeg produced no frame from segment';
+    return null;
+  } catch (error) {
+    return error.message;
+  } finally {
+    if (fs.existsSync(tempTs)) fs.rmSync(tempTs, { force: true });
+  }
+}
+
 function captureLiveFrame({
   source,
   outputPath,
@@ -225,53 +281,16 @@ function captureLiveFrame({
 
     const streamUrl = metadata.url;
     const offsetSeconds = windowEvidence && windowEvidence.offsetMinutes ? Math.max(0, windowEvidence.offsetMinutes * 60) : 0;
+    const dvrRewound = requiresDvrRewind(windowEvidence && windowEvidence.offsetMinutes);
 
-    if (offsetSeconds > 60 && metadata.formats) {
-      try {
-        const formats = metadata.formats.filter(f => ['95', '96', '94', '93'].includes(String(f.format_id)) && f.url);
-        const m3u8UrlToFetch = formats.length > 0 ? formats[0].url : metadata.manifest_url;
-        
-        if (m3u8UrlToFetch) {
-          const m3u8Content = runTool('curl', ['-s', m3u8UrlToFetch]) || '';
-          const lines = m3u8Content.split('\n').filter(l => l.startsWith('http'));
-          
-          if (lines.length > 0) {
-            const latestUrl = lines[lines.length - 1];
-            const sqMatch = latestUrl.match(/\/sq\/(\d+)\//);
-            const durMatch = latestUrl.match(/\/dur\/([\d\.]+)\//);
-            
-            if (sqMatch) {
-              const latestSq = parseInt(sqMatch[1], 10);
-              const dur = durMatch ? parseFloat(durMatch[1]) : 5.0;
-              
-              const targetSq = latestSq - Math.floor(offsetSeconds / dur);
-              const targetSegUrl = latestUrl.replace(/\/sq\/\d+\//, `/sq/${targetSq}/`);
-              
-              const tempTs = `${temporaryPath}.ts`;
-              runTool('curl', ['-s', '-L', '-o', tempTs, targetSegUrl]);
-              
-              // 驗證下載的檔案是否足夠大 (有效的 ts 檔通常 > 50KB)
-              if (fs.existsSync(tempTs) && fs.statSync(tempTs).size > 10000) {
-                runTool('ffmpeg', [
-                  '-hide_banner',
-                  '-loglevel', 'error',
-                  '-y',
-                  '-i', tempTs,
-                  '-frames:v', '1',
-                  '-q:v', '2',
-                  temporaryPath
-                ]);
-              }
-              if (fs.existsSync(tempTs)) fs.rmSync(tempTs, { force: true });
-            }
-          }
-        }
-      } catch (dvrErr) {
-        console.warn('DVR segment seek fallback to live edge:', dvrErr.message);
+    if (dvrRewound) {
+      // 直播當下離出景當刻太遠，只有回溯片段才代表那一刻。回溯失敗就是失敗：
+      // 舊版在這裡退回直播當下，把早上九點的市景當成日出評分，還標成 exact。
+      const failure = seekDvrSegment({ metadata, offsetSeconds, temporaryPath, runTool });
+      if (failure) {
+        throw new Error(`DVR rewind of ${windowEvidence.offsetMinutes} min failed (${failure}); live-edge frame would not show the event`);
       }
-    }
-
-    if (!fs.existsSync(temporaryPath) || fs.statSync(temporaryPath).size < 10000) {
+    } else {
       runTool('ffmpeg', [
         '-hide_banner',
         '-loglevel', 'error',
@@ -302,7 +321,7 @@ function captureLiveFrame({
     });
 
     fs.renameSync(temporaryPath, outputPath);
-    return evidence;
+    return { ...evidence, dvrRewound };
   } catch (error) {
     if (fs.existsSync(temporaryPath)) {
       fs.rmSync(temporaryPath, { force: true });
@@ -318,6 +337,8 @@ module.exports = {
   downloadImage,
   capturePosterFrame,
   captureLiveFrame,
+  requiresDvrRewind,
+  DVR_REWIND_MIN_SECONDS,
   MIN_POSTER_WIDTH,
   MIN_POSTER_HEIGHT
 };
