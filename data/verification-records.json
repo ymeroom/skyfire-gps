@@ -23,8 +23,8 @@
       "height": 360,
       "fileName": "2026-09-27-sunset.jpg",
       "sha256": "274bdccbda701698387dcc338736239b1c54b935f79db195f8ba1ed77c4247c6",
-      "capturedAt": "2026-09-27T10:45:04.875Z",
-      "offsetMinutes": 58,
+      "capturedAt": "2026-09-27T13:00:04.509Z",
+      "offsetMinutes": 193,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-09-27T10:45:19.515Z",
+      "verifiedAt": "2026-09-27T13:00:14.344Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
