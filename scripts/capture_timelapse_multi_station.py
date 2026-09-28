@@ -79,6 +79,40 @@ PEAK_OFFSETS = {
     "sunrise": {-20, -10, 0, 10},
 }
 
+# 直播斷線時頻道會改播「CAM UNDER MAINTENANCE」公告圖 —— 畫面是一張色彩
+# 飽和的宣傳照，評分器照樣給分 (2026-09-20 生力農場 97 分、09-28 大古山
+# 59 分，都被當成實測)。真實天空在暮光 20 分鐘內亮度會大幅改變：實測
+# 9/20~9/28 所有正常站點的影格兩兩最大差異 ≥ 15.7 (64×36 灰階平均絕對差)，
+# 公告圖則只有 ~0.1 (只剩壓縮雜訊)。只看位元組雜湊抓不到 —— 每次重新
+# 解碼的 JPEG 都略有不同。
+STATIC_FEED_MAX_DIFF = 3.0
+STATIC_FEED_MIN_FRAMES = 3
+STATIC_FEED_MIN_SPAN_MIN = 20
+
+
+def detect_static_feed(ok_frames):
+    """成功影格若橫跨 ≥20 分鐘卻幾乎一模一樣，回傳最大差異值；否則 None。"""
+    if len(ok_frames) < STATIC_FEED_MIN_FRAMES:
+        return None
+    offsets = [f["offsetMin"] for f in ok_frames]
+    if max(offsets) - min(offsets) < STATIC_FEED_MIN_SPAN_MIN:
+        return None
+
+    from PIL import Image, ImageChops, ImageStat
+
+    thumbs = []
+    for f in ok_frames:
+        try:
+            with Image.open(os.path.join(REPO_ROOT, f["imagePath"])) as im:
+                thumbs.append(im.convert("L").resize((64, 36)))
+        except (OSError, KeyError):
+            return None  # 讀不到圖就不下判斷，交給其他 reliability 規則
+    max_diff = max(
+        ImageStat.Stat(ImageChops.difference(a, b)).mean[0]
+        for i, a in enumerate(thumbs) for b in thumbs[i + 1:]
+    )
+    return max_diff if max_diff < STATIC_FEED_MAX_DIFF else None
+
 
 def compute_canonical_ground_truth(session, frames):
     """從一站 9 幀裡挑出代表當日的 ground truth ＝暮光窗口內分數最高的成功影格。
@@ -123,6 +157,14 @@ def compute_canonical_ground_truth(session, frames):
         else:
             reason = "no successful frame"
         return {**summary, "available": False, "reason": reason}
+
+    static_diff = detect_static_feed(ok_frames)
+    if static_diff is not None:
+        return {
+            **summary,
+            "available": False,
+            "reason": f"直播畫面靜止不變 (疑似維修公告 / 佔位畫面，{len(ok_frames)} 幀最大差異 {static_diff:.1f})",
+        }
 
     # canonical 分數＝「峰值窗口內、未被暗夜閘門封頂」的成功影格裡最高分。
     # 刻意限制在峰值窗口 (日落後 0~30 分 / 日出前 20 分~日出後 10 分)：

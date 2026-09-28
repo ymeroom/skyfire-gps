@@ -210,6 +210,9 @@ def build_report(session, override_date=None):
             peak = f"{fire}實測光學 {gt} 分（{badge}）"
         elif status in ("captured_ready_for_scoring", "pending_scoring"):
             peak = "影格已擷取，等待 Phase 2 光學評分"
+        elif ver.get("unreliableReason"):
+            # merge 腳本記下的真實原因 (CDN 回收、靜止公告畫面…)，別一律歸咎排程延遲
+            peak = f"影格擷取失敗，本站無地面實況：{ver['unreliableReason']}"
         else:
             peak = "影格擷取失敗（排程延遲超出擷取窗），本站無地面實況"
         stations.append(
