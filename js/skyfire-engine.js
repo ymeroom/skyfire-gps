@@ -34,7 +34,7 @@ class SkyFireEngine {
    * @param {number} params.midCloud 中雲量 (0-100%)
    * @param {number} params.lowCloud 低雲量 (0-100%)
    * @param {number} params.totalCloud 總雲量 (0-100%)
-   * @param {number} params.visibility 能見度 (公尺或公里)
+   * @param {number} params.visibility 能見度 (公尺；Open-Meteo 原生單位)
    * @param {number} params.humidity 相對濕度 (0-100%)
    * @param {number} params.precipProb 降雨機率 (0-100%)
    * @param {number} [params.horizonClearance] 地平線透光度 (0-100%，若無則自動估算)
@@ -107,7 +107,8 @@ class SkyFireEngine {
     const horizonScore = (horizonClearance / 100) * w.horizonMax;
 
     // 4. 大氣純淨度與能見度評分 (最高 15 分)
-    const visKm = visibility > 1000 ? visibility / 1000 : visibility;
+    // 一律以公尺輸入：舊版以 >1000 猜單位，會把濃霧 (<1000m) 誤判為數百公里而給滿分
+    const visKm = visibility / 1000;
     let visibilityScore = 0;
     if (visKm >= 25) {
       visibilityScore = w.visMax;

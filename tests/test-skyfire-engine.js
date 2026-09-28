@@ -81,4 +81,21 @@ const levels = ['EPIC', 'GREAT', 'MODERATE', 'FAINT', 'OVERCAST'];
 });
 console.log('✅ 評級區間連續性校驗完全吻合');
 
+// 6. 濃霧能見度單位測試 (Open-Meteo 恆為公尺；< 1000m 不可被誤判為公里)
+// 重現 2026-09-29 三仙台鎖定預報：visibility 380m 卻被當成 380 公里拿到能見度滿分
+const fogResult = SkyFireEngine.calculate({
+  highCloud: 0,
+  midCloud: 0,
+  lowCloud: 6,
+  totalCloud: 6,
+  visibility: 380,
+  type: 'sunrise'
+});
+
+assert.strictEqual(fogResult.metrics.visKm, 0.4, `380 公尺應換算為 0.4 公里，實際: ${fogResult.metrics.visKm}`);
+assert(fogResult.metrics.visibilityScore <= 1, `濃霧 (380m) 能見度分數應趨近 0，實際: ${fogResult.metrics.visibilityScore}`);
+const fogVisDiag = fogResult.diagnostics.find(d => d.label.includes('能見度'));
+assert.notStrictEqual(fogVisDiag.status, 'optimal', '濃霧不可診斷為能見度優異');
+console.log('✅ 濃霧能見度 (380m) 單位換算正確:', fogResult.metrics.visKm, 'km');
+
 console.log('🎉 SkyFireEngine 所有測試案例全數 PASS!\n');
