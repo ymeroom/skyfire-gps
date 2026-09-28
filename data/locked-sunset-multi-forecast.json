@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-27",
+  "date": "2026-09-28",
   "session": "sunset",
-  "lockedAt": "2026-09-27T07:30:16.449Z",
+  "lockedAt": "2026-09-28T07:30:22.499Z",
   "stationCount": 6,
   "failures": [],
   "stations": [
@@ -28,8 +28,8 @@
           "lowCloudPenalty": 0,
           "horizonScore": 30,
           "visibilityScore": 14,
-          "horizonClearance": 99,
-          "visKm": 22.8
+          "horizonClearance": 100,
+          "visKm": 22.9
         },
         "diagnostics": [
           {
@@ -45,12 +45,12 @@
           {
             "label": "遠方西方地平線透光窗",
             "status": "optimal",
-            "desc": "低雲遮蔽極低 (1%)，透光窗達 99%，陽光無阻直射雲底！"
+            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（22.82 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（22.9 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -63,16 +63,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
         "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 1,
-        "cloudTotal": 1,
-        "visibility": 22820,
-        "humidity": 77,
+        "cloudLow": 0,
+        "cloudTotal": 0,
+        "visibility": 22900,
+        "humidity": 79,
         "precipProb": 0,
-        "temp": 27.5,
+        "temp": 27.6,
         "weatherCode": 0
       }
     },
@@ -81,6 +81,148 @@
       "name": "嘉義・阿里山二延平步道",
       "lat": 23.42464002262141,
       "lng": 120.65270096094285,
+      "category": "sunset",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 65,
+        "rating": {
+          "level": "MODERATE",
+          "badge": "局部霞光",
+          "icon": "⛅",
+          "color": "#E5A50A",
+          "secondaryColor": "#3A86FF",
+          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
+          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 18,
+          "lowCloudPenalty": 0,
+          "horizonScore": 30,
+          "visibilityScore": 11,
+          "horizonClearance": 99,
+          "visKm": 15
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量僅 27%，上方缺少大面積紅色漫射反光板。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (1%)，透光窗達 99%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "fair",
+            "desc": "能見度正常（15.04 公里），色彩呈現良好。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落當刻至日落後 15 分鐘",
+          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
+          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
+          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
+          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
+          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
+        }
+      },
+      "weather": {
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
+        "cloudHigh": 27,
+        "cloudMid": 0,
+        "cloudLow": 1,
+        "cloudTotal": 27,
+        "visibility": 15040,
+        "humidity": 94,
+        "precipProb": 7,
+        "temp": 18,
+        "weatherCode": 1
+      }
+    },
+    {
+      "id": "alishan-xiaoluji",
+      "name": "嘉義・阿里山小笠原山觀景台",
+      "lat": 23.50633556703892,
+      "lng": 120.82379800316035,
+      "category": "both",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 61,
+        "rating": {
+          "level": "MODERATE",
+          "badge": "局部霞光",
+          "icon": "⛅",
+          "color": "#E5A50A",
+          "secondaryColor": "#3A86FF",
+          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
+          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 11,
+          "lowCloudPenalty": 0,
+          "horizonScore": 29,
+          "visibilityScore": 15,
+          "horizonClearance": 98,
+          "visKm": 53
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量僅 15%，上方缺少大面積紅色漫射反光板。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (2%)，透光窗達 98%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（53.02 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落當刻至日落後 15 分鐘",
+          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
+          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
+          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
+          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
+          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
+        }
+      },
+      "weather": {
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
+        "cloudHigh": 15,
+        "cloudMid": 0,
+        "cloudLow": 2,
+        "cloudTotal": 16,
+        "visibility": 53020,
+        "humidity": 90,
+        "precipProb": 2,
+        "temp": 12.9,
+        "weatherCode": 0
+      }
+    },
+    {
+      "id": "baihe-biyun",
+      "name": "台南白河・火山碧雲寺",
+      "lat": 23.325448310944992,
+      "lng": 120.4802254991732,
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
@@ -95,18 +237,18 @@
           "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 20,
+          "cloudQualityScore": 9,
           "lowCloudPenalty": 0,
-          "horizonScore": 29,
-          "visibilityScore": 5,
-          "horizonClearance": 96,
-          "visKm": 7.4
+          "horizonScore": 30,
+          "visibilityScore": 15,
+          "horizonClearance": 100,
+          "visKm": 26
         },
         "diagnostics": [
           {
-            "label": "高空卷雲天幕 (6,000m+)",
-            "status": "optimal",
-            "desc": "高雲量達 68%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+            "label": "高空卷雲 (6,000m+)",
+            "status": "low",
+            "desc": "高雲量僅 13%，上方缺少大面積紅色漫射反光板。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -116,12 +258,12 @@
           {
             "label": "遠方西方地平線透光窗",
             "status": "optimal",
-            "desc": "低雲遮蔽極低 (0%)，透光窗達 96%，陽光無阻直射雲底！"
+            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "bad",
-            "desc": "能見度受限（7.44 公里），霧霾或水氣可能使天色偏灰白。"
+            "status": "optimal",
+            "desc": "能見度優異（25.96 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -134,159 +276,17 @@
         }
       },
       "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
-        "cloudHigh": 68,
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
+        "cloudHigh": 13,
         "cloudMid": 0,
         "cloudLow": 0,
-        "cloudTotal": 68,
-        "visibility": 7440,
-        "humidity": 95,
-        "precipProb": 13,
-        "temp": 17.8,
-        "weatherCode": 2
-      }
-    },
-    {
-      "id": "alishan-xiaoluji",
-      "name": "嘉義・阿里山小笠原山觀景台",
-      "lat": 23.50633556703892,
-      "lng": 120.82379800316035,
-      "category": "both",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 56,
-        "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
-        },
-        "metrics": {
-          "cloudQualityScore": 18,
-          "lowCloudPenalty": 0,
-          "horizonScore": 28,
-          "visibilityScore": 15,
-          "horizonClearance": 92,
-          "visKm": 47.9
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷層雲 (6,000m+)",
-            "status": "fair",
-            "desc": "高雲量偏高 (74%)，漫射面積大但光線穿透度可能稍微受限。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (1%)，透光窗達 92%，陽光無阻直射雲底！"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（47.9 公里），大氣清澈通透，晚霞色彩飽和純淨。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日落當刻至日落後 15 分鐘",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
-        }
-      },
-      "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
-        "cloudHigh": 74,
-        "cloudMid": 0,
-        "cloudLow": 1,
-        "cloudTotal": 74,
-        "visibility": 47900,
-        "humidity": 94,
-        "precipProb": 61,
-        "temp": 13.6,
-        "weatherCode": 2
-      }
-    },
-    {
-      "id": "baihe-biyun",
-      "name": "台南白河・火山碧雲寺",
-      "lat": 23.325448310944992,
-      "lng": 120.4802254991732,
-      "category": "sunset",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 58,
-        "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
-        },
-        "metrics": {
-          "cloudQualityScore": 15,
-          "lowCloudPenalty": 0,
-          "horizonScore": 23,
-          "visibilityScore": 14,
-          "horizonClearance": 77,
-          "visKm": 22
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷層雲 (6,000m+)",
-            "status": "fair",
-            "desc": "高雲量偏高 (91%)，漫射面積大但光線穿透度可能稍微受限。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (6%)，透光窗達 77%，陽光無阻直射雲底！"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（22.02 公里），大氣清澈通透，晚霞色彩飽和純淨。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日落當刻至日落後 15 分鐘",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
-        }
-      },
-      "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
-        "cloudHigh": 91,
-        "cloudMid": 0,
-        "cloudLow": 6,
-        "cloudTotal": 92,
-        "visibility": 22020,
+        "cloudTotal": 13,
+        "visibility": 25960,
         "humidity": 85,
-        "precipProb": 0,
-        "temp": 25.2,
-        "weatherCode": 3
+        "precipProb": 1,
+        "temp": 25.6,
+        "weatherCode": 0
       }
     },
     {
@@ -313,7 +313,7 @@
           "horizonScore": 30,
           "visibilityScore": 15,
           "horizonClearance": 100,
-          "visKm": 27.1
+          "visKm": 27.2
         },
         "diagnostics": [
           {
@@ -334,7 +334,7 @@
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（27.14 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（27.2 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -347,16 +347,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
         "cloudHigh": 0,
         "cloudMid": 0,
         "cloudLow": 0,
         "cloudTotal": 0,
-        "visibility": 27140,
-        "humidity": 64,
+        "visibility": 27200,
+        "humidity": 67,
         "precipProb": 0,
-        "temp": 28.5,
+        "temp": 28.8,
         "weatherCode": 0
       }
     },
@@ -382,9 +382,9 @@
           "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
           "horizonScore": 30,
-          "visibilityScore": 13,
+          "visibilityScore": 14,
           "horizonClearance": 100,
-          "visKm": 20.7
+          "visKm": 23.8
         },
         "diagnostics": [
           {
@@ -405,7 +405,7 @@
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（20.68 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（23.8 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -418,16 +418,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-27T10:00:00.000Z",
-        "timeStr": "2026-09-27T18:00",
+        "time": "2026-09-28T10:00:00.000Z",
+        "timeStr": "2026-09-28T18:00",
         "cloudHigh": 0,
         "cloudMid": 0,
         "cloudLow": 0,
         "cloudTotal": 0,
-        "visibility": 20680,
-        "humidity": 82,
+        "visibility": 23800,
+        "humidity": 79,
         "precipProb": 0,
-        "temp": 27.8,
+        "temp": 28.2,
         "weatherCode": 0
       }
     }
