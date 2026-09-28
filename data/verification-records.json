@@ -19,26 +19,26 @@
     },
     "snapshotUrl": "data/snapshots/2026-09-28-sunrise.jpg",
     "capture": {
-      "width": 1920,
-      "height": 1080,
+      "width": 640,
+      "height": 360,
       "fileName": "2026-09-28-sunrise.jpg",
-      "sha256": "2464a8b1b375b1bcfd64cd61742e51e6412a028f62213096e213e7537c95fbc4",
-      "capturedAt": "2026-09-27T21:30:05.424Z",
-      "offsetMinutes": -16,
+      "sha256": "13be2967dd143a5171b4fa961c24073b564b5db2b7621cf7280798156897a523",
+      "capturedAt": "2026-09-28T01:00:04.635Z",
+      "offsetMinutes": 194,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 21,
+      "groundTruthScore": 13,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 16,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 44.2,
-      "skyCoveragePct": 0,
+      "errorAbsolute": 8,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 25.4,
+      "skyCoveragePct": 1.6,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 3
       },
-      "verifiedAt": "2026-09-27T21:30:23.443Z",
+      "verifiedAt": "2026-09-28T01:00:16.002Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
