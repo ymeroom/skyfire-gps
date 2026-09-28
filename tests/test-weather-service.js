@@ -48,6 +48,17 @@ assert(parsed.hourly.length === 6, '應正確提取 6 個逐小時紀錄');
 
 console.log('✅ Open-Meteo 原始數據解析與時程配對正確');
 
+// 2b. Open-Meteo 個別小時缺值 (null) 應退回預設值，而非讓 null 流入評分引擎
+const nullGapRaw = JSON.parse(JSON.stringify(mockRawData));
+nullGapRaw.hourly.visibility = [null, null, null, null, null, null];
+nullGapRaw.hourly.relativehumidity_2m[0] = null;
+const nullGapParsed = WeatherService.processRawData(nullGapRaw, 25.0330, 121.5654, '台北市缺值測試');
+
+assert.strictEqual(nullGapParsed.hourly[0].visibility, 20000, 'null 能見度應退回 20000 公尺預設值');
+assert.strictEqual(nullGapParsed.hourly[0].humidity, 70, 'null 濕度應退回 70% 預設值');
+assert.strictEqual(nullGapParsed.hourly[1].humidity, 60, '非 null 值應原樣保留');
+console.log('✅ Open-Meteo null 缺值正確退回預設值');
+
 // 3. 最接近小時搜尋算法測試
 const testTarget = new Date('2026-08-16T18:12:00');
 const closest = WeatherService.getClosestHourData(parsed.hourly, testTarget);

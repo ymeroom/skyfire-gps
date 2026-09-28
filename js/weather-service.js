@@ -418,18 +418,20 @@ class WeatherService {
     const parseHourly = (raw) => {
       if (!raw || !raw.hourly || !raw.hourly.time) return [];
       const h = raw.hourly;
+      // Open-Meteo 會在個別小時回傳 null；null 不會觸發解構預設值，須在此退回預設
+      const pick = (series, i, fallback) => (series && series[i] != null ? series[i] : fallback);
       return h.time.map((timeStr, i) => ({
         time: new Date(timeStr),
         timeStr,
-        cloudHigh: h.cloudcover_high ? h.cloudcover_high[i] : 0,
-        cloudMid: h.cloudcover_mid ? h.cloudcover_mid[i] : 0,
-        cloudLow: h.cloudcover_low ? h.cloudcover_low[i] : 0,
-        cloudTotal: h.cloudcover ? h.cloudcover[i] : 0,
-        visibility: h.visibility ? h.visibility[i] : 20000,
-        humidity: h.relativehumidity_2m ? h.relativehumidity_2m[i] : 70,
-        precipProb: h.precipitation_probability ? h.precipitation_probability[i] : 0,
-        temp: h.temperature_2m ? h.temperature_2m[i] : 28,
-        weatherCode: h.weathercode ? h.weathercode[i] : 0
+        cloudHigh: pick(h.cloudcover_high, i, 0),
+        cloudMid: pick(h.cloudcover_mid, i, 0),
+        cloudLow: pick(h.cloudcover_low, i, 0),
+        cloudTotal: pick(h.cloudcover, i, 0),
+        visibility: pick(h.visibility, i, 20000),
+        humidity: pick(h.relativehumidity_2m, i, 70),
+        precipProb: pick(h.precipitation_probability, i, 0),
+        temp: pick(h.temperature_2m, i, 28),
+        weatherCode: pick(h.weathercode, i, 0)
       }));
     };
 
