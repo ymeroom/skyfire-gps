@@ -79,7 +79,7 @@ function assessReliability(prediction, canonical, snapshotCopied) {
     return [false, '預測來自離線模擬資料 (Open-Meteo 當時不可用)'];
   }
   if (!canonical || !canonical.available) {
-    return [false, `該站縮時無成功影格 (${(canonical && canonical.reason) || 'unknown'})`];
+    return [false, `該站縮時無可用實測 (${(canonical && canonical.reason) || 'unknown'})`];
   }
   if (!snapshotCopied) {
     return [false, 'canonical 影格檔案遺失，無法複製到 data/snapshots/ 供日後人工比對'];

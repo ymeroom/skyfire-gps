@@ -79,6 +79,8 @@ PEAK_OFFSETS = {
     "sunrise": {-20, -10, 0, 10},
 }
 
+MAX_VOID_FRAMES_OK = 3  # 成功影格 ≤ 3 張 → 整站作廢 (見 compute_canonical_ground_truth)
+
 # 直播斷線時頻道會改播「CAM UNDER MAINTENANCE」公告圖 —— 畫面是一張色彩
 # 飽和的宣傳照，評分器照樣給分 (2026-09-20 生力農場 97 分、09-28 大古山
 # 59 分，都被當成實測)。真實天空在暮光 20 分鐘內亮度會大幅改變：實測
@@ -157,6 +159,17 @@ def compute_canonical_ground_truth(session, frames):
         else:
             reason = "no successful frame"
         return {**summary, "available": False, "reason": reason}
+
+    # 1-3 張成功影格撐不起「窗口最高分」，且這種站次常是 DVR 只剩尾段被暗夜
+    # 閘門封頂、或直播剛斷線 —— 分數記下來也只會被誤讀。使用者 2026-09-29
+    # 決定一律作廢，不留 groundTruthScore。(4 張仍記分，但 merge 腳本的
+    # MIN_FRAMES_OK=5 會把它標成 unreliable，不進校準。)
+    if len(ok_frames) <= MAX_VOID_FRAMES_OK:
+        return {
+            **summary,
+            "available": False,
+            "reason": f"成功影格僅 {len(ok_frames)}/{len(OFFSETS_MIN)} 張，取樣過稀作廢",
+        }
 
     static_diff = detect_static_feed(ok_frames)
     if static_diff is not None:
