@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "session": "sunrise",
-  "lockedAt": "2026-09-29T15:45:05.715Z",
+  "lockedAt": "2026-09-30T15:45:04.349Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -15,7 +15,7 @@
     },
     "metrics": {
       "cloudQualityScore": 0,
-      "lowCloudPenalty": 52,
+      "lowCloudPenalty": 53,
       "horizonScore": 0,
       "visibilityScore": 0,
       "horizonClearance": 0,
@@ -35,12 +35,12 @@
       {
         "label": "遠方東方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 99%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 100%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "bad",
-        "desc": "能見度受限（0.14 公里），霧霾或水氣可能使天色偏灰白。"
+        "desc": "能見度受限（0.08 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-09-29T22:00:00.000Z",
-    "timeStr": "2026-09-30T06:00",
+    "time": "2026-09-30T22:00:00.000Z",
+    "timeStr": "2026-10-01T06:00",
     "cloudHigh": 0,
     "cloudMid": 0,
-    "cloudLow": 99,
-    "cloudTotal": 99,
-    "visibility": 140,
-    "humidity": 100,
+    "cloudLow": 100,
+    "cloudTotal": 100,
+    "visibility": 80,
+    "humidity": 99,
     "precipProb": 0,
-    "temp": 24.3,
+    "temp": 24.4,
     "weatherCode": 3
   }
 }

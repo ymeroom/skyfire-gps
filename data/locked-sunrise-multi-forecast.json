@@ -1,7 +1,7 @@
 {
-  "date": "2026-09-30",
+  "date": "2026-10-01",
   "session": "sunrise",
-  "lockedAt": "2026-09-29T15:45:23.173Z",
+  "lockedAt": "2026-09-30T15:45:13.100Z",
   "stationCount": 7,
   "failures": [],
   "stations": [
@@ -13,7 +13,7 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 35,
+        "score": 33,
         "rating": {
           "level": "FAINT",
           "badge": "平淡暮光",
@@ -26,10 +26,10 @@
         "metrics": {
           "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
-          "horizonScore": 17,
-          "visibilityScore": 14,
-          "horizonClearance": 57,
-          "visKm": 23.2
+          "horizonScore": 15,
+          "visibilityScore": 12,
+          "horizonClearance": 49,
+          "visKm": 17.9
         },
         "diagnostics": [
           {
@@ -45,12 +45,12 @@
           {
             "label": "遠方東方地平線透光窗",
             "status": "fair",
-            "desc": "低雲量約 3%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "desc": "低雲量約 0%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（23.18 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "status": "fair",
+            "desc": "能見度正常（17.88 公里），色彩呈現良好。"
           }
         ],
         "photoTips": {
@@ -63,16 +63,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
         "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 3,
-        "cloudTotal": 3,
-        "visibility": 23180,
-        "humidity": 74,
+        "cloudLow": 0,
+        "cloudTotal": 0,
+        "visibility": 17880,
+        "humidity": 87,
         "precipProb": 0,
-        "temp": 23.3,
+        "temp": 23.4,
         "weatherCode": 0
       }
     },
@@ -84,7 +84,7 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 13,
+        "score": 19,
         "rating": {
           "level": "OVERCAST",
           "badge": "陰沉沉寂",
@@ -95,18 +95,89 @@
           "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 1,
-          "lowCloudPenalty": 2,
-          "horizonScore": 9,
+          "cloudQualityScore": 4,
+          "lowCloudPenalty": 0,
+          "horizonScore": 8,
           "visibilityScore": 0,
-          "horizonClearance": 29,
+          "horizonClearance": 28,
+          "visKm": 0.3
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲 (6,000m+)",
+            "status": "low",
+            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (7%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方東方地平線透光窗",
+            "status": "fair",
+            "desc": "低雲量約 19%，地平線具有部分透光縫隙，呈現局部霞光。"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "bad",
+            "desc": "能見度受限（0.32 公里），霧霾或水氣可能使天色偏灰白。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日出前 35-20 分鐘之藍調時段",
+          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
+          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
+          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
+          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
+          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
+        }
+      },
+      "weather": {
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
+        "cloudHigh": 0,
+        "cloudMid": 7,
+        "cloudLow": 19,
+        "cloudTotal": 23,
+        "visibility": 320,
+        "humidity": 89,
+        "precipProb": 0,
+        "temp": 14.1,
+        "weatherCode": 1
+      }
+    },
+    {
+      "id": "alishan-xiaoluji",
+      "name": "嘉義・阿里山小笠原山觀景台",
+      "lat": 23.50633556703892,
+      "lng": 120.82379800316035,
+      "category": "both",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 14,
+        "rating": {
+          "level": "OVERCAST",
+          "badge": "陰沉沉寂",
+          "icon": "☁️",
+          "color": "#5A6275",
+          "secondaryColor": "#394150",
+          "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+          "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 0,
+          "lowCloudPenalty": 6,
+          "horizonScore": 14,
+          "visibilityScore": 0,
+          "horizonClearance": 45,
           "visKm": 0.4
         },
         "diagnostics": [
           {
             "label": "高空卷雲 (6,000m+)",
             "status": "low",
-            "desc": "高雲量僅 1%，上方缺少大面積紅色漫射反光板。"
+            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -116,7 +187,7 @@
           {
             "label": "遠方東方地平線透光窗",
             "status": "fair",
-            "desc": "低雲量約 26%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "desc": "低雲量約 36%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
@@ -134,85 +205,14 @@
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
-        "cloudHigh": 1,
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
+        "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 26,
-        "cloudTotal": 27,
+        "cloudLow": 36,
+        "cloudTotal": 36,
         "visibility": 420,
-        "humidity": 89,
-        "precipProb": 0,
-        "temp": 13.6,
-        "weatherCode": 1
-      }
-    },
-    {
-      "id": "alishan-xiaoluji",
-      "name": "嘉義・阿里山小笠原山觀景台",
-      "lat": 23.50633556703892,
-      "lng": 120.82379800316035,
-      "category": "both",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 22,
-        "rating": {
-          "level": "OVERCAST",
-          "badge": "陰沉沉寂",
-          "icon": "☁️",
-          "color": "#5A6275",
-          "secondaryColor": "#394150",
-          "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
-          "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
-        },
-        "metrics": {
-          "cloudQualityScore": 1,
-          "lowCloudPenalty": 2,
-          "horizonScore": 17,
-          "visibilityScore": 0,
-          "horizonClearance": 57,
-          "visKm": 0.4
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 1%，上方缺少大面積紅色漫射反光板。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方東方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 26%，地平線具有部分透光縫隙，呈現局部霞光。"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "bad",
-            "desc": "能見度受限（0.38 公里），霧霾或水氣可能使天色偏灰白。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日出前 35-20 分鐘之藍調時段",
-          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
-          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
-          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
-          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
-          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
-        }
-      },
-      "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
-        "cloudHigh": 1,
-        "cloudMid": 0,
-        "cloudLow": 26,
-        "cloudTotal": 26,
-        "visibility": 380,
-        "humidity": 96,
+        "humidity": 97,
         "precipProb": 0,
         "temp": 8.3,
         "weatherCode": 1
@@ -226,7 +226,7 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 15,
+        "score": 14,
         "rating": {
           "level": "OVERCAST",
           "badge": "陰沉沉寂",
@@ -241,8 +241,8 @@
           "lowCloudPenalty": 0,
           "horizonScore": 8,
           "visibilityScore": 1,
-          "horizonClearance": 28,
-          "visKm": 1.1
+          "horizonClearance": 25,
+          "visKm": 0.9
         },
         "diagnostics": [
           {
@@ -258,12 +258,12 @@
           {
             "label": "遠方東方地平線透光窗",
             "status": "fair",
-            "desc": "低雲量約 14%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "desc": "低雲量約 11%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "bad",
-            "desc": "能見度受限（1.06 公里），霧霾或水氣可能使天色偏灰白。"
+            "desc": "能見度受限（0.92 公里），霧霾或水氣可能使天色偏灰白。"
           }
         ],
         "photoTips": {
@@ -276,16 +276,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
         "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 14,
-        "cloudTotal": 15,
-        "visibility": 1060,
-        "humidity": 91,
-        "precipProb": 0,
-        "temp": 21.8,
+        "cloudLow": 11,
+        "cloudTotal": 11,
+        "visibility": 920,
+        "humidity": 94,
+        "precipProb": 10,
+        "temp": 22.5,
         "weatherCode": 0
       }
     },
@@ -297,7 +297,7 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 18,
+        "score": 5,
         "rating": {
           "level": "OVERCAST",
           "badge": "陰沉沉寂",
@@ -308,33 +308,33 @@
           "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 9,
-          "lowCloudPenalty": 14,
-          "horizonScore": 13,
+          "cloudQualityScore": 1,
+          "lowCloudPenalty": 37,
+          "horizonScore": 6,
           "visibilityScore": 0,
-          "horizonClearance": 43,
+          "horizonClearance": 19,
           "visKm": 0.3
         },
         "diagnostics": [
           {
             "label": "高空卷雲 (6,000m+)",
             "status": "low",
-            "desc": "高雲量僅 13%，上方缺少大面積紅色漫射反光板。"
+            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
             "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+            "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
           },
           {
             "label": "遠方東方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 45%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "status": "bad",
+            "desc": "低雲遮蔽高達 69%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "bad",
-            "desc": "能見度受限（0.3 公里），霧霾或水氣可能使天色偏灰白。"
+            "desc": "能見度受限（0.28 公里），霧霾或水氣可能使天色偏灰白。"
           }
         ],
         "photoTips": {
@@ -347,16 +347,16 @@
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
-        "cloudHigh": 13,
-        "cloudMid": 0,
-        "cloudLow": 45,
-        "cloudTotal": 52,
-        "visibility": 300,
-        "humidity": 77,
-        "precipProb": 0,
-        "temp": 22.9,
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
+        "cloudHigh": 0,
+        "cloudMid": 2,
+        "cloudLow": 69,
+        "cloudTotal": 69,
+        "visibility": 280,
+        "humidity": 85,
+        "precipProb": 2,
+        "temp": 23.6,
         "weatherCode": 2
       }
     },
@@ -368,23 +368,23 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 23,
+        "score": 32,
         "rating": {
-          "level": "OVERCAST",
-          "badge": "陰沉沉寂",
-          "icon": "☁️",
-          "color": "#5A6275",
-          "secondaryColor": "#394150",
-          "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
-          "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
+          "level": "FAINT",
+          "badge": "平淡暮光",
+          "icon": "🌤️",
+          "color": "#7B88A8",
+          "secondaryColor": "#A0AEC0",
+          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
+          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
           "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
-          "horizonScore": 17,
+          "horizonScore": 22,
           "visibilityScore": 0,
-          "horizonClearance": 57,
-          "visKm": 0.4
+          "horizonClearance": 72,
+          "visKm": 0.6
         },
         "diagnostics": [
           {
@@ -399,13 +399,13 @@
           },
           {
             "label": "遠方東方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 21%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (14%)，透光窗達 72%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "bad",
-            "desc": "能見度受限（0.38 公里），霧霾或水氣可能使天色偏灰白。"
+            "desc": "能見度受限（0.62 公里），霧霾或水氣可能使天色偏灰白。"
           }
         ],
         "photoTips": {
@@ -418,17 +418,17 @@
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
         "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 21,
-        "cloudTotal": 21,
-        "visibility": 380,
-        "humidity": 86,
+        "cloudLow": 14,
+        "cloudTotal": 14,
+        "visibility": 620,
+        "humidity": 81,
         "precipProb": 0,
-        "temp": 23.6,
-        "weatherCode": 1
+        "temp": 24.6,
+        "weatherCode": 0
       }
     },
     {
@@ -439,29 +439,29 @@
       "category": "sunrise",
       "isSimulated": false,
       "skyfire": {
-        "score": 51,
+        "score": 35,
         "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
+          "level": "FAINT",
+          "badge": "平淡暮光",
+          "icon": "🌤️",
+          "color": "#7B88A8",
+          "secondaryColor": "#A0AEC0",
+          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
+          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 18,
+          "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
-          "horizonScore": 22,
+          "horizonScore": 26,
           "visibilityScore": 2,
-          "horizonClearance": 73,
-          "visKm": 2.9
+          "horizonClearance": 85,
+          "visKm": 2.3
         },
         "diagnostics": [
           {
             "label": "高空卷雲 (6,000m+)",
-            "status": "fair",
-            "desc": "高雲量僅 25%，上方缺少大面積紅色漫射反光板。"
+            "status": "low",
+            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -471,35 +471,35 @@
           {
             "label": "遠方東方地平線透光窗",
             "status": "optimal",
-            "desc": "低雲遮蔽極低 (2%)，透光窗達 73%，陽光無阻直射雲底！"
+            "desc": "低雲遮蔽極低 (3%)，透光窗達 85%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "bad",
-            "desc": "能見度受限（2.94 公里），霧霾或水氣可能使天色偏灰白。"
+            "desc": "能見度受限（2.34 公里），霧霾或水氣可能使天色偏灰白。"
           }
         ],
         "photoTips": {
-          "bestTime": "日出前 20 分鐘至日出刻",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
+          "bestTime": "日出前 35-20 分鐘之藍調時段",
+          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
+          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
+          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
+          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
+          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
         }
       },
       "weather": {
-        "time": "2026-09-29T22:00:00.000Z",
-        "timeStr": "2026-09-30T06:00",
-        "cloudHigh": 25,
+        "time": "2026-09-30T22:00:00.000Z",
+        "timeStr": "2026-10-01T06:00",
+        "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 2,
-        "cloudTotal": 27,
-        "visibility": 2940,
-        "humidity": 60,
+        "cloudLow": 3,
+        "cloudTotal": 3,
+        "visibility": 2340,
+        "humidity": 75,
         "precipProb": 0,
-        "temp": 24.8,
-        "weatherCode": 1
+        "temp": 26,
+        "weatherCode": 0
       }
     }
   ]
