@@ -1,5 +1,39 @@
 [
   {
+    "id": "rec-2026-10-03-sunrise",
+    "date": "2026-10-03",
+    "session": "sunrise",
+    "targetTime": "2026-10-02T21:47:38.622Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 10,
+      "lowCloud": 85,
+      "horizonClearance": 0,
+      "visibilityKm": 12.7,
+      "isSimulated": false,
+      "lockedAt": "2026-10-02T15:45:05.519Z"
+    },
+    "snapshotUrl": null,
+    "capture": {
+      "kind": null,
+      "fidelity": "none",
+      "validated": false,
+      "capturedAt": "2026-10-02T22:10:05.689Z",
+      "offsetMinutes": 22,
+      "error": "yt-dlp exited with 1: ERROR: [youtube] z_fY1pj1VBw: Sign in to confirm you�re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies"
+    },
+    "verification": {
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-02-sunset",
     "date": "2026-10-02",
     "session": "sunset",
