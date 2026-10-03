@@ -17,19 +17,43 @@
       "isSimulated": false,
       "lockedAt": "2026-10-02T15:45:05.519Z"
     },
-    "snapshotUrl": null,
+    "snapshotUrl": "data/snapshots/2026-10-03-sunrise.jpg",
     "capture": {
-      "kind": null,
-      "fidelity": "none",
-      "validated": false,
-      "capturedAt": "2026-10-02T22:10:05.689Z",
-      "offsetMinutes": 22,
-      "error": "yt-dlp exited with 1: ERROR: [youtube] z_fY1pj1VBw: Sign in to confirm you�re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies"
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-03-sunrise.jpg",
+      "sha256": "6d82cfa9c4cd88ff26de2fb7e2b8843aebb932e624fc4d70b861ab969ee8e2e2",
+      "capturedAt": "2026-10-03T01:00:05.192Z",
+      "offsetMinutes": 192,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
     },
     "verification": {
-      "status": "capture_unavailable",
-      "groundTruthScore": null,
-      "errorAbsolute": null,
+      "status": "verified_completed",
+      "groundTruthScore": 18,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 13,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 39.2,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-02T21:24:48.411000+00:00",
+        "windowEnd": "2026-10-02T22:17:57.159000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
+      },
+      "verifiedAt": "2026-10-03T01:00:19.493Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
   },
