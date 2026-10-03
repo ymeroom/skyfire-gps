@@ -16,6 +16,7 @@
 # 用法: run-job.sh <job-name>
 #   lock-sunset / lock-sunrise
 #   timelapse-sunrise / timelapse-sunset
+#   timelapse-sunrise-retry / timelapse-sunset-retry
 #   validate-sunrise / validate-sunset
 #   weekly-calibration
 set -euo pipefail
@@ -87,8 +88,26 @@ case "$JOB" in
     git_commit_push "chore(forecast): lock prediction score in advance [skip ci]" data/
     ;;
 
+  timelapse-sunrise-retry|timelapse-sunset-retry)
+    # 補跑：第一次被 YouTube bot-check 整場擋下 (2026-10-03 日出 0/63) 時再試一次。
+    # 第一次只要抓到任何一張就不動，避免覆蓋已經成功的結果。報告 JSON 在
+    # data/timelapse/ (不進版控，git reset --hard 不會清掉)；不存在代表第一次
+    # 根本沒跑到，同樣補跑。
+    SESSION="${JOB#timelapse-}"; SESSION="${SESSION%-retry}"
+    REPORT_JSON="data/timelapse/$(taipei_now +%F)-${SESSION}.json"
+    FIRST_OK=0
+    if [ -f "$REPORT_JSON" ]; then
+      FIRST_OK="$(node -e 'const r=require(require("path").resolve(process.argv[1]));console.log(r.stations.reduce((n,s)=>n+s.frames.filter(f=>f.ok).length,0))' "$REPORT_JSON")"
+    fi
+    if [ "$FIRST_OK" -gt 0 ]; then
+      echo "第一次已抓到 ${FIRST_OK} 張，不補跑。"
+      echo "=== [$JOB] 完成 ==="
+      exit 0
+    fi
+    echo "第一次 0 張 (或沒有執行)，補跑一次 DVR 回溯擷取…"
+    ;&
   timelapse-sunrise|timelapse-sunset)
-    SESSION="${JOB#timelapse-}"
+    SESSION="${JOB#timelapse-}"; SESSION="${SESSION%-retry}"
     DATE_STR="$(taipei_now +%F)"
     "$PY" scripts/capture_timelapse_multi_station.py "$SESSION" "$DATE_STR"
 
@@ -156,7 +175,7 @@ case "$JOB" in
 
   *)
     echo "未知的 JOB: '$JOB'"
-    echo "可用: lock-sunset lock-sunrise timelapse-sunrise timelapse-sunset validate-sunrise validate-sunset weekly-calibration"
+    echo "可用: lock-sunset lock-sunrise timelapse-sunrise timelapse-sunset timelapse-sunrise-retry timelapse-sunset-retry validate-sunrise validate-sunset weekly-calibration"
     exit 2
     ;;
 esac

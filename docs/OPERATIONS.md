@@ -79,7 +79,7 @@ flowchart LR
 
 ## 4. Ground Truth 擷取 — 單站 (Tier A/B)
 
-`capture-validation.js` 在出景窗口對官方直播做 **yt-dlp DVR 精確回溯**擷取一張影格（Tier A）；抓不到（bot-check、DVR 過期）就誠實記 `capture_unavailable`，**不編造資料**。09:00 / 21:00 的補拍若 DVR 回溯失敗，保留 05:30 / 18:45 已拍到的精確紀錄，不覆蓋。舊版的 Tier B 海報影格降級已於 2026-09-26 移除：實測抓到的是頻道靜態宣傳縮圖，不是直播畫面。
+`capture-validation.js` 在出景窗口對官方直播做 **yt-dlp DVR 精確回溯**擷取一張影格（Tier A）；抓不到（bot-check、DVR 過期）就誠實記 `capture_unavailable`，**不編造資料**。09:00 / 21:00 的補拍若 DVR 回溯失敗，保留 06:10 / 17:45 已拍到的精確紀錄，不覆蓋。舊版的 Tier B 海報影格降級已於 2026-09-26 移除：實測抓到的是頻道靜態宣傳縮圖，不是直播畫面。
 
 `score-ground-truth.js` 讀影格做 **CIELAB/HSV 色彩直方圖分析**，算出光學實測分數，跟同一天鎖定的 `locked-*-forecast.json` 配對，寫 `verification-records.json`（欄位含 `prediction`/`verification`/`errorAbsolute`/`verdict`，判定門檻見第 7 節）。
 
@@ -132,10 +132,12 @@ flowchart LR
 |---|---|---|
 | `SkyFireGPS-Lock-Sunset` | 15:30 | `lock-forecast.js` + `lock-forecast-multi.js` |
 | `SkyFireGPS-Lock-Sunrise` | 23:45 | 同上 |
-| `SkyFireGPS-Timelapse-Sunrise` | 03:05 | `capture_timelapse_multi_station.py sunrise` |
+| `SkyFireGPS-Timelapse-Sunrise` | 04:05 | `capture_timelapse_multi_station.py sunrise` |
 | `SkyFireGPS-Timelapse-Sunset` | 15:40 | `capture_timelapse_multi_station.py sunset` |
-| `SkyFireGPS-Validate-Sunrise` | 05:30, 09:00 | `capture-validation.js` + `score-ground-truth.js sunrise` |
-| `SkyFireGPS-Validate-Sunset` | 18:45, 21:00 | 同上 sunset |
+| `SkyFireGPS-Timelapse-Sunrise-Retry` | 08:00 | 同上；第一次 0 張才補跑，否則略過 |
+| `SkyFireGPS-Timelapse-Sunset-Retry` | 20:00 | 同上 |
+| `SkyFireGPS-Validate-Sunrise` | 06:10, 09:00 | `capture-validation.js` + `score-ground-truth.js sunrise` |
+| `SkyFireGPS-Validate-Sunset` | 17:45, 21:00 | 同上 sunset |
 | `SkyFireGPS-WeeklyCalibration` | 週一 00:00 | `auto-calibrate-model.py` |
 
 實作細節：
@@ -170,6 +172,7 @@ flowchart LR
 
 - **暗夜閘門**會讓延遲擷取的影格全部封頂在 12 分，即使真的補跑到也可能是沒用的資料。
 - **DVR 回溯窗口長度因站而異**且不可靠（HEAD 200 不代表 GET 能抓到），已擷取失敗的站點會誠實記錄原因而非造假分數。
-- **YouTube bot-check 會擋整場縮時**。2026-09-15 日出首次踩到：7 站全部在抓 manifest 時被擋（`Sign in to confirm you're not a bot`），0/63 張。同一台機器、同一個 IP，當天 05:30 / 09:00 的單站擷取都正常拿到 Tier A 影格——觸發條件是「短時間連續打 7 站」的請求量，不是來源 IP。現以 `STATION_STAGGER_SEC`（25 秒）錯開站與站之間的請求；若之後仍被擋，下一步是給 yt-dlp `--cookies-from-browser` / `--cookies`。管線本身降級正確（7 站全標 `capture_unavailable` + unreliable），失敗不會污染校準樣本池。
+- **YouTube bot-check 會擋整場縮時**。2026-09-15 日出首次踩到：7 站全部在抓 manifest 時被擋（`Sign in to confirm you're not a bot`），0/63 張。同一台機器、同一個 IP，當天 05:30 / 09:00 的單站擷取都正常拿到 Tier A 影格——觸發條件是「短時間連續打 7 站」的請求量，不是來源 IP。現以 `STATION_STAGGER_SEC`（25 秒）錯開站與站之間的請求；若之後仍被擋，下一步是給 yt-dlp `--cookies-from-browser` / `--cookies`。
+  - **更正（2026-10-03）**：被擋不只是請求量。當天 06:10 單站驗證只發一個請求也被擋，09:00 又恢復，比較像這個 IP 在清晨某段時間被標記。9/15、9/22、9/23 日出與 9/20 日落都曾整場被擋。現在的對策是縮時補跑（08:00 / 20:00，第一次 0 張才跑），cookies 暫不採用（帳號有被封風險）。管線本身降級正確（7 站全標 `capture_unavailable` + unreliable），失敗不會污染校準樣本池。
 - **本機觸發喚不醒完全關機**的電腦（只能喚醒睡眠），且無法喚醒 BIOS 排程開機；完全關機時的排程會被跳過，等下次開機才補跑一次，屆時擷取窗可能已過。
 - **高分區間的光學評分器準確度尚未人工驗證**，`auto-calibrate-model.py` 對縮時管線的高分樣本設了 ceiling containment（見第 6 節），人工驗證後才會考慮鬆綁。

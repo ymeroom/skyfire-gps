@@ -98,18 +98,32 @@ Write-Host "== 註冊工作排程任務 (\SkyFireGPS\ 資料夾) =="
 Register-Job "SkyFireGPS-Lock-Sunset"  "lock-sunset"  (New-ScheduledTaskTrigger -Daily -At "15:30")
 Register-Job "SkyFireGPS-Lock-Sunrise" "lock-sunrise" (New-ScheduledTaskTrigger -Daily -At "23:45")
 
-# 13 站縮時擷取：提早於事件前 ~2.5h 觸發，腳本內建睡到 T+45 分再擷取
-# (見 capture_timelapse_multi_station.py 的 sleep-until-window 邏輯)
-Register-Job "SkyFireGPS-Timelapse-Sunrise" "timelapse-sunrise" (New-ScheduledTaskTrigger -Daily -At "03:05")
+# 13 站縮時擷取：提早於事件前觸發，腳本內建睡到 T+45 分再擷取
+# (見 capture_timelapse_multi_station.py 的 sleep-until-window 邏輯)。
+# 腳本最多只睡 4 小時 (MAX_STARTUP_WAIT_SEC)，超過就整場跳過：日出原本 03:05，
+# 12 月到 2 月日出晚到 06:42，睡到 T+45 要 4.4 小時，整個冬天會被靜默跳過。
+# 04:05 全年等待 1.8–3.4 小時。日落 15:40 最長等待是 6 月的 3.9 小時，還在上限內。
+Register-Job "SkyFireGPS-Timelapse-Sunrise" "timelapse-sunrise" (New-ScheduledTaskTrigger -Daily -At "04:05")
 Register-Job "SkyFireGPS-Timelapse-Sunset"  "timelapse-sunset"  (New-ScheduledTaskTrigger -Daily -At "15:40")
 
+# 縮時補跑：第一次被 YouTube bot-check 整場擋下 (0 張) 才真的擷取，否則直接略過
+# (判斷在 run-job.sh)。時間要同時滿足：晚於第一次跑完 (最晚 1 月日出 T+45 ≈ 07:30、
+# 6 月日落 T+45 ≈ 19:35)，且最舊的 T-40 影格仍在 DVR 約 4 小時內 (6 月日出 T-40
+# ≈ 04:25 → 08:00 回溯 3.6h；12 月日落 T-40 ≈ 16:25 → 20:00 回溯 3.6h)。
+Register-Job "SkyFireGPS-Timelapse-Sunrise-Retry" "timelapse-sunrise-retry" (New-ScheduledTaskTrigger -Daily -At "08:00")
+Register-Job "SkyFireGPS-Timelapse-Sunset-Retry"  "timelapse-sunset-retry"  (New-ScheduledTaskTrigger -Daily -At "20:00")
+
 # 單站驗證：出景當刻 + 定稿報告兩次 (與 auto_validate_capture.yml 原本 4 個 cron 對應)
+# 第一次要落在日出/日落「之後」不久：早於事件只會抓到事件前的直播畫面，晚太多則
+# DVR 回溯變長。天文時刻隨季節移動，這兩個時間要跟著調 (2026-09-30 中秋後調整)：
+#   日出 06:10：象山日出 05:46 (9/30) → 06:08 (11/11)，約 11/12 起日出晚於 06:10，需再往後調。
+#   日落 17:45：大稻埕日落 17:43 (9/30) → 17:05 (11 月底) → 17:45 (2/10)，約 2 月中需再往後調。
 Register-Job "SkyFireGPS-Validate-Sunrise" "validate-sunrise" @(
-  New-ScheduledTaskTrigger -Daily -At "05:30"
+  New-ScheduledTaskTrigger -Daily -At "06:10"
   New-ScheduledTaskTrigger -Daily -At "09:00"
 )
 Register-Job "SkyFireGPS-Validate-Sunset" "validate-sunset" @(
-  New-ScheduledTaskTrigger -Daily -At "18:45"
+  New-ScheduledTaskTrigger -Daily -At "17:45"
   New-ScheduledTaskTrigger -Daily -At "21:00"
 )
 
@@ -118,7 +132,7 @@ Register-Job "SkyFireGPS-WeeklyCalibration" "weekly-calibration" `
   (New-ScheduledTaskTrigger -Weekly -DaysOfWeek Monday -At "00:00")
 
 Write-Host ""
-Write-Host "== 完成。用工作排程器 (taskschd.msc) 搜尋 'SkyFireGPS-' 可看到全部 7 個任務 =="
+Write-Host "== 完成。用工作排程器 (taskschd.msc) 搜尋 'SkyFireGPS-' 可看到全部 9 個任務 =="
 Write-Host "== log 在 $BotRepo\logs\local-trigger\ (每次執行一個檔案，未進版控) =="
 Write-Host "== 手動測試一個任務: Start-ScheduledTask -TaskName SkyFireGPS-Lock-Sunset =="
 

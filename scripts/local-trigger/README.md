@@ -43,10 +43,12 @@ powershell -ExecutionPolicy Bypass -File "scripts\local-trigger\setup-tasks.ps1"
 |---|---|---|
 | SkyFireGPS-Lock-Sunset | 15:30 | lock_forecast.yml (sunset) |
 | SkyFireGPS-Lock-Sunrise | 23:45 | lock_forecast.yml (sunrise) |
-| SkyFireGPS-Timelapse-Sunrise | 03:05 | auto_timelapse_multi_station.yml (sunrise) |
+| SkyFireGPS-Timelapse-Sunrise | 04:05 | auto_timelapse_multi_station.yml (sunrise) |
 | SkyFireGPS-Timelapse-Sunset | 15:40 | auto_timelapse_multi_station.yml (sunset) |
-| SkyFireGPS-Validate-Sunrise | 05:30, 09:00 | auto_validate_capture.yml (sunrise ×2) |
-| SkyFireGPS-Validate-Sunset | 18:45, 21:00 | auto_validate_capture.yml (sunset ×2) |
+| SkyFireGPS-Timelapse-Sunrise-Retry | 08:00 | (新增) 第一次 0 張才補跑 |
+| SkyFireGPS-Timelapse-Sunset-Retry | 20:00 | (新增) 第一次 0 張才補跑 |
+| SkyFireGPS-Validate-Sunrise | 06:10, 09:00 | auto_validate_capture.yml (sunrise ×2) |
+| SkyFireGPS-Validate-Sunset | 17:45, 21:00 | auto_validate_capture.yml (sunset ×2) |
 | SkyFireGPS-WeeklyCalibration | 週一 00:00 | weekly_auto_calibration.yml |
 
 縮時任務只留一個提早的觸發時間（不像原本 GitHub 排程要疊 2-3 個 cron
