@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-10-04-sunset.jpg",
-      "sha256": "cc569418c3b40527bda01cf75d3bd551d7db3b86e1d49a103ace79f5b8decfb1",
-      "capturedAt": "2026-10-04T09:45:05.655Z",
-      "offsetMinutes": 5,
+      "sha256": "7f1e3a4db59cd8c0257bdfe856e2d85a536e998a8d29f68556837f4d3681f492",
+      "capturedAt": "2026-10-04T13:00:07.428Z",
+      "offsetMinutes": 200,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -37,7 +37,7 @@
       "errorAbsolute": 15,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 38.7,
+      "chromaticPurity": 38.2,
       "skyCoveragePct": 0.1,
       "nightGate": {
         "applied": false,
@@ -47,12 +47,12 @@
       },
       "rainGate": {
         "applied": false,
-        "reason": "not raining",
-        "isRaining": false,
-        "precipitationMm": 0,
-        "weatherCode": 0
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
       },
-      "verifiedAt": "2026-10-04T09:45:17.531Z",
+      "verifiedAt": "2026-10-04T13:00:30.899Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
