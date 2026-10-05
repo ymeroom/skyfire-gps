@@ -1,9 +1,9 @@
 {
-  "date": "2026-10-05",
+  "date": "2026-10-06",
   "session": "sunrise",
-  "lockedAt": "2026-10-04T15:45:05.673Z",
+  "lockedAt": "2026-10-05T15:45:05.116Z",
   "skyfire": {
-    "score": 27,
+    "score": 5,
     "rating": {
       "level": "OVERCAST",
       "badge": "陰沉沉寂",
@@ -14,12 +14,12 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 1,
-      "lowCloudPenalty": 0,
-      "horizonScore": 13,
-      "visibilityScore": 7,
-      "horizonClearance": 42,
-      "visKm": 9.9
+      "cloudQualityScore": 5,
+      "lowCloudPenalty": 46,
+      "horizonScore": 0,
+      "visibilityScore": 13,
+      "horizonClearance": 0,
+      "visKm": 18.9
     },
     "diagnostics": [
       {
@@ -29,18 +29,18 @@
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
-        "status": "low",
-        "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
+        "status": "fair",
+        "desc": "中雲量厚實 (98%)，層次豐富但需留意下方陰影。"
       },
       {
         "label": "遠方東方地平線透光窗",
-        "status": "fair",
-        "desc": "低雲量約 16%，地平線具有部分透光縫隙，呈現局部霞光。"
+        "status": "bad",
+        "desc": "低雲遮蔽高達 87%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "bad",
-        "desc": "能見度受限（9.9 公里），霧霾或水氣可能使天色偏灰白。"
+        "status": "fair",
+        "desc": "能見度正常（18.92 公里），色彩呈現良好。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-04T22:00:00.000Z",
-    "timeStr": "2026-10-05T06:00",
+    "time": "2026-10-05T22:00:00.000Z",
+    "timeStr": "2026-10-06T06:00",
     "cloudHigh": 0,
-    "cloudMid": 2,
-    "cloudLow": 16,
-    "cloudTotal": 17,
-    "visibility": 9900,
-    "humidity": 96,
-    "precipProb": 0,
-    "temp": 24,
-    "weatherCode": 0
+    "cloudMid": 98,
+    "cloudLow": 87,
+    "cloudTotal": 100,
+    "visibility": 18920,
+    "humidity": 83,
+    "precipProb": 3,
+    "temp": 22.6,
+    "weatherCode": 3
   }
 }
