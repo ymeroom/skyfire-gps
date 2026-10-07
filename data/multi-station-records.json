@@ -21295,5 +21295,345 @@
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
       "isSimulated": false
     }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-alishan-eryanping",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "嘉義・阿里山二延平步道（13 站縮時 未擷取）",
+    "targetTime": null,
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 1,
+      "lowCloud": 100,
+      "horizonClearance": 0,
+      "visibilityKm": 3.2,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": null,
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": false,
+      "framesOk": 8,
+      "framesTotal": 9,
+      "ungatedFramesOk": 6,
+      "peakRegionUngatedOk": 3,
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "verdict": null,
+      "verdictBadge": null,
+      "nightGate": null,
+      "rainGate": null,
+      "reliable": false,
+      "unreliableReason": "該站縮時無可用實測 (直播畫面靜止不變 (疑似維修公告 / 佔位畫面，8 幀最大差異 0.1))",
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-alishan-xiaoluji",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "嘉義・阿里山小笠原山觀景台（13 站縮時 T+0）",
+    "targetTime": "2026-10-07T09:39:06.569000+00:00",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 100,
+      "horizonClearance": 0,
+      "visibilityKm": 3.5,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-07-sunset-alishan-xiaoluji.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 0,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 6,
+      "peakRegionUngatedOk": 3,
+      "sourceFramePath": "data/timelapse/2026-10-07-sunset/alishan-xiaoluji-t+00.jpg",
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 5,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 0,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 0,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-07T09:08:57.639000+00:00",
+        "windowEnd": "2026-10-07T10:01:47.899000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
+      },
+      "reliable": false,
+      "unreliableReason": "canonical 影格為雨天畫面，濕路面/車燈反光易誤判暖色調",
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-baihe-biyun",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "台南白河・火山碧雲寺（13 站縮時 T+0）",
+    "targetTime": "2026-10-07T09:39:06.569000+00:00",
+    "prediction": {
+      "score": 26,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 19,
+      "lowCloud": 15,
+      "horizonClearance": 36,
+      "visibilityKm": 13.2,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-07-sunset-baihe-biyun.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 0,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 6,
+      "peakRegionUngatedOk": 3,
+      "sourceFramePath": "data/timelapse/2026-10-07-sunset/baihe-biyun-t+00.jpg",
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 30,
+      "groundTruthBadge": "平淡暮光 (雨天反光判定)",
+      "groundTruthLevel": "FAINT",
+      "errorAbsolute": 4,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 51,
+      "skyCoveragePct": 67.6,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-07T09:08:57.639000+00:00",
+        "windowEnd": "2026-10-07T10:01:47.899000+00:00"
+      },
+      "rainGate": {
+        "applied": true,
+        "reason": "raining at capture time — wet pavement / vehicle-light reflections and low ambient contrast are more likely to read as false warm-color signal than genuine afterglow",
+        "rawScoreBeforeGate": 89,
+        "rawLevelBeforeGate": "EPIC",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
+      },
+      "reliable": false,
+      "unreliableReason": "canonical 影格為雨天畫面，濕路面/車燈反光易誤判暖色調",
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-dagushan",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "桃園大古山（13 站縮時 未擷取）",
+    "targetTime": null,
+    "prediction": {
+      "score": 18,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 1,
+      "lowCloud": 51,
+      "horizonClearance": 39,
+      "visibilityKm": 30.3,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": null,
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": false,
+      "framesOk": 0,
+      "framesTotal": 9,
+      "ungatedFramesOk": 0,
+      "peakRegionUngatedOk": 0,
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "verdict": null,
+      "verdictBadge": null,
+      "nightGate": null,
+      "rainGate": null,
+      "reliable": false,
+      "unreliableReason": "該站縮時無可用實測 (目標時刻已被 CDN 回收 (清單宣稱視窗 > 實際))",
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-gaomei",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "台中・高美濕地木棧道（13 站縮時 T+20）",
+    "targetTime": "2026-10-07T09:59:06.569000+00:00",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 0,
+      "horizonClearance": 63,
+      "visibilityKm": 28.7,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-07-sunset-gaomei.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 20,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 6,
+      "peakRegionUngatedOk": 3,
+      "sourceFramePath": "data/timelapse/2026-10-07-sunset/gaomei-t+20.jpg",
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 100,
+      "groundTruthBadge": "史詩級爆發",
+      "groundTruthLevel": "EPIC",
+      "errorAbsolute": 65,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 81.5,
+      "skyCoveragePct": 99.4,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-07T09:08:57.639000+00:00",
+        "windowEnd": "2026-10-07T10:01:47.899000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
+  },
+  {
+    "id": "rec-2026-10-07-sunset-yongan",
+    "date": "2026-10-07",
+    "session": "sunset",
+    "provenance": "multi-station-timelapse",
+    "source": "桃園永安漁港（13 站縮時 T+20）",
+    "targetTime": "2026-10-07T09:59:06.569000+00:00",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 3,
+      "lowCloud": 8,
+      "horizonClearance": 74,
+      "visibilityKm": 29.6,
+      "isSimulated": false,
+      "lockedAt": "2026-10-07T07:30:12.579Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-07-sunset-yongan.jpg",
+    "capture": {
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true,
+      "canonicalOffsetMin": 20,
+      "framesOk": 9,
+      "framesTotal": 9,
+      "ungatedFramesOk": 6,
+      "peakRegionUngatedOk": 3,
+      "sourceFramePath": "data/timelapse/2026-10-07-sunset/yongan-t+20.jpg",
+      "capturedAt": "2026-10-07T10:27:17.051Z"
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 53,
+      "groundTruthBadge": "局部微霞",
+      "groundTruthLevel": "MODERATE",
+      "errorAbsolute": 18,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 49.8,
+      "skyCoveragePct": 19.6,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-07T09:08:57.639000+00:00",
+        "windowEnd": "2026-10-07T10:01:47.899000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "reliable": true,
+      "unreliableReason": null,
+      "verifiedAt": "2026-10-07T10:27:17.051Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV) · 13-station timelapse window peak",
+      "isSimulated": false
+    }
   }
 ]
