@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-10-07-sunset.jpg",
-      "sha256": "e1993d3c182e1d6a5de787839b5f33272f80427bf5d867aa21c43ec5b97d9da4",
-      "capturedAt": "2026-10-07T09:45:05.594Z",
-      "offsetMinutes": 9,
+      "sha256": "ea0022e3e1af15aad030312377e1c88f84e11b9dda37222a3b1a074e1772974a",
+      "capturedAt": "2026-10-07T13:00:07.066Z",
+      "offsetMinutes": 204,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -37,7 +37,7 @@
       "errorAbsolute": 6,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
-      "chromaticPurity": 32.5,
+      "chromaticPurity": 33.1,
       "skyCoveragePct": 0,
       "nightGate": {
         "applied": false,
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 1
       },
-      "verifiedAt": "2026-10-07T09:45:16.285Z",
+      "verifiedAt": "2026-10-07T13:00:26.816Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
