@@ -6,14 +6,14 @@
     "targetTime": "2026-10-08T09:35:31.702Z",
     "source": "大稻埕碼頭（4K 官方即時影像）",
     "prediction": {
-      "score": 35,
-      "rating": "平淡暮光",
-      "color": "#7B88A8",
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
       "highCloud": 0,
-      "midCloud": 4,
-      "lowCloud": 13,
-      "horizonClearance": 81,
-      "visibilityKm": 23.2,
+      "midCloud": 94,
+      "lowCloud": 91,
+      "horizonClearance": 0,
+      "visibilityKm": 31,
       "isSimulated": false
     },
     "snapshotUrl": "data/snapshots/2026-10-08-sunset.jpg",
@@ -21,22 +21,22 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-10-08-sunset.jpg",
-      "sha256": "94606c96006eb9a8a5c9d42eb23fd43247e708358192af00841414c1c5461b8d",
-      "capturedAt": "2026-10-08T09:45:09.893Z",
-      "offsetMinutes": 10,
+      "sha256": "1b4722dd019bab4799972995c9b0e6271cc94f5ce7803f105369a7fe3b61d96b",
+      "capturedAt": "2026-10-08T13:00:13.094Z",
+      "offsetMinutes": 205,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 18,
+      "groundTruthScore": 19,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 17,
+      "errorAbsolute": 14,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 38.8,
+      "chromaticPurity": 39.7,
       "skyCoveragePct": 0.3,
       "nightGate": {
         "applied": false,
@@ -49,9 +49,9 @@
         "reason": "not raining",
         "isRaining": false,
         "precipitationMm": 0,
-        "weatherCode": 0
+        "weatherCode": 3
       },
-      "verifiedAt": "2026-10-08T09:45:22.257Z",
+      "verifiedAt": "2026-10-08T13:00:45.293Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
