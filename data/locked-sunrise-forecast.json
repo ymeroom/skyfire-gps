@@ -1,25 +1,25 @@
 {
-  "date": "2026-10-10",
+  "date": "2026-10-12",
   "session": "sunrise",
-  "lockedAt": "2026-10-09T15:45:06.248Z",
+  "lockedAt": "2026-10-11T15:45:05.671Z",
   "skyfire": {
-    "score": 16,
+    "score": 35,
     "rating": {
-      "level": "OVERCAST",
-      "badge": "陰沉沉寂",
-      "icon": "☁️",
-      "color": "#5A6275",
-      "secondaryColor": "#394150",
-      "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
-      "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
+      "level": "FAINT",
+      "badge": "平淡暮光",
+      "icon": "🌤️",
+      "color": "#7B88A8",
+      "secondaryColor": "#A0AEC0",
+      "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
+      "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 17,
-      "lowCloudPenalty": 23,
-      "horizonScore": 5,
-      "visibilityScore": 11,
-      "horizonClearance": 18,
-      "visKm": 15.6
+      "cloudQualityScore": 0,
+      "lowCloudPenalty": 0,
+      "horizonScore": 22,
+      "visibilityScore": 12,
+      "horizonClearance": 74,
+      "visKm": 16.4
     },
     "diagnostics": [
       {
@@ -28,19 +28,19 @@
         "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
       },
       {
-        "label": "中空立體高積雲 (2,000-6,000m)",
-        "status": "optimal",
-        "desc": "中雲量達 32%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+        "label": "中空雲層 (2,000-6,000m)",
+        "status": "low",
+        "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方東方地平線透光窗",
-        "status": "fair",
-        "desc": "低雲量約 56%，地平線具有部分透光縫隙，呈現局部霞光。"
+        "status": "optimal",
+        "desc": "低雲遮蔽極低 (8%)，透光窗達 74%，陽光無阻直射雲底！"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "fair",
-        "desc": "能見度正常（15.58 公里），色彩呈現良好。"
+        "desc": "能見度正常（16.38 公里），色彩呈現良好。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-09T22:00:00.000Z",
-    "timeStr": "2026-10-10T06:00",
+    "time": "2026-10-11T22:00:00.000Z",
+    "timeStr": "2026-10-12T06:00",
     "cloudHigh": 0,
-    "cloudMid": 32,
-    "cloudLow": 56,
-    "cloudTotal": 58,
-    "visibility": 15580,
-    "humidity": 89,
-    "precipProb": 2,
-    "temp": 23.6,
-    "weatherCode": 2
+    "cloudMid": 0,
+    "cloudLow": 8,
+    "cloudTotal": 8,
+    "visibility": 16380,
+    "humidity": 96,
+    "precipProb": 0,
+    "temp": 20.5,
+    "weatherCode": 0
   }
 }
