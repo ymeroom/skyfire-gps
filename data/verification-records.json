@@ -1,5 +1,63 @@
 [
   {
+    "id": "rec-2026-10-14-sunrise",
+    "date": "2026-10-14",
+    "session": "sunrise",
+    "targetTime": "2026-10-13T21:52:24.448Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 21,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 34,
+      "horizonClearance": 54,
+      "visibilityKm": 5.6,
+      "isSimulated": false,
+      "lockedAt": "2026-10-13T15:45:04.727Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-14-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-14-sunrise.jpg",
+      "sha256": "23aed15ed838780f0ccee0d0053d7622e038c3309b1e52ec494090df6ebaa744",
+      "capturedAt": "2026-10-13T22:10:04.801Z",
+      "offsetMinutes": 18,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 18,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 3,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 38.5,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-13T21:29:24.483000+00:00",
+        "windowEnd": "2026-10-13T22:23:03.449000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 1
+      },
+      "verifiedAt": "2026-10-13T22:10:15.375Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-13-sunset",
     "date": "2026-10-13",
     "session": "sunset",
@@ -4885,37 +4943,6 @@
       "verdictBadge": "🎯 極致精準 (偏差 +5分)",
       "chromaticPurity": 79,
       "skyCoveragePct": 58,
-      "engine": "CIELAB/HSV Optical Scorer V2.5",
-      "reliable": false,
-      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
-    }
-  },
-  {
-    "id": "rec-2026-08-14-sunrise",
-    "date": "2026-08-14",
-    "session": "sunrise",
-    "sessionLabel": "8/14 第一道曙光",
-    "capturedAt": "2026-08-14T05:25:00+08:00",
-    "sourceStream": "台東東海岸國家風景區 (三仙台八拱橋日出 4K 實況)",
-    "snapshotUrl": "data/snapshots/sanxiantai-live.jpg",
-    "prediction": {
-      "score": 78,
-      "rating": "壯麗火燒雲",
-      "color": "#FF6B00",
-      "highCloud": 50,
-      "midCloud": 35,
-      "lowCloud": 20
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 75,
-      "groundTruthBadge": "壯麗火燒雲",
-      "groundTruthLevel": "GREAT",
-      "errorAbsolute": 3,
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 極致精準 (偏差 -3分)",
-      "chromaticPurity": 84.2,
-      "skyCoveragePct": 68,
       "engine": "CIELAB/HSV Optical Scorer V2.5",
       "reliable": false,
       "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
