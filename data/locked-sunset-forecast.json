@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-12",
+  "date": "2026-10-13",
   "session": "sunset",
-  "lockedAt": "2026-10-12T07:30:06.226Z",
+  "lockedAt": "2026-10-13T07:30:05.347Z",
   "skyfire": {
     "score": 35,
     "rating": {
@@ -40,7 +40,7 @@
       {
         "label": "大氣能見度與通透度",
         "status": "optimal",
-        "desc": "能見度優異（25.58 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+        "desc": "能見度優異（25.62 公里），大氣清澈通透，晚霞色彩飽和純淨。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-12T10:00:00.000Z",
-    "timeStr": "2026-10-12T18:00",
+    "time": "2026-10-13T10:00:00.000Z",
+    "timeStr": "2026-10-13T18:00",
     "cloudHigh": 0,
     "cloudMid": 0,
     "cloudLow": 0,
     "cloudTotal": 0,
-    "visibility": 25580,
-    "humidity": 79,
+    "visibility": 25620,
+    "humidity": 81,
     "precipProb": 0,
-    "temp": 22.9,
+    "temp": 23.7,
     "weatherCode": 0
   }
 }
