@@ -1,5 +1,63 @@
 [
   {
+    "id": "rec-2026-10-15-sunrise",
+    "date": "2026-10-15",
+    "session": "sunrise",
+    "targetTime": "2026-10-14T21:52:52.940Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 5,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 1,
+      "lowCloud": 84,
+      "horizonClearance": 0,
+      "visibilityKm": 19.9,
+      "isSimulated": false,
+      "lockedAt": "2026-10-14T15:45:05.709Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-15-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-15-sunrise.jpg",
+      "sha256": "cb22374daf99679dddb00a8b1508871a9d19e2b306aaf5a6239d14dd6bd6730a",
+      "capturedAt": "2026-10-14T22:10:57.352Z",
+      "offsetMinutes": 18,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 19,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 14,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 39.7,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-14T21:29:51.668000+00:00",
+        "windowEnd": "2026-10-14T22:23:34.372000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 2
+      },
+      "verifiedAt": "2026-10-14T22:13:28.519Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-14-sunset",
     "date": "2026-10-14",
     "session": "sunset",
@@ -4937,37 +4995,6 @@
       "skyCoveragePct": 40.1,
       "verifiedAt": "2026-08-17T21:48:58.013Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
-      "reliable": false,
-      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
-    }
-  },
-  {
-    "id": "rec-2026-08-16-sunset",
-    "date": "2026-08-16",
-    "session": "sunset",
-    "sessionLabel": "昨日日落",
-    "capturedAt": "2026-08-16T18:45:00+08:00",
-    "sourceStream": "台中高美濕地 (風車海平面落日 4K 實況)",
-    "snapshotUrl": "data/snapshots/gaomei-live.jpg",
-    "prediction": {
-      "score": 85,
-      "rating": "史詩級爆發",
-      "color": "#FF3366",
-      "highCloud": 55,
-      "midCloud": 38,
-      "lowCloud": 15
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 82,
-      "groundTruthBadge": "史詩級爆發",
-      "groundTruthLevel": "EPIC",
-      "errorAbsolute": 3,
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 極致精準 (偏差 -3分)",
-      "chromaticPurity": 88.5,
-      "skyCoveragePct": 80,
-      "engine": "CIELAB/HSV Optical Scorer V2.5",
       "reliable": false,
       "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
     }
