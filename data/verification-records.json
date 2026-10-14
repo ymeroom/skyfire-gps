@@ -23,8 +23,8 @@
       "height": 360,
       "fileName": "2026-10-14-sunset.jpg",
       "sha256": "aee48fab2961c77f6c1e937e0702f6385c7c662ab77112877f1be87f27f28bd8",
-      "capturedAt": "2026-10-14T09:45:04.829Z",
-      "offsetMinutes": 15,
+      "capturedAt": "2026-10-14T13:00:05.266Z",
+      "offsetMinutes": 210,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-10-14T09:45:15.842Z",
+      "verifiedAt": "2026-10-14T13:00:22.680Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
