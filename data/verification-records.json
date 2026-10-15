@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-10-15-sunrise.jpg",
-      "sha256": "cb22374daf99679dddb00a8b1508871a9d19e2b306aaf5a6239d14dd6bd6730a",
-      "capturedAt": "2026-10-14T22:10:57.352Z",
-      "offsetMinutes": 18,
+      "sha256": "af434af648d0365fe035402cdc421ca36c891a902702f42caaef0ac2ed9bf49a",
+      "capturedAt": "2026-10-15T01:00:04.617Z",
+      "offsetMinutes": 187,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -37,7 +37,7 @@
       "errorAbsolute": 14,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 39.7,
+      "chromaticPurity": 40.5,
       "skyCoveragePct": 0,
       "nightGate": {
         "applied": false,
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 2
       },
-      "verifiedAt": "2026-10-14T22:13:28.519Z",
+      "verifiedAt": "2026-10-15T01:00:15.940Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
