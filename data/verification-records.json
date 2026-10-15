@@ -1,5 +1,63 @@
 [
   {
+    "id": "rec-2026-10-16-sunrise",
+    "date": "2026-10-16",
+    "session": "sunrise",
+    "targetTime": "2026-10-15T21:53:21.900Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 49,
+      "rating": "局部霞光",
+      "color": "#E5A50A",
+      "highCloud": 27,
+      "midCloud": 0,
+      "lowCloud": 0,
+      "horizonClearance": 43,
+      "visibilityKm": 16.8,
+      "isSimulated": false,
+      "lockedAt": "2026-10-15T15:45:16.582Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-16-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-16-sunrise.jpg",
+      "sha256": "cd7e18508dce60f79184875b84a4b35a66d1a6d68cd5a643f1ce5518b7e32bf6",
+      "capturedAt": "2026-10-15T22:10:43.363Z",
+      "offsetMinutes": 17,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 17,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 32,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 36.8,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-15T21:30:19.254000+00:00",
+        "windowEnd": "2026-10-15T22:24:05.852000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "verifiedAt": "2026-10-15T22:11:19.009Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-15-sunset",
     "date": "2026-10-15",
     "session": "sunset",
@@ -4988,39 +5046,6 @@
       "chromaticPurity": 52.7,
       "skyCoveragePct": 47.2,
       "verifiedAt": "2026-08-18T21:45:58.440Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
-      "reliable": false,
-      "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
-    }
-  },
-  {
-    "id": "rec-2026-08-18-sunrise",
-    "date": "2026-08-18",
-    "session": "sunrise",
-    "sessionLabel": "今日日出",
-    "capturedAt": "2026-08-18T00:03:19.358Z",
-    "sourceStream": "南投日月潭國家風景區 (4K 官方即時影像)",
-    "youtubeLiveUrl": "https://www.youtube.com/watch?v=WTnZQS367C8",
-    "snapshotUrl": "data/snapshots/2026-08-18-sunrise.jpg",
-    "prediction": {
-      "score": 35,
-      "rating": "平淡暮光",
-      "color": "#7B88A8",
-      "highCloud": 0,
-      "midCloud": 1,
-      "lowCloud": 17
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 21,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 14,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 33.5,
-      "skyCoveragePct": 4.9,
-      "verifiedAt": "2026-08-18T00:03:23.052Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "reliable": false,
       "unreliableReason": "pre-Tier-A/B 遷移前的舊格式紀錄，缺乏 capture.kind/validated 影格證據，部分來自舊版 score-ground-truth.js 假噪聲 fallback 臭蟲，不列入校準樣本"
