@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-15",
+  "date": "2026-10-16",
   "session": "sunset",
-  "lockedAt": "2026-10-15T07:30:05.335Z",
+  "lockedAt": "2026-10-16T07:30:05.846Z",
   "skyfire": {
     "score": 35,
     "rating": {
@@ -14,33 +14,33 @@
       "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 24,
-      "lowCloudPenalty": 21,
-      "horizonScore": 7,
-      "visibilityScore": 15,
-      "horizonClearance": 23,
-      "visKm": 28.6
+      "cloudQualityScore": 3,
+      "lowCloudPenalty": 0,
+      "horizonScore": 24,
+      "visibilityScore": 13,
+      "horizonClearance": 79,
+      "visKm": 20.5
     },
     "diagnostics": [
       {
-        "label": "高空卷層雲 (6,000m+)",
-        "status": "fair",
-        "desc": "高雲量偏高 (87%)，漫射面積大但光線穿透度可能稍微受限。"
+        "label": "高空卷雲 (6,000m+)",
+        "status": "low",
+        "desc": "高雲量僅 3%，上方缺少大面積紅色漫射反光板。"
       },
       {
         "label": "中空雲層 (2,000-6,000m)",
         "status": "low",
-        "desc": "中雲量稀疏 (11%)，雲彩層次感較為單純。"
+        "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方西方地平線透光窗",
-        "status": "fair",
-        "desc": "低雲量約 54%，地平線具有部分透光縫隙，呈現局部霞光。"
+        "status": "optimal",
+        "desc": "低雲遮蔽極低 (18%)，透光窗達 79%，陽光無阻直射雲底！"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "optimal",
-        "desc": "能見度優異（28.58 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+        "desc": "能見度優異（20.5 公里），大氣清澈通透，晚霞色彩飽和純淨。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-15T09:00:00.000Z",
-    "timeStr": "2026-10-15T17:00",
-    "cloudHigh": 87,
-    "cloudMid": 11,
-    "cloudLow": 54,
-    "cloudTotal": 95,
-    "visibility": 28580,
-    "humidity": 68,
-    "precipProb": 0,
-    "temp": 24.8,
-    "weatherCode": 3
+    "time": "2026-10-16T09:00:00.000Z",
+    "timeStr": "2026-10-16T17:00",
+    "cloudHigh": 3,
+    "cloudMid": 2,
+    "cloudLow": 18,
+    "cloudTotal": 21,
+    "visibility": 20500,
+    "humidity": 73,
+    "precipProb": 2,
+    "temp": 27.1,
+    "weatherCode": 1
   }
 }
