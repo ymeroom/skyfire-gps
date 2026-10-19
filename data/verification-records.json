@@ -23,8 +23,8 @@
       "height": 360,
       "fileName": "2026-10-19-sunrise.jpg",
       "sha256": "f3d4fd560296348c5f97808b2a85ead4701f374d5c779936dc67b4b103168b56",
-      "capturedAt": "2026-10-18T22:10:04.975Z",
-      "offsetMinutes": 15,
+      "capturedAt": "2026-10-19T01:00:05.659Z",
+      "offsetMinutes": 185,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-10-18T22:10:15.760Z",
+      "verifiedAt": "2026-10-19T01:00:20.181Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
