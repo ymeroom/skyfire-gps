@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-19",
+  "date": "2026-10-20",
   "session": "sunset",
-  "lockedAt": "2026-10-19T07:30:18.241Z",
+  "lockedAt": "2026-10-20T07:30:17.997Z",
   "stationCount": 6,
   "failures": [],
   "stations": [
@@ -24,225 +24,12 @@
           "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 0,
-          "lowCloudPenalty": 0,
-          "horizonScore": 21,
-          "visibilityScore": 15,
-          "horizonClearance": 69,
-          "visKm": 24.4
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方西方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 0%，地平線具有部分透光縫隙，呈現局部霞光。"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（24.38 公里），大氣清澈通透，晚霞色彩飽和純淨。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日落後 20-35 分鐘之「藍調時刻 (Blue Hour)」",
-          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
-          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
-          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
-          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
-          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
-        }
-      },
-      "weather": {
-        "time": "2026-10-19T09:00:00.000Z",
-        "timeStr": "2026-10-19T17:00",
-        "cloudHigh": 0,
-        "cloudMid": 0,
-        "cloudLow": 0,
-        "cloudTotal": 0,
-        "visibility": 24380,
-        "humidity": 74,
-        "precipProb": 0,
-        "temp": 28,
-        "weatherCode": 0
-      }
-    },
-    {
-      "id": "alishan-eryanping",
-      "name": "嘉義・阿里山二延平步道",
-      "lat": 23.42464002262141,
-      "lng": 120.65270096094285,
-      "category": "sunset",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 51,
-        "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
-        },
-        "metrics": {
-          "cloudQualityScore": 4,
-          "lowCloudPenalty": 0,
-          "horizonScore": 26,
-          "visibilityScore": 15,
-          "horizonClearance": 87,
-          "visKm": 27
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (7%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (10%)，透光窗達 87%，陽光無阻直射雲底！"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（27.02 公里），大氣清澈通透，晚霞色彩飽和純淨。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日落當刻至日落後 15 分鐘",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
-        }
-      },
-      "weather": {
-        "time": "2026-10-19T09:00:00.000Z",
-        "timeStr": "2026-10-19T17:00",
-        "cloudHigh": 0,
-        "cloudMid": 7,
-        "cloudLow": 10,
-        "cloudTotal": 16,
-        "visibility": 27020,
-        "humidity": 91,
-        "precipProb": 25,
-        "temp": 20.2,
-        "weatherCode": 0
-      }
-    },
-    {
-      "id": "alishan-xiaoluji",
-      "name": "嘉義・阿里山小笠原山觀景台",
-      "lat": 23.50633556703892,
-      "lng": 120.82379800316035,
-      "category": "both",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 33,
-        "rating": {
-          "level": "FAINT",
-          "badge": "平淡暮光",
-          "icon": "🌤️",
-          "color": "#7B88A8",
-          "secondaryColor": "#A0AEC0",
-          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
-          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
-        },
-        "metrics": {
-          "cloudQualityScore": 0,
-          "lowCloudPenalty": 0,
-          "horizonScore": 21,
-          "visibilityScore": 15,
-          "horizonClearance": 71,
-          "visKm": 45.9
-        },
-        "diagnostics": [
-          {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
-          },
-          {
-            "label": "中空雲層 (2,000-6,000m)",
-            "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
-          },
-          {
-            "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (20%)，透光窗達 71%，陽光無阻直射雲底！"
-          },
-          {
-            "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（45.92 公里），大氣清澈通透，晚霞色彩飽和純淨。"
-          }
-        ],
-        "photoTips": {
-          "bestTime": "日落後 20-35 分鐘之「藍調時刻 (Blue Hour)」",
-          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
-          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
-          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
-          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
-          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
-        }
-      },
-      "weather": {
-        "time": "2026-10-19T09:00:00.000Z",
-        "timeStr": "2026-10-19T17:00",
-        "cloudHigh": 0,
-        "cloudMid": 0,
-        "cloudLow": 20,
-        "cloudTotal": 20,
-        "visibility": 45920,
-        "humidity": 83,
-        "precipProb": 35,
-        "temp": 16,
-        "weatherCode": 1
-      }
-    },
-    {
-      "id": "baihe-biyun",
-      "name": "台南白河・火山碧雲寺",
-      "lat": 23.325448310944992,
-      "lng": 120.4802254991732,
-      "category": "sunset",
-      "isSimulated": false,
-      "skyfire": {
-        "score": 35,
-        "rating": {
-          "level": "FAINT",
-          "badge": "平淡暮光",
-          "icon": "🌤️",
-          "color": "#7B88A8",
-          "secondaryColor": "#A0AEC0",
-          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
-          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
-        },
-        "metrics": {
           "cloudQualityScore": 1,
           "lowCloudPenalty": 0,
-          "horizonScore": 26,
+          "horizonScore": 30,
           "visibilityScore": 15,
-          "horizonClearance": 85,
-          "visKm": 26.7
+          "horizonClearance": 100,
+          "visKm": 24.5
         },
         "diagnostics": [
           {
@@ -258,12 +45,12 @@
           {
             "label": "遠方西方地平線透光窗",
             "status": "optimal",
-            "desc": "低雲遮蔽極低 (1%)，透光窗達 85%，陽光無阻直射雲底！"
+            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（26.66 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（24.46 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -276,17 +63,230 @@
         }
       },
       "weather": {
-        "time": "2026-10-19T10:00:00.000Z",
-        "timeStr": "2026-10-19T18:00",
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
         "cloudHigh": 0,
         "cloudMid": 2,
-        "cloudLow": 1,
+        "cloudLow": 0,
         "cloudTotal": 2,
-        "visibility": 26660,
-        "humidity": 84,
+        "visibility": 24460,
+        "humidity": 76,
         "precipProb": 0,
-        "temp": 25.2,
+        "temp": 27.5,
         "weatherCode": 0
+      }
+    },
+    {
+      "id": "alishan-eryanping",
+      "name": "嘉義・阿里山二延平步道",
+      "lat": 23.42464002262141,
+      "lng": 120.65270096094285,
+      "category": "sunset",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 70,
+        "rating": {
+          "level": "GREAT",
+          "badge": "壯麗火燒雲",
+          "icon": "🔥",
+          "color": "#FF6B00",
+          "secondaryColor": "#FFB800",
+          "summary": "雲層立體・霞光萬道！高中雲層層次豐富，強烈建議攜帶相機出景。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(255,184,0,0.2) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 24,
+          "lowCloudPenalty": 0,
+          "horizonScore": 25,
+          "visibilityScore": 15,
+          "horizonClearance": 83,
+          "visKm": 29.1
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 54%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (1%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (11%)，透光窗達 83%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（29.12 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
+        "cloudHigh": 54,
+        "cloudMid": 1,
+        "cloudLow": 11,
+        "cloudTotal": 59,
+        "visibility": 29120,
+        "humidity": 92,
+        "precipProb": 6,
+        "temp": 20.4,
+        "weatherCode": 2
+      }
+    },
+    {
+      "id": "alishan-xiaoluji",
+      "name": "嘉義・阿里山小笠原山觀景台",
+      "lat": 23.50633556703892,
+      "lng": 120.82379800316035,
+      "category": "both",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 76,
+        "rating": {
+          "level": "GREAT",
+          "badge": "壯麗火燒雲",
+          "icon": "🔥",
+          "color": "#FF6B00",
+          "secondaryColor": "#FFB800",
+          "summary": "雲層立體・霞光萬道！高中雲層層次豐富，強烈建議攜帶相機出景。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(255,184,0,0.2) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 24,
+          "lowCloudPenalty": 0,
+          "horizonScore": 27,
+          "visibilityScore": 15,
+          "horizonClearance": 90,
+          "visKm": 61.8
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 58%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (1%)，透光窗達 90%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（61.84 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
+        "cloudHigh": 58,
+        "cloudMid": 2,
+        "cloudLow": 1,
+        "cloudTotal": 59,
+        "visibility": 61840,
+        "humidity": 81,
+        "precipProb": 0,
+        "temp": 15.8,
+        "weatherCode": 2
+      }
+    },
+    {
+      "id": "baihe-biyun",
+      "name": "台南白河・火山碧雲寺",
+      "lat": 23.325448310944992,
+      "lng": 120.4802254991732,
+      "category": "sunset",
+      "isSimulated": false,
+      "skyfire": {
+        "score": 75,
+        "rating": {
+          "level": "GREAT",
+          "badge": "壯麗火燒雲",
+          "icon": "🔥",
+          "color": "#FF6B00",
+          "secondaryColor": "#FFB800",
+          "summary": "雲層立體・霞光萬道！高中雲層層次豐富，強烈建議攜帶相機出景。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(255,184,0,0.2) 100%)"
+        },
+        "metrics": {
+          "cloudQualityScore": 24,
+          "lowCloudPenalty": 0,
+          "horizonScore": 26,
+          "visibilityScore": 15,
+          "horizonClearance": 87,
+          "visKm": 27.1
+        },
+        "diagnostics": [
+          {
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 41%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
+          },
+          {
+            "label": "中空雲層 (2,000-6,000m)",
+            "status": "low",
+            "desc": "中雲量稀疏 (2%)，雲彩層次感較為單純。"
+          },
+          {
+            "label": "遠方西方地平線透光窗",
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (6%)，透光窗達 87%，陽光無阻直射雲底！"
+          },
+          {
+            "label": "大氣能見度與通透度",
+            "status": "optimal",
+            "desc": "能見度優異（27.1 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+          }
+        ],
+        "photoTips": {
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
+        }
+      },
+      "weather": {
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
+        "cloudHigh": 41,
+        "cloudMid": 2,
+        "cloudLow": 6,
+        "cloudTotal": 45,
+        "visibility": 27100,
+        "humidity": 75,
+        "precipProb": 0,
+        "temp": 27.1,
+        "weatherCode": 1
       }
     },
     {
@@ -297,23 +297,23 @@
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
-        "score": 49,
+        "score": 35,
         "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
+          "level": "FAINT",
+          "badge": "平淡暮光",
+          "icon": "🌤️",
+          "color": "#7B88A8",
+          "secondaryColor": "#A0AEC0",
+          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
+          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 5,
+          "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
-          "horizonScore": 19,
-          "visibilityScore": 15,
-          "horizonClearance": 62,
-          "visKm": 31
+          "horizonScore": 26,
+          "visibilityScore": 10,
+          "horizonClearance": 85,
+          "visKm": 13.3
         },
         "diagnostics": [
           {
@@ -324,39 +324,39 @@
           {
             "label": "中空雲層 (2,000-6,000m)",
             "status": "low",
-            "desc": "中雲量稀疏 (9%)，雲彩層次感較為單純。"
+            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 6%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (14%)，透光窗達 85%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（30.98 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "status": "fair",
+            "desc": "能見度正常（13.28 公里），色彩呈現良好。"
           }
         ],
         "photoTips": {
-          "bestTime": "日落當刻至日落後 15 分鐘",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
+          "bestTime": "日落後 20-35 分鐘之「藍調時刻 (Blue Hour)」",
+          "whiteBalance": "色溫設為 3800K - 4500K 拍出城市冷冽深藍氛圍",
+          "filter": "長曝減光鏡 (ND64/ND1000) 霧化雲流或車軌",
+          "exposure": "建議使用腳架進行 10-30 秒慢速長曝",
+          "lens": "廣角至中望遠，適合捕捉地景夜景、橋樑車軌與山巒雲海",
+          "mobileTip": "切換至手機「夜景模式 (Night Mode)」，藉由多幀降噪紀錄城市藍調夜景。"
         }
       },
       "weather": {
-        "time": "2026-10-19T09:00:00.000Z",
-        "timeStr": "2026-10-19T17:00",
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
         "cloudHigh": 0,
-        "cloudMid": 9,
-        "cloudLow": 6,
-        "cloudTotal": 11,
-        "visibility": 30980,
-        "humidity": 57,
+        "cloudMid": 0,
+        "cloudLow": 14,
+        "cloudTotal": 14,
+        "visibility": 13280,
+        "humidity": 77,
         "precipProb": 0,
-        "temp": 30.6,
+        "temp": 27.6,
         "weatherCode": 0
       }
     },
@@ -381,10 +381,10 @@
         "metrics": {
           "cloudQualityScore": 0,
           "lowCloudPenalty": 0,
-          "horizonScore": 13,
-          "visibilityScore": 15,
-          "horizonClearance": 43,
-          "visKm": 25
+          "horizonScore": 29,
+          "visibilityScore": 10,
+          "horizonClearance": 95,
+          "visKm": 13.7
         },
         "diagnostics": [
           {
@@ -399,13 +399,13 @@
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "fair",
-            "desc": "低雲量約 4%，地平線具有部分透光縫隙，呈現局部霞光。"
+            "status": "optimal",
+            "desc": "低雲遮蔽極低 (5%)，透光窗達 95%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（24.98 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "status": "fair",
+            "desc": "能見度正常（13.68 公里），色彩呈現良好。"
           }
         ],
         "photoTips": {
@@ -418,16 +418,16 @@
         }
       },
       "weather": {
-        "time": "2026-10-19T09:00:00.000Z",
-        "timeStr": "2026-10-19T17:00",
+        "time": "2026-10-20T09:00:00.000Z",
+        "timeStr": "2026-10-20T17:00",
         "cloudHigh": 0,
         "cloudMid": 0,
-        "cloudLow": 4,
-        "cloudTotal": 4,
-        "visibility": 24980,
-        "humidity": 79,
+        "cloudLow": 5,
+        "cloudTotal": 5,
+        "visibility": 13680,
+        "humidity": 76,
         "precipProb": 0,
-        "temp": 29,
+        "temp": 28.6,
         "weatherCode": 0
       }
     }
