@@ -1,25 +1,25 @@
 {
-  "date": "2026-10-20",
+  "date": "2026-10-21",
   "session": "sunset",
-  "lockedAt": "2026-10-20T07:30:06.943Z",
+  "lockedAt": "2026-10-21T07:30:04.482Z",
   "skyfire": {
-    "score": 35,
+    "score": 5,
     "rating": {
-      "level": "FAINT",
-      "badge": "平淡暮光",
-      "icon": "🌤️",
-      "color": "#7B88A8",
-      "secondaryColor": "#A0AEC0",
-      "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
-      "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
+      "level": "OVERCAST",
+      "badge": "陰沉沉寂",
+      "icon": "☁️",
+      "color": "#5A6275",
+      "secondaryColor": "#394150",
+      "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+      "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 0,
-      "lowCloudPenalty": 0,
-      "horizonScore": 29,
-      "visibilityScore": 15,
-      "horizonClearance": 95,
-      "visKm": 31.6
+      "cloudQualityScore": 8,
+      "lowCloudPenalty": 43,
+      "horizonScore": 0,
+      "visibilityScore": 4,
+      "horizonClearance": 1,
+      "visKm": 6.1
     },
     "diagnostics": [
       {
@@ -30,17 +30,17 @@
       {
         "label": "中空雲層 (2,000-6,000m)",
         "status": "low",
-        "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+        "desc": "中雲量稀疏 (14%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方西方地平線透光窗",
-        "status": "optimal",
-        "desc": "低雲遮蔽極低 (5%)，透光窗達 95%，陽光無阻直射雲底！"
+        "status": "bad",
+        "desc": "低雲遮蔽高達 80%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "optimal",
-        "desc": "能見度優異（31.64 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+        "status": "bad",
+        "desc": "能見度受限（6.08 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-20T09:00:00.000Z",
-    "timeStr": "2026-10-20T17:00",
+    "time": "2026-10-21T09:00:00.000Z",
+    "timeStr": "2026-10-21T17:00",
     "cloudHigh": 0,
-    "cloudMid": 0,
-    "cloudLow": 5,
-    "cloudTotal": 5,
-    "visibility": 31640,
-    "humidity": 60,
-    "precipProb": 0,
-    "temp": 30.5,
-    "weatherCode": 0
+    "cloudMid": 14,
+    "cloudLow": 80,
+    "cloudTotal": 82,
+    "visibility": 6080,
+    "humidity": 83,
+    "precipProb": 73,
+    "temp": 24.7,
+    "weatherCode": 51
   }
 }
