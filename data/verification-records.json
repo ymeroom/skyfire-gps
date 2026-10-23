@@ -48,10 +48,10 @@
         "applied": false,
         "reason": "already at or below rain cap",
         "isRaining": true,
-        "precipitationMm": 3.5,
+        "precipitationMm": 3.9,
         "weatherCode": 63
       },
-      "verifiedAt": "2026-10-22T22:10:19.890Z",
+      "verifiedAt": "2026-10-23T01:00:22.351Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
