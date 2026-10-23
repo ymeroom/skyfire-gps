@@ -1,7 +1,7 @@
 {
-  "date": "2026-10-22",
+  "date": "2026-10-24",
   "session": "sunrise",
-  "lockedAt": "2026-10-21T15:45:08.616Z",
+  "lockedAt": "2026-10-23T15:45:04.890Z",
   "skyfire": {
     "score": 5,
     "rating": {
@@ -15,11 +15,11 @@
     },
     "metrics": {
       "cloudQualityScore": 29,
-      "lowCloudPenalty": 53,
+      "lowCloudPenalty": 52,
       "horizonScore": 0,
       "visibilityScore": 4,
       "horizonClearance": 0,
-      "visKm": 6.1
+      "visKm": 5.6
     },
     "diagnostics": [
       {
@@ -30,17 +30,17 @@
       {
         "label": "中空立體高積雲 (2,000-6,000m)",
         "status": "optimal",
-        "desc": "中雲量達 45%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+        "desc": "中雲量達 38%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
       },
       {
         "label": "遠方東方地平線透光窗",
         "status": "bad",
-        "desc": "低雲遮蔽高達 100%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "desc": "低雲遮蔽高達 99%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
       },
       {
         "label": "大氣能見度與通透度",
         "status": "bad",
-        "desc": "能見度受限（6.06 公里），霧霾或水氣可能使天色偏灰白。"
+        "desc": "能見度受限（5.62 公里），霧霾或水氣可能使天色偏灰白。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-10-21T22:00:00.000Z",
-    "timeStr": "2026-10-22T06:00",
+    "time": "2026-10-23T22:00:00.000Z",
+    "timeStr": "2026-10-24T06:00",
     "cloudHigh": 100,
-    "cloudMid": 45,
-    "cloudLow": 100,
+    "cloudMid": 38,
+    "cloudLow": 99,
     "cloudTotal": 100,
-    "visibility": 6060,
-    "humidity": 92,
-    "precipProb": 95,
-    "temp": 22.4,
-    "weatherCode": 53
+    "visibility": 5620,
+    "humidity": 98,
+    "precipProb": 97,
+    "temp": 25.2,
+    "weatherCode": 51
   }
 }
