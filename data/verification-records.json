@@ -1,5 +1,63 @@
 [
   {
+    "id": "rec-2026-10-25-sunrise",
+    "date": "2026-10-25",
+    "session": "sunrise",
+    "targetTime": "2026-10-24T21:58:04.720Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 58,
+      "rating": "局部霞光",
+      "color": "#E5A50A",
+      "highCloud": 53,
+      "midCloud": 20,
+      "lowCloud": 5,
+      "horizonClearance": 12,
+      "visibilityKm": 9.9,
+      "isSimulated": false,
+      "lockedAt": "2026-10-24T15:45:06.055Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-10-25-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-25-sunrise.jpg",
+      "sha256": "e55d922f1a4d97b17ea07610a629375505b3f6179be184da348a7da7bbb79dda",
+      "capturedAt": "2026-10-24T22:10:04.998Z",
+      "offsetMinutes": 12,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 17,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 41,
+      "verdict": "MISMATCH",
+      "verdictBadge": "⚠️ 出現偏差需校準",
+      "chromaticPurity": 35.3,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-24T21:34:46.979000+00:00",
+        "windowEnd": "2026-10-24T22:29:15.094000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
+      },
+      "verifiedAt": "2026-10-24T22:10:18.998Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-24-sunset",
     "date": "2026-10-24",
     "session": "sunset",
@@ -5198,68 +5256,6 @@
       "verifiedAt": "2026-09-09T05:51:30.733Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
-    }
-  },
-  {
-    "id": "rec-2026-09-09-sunset",
-    "date": "2026-09-09",
-    "session": "sunset",
-    "targetTime": "2026-09-09T10:06:40.596Z",
-    "source": "大稻埕碼頭（4K 官方即時影像）",
-    "prediction": {
-      "score": 44,
-      "rating": "平淡暮光",
-      "color": "#7B88A8",
-      "highCloud": 0,
-      "midCloud": 56,
-      "lowCloud": 11,
-      "horizonClearance": 83,
-      "visibilityKm": 9.4,
-      "isSimulated": false,
-      "lockedAt": "2026-09-09T08:06:19.768Z"
-    },
-    "snapshotUrl": "data/snapshots/2026-09-09-sunset.jpg",
-    "capture": {
-      "width": 1280,
-      "height": 720,
-      "fileName": "2026-09-09-sunset.jpg",
-      "sha256": "88c62c9fc59f82eb2a2f817e6ec6528e4072d089c2161d9a96c03c52e71015fa",
-      "capturedAt": "2026-09-09T14:48:43.751Z",
-      "offsetMinutes": 282,
-      "kind": "youtube-live-poster",
-      "fidelity": "degraded",
-      "posterQuality": "maxresdefault",
-      "fallbackReason": "yt-dlp exited with 1: ERROR: [youtube] Ndo_8RuefH4: No video formats found!; please report this issue on  https://github.com/yt-dlp/yt-dlp/issues?q= , filling out the appropriate issue template. Confirm you are on the latest version using  yt-dlp -U",
-      "validated": true
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 27,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 17,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 49.5,
-      "skyCoveragePct": 3,
-      "nightGate": {
-        "applied": false,
-        "reason": "within twilight window",
-        "windowStart": "2026-09-09T09:36:23.877000+00:00",
-        "windowEnd": "2026-09-09T10:29:41.628000+00:00"
-      },
-      "rainGate": {
-        "applied": false,
-        "reason": "already at or below rain cap",
-        "isRaining": true,
-        "precipitationMm": 0.1,
-        "weatherCode": 51
-      },
-      "verifiedAt": "2026-09-09T14:49:25.893Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
-      "isSimulated": false,
-      "reliable": false,
-      "unreliableReason": "Tier B 海報影格實為頻道靜態宣傳縮圖（與 9/11 同一 SHA-256），擷取時距日落 282 分鐘，非出景當刻畫面；當天無其他可用影格"
     }
   }
 ]
