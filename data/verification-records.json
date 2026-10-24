@@ -23,8 +23,8 @@
       "height": 360,
       "fileName": "2026-10-24-sunrise.jpg",
       "sha256": "74718ad15792c4dc4522671da001eb1839c43a878fd1d08f1e9980ef35edd9a0",
-      "capturedAt": "2026-10-23T22:10:04.932Z",
-      "offsetMinutes": 13,
+      "capturedAt": "2026-10-24T01:00:05.099Z",
+      "offsetMinutes": 183,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -49,10 +49,10 @@
         "applied": false,
         "reason": "already at or below rain cap",
         "isRaining": true,
-        "precipitationMm": 0.1,
-        "weatherCode": 51
+        "precipitationMm": 2.5,
+        "weatherCode": 63
       },
-      "verifiedAt": "2026-10-23T22:10:18.847Z",
+      "verifiedAt": "2026-10-24T01:00:17.608Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
