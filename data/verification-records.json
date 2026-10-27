@@ -6,14 +6,14 @@
     "targetTime": "2026-10-26T21:59:13.165Z",
     "source": "象山看台北 101（4K 官方即時影像）",
     "prediction": {
-      "score": 5,
+      "score": 9,
       "rating": "陰沉沉寂",
       "color": "#5A6275",
       "highCloud": 0,
       "midCloud": 0,
-      "lowCloud": 77,
-      "horizonClearance": 3,
-      "visibilityKm": 0.2,
+      "lowCloud": 40,
+      "horizonClearance": 33,
+      "visibilityKm": 0.6,
       "isSimulated": false
     },
     "snapshotUrl": "data/snapshots/2026-10-27-sunrise.jpg",
@@ -22,8 +22,8 @@
       "height": 360,
       "fileName": "2026-10-27-sunrise.jpg",
       "sha256": "02e2981983387617b6c6ea85744d5457dc8acb98a0764b65774da2ba5cafa48a",
-      "capturedAt": "2026-10-27T00:05:43.858Z",
-      "offsetMinutes": 127,
+      "capturedAt": "2026-10-27T01:00:14.786Z",
+      "offsetMinutes": 181,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -33,9 +33,9 @@
       "groundTruthScore": 17,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 12,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "errorAbsolute": 8,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
       "chromaticPurity": 37.2,
       "skyCoveragePct": 0,
       "nightGate": {
@@ -51,7 +51,7 @@
         "precipitationMm": 0,
         "weatherCode": 45
       },
-      "verifiedAt": "2026-10-27T00:06:15.825Z",
+      "verifiedAt": "2026-10-27T01:00:30.430Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
