@@ -50,9 +50,9 @@
         "reason": "not raining",
         "isRaining": false,
         "precipitationMm": 0,
-        "weatherCode": 3
+        "weatherCode": 2
       },
-      "verifiedAt": "2026-10-29T09:45:22.633Z",
+      "verifiedAt": "2026-10-29T13:00:19.067Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
