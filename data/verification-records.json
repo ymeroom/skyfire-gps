@@ -1,5 +1,39 @@
 [
   {
+    "id": "rec-2026-10-31-sunrise",
+    "date": "2026-10-31",
+    "session": "sunrise",
+    "targetTime": "2026-10-30T22:01:36.144Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 35,
+      "rating": "平淡暮光",
+      "color": "#7B88A8",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 4,
+      "horizonClearance": 79,
+      "visibilityKm": 21.7,
+      "isSimulated": false,
+      "lockedAt": "2026-10-30T15:45:05.748Z"
+    },
+    "snapshotUrl": null,
+    "capture": {
+      "kind": null,
+      "fidelity": "none",
+      "validated": false,
+      "capturedAt": "2026-10-30T22:10:08.446Z",
+      "offsetMinutes": 9,
+      "error": "DVR rewind of 9 min failed (spawnSync curl ETIMEDOUT); live-edge frame would not show the event"
+    },
+    "verification": {
+      "status": "capture_unavailable",
+      "groundTruthScore": null,
+      "errorAbsolute": null,
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-10-30-sunset",
     "date": "2026-10-30",
     "session": "sunset",
@@ -5173,66 +5207,6 @@
         "weatherCode": 51
       },
       "verifiedAt": "2026-09-14T13:00:15.714Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
-      "isSimulated": false
-    }
-  },
-  {
-    "id": "rec-2026-09-14-sunrise",
-    "date": "2026-09-14",
-    "session": "sunrise",
-    "targetTime": "2026-09-13T21:40:38.906Z",
-    "source": "象山看台北 101（4K 官方即時影像）",
-    "prediction": {
-      "score": 5,
-      "rating": "陰沉沉寂",
-      "color": "#5A6275",
-      "highCloud": 0,
-      "midCloud": 9,
-      "lowCloud": 67,
-      "horizonClearance": 16,
-      "visibilityKm": 10.6,
-      "isSimulated": false,
-      "lockedAt": "2026-09-13T15:45:04.882Z"
-    },
-    "snapshotUrl": "data/snapshots/2026-09-14-sunrise.jpg",
-    "capture": {
-      "width": 640,
-      "height": 360,
-      "fileName": "2026-09-14-sunrise.jpg",
-      "sha256": "22aa0e4a8074de1634229307d9fd0a0eb5c2dcc45cd098367819a91d9a831e74",
-      "capturedAt": "2026-09-14T01:00:04.594Z",
-      "offsetMinutes": 199,
-      "kind": "youtube-live-frame",
-      "fidelity": "exact",
-      "posterQuality": null,
-      "fallbackReason": null,
-      "validated": true
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 18,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 13,
-      "verdict": "SLIGHT_DEVIATION",
-      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 38.9,
-      "skyCoveragePct": 0,
-      "nightGate": {
-        "applied": false,
-        "reason": "within twilight window",
-        "windowStart": "2026-09-13T21:17:44.015000+00:00",
-        "windowEnd": "2026-09-13T22:10:50.898000+00:00"
-      },
-      "rainGate": {
-        "applied": false,
-        "reason": "not raining",
-        "isRaining": false,
-        "precipitationMm": 0,
-        "weatherCode": 0
-      },
-      "verifiedAt": "2026-09-14T01:00:13.741Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
