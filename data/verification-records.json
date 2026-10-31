@@ -17,19 +17,43 @@
       "isSimulated": false,
       "lockedAt": "2026-10-30T15:45:05.748Z"
     },
-    "snapshotUrl": null,
+    "snapshotUrl": "data/snapshots/2026-10-31-sunrise.jpg",
     "capture": {
-      "kind": null,
-      "fidelity": "none",
-      "validated": false,
-      "capturedAt": "2026-10-30T22:10:08.446Z",
-      "offsetMinutes": 9,
-      "error": "DVR rewind of 9 min failed (spawnSync curl ETIMEDOUT); live-edge frame would not show the event"
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-10-31-sunrise.jpg",
+      "sha256": "02afc3bf04dff25ccf210a5026c6109a73967d8312f86ddebe11863f88ada8ac",
+      "capturedAt": "2026-10-31T01:00:04.867Z",
+      "offsetMinutes": 178,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
     },
     "verification": {
-      "status": "capture_unavailable",
-      "groundTruthScore": null,
-      "errorAbsolute": null,
+      "status": "verified_completed",
+      "groundTruthScore": 19,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 16,
+      "verdict": "SLIGHT_DEVIATION",
+      "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
+      "chromaticPurity": 40.2,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-10-30T21:38:06.007000+00:00",
+        "windowEnd": "2026-10-30T22:33:07.318000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 0
+      },
+      "verifiedAt": "2026-10-31T01:00:22.764Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
   },
