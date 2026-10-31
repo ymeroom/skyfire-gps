@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-10-31-sunset.jpg",
-      "sha256": "4b8b31efd81e3d63263464c00968077860a5eeae4c78414fd5aa078746910643",
-      "capturedAt": "2026-10-31T09:45:03.640Z",
-      "offsetMinutes": 29,
+      "sha256": "10dc2f77560b7ca3d1f027e329de17d7f7303074f8e0f02dec93d017ca9f2da8",
+      "capturedAt": "2026-10-31T13:00:04.230Z",
+      "offsetMinutes": 224,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -37,8 +37,8 @@
       "errorAbsolute": 12,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
-      "chromaticPurity": 37.1,
-      "skyCoveragePct": 0.1,
+      "chromaticPurity": 36.4,
+      "skyCoveragePct": 0,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 3
       },
-      "verifiedAt": "2026-10-31T09:45:13.696Z",
+      "verifiedAt": "2026-10-31T13:00:15.057Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
