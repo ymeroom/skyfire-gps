@@ -1,7 +1,7 @@
 {
-  "date": "2026-11-01",
+  "date": "2026-11-02",
   "session": "sunset",
-  "lockedAt": "2026-11-01T07:30:12.596Z",
+  "lockedAt": "2026-11-02T07:30:14.107Z",
   "stationCount": 6,
   "failures": [],
   "stations": [
@@ -26,31 +26,31 @@
         "metrics": {
           "cloudQualityScore": 1,
           "lowCloudPenalty": 0,
-          "horizonScore": 30,
-          "visibilityScore": 15,
-          "horizonClearance": 100,
-          "visKm": 25.4
+          "horizonScore": 19,
+          "visibilityScore": 14,
+          "horizonClearance": 63,
+          "visKm": 21.5
         },
         "diagnostics": [
           {
             "label": "高空卷雲 (6,000m+)",
             "status": "low",
-            "desc": "高雲量僅 2%，上方缺少大面積紅色漫射反光板。"
+            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
             "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+            "desc": "中雲量稀疏 (1%)，雲彩層次感較為單純。"
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
+            "status": "fair",
+            "desc": "低雲量約 3%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（25.38 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（21.5 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -63,16 +63,16 @@
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 2,
-        "cloudMid": 0,
-        "cloudLow": 0,
-        "cloudTotal": 2,
-        "visibility": 25380,
-        "humidity": 73,
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 0,
+        "cloudMid": 1,
+        "cloudLow": 3,
+        "cloudTotal": 4,
+        "visibility": 21500,
+        "humidity": 83,
         "precipProb": 0,
-        "temp": 25.7,
+        "temp": 24.3,
         "weatherCode": 0
       }
     },
@@ -84,7 +84,7 @@
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
-        "score": 35,
+        "score": 33,
         "rating": {
           "level": "FAINT",
           "badge": "平淡暮光",
@@ -95,18 +95,18 @@
           "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 4,
-          "lowCloudPenalty": 0,
-          "horizonScore": 29,
+          "cloudQualityScore": 18,
+          "lowCloudPenalty": 14,
+          "horizonScore": 9,
           "visibilityScore": 15,
-          "horizonClearance": 96,
-          "visKm": 33.4
+          "horizonClearance": 29,
+          "visKm": 25.5
         },
         "diagnostics": [
           {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 5%，上方缺少大面積紅色漫射反光板。"
+            "label": "高空卷層雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量偏高 (75%)，漫射面積大但光線穿透度可能稍微受限。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -115,13 +115,13 @@
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (4%)，透光窗達 96%，陽光無阻直射雲底！"
+            "status": "fair",
+            "desc": "低雲量約 45%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（33.4 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（25.5 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -134,17 +134,17 @@
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 5,
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 75,
         "cloudMid": 0,
-        "cloudLow": 4,
-        "cloudTotal": 9,
-        "visibility": 33400,
+        "cloudLow": 45,
+        "cloudTotal": 86,
+        "visibility": 25500,
         "humidity": 95,
-        "precipProb": 27,
-        "temp": 18,
-        "weatherCode": 0
+        "precipProb": 16,
+        "temp": 17.7,
+        "weatherCode": 3
       }
     },
     {
@@ -155,7 +155,7 @@
       "category": "both",
       "isSimulated": false,
       "skyfire": {
-        "score": 35,
+        "score": 40,
         "rating": {
           "level": "FAINT",
           "badge": "平淡暮光",
@@ -166,18 +166,18 @@
           "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 2,
-          "lowCloudPenalty": 0,
-          "horizonScore": 30,
+          "cloudQualityScore": 24,
+          "lowCloudPenalty": 13,
+          "horizonScore": 8,
           "visibilityScore": 15,
-          "horizonClearance": 99,
-          "visKm": 64.4
+          "horizonClearance": 26,
+          "visKm": 54.4
         },
         "diagnostics": [
           {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 3%，上方缺少大面積紅色漫射反光板。"
+            "label": "高空卷層雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量偏高 (76%)，漫射面積大但光線穿透度可能稍微受限。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -186,13 +186,13 @@
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (1%)，透光窗達 99%，陽光無阻直射雲底！"
+            "status": "fair",
+            "desc": "低雲量約 44%，地平線具有部分透光縫隙，呈現局部霞光。"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（64.42 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（54.42 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
@@ -205,17 +205,17 @@
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 3,
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 76,
         "cloudMid": 0,
-        "cloudLow": 1,
-        "cloudTotal": 5,
-        "visibility": 64420,
-        "humidity": 83,
+        "cloudLow": 44,
+        "cloudTotal": 87,
+        "visibility": 54420,
+        "humidity": 88,
         "precipProb": 0,
-        "temp": 13.1,
-        "weatherCode": 0
+        "temp": 14,
+        "weatherCode": 3
       }
     },
     {
@@ -226,67 +226,67 @@
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
-        "score": 63,
+        "score": 72,
         "rating": {
-          "level": "MODERATE",
-          "badge": "局部霞光",
-          "icon": "⛅",
-          "color": "#E5A50A",
-          "secondaryColor": "#3A86FF",
-          "summary": "局部泛紅・唯美溫潤。地平線或天際線邊緣可見金橘色光芒。",
-          "bgGradient": "linear-gradient(135deg, rgba(229,165,10,0.25) 0%, rgba(58,134,255,0.15) 100%)"
+          "level": "GREAT",
+          "badge": "壯麗火燒雲",
+          "icon": "🔥",
+          "color": "#FF6B00",
+          "secondaryColor": "#FFB800",
+          "summary": "雲層立體・霞光萬道！高中雲層層次豐富，強烈建議攜帶相機出景。",
+          "bgGradient": "linear-gradient(135deg, rgba(255,107,0,0.3) 0%, rgba(255,184,0,0.2) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 8,
+          "cloudQualityScore": 24,
           "lowCloudPenalty": 0,
-          "horizonScore": 29,
+          "horizonScore": 23,
           "visibilityScore": 15,
-          "horizonClearance": 98,
-          "visKm": 28.1
+          "horizonClearance": 78,
+          "visKm": 26.3
         },
         "diagnostics": [
           {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 11%，上方缺少大面積紅色漫射反光板。"
+            "label": "高空卷雲天幕 (6,000m+)",
+            "status": "optimal",
+            "desc": "高雲量達 67%，呈現完美的天然反射天幕，極利於接收低仰角紅光。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
             "status": "low",
-            "desc": "中雲量稀疏 (1%)，雲彩層次感較為單純。"
+            "desc": "中雲量稀疏 (6%)，雲彩層次感較為單純。"
           },
           {
             "label": "遠方西方地平線透光窗",
             "status": "optimal",
-            "desc": "低雲遮蔽極低 (1%)，透光窗達 98%，陽光無阻直射雲底！"
+            "desc": "低雲遮蔽極低 (3%)，透光窗達 78%，陽光無阻直射雲底！"
           },
           {
             "label": "大氣能見度與通透度",
             "status": "optimal",
-            "desc": "能見度優異（28.14 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "desc": "能見度優異（26.28 公里），大氣清澈通透，晚霞色彩飽和純淨。"
           }
         ],
         "photoTips": {
-          "bestTime": "日落當刻至日落後 15 分鐘",
-          "whiteBalance": "建議 6000K - 7000K 增強夕陽色彩飽和度",
-          "filter": "可搭配 CPL 偏光鏡增強雲層對比度",
-          "exposure": "曝光補償 -0.3 EV 至 -0.7 EV",
-          "lens": "標準變焦鏡頭 (24-70mm)，取景聚焦於地平線光芒交會處與地景輪廓",
-          "mobileTip": "建議開啟手機 HDR 模式，並利用三分法將地平線置於下 1/3 處。"
+          "bestTime": "日落前 15 分 至 日落後 25 分 (反火燒巔峰)",
+          "whiteBalance": "色溫手動設為 5600K - 6500K 或「陰影/陰天模式」(強調濃郁暖金色調)",
+          "filter": "建議搭配 0.9 (3-Stop) 軟式漸變減光鏡 (Soft GND) 平衡天空與地景光比",
+          "exposure": "建議曝光補償 -0.7 EV 至 -1.0 EV，避免天空高光橘紅區域溢出過曝",
+          "lens": "超廣角 (16-24mm) 捕捉全天漫天火燒，中焦段 (50-85mm) 特寫局部高積雲波紋",
+          "mobileTip": "手機拍攝請長按對焦在亮部雲彩並「向下拉低曝光小太陽」以獲得最濃郁飽和色彩。"
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 11,
-        "cloudMid": 1,
-        "cloudLow": 1,
-        "cloudTotal": 13,
-        "visibility": 28140,
-        "humidity": 74,
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 67,
+        "cloudMid": 6,
+        "cloudLow": 3,
+        "cloudTotal": 70,
+        "visibility": 26280,
+        "humidity": 77,
         "precipProb": 0,
-        "temp": 25.3,
-        "weatherCode": 0
+        "temp": 24.7,
+        "weatherCode": 2
       }
     },
     {
@@ -297,44 +297,44 @@
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
-        "score": 35,
+        "score": 5,
         "rating": {
-          "level": "FAINT",
-          "badge": "平淡暮光",
-          "icon": "🌤️",
-          "color": "#7B88A8",
-          "secondaryColor": "#A0AEC0",
-          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
-          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
+          "level": "OVERCAST",
+          "badge": "陰沉沉寂",
+          "icon": "☁️",
+          "color": "#5A6275",
+          "secondaryColor": "#394150",
+          "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+          "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 0,
-          "lowCloudPenalty": 0,
-          "horizonScore": 30,
-          "visibilityScore": 14,
-          "horizonClearance": 100,
-          "visKm": 23.2
+          "cloudQualityScore": 19,
+          "lowCloudPenalty": 38,
+          "horizonScore": 0,
+          "visibilityScore": 12,
+          "horizonClearance": 1,
+          "visKm": 16.7
         },
         "diagnostics": [
           {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+            "label": "高空卷層雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量偏高 (71%)，漫射面積大但光線穿透度可能稍微受限。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
             "status": "low",
-            "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
+            "desc": "中雲量稀疏 (1%)，雲彩層次感較為單純。"
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
+            "status": "bad",
+            "desc": "低雲遮蔽高達 70%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（23.16 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "status": "fair",
+            "desc": "能見度正常（16.7 公里），色彩呈現良好。"
           }
         ],
         "photoTips": {
@@ -347,17 +347,17 @@
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 0,
-        "cloudMid": 0,
-        "cloudLow": 0,
-        "cloudTotal": 0,
-        "visibility": 23160,
-        "humidity": 87,
-        "precipProb": 0,
-        "temp": 25.6,
-        "weatherCode": 0
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 71,
+        "cloudMid": 1,
+        "cloudLow": 70,
+        "cloudTotal": 91,
+        "visibility": 16700,
+        "humidity": 83,
+        "precipProb": 75,
+        "temp": 23.4,
+        "weatherCode": 3
       }
     },
     {
@@ -368,29 +368,29 @@
       "category": "sunset",
       "isSimulated": false,
       "skyfire": {
-        "score": 35,
+        "score": 5,
         "rating": {
-          "level": "FAINT",
-          "badge": "平淡暮光",
-          "icon": "🌤️",
-          "color": "#7B88A8",
-          "secondaryColor": "#A0AEC0",
-          "summary": "雲量偏少或光線受阻，主要為漸層藍調或柔和微光。",
-          "bgGradient": "linear-gradient(135deg, rgba(123,136,168,0.2) 0%, rgba(160,174,192,0.1) 100%)"
+          "level": "OVERCAST",
+          "badge": "陰沉沉寂",
+          "icon": "☁️",
+          "color": "#5A6275",
+          "secondaryColor": "#394150",
+          "summary": "厚重低雲覆蓋天際或有陣雨，天色灰暗難見彩霞。",
+          "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
         },
         "metrics": {
-          "cloudQualityScore": 0,
-          "lowCloudPenalty": 0,
-          "horizonScore": 30,
-          "visibilityScore": 15,
-          "horizonClearance": 100,
-          "visKm": 26
+          "cloudQualityScore": 24,
+          "lowCloudPenalty": 53,
+          "horizonScore": 0,
+          "visibilityScore": 12,
+          "horizonClearance": 0,
+          "visKm": 18.3
         },
         "diagnostics": [
           {
-            "label": "高空卷雲 (6,000m+)",
-            "status": "low",
-            "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
+            "label": "高空卷層雲 (6,000m+)",
+            "status": "fair",
+            "desc": "高雲量偏高 (77%)，漫射面積大但光線穿透度可能稍微受限。"
           },
           {
             "label": "中空雲層 (2,000-6,000m)",
@@ -399,13 +399,13 @@
           },
           {
             "label": "遠方西方地平線透光窗",
-            "status": "optimal",
-            "desc": "低雲遮蔽極低 (0%)，透光窗達 100%，陽光無阻直射雲底！"
+            "status": "bad",
+            "desc": "低雲遮蔽高達 100%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
           },
           {
             "label": "大氣能見度與通透度",
-            "status": "optimal",
-            "desc": "能見度優異（25.98 公里），大氣清澈通透，晚霞色彩飽和純淨。"
+            "status": "fair",
+            "desc": "能見度正常（18.3 公里），色彩呈現良好。"
           }
         ],
         "photoTips": {
@@ -418,17 +418,17 @@
         }
       },
       "weather": {
-        "time": "2026-11-01T09:00:00.000Z",
-        "timeStr": "2026-11-01T17:00",
-        "cloudHigh": 0,
+        "time": "2026-11-02T09:00:00.000Z",
+        "timeStr": "2026-11-02T17:00",
+        "cloudHigh": 77,
         "cloudMid": 0,
-        "cloudLow": 0,
-        "cloudTotal": 0,
-        "visibility": 25980,
-        "humidity": 85,
+        "cloudLow": 100,
+        "cloudTotal": 100,
+        "visibility": 18300,
+        "humidity": 84,
         "precipProb": 0,
-        "temp": 25.8,
-        "weatherCode": 0
+        "temp": 24,
+        "weatherCode": 3
       }
     }
   ]
