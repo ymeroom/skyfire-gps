@@ -22,23 +22,23 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-11-04-sunset.jpg",
-      "sha256": "6ca11eb379e608c56d051fdbf45309e3153c2d55c0d0e8884316e38135053b66",
-      "capturedAt": "2026-11-04T09:45:04.163Z",
-      "offsetMinutes": 32,
+      "sha256": "1e67fe440f059dc5da1b800cc54a632d4d7f59b4f3aaca39e4a90bbe12c2c4ce",
+      "capturedAt": "2026-11-04T13:00:06.823Z",
+      "offsetMinutes": 227,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 14,
+      "groundTruthScore": 15,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 21,
+      "errorAbsolute": 20,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 30.8,
-      "skyCoveragePct": 0,
+      "chromaticPurity": 32.6,
+      "skyCoveragePct": 0.2,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -52,7 +52,7 @@
         "precipitationMm": 0,
         "weatherCode": 0
       },
-      "verifiedAt": "2026-11-04T09:45:16.420Z",
+      "verifiedAt": "2026-11-04T13:00:24.812Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
