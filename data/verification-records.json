@@ -22,9 +22,9 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-11-06-sunrise.jpg",
-      "sha256": "812078abb96b7d502cc0f0ac107309706d230487b93483d54c110cf6335ab507",
-      "capturedAt": "2026-11-05T22:10:04.574Z",
-      "offsetMinutes": 5,
+      "sha256": "e21b8f8a6c5e63760103b9460457f17e7480a169943d2cc1fa61ccdaed03f0eb",
+      "capturedAt": "2026-11-06T01:00:05.318Z",
+      "offsetMinutes": 175,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
@@ -37,8 +37,8 @@
       "errorAbsolute": 8,
       "verdict": "EXACT_MATCH",
       "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
-      "chromaticPurity": 25.5,
-      "skyCoveragePct": 1.7,
+      "chromaticPurity": 25.6,
+      "skyCoveragePct": 1,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -47,9 +47,12 @@
       },
       "rainGate": {
         "applied": false,
-        "reason": "no rain data available"
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 3
       },
-      "verifiedAt": "2026-11-05T22:10:17.017Z",
+      "verifiedAt": "2026-11-06T01:00:22.826Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
