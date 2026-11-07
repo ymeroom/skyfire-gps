@@ -22,23 +22,23 @@
       "width": 640,
       "height": 360,
       "fileName": "2026-11-07-sunset.jpg",
-      "sha256": "fadf6f13ffcc7d20fb9afc590d7a29f1128a2afb53ea396c16273ae1125425a8",
-      "capturedAt": "2026-11-07T09:45:03.847Z",
-      "offsetMinutes": 34,
+      "sha256": "896d0017651444019192e655c42c26246e0d003f5ce2bc8a8af8fb61a9a043b6",
+      "capturedAt": "2026-11-07T13:00:07.520Z",
+      "offsetMinutes": 229,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 21,
+      "groundTruthScore": 20,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 16,
+      "errorAbsolute": 15,
       "verdict": "SLIGHT_DEVIATION",
       "verdictBadge": "⚡ 輕微偏差 (誤差 ≤ 18分)",
       "chromaticPurity": 33.3,
-      "skyCoveragePct": 4.9,
+      "skyCoveragePct": 4.7,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -47,12 +47,12 @@
       },
       "rainGate": {
         "applied": false,
-        "reason": "not raining",
-        "isRaining": false,
-        "precipitationMm": 0,
-        "weatherCode": 2
+        "reason": "already at or below rain cap",
+        "isRaining": true,
+        "precipitationMm": 0.1,
+        "weatherCode": 51
       },
-      "verifiedAt": "2026-11-07T09:45:17.717Z",
+      "verifiedAt": "2026-11-07T13:00:30.813Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
