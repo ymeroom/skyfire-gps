@@ -1,5 +1,60 @@
 [
   {
+    "id": "rec-2026-11-08-sunrise",
+    "date": "2026-11-08",
+    "session": "sunrise",
+    "targetTime": "2026-11-07T22:06:44.933Z",
+    "source": "象山看台北 101（4K 官方即時影像）",
+    "prediction": {
+      "score": 26,
+      "rating": "陰沉沉寂",
+      "color": "#5A6275",
+      "highCloud": 0,
+      "midCloud": 0,
+      "lowCloud": 4,
+      "horizonClearance": 2,
+      "visibilityKm": 26.6,
+      "isSimulated": false,
+      "lockedAt": "2026-11-07T15:45:05.498Z"
+    },
+    "snapshotUrl": "data/snapshots/2026-11-08-sunrise.jpg",
+    "capture": {
+      "width": 640,
+      "height": 360,
+      "fileName": "2026-11-08-sunrise.jpg",
+      "sha256": "e3a50c72069f25d7d5edb07d3a312510cdb71940032b1cc91a308c859baf4f19",
+      "capturedAt": "2026-11-07T22:10:04.267Z",
+      "offsetMinutes": 3,
+      "kind": "youtube-live-frame",
+      "fidelity": "exact",
+      "validated": true
+    },
+    "verification": {
+      "status": "verified_completed",
+      "groundTruthScore": 18,
+      "groundTruthBadge": "陰沉沉寂",
+      "groundTruthLevel": "OVERCAST",
+      "errorAbsolute": 8,
+      "verdict": "EXACT_MATCH",
+      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
+      "chromaticPurity": 37.7,
+      "skyCoveragePct": 0,
+      "nightGate": {
+        "applied": false,
+        "reason": "within twilight window",
+        "windowStart": "2026-11-07T21:42:56.289000+00:00",
+        "windowEnd": "2026-11-07T22:38:46.500000+00:00"
+      },
+      "rainGate": {
+        "applied": false,
+        "reason": "no rain data available"
+      },
+      "verifiedAt": "2026-11-07T22:10:15.455Z",
+      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
+      "isSimulated": false
+    }
+  },
+  {
     "id": "rec-2026-11-07-sunset",
     "date": "2026-11-07",
     "session": "sunset",
@@ -5143,66 +5198,6 @@
         "weatherCode": 0
       },
       "verifiedAt": "2026-09-22T13:00:20.192Z",
-      "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
-      "isSimulated": false
-    }
-  },
-  {
-    "id": "rec-2026-09-22-sunrise",
-    "date": "2026-09-22",
-    "session": "sunrise",
-    "targetTime": "2026-09-21T21:43:29.727Z",
-    "source": "象山看台北 101（4K 官方即時影像）",
-    "prediction": {
-      "score": 25,
-      "rating": "陰沉沉寂",
-      "color": "#5A6275",
-      "highCloud": 0,
-      "midCloud": 0,
-      "lowCloud": 6,
-      "horizonClearance": 26,
-      "visibilityKm": 15.5,
-      "isSimulated": false,
-      "lockedAt": "2026-09-21T15:45:05.789Z"
-    },
-    "snapshotUrl": "data/snapshots/2026-09-22-sunrise.jpg",
-    "capture": {
-      "width": 640,
-      "height": 360,
-      "fileName": "2026-09-22-sunrise.jpg",
-      "sha256": "cb16d5bde5eb95f07128f3429eadee6f2fef2102c4d411e2083a126da83028f6",
-      "capturedAt": "2026-09-22T01:00:05.220Z",
-      "offsetMinutes": 197,
-      "kind": "youtube-live-frame",
-      "fidelity": "exact",
-      "posterQuality": null,
-      "fallbackReason": null,
-      "validated": true
-    },
-    "verification": {
-      "status": "verified_completed",
-      "groundTruthScore": 17,
-      "groundTruthBadge": "陰沉沉寂",
-      "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 8,
-      "verdict": "EXACT_MATCH",
-      "verdictBadge": "🎯 極致精準 (誤差 ≤ 8分)",
-      "chromaticPurity": 36.6,
-      "skyCoveragePct": 0,
-      "nightGate": {
-        "applied": false,
-        "reason": "within twilight window",
-        "windowStart": "2026-09-21T21:20:40.197000+00:00",
-        "windowEnd": "2026-09-21T22:13:39.983000+00:00"
-      },
-      "rainGate": {
-        "applied": false,
-        "reason": "not raining",
-        "isRaining": false,
-        "precipitationMm": 0,
-        "weatherCode": 0
-      },
-      "verifiedAt": "2026-09-22T01:00:20.111Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
