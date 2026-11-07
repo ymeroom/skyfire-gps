@@ -1,9 +1,9 @@
 {
-  "date": "2026-11-07",
+  "date": "2026-11-08",
   "session": "sunrise",
-  "lockedAt": "2026-11-06T15:45:05.990Z",
+  "lockedAt": "2026-11-07T15:45:05.498Z",
   "skyfire": {
-    "score": 5,
+    "score": 26,
     "rating": {
       "level": "OVERCAST",
       "badge": "陰沉沉寂",
@@ -14,12 +14,12 @@
       "bgGradient": "linear-gradient(135deg, rgba(90,98,117,0.2) 0%, rgba(57,65,80,0.1) 100%)"
     },
     "metrics": {
-      "cloudQualityScore": 19,
-      "lowCloudPenalty": 38,
-      "horizonScore": 0,
-      "visibilityScore": 12,
-      "horizonClearance": 1,
-      "visKm": 17.9
+      "cloudQualityScore": 0,
+      "lowCloudPenalty": 0,
+      "horizonScore": 1,
+      "visibilityScore": 15,
+      "horizonClearance": 2,
+      "visKm": 26.6
     },
     "diagnostics": [
       {
@@ -28,19 +28,19 @@
         "desc": "高雲量僅 0%，上方缺少大面積紅色漫射反光板。"
       },
       {
-        "label": "中空立體高積雲 (2,000-6,000m)",
-        "status": "optimal",
-        "desc": "中雲量達 46%，極易形成如魚鱗、波狀之立體金色燃燒雲紋。"
+        "label": "中空雲層 (2,000-6,000m)",
+        "status": "low",
+        "desc": "中雲量稀疏 (0%)，雲彩層次感較為單純。"
       },
       {
         "label": "遠方東方地平線透光窗",
-        "status": "bad",
-        "desc": "低雲遮蔽高達 70%，厚雲層恐阻斷地平線入射光，投下暗灰色陰影。"
+        "status": "fair",
+        "desc": "低雲量約 4%，地平線具有部分透光縫隙，呈現局部霞光。"
       },
       {
         "label": "大氣能見度與通透度",
-        "status": "fair",
-        "desc": "能見度正常（17.88 公里），色彩呈現良好。"
+        "status": "optimal",
+        "desc": "能見度優異（26.62 公里），大氣清澈通透，晚霞色彩飽和純淨。"
       }
     ],
     "photoTips": {
@@ -53,16 +53,16 @@
     }
   },
   "weather": {
-    "time": "2026-11-06T22:00:00.000Z",
-    "timeStr": "2026-11-07T06:00",
+    "time": "2026-11-07T22:00:00.000Z",
+    "timeStr": "2026-11-08T06:00",
     "cloudHigh": 0,
-    "cloudMid": 46,
-    "cloudLow": 70,
-    "cloudTotal": 76,
-    "visibility": 17880,
-    "humidity": 84,
+    "cloudMid": 0,
+    "cloudLow": 4,
+    "cloudTotal": 4,
+    "visibility": 26620,
+    "humidity": 79,
     "precipProb": 0,
-    "temp": 22.5,
-    "weatherCode": 2
+    "temp": 22.1,
+    "weatherCode": 0
   }
 }
