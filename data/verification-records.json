@@ -19,26 +19,26 @@
     },
     "snapshotUrl": "data/snapshots/2026-11-11-sunrise.jpg",
     "capture": {
-      "width": 1920,
-      "height": 1080,
+      "width": 640,
+      "height": 360,
       "fileName": "2026-11-11-sunrise.jpg",
-      "sha256": "ae7db24a171eed7a6b9a87fa2a40384a9ed7ed577796f436d230efdeb2e12105",
-      "capturedAt": "2026-11-10T22:10:04.022Z",
-      "offsetMinutes": 1,
+      "sha256": "d449b6983d1799f2f5cb42319b7360ee096fc92d02ac5d4f8a64736014157bd8",
+      "capturedAt": "2026-11-11T01:01:22.613Z",
+      "offsetMinutes": 173,
       "kind": "youtube-live-frame",
       "fidelity": "exact",
       "validated": true
     },
     "verification": {
       "status": "verified_completed",
-      "groundTruthScore": 19,
+      "groundTruthScore": 18,
       "groundTruthBadge": "陰沉沉寂",
       "groundTruthLevel": "OVERCAST",
-      "errorAbsolute": 73,
+      "errorAbsolute": 74,
       "verdict": "MISMATCH",
       "verdictBadge": "⚠️ 出現偏差需校準",
-      "chromaticPurity": 33.9,
-      "skyCoveragePct": 2.7,
+      "chromaticPurity": 32.7,
+      "skyCoveragePct": 2.4,
       "nightGate": {
         "applied": false,
         "reason": "within twilight window",
@@ -47,9 +47,12 @@
       },
       "rainGate": {
         "applied": false,
-        "reason": "no rain data available"
+        "reason": "not raining",
+        "isRaining": false,
+        "precipitationMm": 0,
+        "weatherCode": 2
       },
-      "verifiedAt": "2026-11-10T22:10:16.327Z",
+      "verifiedAt": "2026-11-11T01:02:41.668Z",
       "engine": "Optical Chromatic Histogram Analysis (CIELAB/HSV)",
       "isSimulated": false
     }
